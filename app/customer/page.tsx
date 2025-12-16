@@ -6,8 +6,9 @@ import { Footer } from "@/components/Footer";
 import { SearchBar } from "@/components/SearchBar";
 import { DestinationCard } from "@/components/DestinationCard";
 import { HotelCard } from "@/components/HotelCard";
-import { PropertyCard } from "@/components/PropertyCard";
-import { destinations, popularHotels, uniqueProperties } from "@/lib/data";
+// import { PropertyCard } from "@/components/PropertyCard";
+import { destinations, popularHotels} from "@/lib/data";
+// import { destinations, popularHotels, uniqueProperties } from "@/lib/data";
 import { Mbanner } from "@/components/Mbanner";
 
 //ammar changing 
@@ -143,8 +144,8 @@ export default function CustomerHomePage() {
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-[7px]">
-          {uniqueProperties.map((property) => (
-            <PropertyCard key={property.id} property={property} />
+          {popularHotels.map((hotel) => (
+            <HotelCard key={hotel.id} hotel={hotel} />
           ))}
         </div>
 
