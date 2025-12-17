@@ -38,7 +38,7 @@ export default function CustomerHomePage() {
               <span className="text-white"> is one click away</span>
             </h1>
             <h2 className="[text-shadow:4.45px_4.45px_4.45px_#00000040] [font-family:'Poppins',Helvetica] font-bold text-white text-[28px] md:text-[40px] lg:text-[53.3px]">
-              Find Your Dream Luxury Hotel In Canada
+              Find Your Dream Luxury Hotel
             </h2>
           </div>
 
