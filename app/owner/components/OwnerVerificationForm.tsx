@@ -16,7 +16,9 @@ import axios from "axios"
 import FileUpload from "./FileUpload"
 import { ca } from "zod/v4/locales"
 import { Alert } from "@/components/ui/alert"
-import { toast } from "@/hooks/use-toast"
+// import { toast } from "@/hooks/use-toast"
+import toast from "react-hot-toast";
+
 
 type OwnerBarrierErrors = Partial<{
   legalName: string
@@ -453,8 +455,12 @@ export default function OwnerBarrierForm() {
       );
 // Handle success
       if (response.status === 200 || response.status === 201) {
-        router.push("/owner/add-property");
-      }
+  toast.success("Successfully verified");
+
+  setTimeout(() => {
+    router.push("/owner/add-property");
+  }, 1200);
+}
 
     } catch (error: unknown) {
       // Safely handle unknown error (axios error or generic)

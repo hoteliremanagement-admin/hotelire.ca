@@ -5,7 +5,7 @@ import { Providers } from "./providers";
 import Script from "next/script";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-
+import { Toaster } from "react-hot-toast";
 
 config.autoAddCss = false;
 
@@ -43,13 +43,48 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
+
       <body>
-        <Providers>{children}</Providers>
-        <script src="https://accounts.google.com/gsi/client" async></script>
+        <Providers>
+          {children}
+
+          {/* ✅ Global Toast Notifications */}
+          <Toaster
+            position="bottom-left"
+            toastOptions={{
+              duration: 3000,
+              style: {
+                background: "#1f2937", // dark gray
+                color: "#fff",
+                fontSize: "14px",
+              },
+              success: {
+                iconTheme: {
+                  primary: "#59A5B2",
+                  secondary: "#fff",
+                },
+              },
+              error: {
+                iconTheme: {
+                  primary: "#ef4444",
+                  secondary: "#fff",
+                },
+              },
+            }}
+          />
+        </Providers>
+
+        {/* Google Identity */}
+        <script
+          src="https://accounts.google.com/gsi/client"
+          async
+        ></script>
+
+        {/* Google Maps */}
         <Script
           src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY}&libraries=places`}
-        strategy="beforeInteractive"
-/>
+          strategy="beforeInteractive"
+        />
       </body>
     </html>
   );
