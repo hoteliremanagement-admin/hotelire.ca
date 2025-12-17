@@ -451,9 +451,9 @@ export default function OwnerBarrierForm() {
           withCredentials: true,
         }
       );
-
+// Handle success
       if (response.status === 200 || response.status === 201) {
-        router.push("/owner/verification-success");
+        router.push("/owner/add-property");
       }
 
     } catch (error: unknown) {
