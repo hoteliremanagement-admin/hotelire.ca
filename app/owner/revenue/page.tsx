@@ -168,9 +168,8 @@ export default function RevenuePage() {
                     {card.value}
                   </h3>
                   <div
-                    className={`flex items-center gap-1 mt-2 text-sm ${
-                      card.changeType === "increase" ? "text-green-500" : "text-red-500"
-                    }`}
+                    className={`flex items-center gap-1 mt-2 text-sm ${card.changeType === "increase" ? "text-green-500" : "text-red-500"
+                      }`}
                   >
                     <FontAwesomeIcon
                       icon={card.changeType === "increase" ? faArrowUp : faArrowDown}
@@ -264,7 +263,11 @@ export default function RevenuePage() {
                     borderRadius: "8px",
                     color: "#fff",
                   }}
-                  formatter={(value: number) => [`$${value.toLocaleString()}`, "Revenue"]}
+                  formatter={(value?: number) => [
+                    `$${(value ?? 0).toLocaleString()}`,
+                    "Revenue"
+                  ]}
+
                 />
                 <Bar dataKey="revenue" fill="#59A5B2" radius={[0, 4, 4, 0]} />
               </BarChart>
@@ -300,9 +303,8 @@ export default function RevenuePage() {
                 {paginatedTransactions.map((txn, index) => (
                   <tr
                     key={txn.id}
-                    className={`border-b border-gray-100 dark:border-gray-700 last:border-b-0 ${
-                      index % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50 dark:bg-gray-800/50"
-                    }`}
+                    className={`border-b border-gray-100 dark:border-gray-700 last:border-b-0 ${index % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50 dark:bg-gray-800/50"
+                      }`}
                   >
                     <td className="py-4 px-4 font-medium text-[#59A5B2]">{txn.id}</td>
                     <td className="py-4 px-4 text-gray-600 dark:text-gray-300">{txn.date}</td>
@@ -310,13 +312,12 @@ export default function RevenuePage() {
                     <td className="py-4 px-4 text-gray-600 dark:text-gray-300">{txn.guest}</td>
                     <td className="py-4 px-4">
                       <span
-                        className={`px-2.5 py-1 rounded-full text-xs font-medium ${
-                          txn.type === "Booking"
+                        className={`px-2.5 py-1 rounded-full text-xs font-medium ${txn.type === "Booking"
                             ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
                             : txn.type === "Refund"
-                            ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
-                            : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
-                        }`}
+                              ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                              : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
+                          }`}
                       >
                         {txn.type}
                       </span>
@@ -348,11 +349,10 @@ export default function RevenuePage() {
                 <button
                   key={page}
                   onClick={() => setCurrentPage(page)}
-                  className={`w-8 h-8 rounded-lg font-medium transition-colors ${
-                    currentPage === page
+                  className={`w-8 h-8 rounded-lg font-medium transition-colors ${currentPage === page
                       ? "bg-[#59A5B2] text-white"
                       : "text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
-                  }`}
+                    }`}
                 >
                   {page}
                 </button>
