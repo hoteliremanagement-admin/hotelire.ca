@@ -385,15 +385,20 @@ export default function Step1Page() {
       formData.documentFile
     );
   };
+const [isLoading, setIsLoading] = useState(false);
 
   const handleNext = async () => {
+  if (isLoading) return; // double click prevent
 
-    console.log(formData);
+  console.log(formData);
 
-    if (selectedOption === 2) {
-      if (!validateForm()) return;
-    }
+  if (selectedOption === 2) {
+    if (!validateForm()) return;
+  }
 
+  setIsLoading(true);
+
+  try {
     setLocation({
       useProfileAddress: selectedOption === 1,
       province:
@@ -401,101 +406,80 @@ export default function Step1Page() {
       city: selectedOption === 1 ? profileAddress.city : formData.city,
       street: selectedOption === 1 ? profileAddress.street : formData.street,
       postalCode:
-        selectedOption === 1 ? profileAddress.postalCode : formData.postalCode,
+        selectedOption === 1
+          ? profileAddress.postalCode
+          : formData.postalCode,
       ownershipDocument:
         selectedOption === 2 && formData.documentFile
           ? {
-            type: formData.documentType,
-            file: formData.documentFile,
-            preview: formData.documentPreview,
-          }
+              type: formData.documentType,
+              file: formData.documentFile,
+              preview: formData.documentPreview,
+            }
           : undefined,
     });
-
 
     const formDataToSend = new FormData();
 
     formDataToSend.append("address", formData.street);
     formDataToSend.append("postalcode", formData.postalCode);
-
     formDataToSend.append("pdftypeid", formData.documentType);
-
     formDataToSend.append("canadian_cityid", formData.canadian_cityid);
-
-
-
-
-    formDataToSend.append("canadian_provinceid", formData.canadian_provinceid);
-    formDataToSend.append("propertylocationid", String(selectedOption ?? ""));
-
+    formDataToSend.append(
+      "canadian_provinceid",
+      formData.canadian_provinceid
+    );
+    formDataToSend.append(
+      "propertylocationid",
+      String(selectedOption ?? "")
+    );
 
     if (formData.documentFile) {
       formDataToSend.append("residentialdocpdf", formData.documentFile);
     }
 
+    const response = await axios.post(
+      `${baseUrl}/ownerProperty/step1`,
+      formDataToSend,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      }
+    );
 
-    console.log("profileAddress",formData)
+    if (response.status === 200 || response.status === 201) {
+      nextStep();
 
-    
-
-
-    try {
-      const response = await axios.post(
-        `${baseUrl}/ownerProperty/step1`,
-        formDataToSend,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          withCredentials: true,
-        }
+      router.push(
+        `/owner/add-property/step-2?address=${encodeURIComponent(
+          formData.street
+        )}&postalcode=${encodeURIComponent(
+          formData.postalCode
+        )}&propertyid=${encodeURIComponent(
+          response.data.data.propertyid
+        )}`
       );
-
-
-
-      if (response.status === 201) {
-        nextStep();
-
-
-
-        router.push(
-          `/owner/add-property/step-2?address=${encodeURIComponent(formData.street)}&postalcode=${encodeURIComponent(formData.postalCode)}&propertyid=${encodeURIComponent(response.data.data.propertyid)}`
-        );
-      }
-
-      if (response.status === 200) {
-        nextStep();
-        alert(response.data.message)
-
-        router.push(
-          `/owner/add-property/step-2?address=${encodeURIComponent(formData.street)}&postalcode=${encodeURIComponent(formData.postalCode)}&propertyid=${encodeURIComponent(response.data.data.propertyid)}`
-        );
-      }
-
-
-
-    } catch (error) {
-
-
-      if (axios.isAxiosError(error)) {
-        const message = (error.response as any)?.data?.message ?? error.message ?? "Submission failed. Please try again.";
-        console.log(message);
-        seterrorMessage(message);
-        console.error("Submission error:", error);
-
-      } else {
-        console.error("Submission error:", error);
-        alert("Submission error: Something went wrong!");
-
-      }
-
     }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const message =
+        (error.response as any)?.data?.message ??
+        error.message ??
+        "Submission failed. Please try again.";
 
+      seterrorMessage(message);
+      console.error("Submission error:", message);
+    } else {
+      console.error("Submission error:", error);
+      alert("Something went wrong. Please try again!");
+    }
+  } finally {
+    setIsLoading(false); // 🔥 loader hamesha band
+  }
+};
 
-
-
-
-  };
 
   const handleSaveExit = () => {
     saveAsDraft();
@@ -1077,19 +1061,28 @@ export default function Step1Page() {
           >
             Save & Exit
           </button>
+<button
+  onClick={handleNext}
+  disabled={!canProceed() || isLoading}
+  className={`px-8 h-12 rounded-lg font-semibold transition-all flex items-center justify-center gap-2
+    ${
+      canProceed() && !isLoading
+        ? "bg-[#59A5B2] text-white hover:bg-[#4a8a95] shadow-md hover:shadow-lg"
+        : "bg-gray-200 text-gray-400 cursor-not-allowed"
+    }`}
+  style={{ fontFamily: "Inter, sans-serif" }}
+  data-testid="button-next"
+>
+  {isLoading ? (
+    <>
+      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+      Proceeding...
+    </>
+  ) : (
+    "Next"
+  )}
+</button>
 
-          <button
-            onClick={handleNext}
-            disabled={!canProceed()}
-            className={`px-8 h-12 rounded-lg font-semibold transition-all ${canProceed()
-              ? "bg-[#59A5B2] text-white hover:bg-[#4a8a95] shadow-md hover:shadow-lg"
-              : "bg-gray-200 text-gray-400 cursor-not-allowed"
-              }`}
-            style={{ fontFamily: "Inter, sans-serif" }}
-            data-testid="button-next"
-          >
-            Next
-          </button>
         </div>
       </div>
     </div>

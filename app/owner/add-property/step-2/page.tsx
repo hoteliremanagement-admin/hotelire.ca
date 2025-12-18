@@ -267,15 +267,21 @@ export default function Step2Page() {
       photos.featured
     );
   };
+const [isLoading, setIsLoading] = useState(false);
 
-  const handleNext = async () => {
-    if (!validateForm()) return;
+ const handleNext = async () => {
+  if (isLoading) return; // double click prevent
 
-    if(!PropertyId){
-      alert("User must first fill step1 form! If already filled then retry it.");
-      return;
-    }
+  if (!validateForm()) return;
 
+  if (!PropertyId) {
+    alert("User must first fill step 1 form! If already filled then retry it.");
+    return;
+  }
+
+  setIsLoading(true);
+
+  try {
     setDetails({
       ...details,
       googleMapLink: formData.googleMapLink.trim(),
@@ -283,90 +289,65 @@ export default function Step2Page() {
       photoPreviews,
     });
 
-    console.log("formData", formData);
-
-    console.log(photos);
-    console.log("address", address);
-    console.log("postalcode", postalcode);
-    console.log("propertyid", PropertyId);
-
     const formDataToSend = new FormData();
+
     formDataToSend.append("address", address);
     formDataToSend.append("postalcode", postalcode);
     formDataToSend.append("propertyid", PropertyId);
     formDataToSend.append("propertytitle", formData.title);
-
     formDataToSend.append("propertysubtitle", formData.subtitle);
     formDataToSend.append("propertymaplink", formData.googleMapLink);
-    formDataToSend.append("propertyclassificationid", String(formData.classification ?? ""));
+    formDataToSend.append(
+      "propertyclassificationid",
+      String(formData.classification ?? "")
+    );
 
+    if (photos.featured) formDataToSend.append("photo1_featured", photos.featured);
+    if (photos.photo2) formDataToSend.append("photo2", photos.photo2);
+    if (photos.photo3) formDataToSend.append("photo3", photos.photo3);
+    if (photos.photo4) formDataToSend.append("photo4", photos.photo4);
+    if (photos.photo5) formDataToSend.append("photo5", photos.photo5);
 
-    if (photos.featured) {
-      formDataToSend.append("photo1_featured", photos.featured);
-    }
-    if (photos.photo2) {
-      formDataToSend.append("photo2", photos.photo2);
-    }
-    if (photos.photo3) {
-      formDataToSend.append("photo3", photos.photo3);
-    }
-    if (photos.photo4) {
-      formDataToSend.append("photo4", photos.photo4);
-    }
-    if (photos.photo5) {
-      formDataToSend.append("photo5", photos.photo5);
-    }
-
-
-    try {
-      if (!PropertyId) {
-        alert("Please first fill location form (Step 1)!")
+    const response = await axios.post(
+      `${baseUrl}/ownerProperty/step2`,
+      formDataToSend,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
       }
-      const response = await axios.post(
-        `${baseUrl}/ownerProperty/step2`,
-        formDataToSend,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          withCredentials: true,
-        }
+    );
+
+    if (response.status === 200) {
+      nextStep();
+
+      router.push(
+        `/owner/add-property/step-3?address=${encodeURIComponent(
+          address
+        )}&postalcode=${encodeURIComponent(
+          postalcode
+        )}&propertyid=${encodeURIComponent(PropertyId)}`
       );
-
-
-      if (response.status === 200) {
-        nextStep();
-        
-        router.push(
-          `/owner/add-property/step-3?address=${encodeURIComponent(address)}&postalcode=${encodeURIComponent(postalcode)}&propertyid=${encodeURIComponent(PropertyId)}`
-        );
-      }
-
-
-
-    } catch (error) {
-
-
-      if (axios.isAxiosError(error)) {
-        const message = (error.response as any)?.data?.message ?? error.message ?? "Submission failed. Please try again.";
-        seterrorMessage(message)
-
-        console.error("Submission error:", error);
-
-      } else {
-        console.error("Submission error:", error);
-        alert("Submission error: Something went wrong!");
-
-      }
-
     }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const message =
+        (error.response as any)?.data?.message ??
+        error.message ??
+        "Submission failed. Please try again.";
 
+      seterrorMessage(message);
+      console.error("Submission error:", message);
+    } else {
+      console.error("Submission error:", error);
+      alert("Something went wrong. Please try again!");
+    }
+  } finally {
+    setIsLoading(false); // 🔥 always stop loader
+  }
+};
 
-
-
-
-
-  };
 
   const handleBack = () => {
     setDetails({
@@ -794,18 +775,27 @@ export default function Step2Page() {
               Save & Exit
             </button>
 
-            <button
-              onClick={handleNext}
-              disabled={!canProceed()}
-              className={`px-8 h-12 rounded-lg font-semibold transition-all ${canProceed()
-                ? "bg-[#59A5B2] text-white hover:bg-[#4a8a95] shadow-md hover:shadow-lg"
-                : "bg-gray-200 text-gray-400 cursor-not-allowed"
-                }`}
-              style={{ fontFamily: 'Inter, sans-serif' }}
-              data-testid="button-next"
-            >
-              Next
-            </button>
+<button
+  onClick={handleNext}
+  disabled={!canProceed() || isLoading}
+  className={`px-8 h-12 rounded-lg font-semibold transition-all flex items-center justify-center gap-2
+    ${
+      canProceed() && !isLoading
+        ? "bg-[#59A5B2] text-white hover:bg-[#4a8a95] shadow-md hover:shadow-lg"
+        : "bg-gray-200 text-gray-400 cursor-not-allowed"
+    }`}
+  style={{ fontFamily: "Inter, sans-serif" }}
+  data-testid="button-next"
+>
+  {isLoading ? (
+    <>
+      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+      Proceeding...
+    </>
+  ) : (
+    "Next"
+  )}
+</button>
           </div>
         </div>
       </div>
