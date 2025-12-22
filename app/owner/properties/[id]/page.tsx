@@ -32,6 +32,7 @@ import {
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { OwnerLayout } from "@/components/owner/OwnerLayout";
+import { RoomCardSkeleton } from "@/components/rooms/RoomCardSkeleton";
 
 // Mock data for property
 const propertyData = {
@@ -128,10 +129,10 @@ Perfect for both business and leisure travelers, our suite provides a sanctuary 
 };
 
 export default function PropertyDetailPage() {
-  const router = useRouter();
-  const params = useParams();
+const router = useRouter();
+const { id } = useParams();
 
-  const propertyId = params?.id;
+const propertyId = id as string;
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
@@ -142,7 +143,7 @@ export default function PropertyDetailPage() {
     state: propertyData.state,
   });
   const [rooms, setRooms] = useState(propertyData.rooms);
-
+ const [isLoadingRooms, setIsLoadingRooms] = useState(false)
   console.log("Property ID from route:", propertyId);
   const prevImage = () => {
     setCurrentImageIndex((prev) =>
@@ -252,46 +253,55 @@ export default function PropertyDetailPage() {
         </div>
 
         {/* Image Gallery */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
           <h2
             className="text-xl font-bold text-gray-800 dark:text-white mb-4"
             style={{ fontFamily: "Poppins, sans-serif" }}
           >
             Gallery
           </h2>
-          <div className="relative">
-            {/* Main Image */}
-            <div className="relative h-[300px] md:h-[400px] bg-gray-200 dark:bg-gray-700 rounded-xl overflow-hidden mb-4">
-              <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                <span>Gallery Image {currentImageIndex + 1}</span>
+
+          {/* Desktop: 1 large + 2x2 grid | Mobile: Stacked */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 h-auto lg:h-[500px]">
+            {/* Large Featured Image - Left Side */}
+            <button
+              onClick={() => setCurrentImageIndex(0)}
+              className="relative h-64 lg:h-full w-full rounded-xl overflow-hidden group"
+            >
+              <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-400 text-lg">
+                Featured Image 1
               </div>
-              <button
-                onClick={prevImage}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 dark:bg-gray-800/80 rounded-full flex items-center justify-center shadow-sm hover:bg-white dark:hover:bg-gray-800 transition-colors"
-              >
-                <FontAwesomeIcon icon={faChevronLeft} className="w-4 h-4 text-gray-800 dark:text-white" />
-              </button>
-              <button
-                onClick={nextImage}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 dark:bg-gray-800/80 rounded-full flex items-center justify-center shadow-sm hover:bg-white dark:hover:bg-gray-800 transition-colors"
-              >
-                <FontAwesomeIcon icon={faChevronRight} className="w-4 h-4 text-gray-800 dark:text-white" />
-              </button>
-            </div>
-            {/* Thumbnails */}
-            <div className="flex gap-3 overflow-x-auto pb-2">
-              {propertyData.images.map((_, index) => (
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+              <div className="absolute inset-0 transform scale-100 group-hover:scale-105 transition-transform duration-500 flex items-center justify-center text-gray-400 text-lg bg-gray-200 dark:bg-gray-700">
+                Featured Image 1
+              </div>
+            </button>
+
+            {/* Right Side: 2x2 Grid of 4 Images */}
+            <div className="grid grid-cols-2 gap-3 h-64 lg:h-full">
+              {[1, 2, 3, 4].map((index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
-                  className={`flex-shrink-0 w-20 h-16 rounded-lg overflow-hidden transition-all ${currentImageIndex === index
-                      ? "ring-2 ring-[#59A5B2] ring-offset-2"
-                      : "opacity-60 hover:opacity-100"
-                    }`}
+                  className="relative w-full h-full rounded-xl overflow-hidden group"
                 >
-                  <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                    <span className="text-xs text-gray-400">{index + 1}</span>
+                  <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-400 text-sm">
+                    Image {index + 1}
                   </div>
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                  <div className="absolute inset-0 transform scale-100 group-hover:scale-105 transition-transform duration-500 flex items-center justify-center text-gray-400 text-sm bg-gray-200 dark:bg-gray-700">
+                    Image {index + 1}
+                  </div>
+
+                  {/* Show "View All Photos" badge on last image if there are more */}
+                  {index === 3 && propertyData.images.length > 5 && (
+                    <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                      <div className="text-white text-center">
+                        <div className="text-2xl font-bold">+{propertyData.images.length - 5}</div>
+                        <div className="text-sm">More Photos</div>
+                      </div>
+                    </div>
+                  )}
                 </button>
               ))}
             </div>
@@ -385,79 +395,109 @@ export default function PropertyDetailPage() {
           </div>
         </div>
 
+    
         {/* Available Rooms */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-          <h2
-            className="text-xl font-bold text-gray-800 dark:text-white mb-4"
-            style={{ fontFamily: "Poppins, sans-serif" }}
-          >
-            Available Rooms
-          </h2>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="bg-[#FEBC11] text-black">
-                  <th className="text-left py-3 px-4 rounded-tl-lg font-semibold">Room Name</th>
-                  <th className="text-left py-3 px-4 font-semibold">Images</th>
-                  <th className="text-left py-3 px-4 font-semibold">Type</th>
-                  <th className="text-left py-3 px-4 font-semibold">Price/Night</th>
-                  <th className="text-center py-3 px-4 font-semibold">Count</th>
-                  <th className="text-center py-3 px-4 rounded-tr-lg font-semibold">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rooms.map((room, index) => (
-                  <tr
-                    key={room.id}
-                    className={`border-b border-gray-100 dark:border-gray-700 ${index % 2 === 0 ? "bg-gray-50 dark:bg-gray-800/50" : ""
+ <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-800">Available Rooms</h2>
+              <p className="text-sm text-gray-500 mt-1">Manage your property's room inventory</p>
+            </div>
+
+            <button
+              onClick={() => router.push(`/owner/properties/${propertyId}/room/add`)}
+              className="flex items-center gap-2 px-5 py-2.5 bg-[#59A5B2] text-white font-medium rounded-lg hover:bg-[#4a9199] active:scale-[0.98] transition-all shadow-sm"
+            >
+              <span className="text-lg">+</span>
+              <span>Add New Room</span>
+            </button>
+          </div>
+
+          {isLoadingRooms ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3].map((i) => (
+                <RoomCardSkeleton key={i} />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {rooms.map((room) => (
+                <div
+                  key={room.id}
+                  onClick={() => router.push(`/owner/properties/${propertyId}/room/edit/${room.id}`)}
+                  className="group cursor-pointer border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl hover:scale-[1.02] transition-all duration-300 bg-white"
+                >
+                  <div className="relative h-48 bg-gray-200 overflow-hidden">
+                    <img
+                      src={room.image1 || "/placeholder.svg"}
+                      alt={room.name}
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Room count badge on top-right */}
+                    <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-md">
+                      <span className="text-sm font-semibold text-gray-800">
+                        {room.count} {room.count === 1 ? "Room" : "Rooms"}
+                      </span>
+                    </div>
+                    {/* Status badge - subtle on image */}
+                    <div
+                      className={`absolute top-3 left-3 px-2.5 py-1 rounded-full text-xs font-medium backdrop-blur-sm ${
+                        room.enabled ? "bg-green-500/90 text-white" : "bg-gray-500/90 text-white"
                       }`}
-                  >
-                    <td className="py-4 px-4 font-medium text-gray-800 dark:text-white">
+                    >
+                      {room.enabled ? "Active" : "Inactive"}
+                    </div>
+                  </div>
+
+                  <div className="p-5 space-y-3">
+                    {/* Room name */}
+                    <h3 className="font-bold text-lg text-gray-900 line-clamp-1 group-hover:text-[#59A5B2] transition-colors">
                       {room.name}
-                    </td>
-                    <td className="py-4 px-4">
-                      <div className="flex gap-2">
-                        <div className="w-16 h-12 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center text-xs text-gray-400">
-                          Img 1
-                        </div>
-                        <div className="w-16 h-12 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center text-xs text-gray-400">
-                          Img 2
-                        </div>
-                      </div>
-                    </td>
-                    <td className="py-4 px-4">
-                      <span className="px-2.5 py-1 bg-[#59A5B2]/10 text-[#59A5B2] rounded-full text-sm font-medium">
+                    </h3>
+
+                    {/* Room type badge */}
+                    <div>
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#59A5B2]/10 text-[#59A5B2] border border-[#59A5B2]/20">
                         {room.type}
                       </span>
-                    </td>
-                    <td className="py-4 px-4">
-                      <span className="text-[#FEBC11] font-bold">
-                        ${room.pricePerNight.toLocaleString()}
+                    </div>
+
+                    {/* Price - highlighted */}
+                    <div className="flex items-baseline gap-1 pt-1">
+                      <span className="text-2xl font-bold text-[#FEBC11]">${room.pricePerNight.toLocaleString()}</span>
+                      <span className="text-sm text-gray-500 font-medium">/ night</span>
+                    </div>
+
+                    {/* Click to edit hint */}
+                    <div className="pt-2 border-t border-gray-100">
+                      <span className="text-xs text-gray-400 group-hover:text-[#59A5B2] transition-colors">
+                        Click to edit details →
                       </span>
-                    </td>
-                    <td className="py-4 px-4 text-center text-gray-600 dark:text-gray-300">
-                      {room.count}
-                    </td>
-                    <td className="py-4 px-4">
-                      <div className="flex justify-center">
-                        <button
-                          onClick={() => toggleRoomStatus(room.id)}
-                          className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${room.enabled
-                              ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                              : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
-                            }`}
-                          data-testid={`toggle-room-${room.id}`}
-                        >
-                          {room.enabled ? "Enabled" : "Disabled"}
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Empty state */}
+          {!isLoadingRooms && rooms.length === 0 && (
+            <div className="text-center py-16">
+              <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-3xl text-gray-400">🏨</span>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">No rooms added yet</h3>
+              <p className="text-gray-500 mb-6">Start by adding your first room to this property</p>
+              <button
+                onClick={() => router.push(`/owner/properties/${propertyId}/room/add`)}
+                className="px-6 py-3 bg-[#59A5B2] text-white font-medium rounded-lg hover:bg-[#4a9199] transition-all"
+              >
+                Add Your First Room
+              </button>
+            </div>
+          )}
         </div>
+
       </div>
     </OwnerLayout>
   );
