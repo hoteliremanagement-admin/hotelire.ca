@@ -254,6 +254,8 @@ export default function HotelDetailPage({ id }: { id: string }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
+  
+
   const filteredCities = location
     ? canadianCities.filter((city) =>
         city.toLowerCase().includes(location.toLowerCase())
