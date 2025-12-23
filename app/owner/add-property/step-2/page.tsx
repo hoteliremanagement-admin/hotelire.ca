@@ -104,6 +104,9 @@ export default function Step2Page() {
         const propertyData = response.data.property[0];
         console.log("chk", propertyData);
 
+        if (!propertyData.propertyclassification.propertyclassificationid) {
+          return;
+        }
         setFormData(prev => ({
           ...prev,
           classification: propertyData.propertyclassification.propertyclassificationid,
@@ -528,6 +531,8 @@ export default function Step2Page() {
                   hasError={!!errors.classification}
                   testId="select-classification"
                 /> */}
+
+
 
 
                 <StyledSelect

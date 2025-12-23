@@ -12,6 +12,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { authCheck } from "@/services/authCheck";
 import { useRouter } from "next/navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome, faSignOutAlt, faUser } from "@fortawesome/free-solid-svg-icons";
 
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -167,7 +169,13 @@ export function Header() {
                     prefetch={false}
                     className="[font-family:'Poppins',Helvetica] font-medium text-[#59A5B2] text-[11px] leading-[30px] cursor-pointer w-full"
                   >
+<<<<<<< HEAD
                   Panel
+=======
+                                    <FontAwesomeIcon icon={faHome} className="w-4 h-4" />
+                    
+                     Panel
+>>>>>>> 90ce7df2f91d428e0fd49d08c1358669db43bb0f
                   </Link>
                 ) : null}
               </DropdownMenuItem>
@@ -178,6 +186,7 @@ export function Header() {
                   prefetch={false}
                   className="[font-family:'Poppins',Helvetica] font-medium text-[#59A5B2] text-[11px] leading-[30px] cursor-pointer w-full"
                 >
+                   <FontAwesomeIcon icon={faUser} className="w-4 h-4" />
                   My Profile
                 </Link>
               </DropdownMenuItem>
@@ -187,6 +196,7 @@ export function Header() {
                   onClick={handleLogout}
                   className="[font-family:'Poppins',Helvetica] font-medium text-[#59A5B2] text-[11px] leading-[30px] cursor-pointer w-full text-left"
                 >
+                   <FontAwesomeIcon icon={faSignOutAlt} className="w-4 h-4" />
                   Logout
                 </button>
               </DropdownMenuItem>
