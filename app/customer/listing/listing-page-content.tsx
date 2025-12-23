@@ -38,7 +38,6 @@
 //   const router = useRouter();
 //   const [Properties, setProperties] = useState<Listing[]>([])
 
-
 //   const mapPropertyToCard = (property: any) => {
 //     const roomTypes = [
 //       ...new Set(
@@ -74,7 +73,6 @@
 //     };
 //   };
 
-
 //   useEffect(() => {
 //     const fetchProperties = async () => {
 //       try {
@@ -93,8 +91,6 @@
 
 //     fetchProperties();
 //   }, []);
-
-
 
 //   return (
 //     <div className="bg-white w-full flex flex-col min-h-screen">
@@ -290,113 +286,144 @@
 //   );
 // }
 
-"use client"
-import { useEffect, useState, useMemo, useCallback } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
-import { SlidersHorizontal, MapPin, Grid, Map } from "lucide-react"
-import { FilterSidebar } from "@/components/FilterSidebar"
-import { ListingCard } from "@/components/ListingCard"
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
-import type { Listing } from "@/types"
-import axios from "axios"
+"use client";
+import { useEffect, useState, useMemo, useCallback } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { SlidersHorizontal, MapPin, Grid, Map } from "lucide-react";
+import { FilterSidebar } from "@/components/FilterSidebar";
+import { ListingCard } from "@/components/ListingCard";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import type { Listing } from "@/types";
+import axios from "axios";
 
-const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export function ListingPageContent() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const [searchQuery, setSearchQuery] = useState("")
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000])
-  const [selectedTypes, setSelectedTypes] = useState<string[]>([])
-  const [selectedFacilities, setSelectedFacilities] = useState<string[]>([])
-  const [selectedStars, setSelectedStars] = useState<number[]>([])
+  const [searchQuery, setSearchQuery] = useState("");
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const [selectedFacilities, setSelectedFacilities] = useState<string[]>([]);
+  const [selectedStars, setSelectedStars] = useState<number[]>([]);
 
-  const [sortBy, setSortBy] = useState("recommended")
-  const [viewMode, setViewMode] = useState<"list" | "map">("list")
-  const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = 10
+  const [sortBy, setSortBy] = useState("recommended");
+  const [viewMode, setViewMode] = useState<"list" | "map">("list");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-  const [Properties, setProperties] = useState<Listing[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [Properties, setProperties] = useState<Listing[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const typeParam = searchParams.get("type")
-    const priceParam = searchParams.get("price")
-    const starsParam = searchParams.get("stars")
-    const facilitiesParam = searchParams.get("facilities")
-    const sortParam = searchParams.get("sort")
+    const typeParam = searchParams.get("type");
+    const priceParam = searchParams.get("price");
+    const starsParam = searchParams.get("stars");
+    const facilitiesParam = searchParams.get("facilities");
+    const sortParam = searchParams.get("sort");
 
     if (typeParam) {
-      setSelectedTypes(typeParam.split(","))
+      setSelectedTypes(typeParam.split(","));
     }
     if (priceParam) {
-      const [min, max] = priceParam.split("-").map(Number)
+      const [min, max] = priceParam.split("-").map(Number);
       if (!isNaN(min) && !isNaN(max)) {
-        setPriceRange([min, max])
+        setPriceRange([min, max]);
       }
     }
     if (starsParam) {
-      setSelectedStars(starsParam.split(",").map(Number))
+      setSelectedStars(starsParam.split(",").map(Number));
     }
     if (facilitiesParam) {
-      setSelectedFacilities(facilitiesParam.split(","))
+      setSelectedFacilities(facilitiesParam.split(","));
     }
     if (sortParam) {
-      setSortBy(sortParam)
+      setSortBy(sortParam);
     }
-  }, [searchParams])
+  }, [searchParams]);
 
   const updateURL = useCallback(() => {
-    const params = new URLSearchParams()
+    const params = new URLSearchParams();
 
     if (selectedTypes.length > 0) {
-      params.set("type", selectedTypes.join(","))
+      params.set("type", selectedTypes.join(","));
     }
     if (priceRange[0] !== 0 || priceRange[1] !== 1000) {
-      params.set("price", `${priceRange[0]}-${priceRange[1]}`)
+      params.set("price", `${priceRange[0]}-${priceRange[1]}`);
     }
     if (selectedFacilities.length > 0) {
-      params.set("facilities", selectedFacilities.join(","))
+      params.set("facilities", selectedFacilities.join(","));
     }
     if (selectedStars.length > 0) {
-      params.set("stars", selectedStars.join(","))
+      params.set("stars", selectedStars.join(","));
     }
     if (sortBy !== "recommended") {
-      params.set("sort", sortBy)
+      params.set("sort", sortBy);
     }
 
-    const queryString = params.toString()
-    const newURL = queryString ? `/listings?${queryString}` : "/listings"
-    router.push(newURL)
-  }, [selectedTypes, priceRange, selectedFacilities, selectedStars, sortBy, router])
+    const queryString = params.toString();
+    const newURL = queryString ? `/listing?${queryString}` : "/listing";
+    router.push(newURL, { scroll: false });
+  }, [
+    selectedTypes,
+    priceRange,
+    selectedFacilities,
+    selectedStars,
+    sortBy,
+    router,
+  ]);
 
   useEffect(() => {
-    updateURL()
-  }, [selectedTypes, priceRange, selectedFacilities, selectedStars, sortBy, updateURL])
+    updateURL();
+  }, [
+    selectedTypes,
+    priceRange,
+    selectedFacilities,
+    selectedStars,
+    sortBy,
+    updateURL,
+  ]);
 
   const mapPropertyToCard = (property: any) => {
     const roomTypes = [
-      ...new Set(property.propertyroom?.map((room: any) => room.roomtype?.roomtypename).filter(Boolean)),
-    ]
+      ...new Set(
+        property.propertyroom
+          ?.map((room: any) => room.roomtype?.roomtypename)
+          .filter(Boolean)
+      ),
+    ];
 
     const featuredAmenities = property.propertyamenities
       ?.filter((a: any) => a.features === true)
       .map((a: any) => a.amenities?.amenitiesname)
-      .filter(Boolean)
+      .filter(Boolean);
 
     const prices = property.propertyroom
       ?.map((room: any) => room.price)
-      .filter((p: number) => p !== null && p !== undefined)
+      .filter((p: number) => p !== null && p !== undefined);
 
-    const minPrice = prices?.length ? Math.min(...prices) : null
+    const minPrice = prices?.length ? Math.min(...prices) : null;
 
     return {
       id: property.propertyid,
       name: property.propertytitle,
-      classification: property.propertyclassification?.propertyclassificationname,
+      classification:
+        property.propertyclassification?.propertyclassificationname,
       mapUrl: property.propertymaplink,
       rating: 4.0,
       image: property.photo1_featured,
@@ -405,90 +432,114 @@ export function ListingPageContent() {
       checkOut: property.checkouttime,
       amenities: featuredAmenities,
       price: minPrice,
-    }
-  }
+    };
+  };
 
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        setIsLoading(true)
-        const res = await axios.get(`${baseUrl}/ownerProperty/getProperties`, { withCredentials: true })
-        const cardsData = res.data.properties.map((p: any) => mapPropertyToCard(p))
-        setProperties(cardsData)
+        setIsLoading(true);
+        const res = await axios.get(`${baseUrl}/ownerProperty/getProperties`, {
+          withCredentials: true,
+        });
+        const cardsData = res.data.properties.map((p: any) =>
+          mapPropertyToCard(p)
+        );
+        setProperties(cardsData);
       } catch (ex) {
-        alert("Something went wrong")
-        router.push("/")
+        alert("Something went wrong");
+        router.push("/");
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
-    fetchProperties()
-  }, [router])
+    fetchProperties();
+  }, [router]);
 
   const filteredAndSortedListings = useMemo(() => {
-    let results = [...Properties]
+    let results = [...Properties];
 
     // Filter by search query (property name)
     if (searchQuery) {
-      results = results.filter((listing) => listing.name.toLowerCase().includes(searchQuery.toLowerCase()))
+      results = results.filter((listing) =>
+        listing.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
     }
 
     // Filter by property type
     if (selectedTypes.length > 0) {
       results = results.filter((listing) =>
-        selectedTypes.some((type) => listing.classification?.toLowerCase() === type.toLowerCase()),
-      )
+        selectedTypes.some(
+          (type) => listing.classification?.toLowerCase() === type.toLowerCase()
+        )
+      );
     }
 
     // Filter by price range
     if (priceRange[0] !== 0 || priceRange[1] !== 1000) {
       results = results.filter((listing) => {
-        const price = listing.price || 0
-        return price >= priceRange[0] && price <= priceRange[1]
-      })
+        const price = listing.price || 0;
+        return price >= priceRange[0] && price <= priceRange[1];
+      });
     }
 
     // Filter by facilities (property must have ALL selected facilities)
     if (selectedFacilities.length > 0) {
       results = results.filter((listing) => {
-        const amenities = (listing.amenities || []).map((a) => a.toLowerCase())
+        const amenities = (listing.amenities || []).map((a) => a.toLowerCase());
         return selectedFacilities.every((facility) =>
-          amenities.some((amenity) => amenity.includes(facility.toLowerCase())),
-        )
-      })
+          amenities.some((amenity) => amenity.includes(facility.toLowerCase()))
+        );
+      });
     }
 
     // Filter by star rating
     if (selectedStars.length > 0) {
-      results = results.filter((listing) => selectedStars.includes(Math.floor(listing.rating)))
+      results = results.filter((listing) =>
+        selectedStars.includes(Math.floor(listing.rating))
+      );
     }
 
     if (sortBy === "price-low") {
-      results.sort((a, b) => (a.price || 0) - (b.price || 0))
+      results.sort((a, b) => (a.price || 0) - (b.price || 0));
     } else if (sortBy === "price-high") {
-      results.sort((a, b) => (b.price || 0) - (a.price || 0))
+      results.sort((a, b) => (b.price || 0) - (a.price || 0));
     } else if (sortBy === "rating") {
-      results.sort((a, b) => b.rating  - a.rating)
+      results.sort((a, b) => b.rating - a.rating);
     }
     // "recommended" is default, no sorting needed
 
-    return results
-  }, [Properties, searchQuery, selectedTypes, priceRange, selectedFacilities, selectedStars, sortBy])
+    return results;
+  }, [
+    Properties,
+    searchQuery,
+    selectedTypes,
+    priceRange,
+    selectedFacilities,
+    selectedStars,
+    sortBy,
+  ]);
 
   const handleTypeChange = useCallback((type: string) => {
-    setSelectedTypes((prev) => (prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]))
-  }, [])
+    setSelectedTypes((prev) =>
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
+    );
+  }, []);
 
   const handleFacilityChange = useCallback((facility: string) => {
     setSelectedFacilities((prev) =>
-      prev.includes(facility) ? prev.filter((f) => f !== facility) : [...prev, facility],
-    )
-  }, [])
+      prev.includes(facility)
+        ? prev.filter((f) => f !== facility)
+        : [...prev, facility]
+    );
+  }, []);
 
   const handleStarChange = useCallback((star: number) => {
-    setSelectedStars((prev) => (prev.includes(star) ? prev.filter((s) => s !== star) : [...prev, star]))
-  }, [])
+    setSelectedStars((prev) =>
+      prev.includes(star) ? prev.filter((s) => s !== star) : [...prev, star]
+    );
+  }, []);
 
   return (
     <section className="flex-1 w-full px-4 md:px-8 lg:px-[203px] py-6 md:py-8">
@@ -560,17 +611,26 @@ export function ListingPageContent() {
 
               {/* Sort Dropdown */}
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-full sm:w-[180px]" data-testid="select-sort">
+                <SelectTrigger
+                  className="w-full sm:w-[180px]"
+                  data-testid="select-sort"
+                >
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="recommended" data-testid="option-recommended">
+                  <SelectItem
+                    value="recommended"
+                    data-testid="option-recommended"
+                  >
                     Recommended
                   </SelectItem>
                   <SelectItem value="price-low" data-testid="option-price-low">
                     Price: Low to High
                   </SelectItem>
-                  <SelectItem value="price-high" data-testid="option-price-high">
+                  <SelectItem
+                    value="price-high"
+                    data-testid="option-price-high"
+                  >
                     Price: High to Low
                   </SelectItem>
                   <SelectItem value="rating" data-testid="option-rating">
@@ -584,7 +644,9 @@ export function ListingPageContent() {
                 <Button
                   variant={viewMode === "list" ? "default" : "ghost"}
                   size="sm"
-                  className={`px-3 ${viewMode === "list" ? "bg-[#59a5b2] hover:bg-[#2a2158]" : ""}`}
+                  className={`px-3 ${
+                    viewMode === "list" ? "bg-[#59a5b2] hover:bg-[#2a2158]" : ""
+                  }`}
                   onClick={() => setViewMode("list")}
                   data-testid="button-view-list"
                 >
@@ -593,7 +655,9 @@ export function ListingPageContent() {
                 <Button
                   variant={viewMode === "map" ? "default" : "ghost"}
                   size="sm"
-                  className={`px-3 ${viewMode === "map" ? "bg-[#59a5b2] hover:bg-[#2a2158]" : ""}`}
+                  className={`px-3 ${
+                    viewMode === "map" ? "bg-[#59a5b2] hover:bg-[#2a2158]" : ""
+                  }`}
                   onClick={() => setViewMode("map")}
                   data-testid="button-view-map"
                 >
@@ -617,13 +681,17 @@ export function ListingPageContent() {
             <div className="w-full h-[600px] bg-gray-100 rounded-lg flex items-center justify-center border border-gray-300">
               <div className="text-center">
                 <MapPin className="w-12 h-12 text-[#59a5b2] mx-auto mb-4" />
-                <p className="[font-family:'Poppins',Helvetica] font-semibold text-[#59a5b2] text-lg mb-2">Map View</p>
-                <p className="[font-family:'Inter',Helvetica] text-gray-600 text-sm">Map integration coming soon</p>
+                <p className="[font-family:'Poppins',Helvetica] font-semibold text-[#59a5b2] text-lg mb-2">
+                  Map View
+                </p>
+                <p className="[font-family:'Inter',Helvetica] text-gray-600 text-sm">
+                  Map integration coming soon
+                </p>
               </div>
             </div>
           )}
         </div>
       </div>
     </section>
-  )
+  );
 }
