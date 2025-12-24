@@ -16,6 +16,9 @@ import {
   Star,
   Printer,
   Home,
+  Info,
+  MessageCircle,
+  Headset,
 } from "lucide-react";
 
 // Mock confirmation data
@@ -26,7 +29,8 @@ const CONFIRMATION_DATA = {
     name: "Luxury Beachfront Resort",
     location: "Miami, Florida",
     address: "1234 Ocean Drive, Miami, FL 33139",
-    image: "https://images.unsplash.com/photo-1571896837934-ffe2023ba5da?w=800&h=400&fit=crop",
+    image:
+      "https://images.unsplash.com/photo-1571896837934-ffe2023ba5da?w=800&h=400&fit=crop",
     rating: 4.8,
     reviewCount: 2314,
     phone: "+1 (305) 555-0123",
@@ -48,7 +52,8 @@ const CONFIRMATION_DATA = {
       name: "Ocean View Suite",
       type: "Suite",
       quantity: 1,
-      image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=200&h=150&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=200&h=150&fit=crop",
       pricePerNight: 299,
       total: 897,
     },
@@ -57,7 +62,8 @@ const CONFIRMATION_DATA = {
       name: "Deluxe Double Room",
       type: "Double",
       quantity: 2,
-      image: "https://images.unsplash.com/photo-1578926078328-123f5e4a8003?w=200&h=150&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1578926078328-123f5e4a8003?w=200&h=150&fit=crop",
       pricePerNight: 199,
       total: 1194,
     },
@@ -99,7 +105,10 @@ export default function BookingConfirmationPage() {
             className="text-lg text-gray-600 mb-4"
             style={{ fontFamily: "Inter, sans-serif" }}
           >
-            Confirmation ID: <span className="font-semibold text-[#59A5B2]">{data.confirmationId}</span>
+            Confirmation ID:{" "}
+            <span className="font-semibold text-[#59A5B2]">
+              {data.confirmationId}
+            </span>
           </p>
           <p
             className="text-sm text-gray-600"
@@ -133,7 +142,9 @@ export default function BookingConfirmationPage() {
                   <div className="flex items-center gap-2 mb-3">
                     <div className="flex items-center gap-1 bg-yellow-400 text-gray-900 px-2 py-1 rounded-md">
                       <Star className="w-4 h-4 fill-current" />
-                      <span className="font-bold text-sm">{data.property.rating}</span>
+                      <span className="font-bold text-sm">
+                        {data.property.rating}
+                      </span>
                     </div>
                     <span
                       className="text-sm text-gray-600"
@@ -212,9 +223,15 @@ export default function BookingConfirmationPage() {
               <div className="flex items-center gap-3 text-gray-700 mb-6">
                 <Users className="w-5 h-5 text-[#59A5B2] flex-shrink-0" />
                 <span style={{ fontFamily: "Inter, sans-serif" }}>
-                  {data.booking.guests.adults} {data.booking.guests.adults === 1 ? "Adult" : "Adults"}
+                  {data.booking.guests.adults}{" "}
+                  {data.booking.guests.adults === 1 ? "Adult" : "Adults"}
                   {data.booking.guests.children > 0 && (
-                    <>, {data.booking.guests.children} {data.booking.guests.children === 1 ? "Child" : "Children"}</>
+                    <>
+                      , {data.booking.guests.children}{" "}
+                      {data.booking.guests.children === 1
+                        ? "Child"
+                        : "Children"}
+                    </>
                   )}
                 </span>
               </div>
@@ -232,7 +249,10 @@ export default function BookingConfirmationPage() {
                 </h3>
                 <div className="space-y-4">
                   {data.rooms.map((room) => (
-                    <div key={room.id} className="flex gap-4 pb-4 border-b border-gray-200 last:border-b-0 last:pb-0">
+                    <div
+                      key={room.id}
+                      className="flex gap-4 pb-4 border-b border-gray-200 last:border-b-0 last:pb-0"
+                    >
                       <div className="w-24 h-20 bg-gray-200 rounded-lg flex-shrink-0 overflow-hidden">
                         <img
                           src={room.image}
@@ -300,10 +320,12 @@ export default function BookingConfirmationPage() {
                   </button>
                 </div>
                 <p
-                  className="text-sm text-gray-600"
+                  className="flex items-center gap-2 text-sm text-gray-600"
                   style={{ fontFamily: "Inter, sans-serif" }}
                 >
-                  💬 You can contact us 24/7
+                  <Headset className="w-4 h-4 text-[#59A5B2]" />
+                  Please feel free to get in touch if you need further
+                  assistance.
                 </p>
               </div>
             </Card>
@@ -342,14 +364,17 @@ export default function BookingConfirmationPage() {
                     className="text-sm text-gray-600"
                     style={{ fontFamily: "Inter, sans-serif" }}
                   >
-                    {data.booking.nights} night{data.booking.nights !== 1 ? "s" : ""}
+                    {data.booking.nights} night
+                    {data.booking.nights !== 1 ? "s" : ""}
                   </p>
                 </div>
 
                 {/* Price Breakdown */}
                 <div className="space-y-3 mb-4 pb-4 border-b border-gray-200">
                   <div className="flex justify-between text-gray-700">
-                    <span style={{ fontFamily: "Inter, sans-serif" }}>Room charges</span>
+                    <span style={{ fontFamily: "Inter, sans-serif" }}>
+                      Room charges
+                    </span>
                     <span
                       className="font-semibold"
                       style={{ fontFamily: "Inter, sans-serif" }}
@@ -358,7 +383,9 @@ export default function BookingConfirmationPage() {
                     </span>
                   </div>
                   <div className="flex justify-between text-gray-700">
-                    <span style={{ fontFamily: "Inter, sans-serif" }}>Taxes & fees</span>
+                    <span style={{ fontFamily: "Inter, sans-serif" }}>
+                      Taxes & fees
+                    </span>
                     <span
                       className="font-semibold"
                       style={{ fontFamily: "Inter, sans-serif" }}
