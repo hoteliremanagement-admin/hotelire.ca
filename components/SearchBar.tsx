@@ -202,7 +202,7 @@ export function SearchBar() {
   };
 
   return (
-    <div className="w-full max-w-[1240px] bg-white rounded flex flex-col md:flex-row items-stretch relative">
+    <div className="w-full max-w-[1240x] bg-white rounded flex flex-col md:flex-row items-stretch relative">
       {/* Location */}
       <div className="flex-1 px-4 md:px-[33px] py-3 md:py-0 md:border-r border-[#e5e5e5] flex flex-col justify-center relative">
         <label
@@ -241,7 +241,7 @@ export function SearchBar() {
 
       {/* Check-in / Check-out */}
       <div className="flex-1 px-4 md:px-6 py-3 md:py-0 md:border-r border-[#e5e5e5] flex flex-col justify-center">
-        <label className="[font-family:'Poppins',Helvetica] font-semibold text-[#59A5B2] text-[13px] md:text-[15px] mb-1 flex items-center gap-2">
+        <label className="[font-family:'Poppins',Helvetica] font-semibold text-[#59A5B2] text-[13px] md:text-[14px] mb-1 flex items-center gap-2">
           <CalendarIcon className="w-4 h-4" />
           Check in - Check out
         </label>

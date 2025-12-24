@@ -5,6 +5,8 @@ import { discoverLinks, resourceLinks } from "@/lib/data";
 export function Footer() {
   return (
     <footer className="bg-[#fffdf6] w-full pt-12 md:pt-16 lg:pt-[114px] pb-0">
+             <div className="site-container">
+
       <div className="px-4 md:px-8 lg:px-[203px] pb-12 md:pb-16 lg:pb-[2px]">
         <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-12 mb-12 md:mb-16 lg:mb-[80px]">
           <div className="flex flex-col">
@@ -68,13 +70,14 @@ export function Footer() {
           </div>
         </div>
       </div>
-
+</div>
       <div className="w-full h-auto md:h-[52px] bg-[#59A5B2] flex items-center justify-center py-4 px-4">
         <p className="[font-family:'Inter',Helvetica] font-medium text-white text-[15px] md:text-[19px] text-center">
           Copyright © 2025 Hotelier.ca™. All Rights Reserved. Developed by
           Sasquatch Innovations
         </p>
       </div>
+      
     </footer>
   );
 }

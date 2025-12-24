@@ -17,6 +17,7 @@ export function ListingCard({ listing }: ListingCardProps) {
 
   return (
     <Card className="overflow-hidden border border-gray-200 hover:shadow-[0px_8px_24px_rgba(63,44,119,0.15)] transition-all duration-300">
+     
       <div className="flex flex-col md:flex-row gap-4 p-4">
         {/* Image */}
         <div className="relative w-full md:w-[280px] h-[200px] md:h-[180px] flex-shrink-0 rounded-lg overflow-hidden">
@@ -129,6 +130,7 @@ export function ListingCard({ listing }: ListingCardProps) {
           </div>
         </div>
       </div>
+     
     </Card>
   );
 }

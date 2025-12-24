@@ -41,7 +41,7 @@ export interface Listing {
   name: string;
   classification: string;
   mapUrl: string;
-  rating?: number;
+  rating: number;
   image: string;
   roomTypes: string[];
   checkIn: string;

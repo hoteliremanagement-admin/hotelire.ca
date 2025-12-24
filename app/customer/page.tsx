@@ -28,6 +28,8 @@ export default function CustomerHomePage() {
           className="object-cover"
           priority
         />
+         <div className="relative z-10 h-full">
+    <div className="site-container h-full flex items-center justify-center">
         <div className="absolute inset-0 bg-[#080808] opacity-50" />
 
         <div className="relative z-10 flex flex-col items-center justify-center h-full px-4">
@@ -44,10 +46,14 @@ export default function CustomerHomePage() {
 
           <SearchBar />
         </div>
+        </div>
+        </div>
+       
       </section>
 
       {/* Explore Canada */}
       <section className="w-full bg-[#e3fdff] py-12 md:py-16 lg:py-[81px] px-4 md:px-8 lg:px-[203px]">
+        <div className="site-container">
         <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#59A5B2] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
           Explore Canada
         </h2>
@@ -60,10 +66,12 @@ export default function CustomerHomePage() {
             <DestinationCard key={destination.id} destination={destination} />
           ))}
         </div>
+        </div>
       </section>
 
       {/* Most Popular Hotels */}
       <section className="w-full py-12 md:py-16 lg:py-[82px] px-4 md:px-8 lg:px-[203px]">
+        <div className="site-container">
         <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#59A5B2] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
           Most Popular Hotels
         </h2>
@@ -76,10 +84,12 @@ export default function CustomerHomePage() {
             <HotelCard key={hotel.id} hotel={hotel} />
           ))}
         </div>
+        </div>
       </section>
 
       {/* Offers */}
       <section className="w-full bg-[#eaffe6] py-12 md:py-16 lg:py-[102px] px-4 md:px-8 lg:px-[203px]">
+        <div className="site-container">
         <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#59A5B2] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
           Offers
         </h2>
@@ -132,10 +142,13 @@ export default function CustomerHomePage() {
             />
           </div>
         </div>
+        </div>
       </section>
 
       {/* Unique Properties */}
       <section className="w-full py-12 md:py-16 lg:py-[57px] px-4 md:px-8 lg:px-[203px]">
+                <div className="site-container">
+
         <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#59A5B2] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
           Stay at our top unique properties
         </h2>
@@ -160,6 +173,7 @@ export default function CustomerHomePage() {
             height={20}
           />
         </Button> */}
+        </div>
       </section>
 
 <Mbanner />
