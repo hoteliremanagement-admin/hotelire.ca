@@ -68,6 +68,8 @@ interface Property {
   price: number; // Derived from rooms
   amenities: Amenity[];// Simplified for UI
   featured: boolean;
+  canadian_city_name: string;
+  canadian_province_name: string;
 }
 
 interface Amenity {
@@ -123,6 +125,9 @@ export default function PropertiesPage() {
                 rating: 0,
                 reviews: 0,
                 price: 0,
+                canadian_city_name:p.canadian_cities.canadian_city_name,
+                canadian_province_name:p.canadian_states.canadian_province_name
+
               };
             })
           );
@@ -146,34 +151,34 @@ export default function PropertiesPage() {
 
 
 
-const filteredProperties = useMemo(() => {
-  const query = searchQuery?.toLowerCase().trim() || "";
+  const filteredProperties = useMemo(() => {
+    const query = searchQuery?.toLowerCase().trim() || "";
 
-  return propertyList.filter(p => {
-    const title = p.propertytitle ?? "";
-    const subtitle = p.propertysubtitle ?? "";
+    return propertyList.filter(p => {
+      const title = p.propertytitle ?? "";
+      const subtitle = p.propertysubtitle ?? "";
 
-    const matchesSearch =
-      title.toLowerCase().includes(query) ||
-      subtitle.toLowerCase().includes(query);
+      const matchesSearch =
+        title.toLowerCase().includes(query) ||
+        subtitle.toLowerCase().includes(query);
 
-    const matchesStatus =
-      statusFilter === "All" ? true : p.availablestatus === true;
+      const matchesStatus =
+        statusFilter === "All" ? true : p.availablestatus === true;
 
-    return matchesSearch && matchesStatus;
-  });
-}, [propertyList, searchQuery, statusFilter]);
+      return matchesSearch && matchesStatus;
+    });
+  }, [propertyList, searchQuery, statusFilter]);
 
-const handleTogglePropertyStatus = (propertyId: number) => {
-  setPropertyList(prev =>
-    prev.map(p =>
-      p.propertyid === propertyId
-        ? { ...p, availablestatus: !p.availablestatus }
-        : p
-    )
-  );
-};
-  
+  const handleTogglePropertyStatus = (propertyId: number) => {
+    setPropertyList(prev =>
+      prev.map(p =>
+        p.propertyid === propertyId
+          ? { ...p, availablestatus: !p.availablestatus }
+          : p
+      )
+    );
+  };
+
   const handleDelete = () => {
     if (deleteId) {
       setPropertyList(prev => prev.filter(p => p.propertyid !== deleteId));
@@ -249,12 +254,12 @@ const handleTogglePropertyStatus = (propertyId: number) => {
             {filteredProperties ?
               filteredProperties.map((property) => (
                 <PropertyCard
-  key={property.propertyid}
-  property={property}
-  onDelete={() => setDeleteId(property.propertyid)}
-  onToggleStatus={handleTogglePropertyStatus}
-/>
-              )) : 
+                  key={property.propertyid}
+                  property={property}
+                  onDelete={() => setDeleteId(property.propertyid)}
+                  onToggleStatus={handleTogglePropertyStatus}
+                />
+              )) :
               <div className="col-span-full text-center py-12">
                 <p className="text-gray-500 dark:text-gray-400">No properties found.</p>
               </div>
@@ -353,7 +358,7 @@ function PropertyCard({
   onToggleStatus: (id: number) => void;
 }) {
 
-  console.log("prop", property);
+  console.log("prop...", property);
   return (
     <motion.div
       layout
@@ -413,9 +418,10 @@ function PropertyCard({
             <h3 className="text-lg font-bold leading-tight text-foreground line-clamp-1 group-hover:text-[#59A5B2] transition-colors" style={{ fontFamily: 'Poppins, sans-serif' }}>
               {property.propertytitle}
             </h3>
+            <h4 >{property.propertysubtitle}</h4>
             <div className="flex items-center gap-1.5 mt-1.5 text-sm text-muted-foreground">
               <MapPin className="w-3.5 h-3.5 shrink-0" />
-              <span className="truncate">{property.propertysubtitle}</span>
+              <span className="truncate">{property.canadian_city_name} | {property.canadian_province_name}</span>
             </div>
           </div>
 
@@ -464,25 +470,23 @@ function PropertyCard({
 
         {/* Footer */}
         <div className="mt-5 pt-4 border-t border-border/50 flex items-center justify-between">
-<div className="flex items-center gap-2">
-  <span className="text-sm font-medium text-muted-foreground">
-    Status
-  </span>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-muted-foreground">
+              Status
+            </span>
 
-<button
-  onClick={() => onToggleStatus(property.propertyid)}
-  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-    property.availablestatus ? "bg-green-500" : "bg-zinc-400"
-  }`}
->
-  <span
-    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-      property.availablestatus ? "translate-x-6" : "translate-x-1"
-    }`}
-  />
-</button>
+            <button
+              onClick={() => onToggleStatus(property.propertyid)}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${property.availablestatus ? "bg-green-500" : "bg-zinc-400"
+                }`}
+            >
+              <span
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${property.availablestatus ? "translate-x-6" : "translate-x-1"
+                  }`}
+              />
+            </button>
 
-</div>
+          </div>
 
 
           <div className="flex items-center gap-1 opacity-100 hover:opacity-100 transition-opacity duration-200">

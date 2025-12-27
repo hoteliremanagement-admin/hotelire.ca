@@ -234,7 +234,7 @@ export default function HotelDetailPage({ id }: { id: string }) {
 
         // initialize roomQtyMap with zeros for all propertyroomids
         const initialMap: Record<number, number> = {};
-        (Details[0]?.PropertyRoom ?? []).forEach((r:any) => {
+        (Details[0]?.PropertyRoom ?? []).forEach((r: any) => {
           initialMap[r.propertyroomid] = 0;
         });
         setRoomQtyMap(initialMap);
@@ -254,12 +254,12 @@ export default function HotelDetailPage({ id }: { id: string }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  
+
 
   const filteredCities = location
     ? canadianCities.filter((city) =>
-        city.toLowerCase().includes(location.toLowerCase())
-      )
+      city.toLowerCase().includes(location.toLowerCase())
+    )
     : [];
 
 
@@ -335,90 +335,91 @@ export default function HotelDetailPage({ id }: { id: string }) {
   };
 
   // Calculate total amount using nights
-  const calculateTotal = () => {
-    const nights = calculateNights();
-    return cart.reduce(
-      (sum, item) => sum + item.quantity * item.pricePerNight * nights,
-      0
-    );
-  };
-//ustaad ka code
-//   const handleReserve = () => {
-//     if (!checkInDate || !checkOutDate || cart.length === 0) {
-//       setShowValidation(true);
-//       return;
-//     }
-//     setShowValidation(false);
-
-//     const nights = calculateNights();
-
-//     const reservationPayload = {
-//       propertyid: propertyDetail?.propertyid ?? null,
-//       checkInDate: checkInDate?.toISOString() ?? null,
-//       checkOutDate: checkOutDate?.toISOString() ?? null,
-//       nights,
-//       adults,
-//       children,
-//       totalAmount: calculateTotal(),
-//       rooms: cart.map((c) => ({
-//         propertyroomid: c.propertyroomid,
-//         roomname: c.roomname,
-//         roomtypename: c.roomtypename,
-//         quantity: c.quantity,
-//         pricePerNight: c.pricePerNight,
-//         totalForThisRoom: c.quantity * c.pricePerNight * nights,
-//       })),
-//     };
-
-//     console.log("Reservation submitted:", reservationPayload);
-
-//     // You can replace the alert below with your API call to submit reservationPayload
-// router.push(`/customer/hotel/${propertyDetail?.propertyid}/summary`);
-//   };
-
-//handle reserve function updated by gpt
-const handleReserve = () => {
-  if (!checkInDate || !checkOutDate || cart.length === 0) {
-    setShowValidation(true);
-    return;
-  }
-
+const calculateTotal = () => {
   const nights = calculateNights();
-
-  const summaryPayload = {
-    property: {
-      id: propertyDetail?.propertyid,
-      name: propertyDetail?.propertytitle,
-      location: `${propertyDetail?.canadian_city_name}, ${propertyDetail?.canadian_province_name}`,
-      image: propertyDetail?.photo1_featured,
-    },
-    dates: {
-      checkIn: checkInDate.toISOString(),
-      checkOut: checkOutDate.toISOString(),
-      nights,
-    },
-    guests: {
-      adults,
-      children,
-    },
-    rooms: cart.map((c) => ({
-      id: c.propertyroomid,
-      name: c.roomname,
-      quantity: c.quantity,
-      pricePerNight: c.pricePerNight,
-      total: c.quantity * c.pricePerNight * nights,
-    })),
-    pricing: {
-      subtotal: calculateTotal(),
-      taxes: Math.round(calculateTotal() * 0.13), // example HST
-      total: Math.round(calculateTotal() * 1.13),
-    },
-  };
-
-  localStorage.setItem("booking_summary", JSON.stringify(summaryPayload));
-
-  router.push(`/customer/hotel/${propertyDetail?.propertyid}/summary`);
+  return cart.reduce(
+    (sum, item) => sum + item.quantity * item.pricePerNight * nights,
+    0
+  );
 };
+
+  //ustaad ka code
+  //   const handleReserve = () => {
+  //     if (!checkInDate || !checkOutDate || cart.length === 0) {
+  //       setShowValidation(true);
+  //       return;
+  //     }
+  //     setShowValidation(false);
+
+  //     const nights = calculateNights();
+
+  //     const reservationPayload = {
+  //       propertyid: propertyDetail?.propertyid ?? null,
+  //       checkInDate: checkInDate?.toISOString() ?? null,
+  //       checkOutDate: checkOutDate?.toISOString() ?? null,
+  //       nights,
+  //       adults,
+  //       children,
+  //       totalAmount: calculateTotal(),
+  //       rooms: cart.map((c) => ({
+  //         propertyroomid: c.propertyroomid,
+  //         roomname: c.roomname,
+  //         roomtypename: c.roomtypename,
+  //         quantity: c.quantity,
+  //         pricePerNight: c.pricePerNight,
+  //         totalForThisRoom: c.quantity * c.pricePerNight * nights,
+  //       })),
+  //     };
+
+  //     console.log("Reservation submitted:", reservationPayload);
+
+  //     // You can replace the alert below with your API call to submit reservationPayload
+  // router.push(`/customer/hotel/${propertyDetail?.propertyid}/summary`);
+  //   };
+
+  //handle reserve function updated by gpt
+  const handleReserve = () => {
+    if (!checkInDate || !checkOutDate || cart.length === 0) {
+      setShowValidation(true);
+      return;
+    }
+
+    const nights = calculateNights();
+
+    const summaryPayload = {
+      property: {
+        id: propertyDetail?.propertyid,
+        name: propertyDetail?.propertytitle,
+        location: `${propertyDetail?.canadian_city_name}, ${propertyDetail?.canadian_province_name}`,
+        image: propertyDetail?.photo1_featured,
+      },
+      dates: {
+        checkIn: checkInDate.toISOString(),
+        checkOut: checkOutDate.toISOString(),
+        nights,
+      },
+      guests: {
+        adults,
+        children,
+      },
+      rooms: cart.map((c) => ({
+        id: c.propertyroomid,
+        name: c.roomname,
+        quantity: c.quantity,
+        pricePerNight: c.pricePerNight,
+        total: (c.quantity * c.pricePerNight * nights).toFixed(2),
+      })),
+      pricing: {
+        subtotal: calculateTotal().toFixed(2),
+        taxes: (calculateTotal() * 0.13).toFixed(2),
+        total: (calculateTotal() * 1.13).toFixed(2),
+      },
+    };
+
+    localStorage.setItem("booking_summary", JSON.stringify(summaryPayload));
+
+    router.push(`/customer/hotel/${propertyDetail?.propertyid}/summary`);
+  };
 
 
   function getIcon(iconName: string): IconDefinition | undefined {
@@ -447,7 +448,7 @@ const handleReserve = () => {
                 id="location"
                 type="text"
                 value={location}
-                
+
                 onFocus={() => location && setShowSuggestions(true)}
                 onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                 placeholder="Where are you going?"
@@ -456,7 +457,7 @@ const handleReserve = () => {
                 data-testid="input-location"
                 disabled={true}
               />
-              
+
             </div>
 
             {/* Check-in / Check-out */}
@@ -915,7 +916,8 @@ const handleReserve = () => {
 
                         <div>
                           <span className="text-gray-800 font-medium">
-                            ${item.quantity * item.pricePerNight * calculateNights()}
+                            ${(item.quantity * item.pricePerNight * calculateNights()).toFixed(2)
+                            }
                           </span>
                           <button
                             onClick={() => removeFromCart(item.propertyroomid)}
@@ -942,7 +944,7 @@ const handleReserve = () => {
                   Total
                 </span>
                 <span className="text-2xl font-bold text-[#59A5B2]" style={{ fontFamily: "Poppins, sans-serif" }}>
-                  ${calculateTotal()}
+                  ${calculateTotal().toFixed(2)}
                 </span>
               </div>
 

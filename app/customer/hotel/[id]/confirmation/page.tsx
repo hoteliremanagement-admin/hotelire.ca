@@ -31,7 +31,12 @@ interface BookingConfirmationData {
     image: string
     checkInTime: string
     checkOutTime: string
-    propertymaplink:string
+    propertymaplink: string
+    firstName: string
+    lastName: string
+    email: string
+    phoneno: string
+
   }
   dates: {
     checkIn: string
@@ -52,7 +57,7 @@ interface BookingConfirmationData {
     quantity: number
     pricePerNight: string
     subtotal: string
-    pic1:string
+    pic1: string
   }>
   payment: {
     total: string
@@ -65,21 +70,21 @@ interface BookingConfirmationData {
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || ""
 
 export default function BookingConfirmationPage() {
-const searchParams = useSearchParams()
-const bookingId = searchParams.get("bookingId")
+  const searchParams = useSearchParams()
+  const bookingId = searchParams.get("bookingId")
   const [data, setData] = useState<BookingConfirmationData | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    console.log("response ",bookingId)
+    console.log("response ", bookingId)
     if (!bookingId) return
     const fetchBookingDetails = async () => {
-       console.log("response "  )
+      console.log("response ")
       try {
-        setLoading(true)  
+        setLoading(true)
         const response = await fetch(`${baseUrl}/booking/details/${bookingId}`)
-        console.log("response ",response)
+        console.log("response ", response)
 
         if (!response.ok) {
           throw new Error("Failed to fetch booking details")
@@ -87,7 +92,7 @@ const bookingId = searchParams.get("bookingId")
 
         const result = await response.json()
         if (result.success) {
-          console.log("result.data",result.data)
+          console.log("result.data", result.data)
           setData(result.data)
         } else {
           setError("Could not load booking confirmation")
@@ -100,9 +105,9 @@ const bookingId = searchParams.get("bookingId")
       }
     }
 
-   
-      fetchBookingDetails()
-    
+
+    fetchBookingDetails()
+
   }, [bookingId])
 
 
@@ -207,10 +212,10 @@ const bookingId = searchParams.get("bookingId")
                     <MapPin className="w-4 h-4 text-[#59A5B2] flex-shrink-0" />
                     {data.property.address}
                   </p>
-                  <a  href={data.property.propertymaplink} target="_blank">
-                  <button className="text-[#59A5B2] hover:text-[#4a8f9a] text-sm font-medium transition-colors">
-                    Show directions →
-                  </button>
+                  <a href={data.property.propertymaplink} target="_blank">
+                    <button className="text-[#59A5B2] hover:text-[#4a8f9a] text-sm font-medium transition-colors">
+                      Show directions →
+                    </button>
                   </a>
                 </div>
               </div>
@@ -275,11 +280,11 @@ const bookingId = searchParams.get("bookingId")
                     >
                       <div className="w-24 h-20 bg-gray-200 rounded-lg flex-shrink-0 overflow-hidden">
                         {/* {room.roomImage && ( */}
-                          <img
-                            src={room.pic1 }
-                            alt={room.roomName}
-                            className="w-full h-full object-cover"
-                          />
+                        <img
+                          src={room.pic1}
+                          alt={room.roomName}
+                          className="w-full h-full object-cover"
+                        />
                         {/* )} */}
                       </div>
                       <div className="flex-1">
@@ -306,6 +311,41 @@ const bookingId = searchParams.get("bookingId")
                 <h3 className="text-lg font-bold text-[#59A5B2] mb-4" style={{ fontFamily: "Poppins, sans-serif" }}>
                   Contact property
                 </h3>
+
+
+
+                <div className="">
+                  <p
+                    className="flex items-center gap-2 text-sm text-gray-600 mb-2"
+                    style={{ fontFamily: "Inter, sans-serif" }}
+                  >
+
+                    <span className="text-md font-bold text-[#59A5B2] " >Owner Name:</span> {data.property.firstName} {data.property.lastName}
+                  </p>
+
+
+                  <p
+                    className="flex items-center gap-2 text-sm text-gray-600 mb-2"
+                    style={{ fontFamily: "Inter, sans-serif" }}
+                  >
+
+                    <span className="text-md font-bold text-[#59A5B2] " >Owner Email:</span> {data.property.email}
+
+                  </p>
+                  <p
+                    className="flex items-center gap-2 text-sm text-gray-600 mb-2"
+                    style={{ fontFamily: "Inter, sans-serif" }}
+                  >
+                    <span className="text-md font-bold text-[#59A5B2] " >Owner Phone:</span> {data.property.phoneno}
+
+                  </p>
+
+
+
+
+
+                </div>
+
                 <div className="flex flex-col sm:flex-row gap-3 mb-4">
                   <button className="flex items-center justify-center gap-2 px-4 py-2 border border-[#59A5B2] text-[#59A5B2] rounded-lg hover:bg-blue-50 transition-colors font-medium">
                     <MessageSquare className="w-4 h-4" />
@@ -317,7 +357,7 @@ const bookingId = searchParams.get("bookingId")
                   </button>
                 </div>
 
-                  <p
+                <p
                   className="flex items-center gap-2 text-sm text-gray-600"
                   style={{ fontFamily: "Inter, sans-serif" }}
                 >
@@ -325,7 +365,13 @@ const bookingId = searchParams.get("bookingId")
                   Please feel free to get in touch if you need further
                   assistance.
                 </p>
+
+
+
               </div>
+
+
+
             </Card>
           </div>
 
@@ -405,3 +451,48 @@ const bookingId = searchParams.get("bookingId")
     </div>
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

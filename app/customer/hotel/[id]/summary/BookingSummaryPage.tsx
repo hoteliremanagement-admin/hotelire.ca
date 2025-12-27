@@ -1,176 +1,284 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useEffect, useState } from "react"
-import { Header } from "@/components/Header"
-import { Navigation } from "@/components/Navigation"
-import { Footer } from "@/components/Footer"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { AlertCircle, MapPin, Calendar, Users, X } from "lucide-react"
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js"
-import { useRouter } from "next/navigation"
-import { authCheck } from "@/services/authCheck"
-import axios from "axios"
+import type React from "react";
+import { useEffect, useState } from "react";
+import { Header } from "@/components/Header";
+import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/Footer";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { AlertCircle, MapPin, Calendar, Users, X } from "lucide-react";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { useRouter } from "next/navigation";
+import { authCheck } from "@/services/authCheck";
+import axios from "axios";
 
 interface GuestInfo {
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
 }
 
 interface BookingData {
   property: {
-    id: number
-    name: string
-    location: string
-    image: string
-  }
+    id: number;
+    name: string;
+    location: string;
+    image: string;
+  };
   dates: {
-    checkIn: string
-    checkOut: string
-    nights: number
-  }
+    checkIn: string;
+    checkOut: string;
+    nights: number;
+  };
   guests: {
-    adults: number
-    children: number
-  }
+    adults: number;
+    children: number;
+  };
   rooms: Array<{
-    id: number
-    name: string
-    quantity: number
-    pricePerNight: number
-    total: number
-  }>
+    id: number;
+    name: string;
+    quantity: number;
+    pricePerNight: number;
+    total: number;
+  }>;
   pricing: {
-    subtotal: number
-    taxes: number
-    total: number
-  }
+    subtotal: number;
+    taxes: number;
+    total: number;
+  };
 }
 
 interface FormErrors {
-  firstName?: string
-  lastName?: string
-  email?: string
-  phone?: string
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  phone?: string;
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || ""
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "";
 
 export default function BookingSummaryPage() {
-  const router = useRouter()
-  const stripe = useStripe()
-  const elements = useElements()
+  const router = useRouter();
+  const stripe = useStripe();
+  const elements = useElements();
 
-  const [bookingData, setBookingData] = useState<BookingData | null>(null)
-  const [userId, setUserId] = useState<string | null>(null)
+  const [bookingData, setBookingData] = useState<BookingData | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
   const [guestInfo, setGuestInfo] = useState<GuestInfo>({
     firstName: "",
     lastName: "",
     email: "",
     phone: "",
-  })
+  });
+  const MAX_PHONE_LEN = 10;
 
-  const [errors, setErrors] = useState<FormErrors>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const sanitizePhone = (s: string) =>
+    s.replace(/\D/g, "").slice(0, MAX_PHONE_LEN);
 
-  const [paymentError, setPaymentError] = useState<string | null>(null)
-  const [showErrorModal, setShowErrorModal] = useState(false)
+  const nameRegex = /^[A-Za-z\s-]{1,50}$/;
+  const nameSanitize = (s: string) =>
+    s
+      .replace(/[^A-Za-z\s-]/g, "")
+      .replace(/\s+/g, " ")
+      .slice(0, 50);
+
+  const displayNameRegex = /^[A-Za-z\s]{1,15}$/;
+  const displayNameSanitize = (s: string) =>
+    s
+      .replace(/[^A-Za-z\s]/g, "")
+      .replace(/\s+/g, " ")
+      .slice(0, 15);
+
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [paymentError, setPaymentError] = useState<string | null>(null);
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
   const formatDate = (isoString: string) => {
-    const date = new Date(isoString)
+    const date = new Date(isoString);
     return date.toLocaleDateString("en-CA", {
       year: "numeric",
       month: "long",
       day: "numeric",
-    })
-  }
+    });
+  };
 
   const getUser = async () => {
     try {
-      const user = await authCheck()
+      const user = await authCheck();
       if (user) {
-        setUserId(user.user.userid)
+        setUserId(user.user.userid);
         setGuestInfo((prev) => ({
           ...prev,
           firstName: user.user.firstname,
           lastName: user.user.lastname,
           email: user.user.email,
-          phone: user.user.phoneno,
-        }))
+          phone: user.user.phoneno?.replace(/^\+1/, ""),
+        }));
       }
     } catch (error) {
-      console.error("[v0] Auth check error:", error)
+      console.error("[v0] Auth check error:", error);
     }
-  }
+  };
 
   useEffect(() => {
-    getUser()
-  }, [])
+    getUser();
+  }, []);
 
   useEffect(() => {
-    const raw = localStorage.getItem("booking_summary")
-    if (!raw) return
-    setBookingData(JSON.parse(raw))
-  }, [])
+    const raw = localStorage.getItem("booking_summary");
+    if (!raw) return;
+    setBookingData(JSON.parse(raw));
+  }, []);
 
   if (!bookingData) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p className="text-gray-500">Loading booking summary...</p>
       </div>
-    )
+    );
   }
 
   const validateForm = (): boolean => {
-    const newErrors: FormErrors = {}
+    const newErrors: FormErrors = {};
 
-    if (!guestInfo.firstName.trim()) newErrors.firstName = "First name is required"
-    if (!guestInfo.lastName.trim()) newErrors.lastName = "Last name is required"
+    // First name
+    if (!guestInfo.firstName.trim()) {
+      newErrors.firstName = "First name is required";
+    } else if (!nameRegex.test(guestInfo.firstName)) {
+      newErrors.firstName = "Only letters, spaces and hyphens allowed";
+    }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!guestInfo.email.trim()) newErrors.email = "Email is required"
-    else if (!emailRegex.test(guestInfo.email)) newErrors.email = "Invalid email"
+    // Last name
+    if (!guestInfo.lastName.trim()) {
+      newErrors.lastName = "Last name is required";
+    } else if (!nameRegex.test(guestInfo.lastName)) {
+      newErrors.lastName = "Only letters, spaces and hyphens allowed";
+    }
 
-    if (!guestInfo.phone.trim()) newErrors.phone = "Phone number is required"
+    // Email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!guestInfo.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!emailRegex.test(guestInfo.email)) {
+      newErrors.email = "Invalid email address";
+    }
 
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
+    // Phone
+    if (!guestInfo.phone.trim()) {
+      newErrors.phone = "Phone number is required";
+    } else if (guestInfo.phone.length !== MAX_PHONE_LEN) {
+      newErrors.phone = "Phone number must be 10 digits";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setGuestInfo((prev) => ({ ...prev, [name]: value }))
-    if (errors[name as keyof FormErrors]) {
-      setErrors((prev) => ({ ...prev, [name]: undefined }))
+    const { name, value } = e.target;
+
+    let sanitizedValue = value;
+
+    if (name === "firstName" || name === "lastName") {
+      sanitizedValue = nameSanitize(value);
     }
-  }
+
+    if (name === "phone") {
+      sanitizedValue = sanitizePhone(value);
+    }
+
+    setGuestInfo((prev) => ({
+      ...prev,
+      [name]: sanitizedValue,
+    }));
+
+    if (errors[name as keyof FormErrors]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: undefined,
+      }));
+    }
+  };
+
+
+
+  const handleUserUpdateInfo = async (e: any) => {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+    if (!userId) {
+      alert("User not logged in");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const res = await fetch(`${baseUrl}/auth/updateCustomerInfo`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          userid: userId,
+          firstname: guestInfo.firstName,
+          lastname: guestInfo.lastName,
+          email: guestInfo.email,
+          phoneno: guestInfo.phone,
+        }),
+      },
+      );
+
+      const data = await res.json();
+
+      getUser()
+
+      if (!res.ok) {
+        throw new Error(data.message || "Update failed");
+      }
+
+      alert("Guest information updated successfully ✅");
+    } catch (error) {
+      console.error(error);
+      alert("Oops! Some thing went wrong While updating you information");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (!validateForm()) return
+    if (!validateForm()) return;
     if (!stripe || !elements || !userId) {
-      setPaymentError("Payment system not ready. Please refresh the page.")
-      setShowErrorModal(true)
-      return
+      setPaymentError("Payment system not ready. Please refresh the page.");
+      setShowErrorModal(true);
+      return;
     }
 
-    setIsSubmitting(true)
+    setIsSubmitting(true);
 
     try {
       // Step 1: Create PaymentIntent
-      console.log("[v0] Creating payment intent...")
+      console.log("[v0] Creating payment intent...");
       const intentRes = await fetch(`${baseUrl}/stripe/create-intent`, {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           amount: Math.round(bookingData.pricing.total), // cents
         }),
-      })
+
+      });
 
       if (!intentRes.ok) {
         const errorText = await intentRes.text();
@@ -182,7 +290,7 @@ export default function BookingSummaryPage() {
       console.log("Stripe clientSecret received:", clientSecret);
 
       // Step 2: Confirm card payment with Stripe
-      console.log("[v0] Confirming card payment...")
+      console.log("[v0] Confirming card payment...");
       const result = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: elements.getElement(CardElement)!,
@@ -191,26 +299,33 @@ export default function BookingSummaryPage() {
             email: guestInfo.email,
           },
         },
-      })
+      });
+
+      console.log("Showing the result", result);
 
       if (result.error) {
-        console.log("[v0] Payment error:", result.error.message)
-        setPaymentError(result.error.message || "Payment failed. Please try again.")
-        setShowErrorModal(true)
-        setIsSubmitting(false)
-        return
+        console.log("[v0] Payment error:", result.error.message);
+        setPaymentError(
+          result.error.message || "Payment failed. Please try again."
+        );
+        setShowErrorModal(true);
+        setIsSubmitting(false);
+        return;
       }
 
       if (result.paymentIntent?.status !== "succeeded") {
-        console.log("[v0] Payment not succeeded, status:", result.paymentIntent?.status)
-        setPaymentError("Payment was not completed. Please try again.")
-        setShowErrorModal(true)
-        setIsSubmitting(false)
-        return
+        console.log(
+          "[v0] Payment not succeeded, status:",
+          result.paymentIntent?.status
+        );
+        setPaymentError("Payment was not completed. Please try again.");
+        setShowErrorModal(true);
+        setIsSubmitting(false);
+        return;
       }
 
       // Step 3: Create booking in database after successful payment
-      console.log("[v0] Payment succeeded, creating booking...")
+      console.log("[v0] Payment succeeded, creating booking...");
       const bookingRes = await axios.post(`${baseUrl}/booking/create`, {
         userId,
         propertyId: bookingData.property.id,
@@ -227,31 +342,47 @@ export default function BookingSummaryPage() {
         guestLastName: guestInfo.lastName,
         guestEmail: guestInfo.email,
         guestPhone: guestInfo.phone,
-      })
+        adults: bookingData.guests.adults,
+        children: bookingData.guests.children,
+      }, {
+        withCredentials: true
+      });
 
-      if (bookingRes.status !== 201) throw new Error("Failed to create booking")
+      if (bookingRes.status !== 201)
+        throw new Error("Failed to create booking");
 
-      const { bookingId } = bookingRes.data
-      console.log("[v0] Booking created successfully:", bookingId)
+      const { bookingId } = bookingRes.data;
+      console.log("[v0] Booking created successfully:", bookingId);
 
       // Clear localStorage after successful booking
-      localStorage.removeItem("booking_summary")
+      localStorage.removeItem("booking_summary");
 
       // Redirect to confirmation page
-      router.push(`/customer/hotel/${bookingData.property.id}/confirmation?bookingId=${bookingId}`)
+      router.push(
+        `/customer/hotel/${bookingData.property.id}/confirmation?bookingId=${bookingId}`
+      );
     } catch (error: any) {
-      console.error("[v0] Booking creation error:", error)
+      console.error("[v0] Booking creation error:", error);
       const errorMessage =
-        error.response?.data?.message || error.message || "An unexpected error occurred. Please try again."
-      setPaymentError(errorMessage)
-      setShowErrorModal(true)
+        error.response?.data?.message ||
+        error.message ||
+        "An unexpected error occurred. Please try again.";
+      setPaymentError(errorMessage);
+      setShowErrorModal(true);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
+
+
+
 
   const isFormValid =
-    guestInfo.firstName && guestInfo.lastName && guestInfo.email && guestInfo.phone && Object.keys(errors).length === 0
+    guestInfo.firstName &&
+    guestInfo.lastName &&
+    guestInfo.email &&
+    guestInfo.phone &&
+    Object.keys(errors).length === 0;
 
   return (
     <div className="bg-gray-50 w-full flex flex-col min-h-screen">
@@ -266,17 +397,26 @@ export default function BookingSummaryPage() {
           >
             Complete Your Booking
           </h1>
-          <p className="text-gray-600 text-sm md:text-base" style={{ fontFamily: "Inter, sans-serif" }}>
+          <p
+            className="text-gray-600 text-sm md:text-base"
+            style={{ fontFamily: "Inter, sans-serif" }}
+          >
             Review your details and finalize your reservation
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <form onSubmit={handleSubmit} className="space-y-8">
+
+
+
+            <form onSubmit={handleUserUpdateInfo} className="space-y-8">
               {/* Guest Information Section */}
               <Card className="p-6 md:p-8">
-                <h2 className="text-[20px] font-bold text-[#59A5B2] mb-6" style={{ fontFamily: "Poppins, sans-serif" }}>
+                <h2
+                  className="text-[20px] font-bold text-[#59A5B2] mb-6"
+                  style={{ fontFamily: "Poppins, sans-serif" }}
+                >
                   Guest Information
                 </h2>
 
@@ -296,7 +436,9 @@ export default function BookingSummaryPage() {
                       value={guestInfo.firstName}
                       onChange={handleInputChange}
                       placeholder="Enter your first name"
-                      className={`w-full px-4 py-3 rounded-lg border text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent transition-all ${errors.firstName ? "border-red-500 bg-red-50" : "border-gray-300 bg-white"
+                      className={`w-full px-4 py-3 rounded-lg border text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent transition-all ${errors.firstName
+                        ? "border-red-500 bg-red-50"
+                        : "border-gray-300 bg-white"
                         }`}
                       style={{ fontFamily: "Inter, sans-serif" }}
                     />
@@ -323,7 +465,9 @@ export default function BookingSummaryPage() {
                       value={guestInfo.lastName}
                       onChange={handleInputChange}
                       placeholder="Enter your last name"
-                      className={`w-full px-4 py-3 rounded-lg border text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent transition-all ${errors.lastName ? "border-red-500 bg-red-50" : "border-gray-300 bg-white"
+                      className={`w-full px-4 py-3 rounded-lg border text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent transition-all ${errors.lastName
+                        ? "border-red-500 bg-red-50"
+                        : "border-gray-300 bg-white"
                         }`}
                       style={{ fontFamily: "Inter, sans-serif" }}
                     />
@@ -347,10 +491,13 @@ export default function BookingSummaryPage() {
                       id="email"
                       name="email"
                       type="email"
+                      disabled={true}
                       value={guestInfo.email}
                       onChange={handleInputChange}
                       placeholder="your.email@example.com"
-                      className={`w-full px-4 py-3 rounded-lg border text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent transition-all ${errors.email ? "border-red-500 bg-red-50" : "border-gray-300 bg-white"
+                      className={`w-full px-4 py-3 rounded-lg border text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent transition-all ${errors.email
+                        ? "border-red-500 bg-red-50"
+                        : "border-gray-300 bg-white"
                         }`}
                       style={{ fontFamily: "Inter, sans-serif" }}
                     />
@@ -377,7 +524,9 @@ export default function BookingSummaryPage() {
                       value={guestInfo.phone}
                       onChange={handleInputChange}
                       placeholder="+1 (555) 123-4567"
-                      className={`w-full px-4 py-3 rounded-lg border text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent transition-all ${errors.phone ? "border-red-500 bg-red-50" : "border-gray-300 bg-white"
+                      className={`w-full px-4 py-3 rounded-lg border text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent transition-all ${errors.phone
+                        ? "border-red-500 bg-red-50"
+                        : "border-gray-300 bg-white"
                         }`}
                       style={{ fontFamily: "Inter, sans-serif" }}
                     />
@@ -388,8 +537,19 @@ export default function BookingSummaryPage() {
                       </p>
                     )}
                   </div>
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-[#59A5B2] hover:bg-[#4a8f9a] disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-all"
+                  >
+                    {isSubmitting ? "Updating..." : "Update Guest Information"}
+                  </Button>
                 </div>
+                 
               </Card>
+             </form>
+
+           <form onSubmit={handleSubmit}>
 
               <Card className="p-6 md:p-8">
                 <div className="mb-6">
@@ -399,17 +559,36 @@ export default function BookingSummaryPage() {
                   >
                     Secure Payment
                   </h2>
-                  <p className="text-gray-600 text-sm" style={{ fontFamily: "Inter, sans-serif" }}>
+                  <p
+                    className="text-gray-600 text-sm"
+                    style={{ fontFamily: "Inter, sans-serif" }}
+                  >
                     Your card will only be used to guarantee your booking
                   </p>
                 </div>
 
                 <div className="flex items-center gap-3 mb-6 text-gray-500 text-xs">
                   <span>We accept</span>
-                  <img src="/cards/visa-svgrepo-com.svg" className="h-10" alt="Visa" />
-                  <img src="/cards/mastercard-svgrepo-com.svg" className="h-10" alt="Mastercard" />
-                  <img src="/cards/amex-svgrepo-com.svg" className="h-10" alt="Amex" />
-                  <img src="/cards/discover-svgrepo-com.svg" className="h-10" alt="Discover" />
+                  <img
+                    src="/cards/visa-svgrepo-com.svg"
+                    className="h-10"
+                    alt="Visa"
+                  />
+                  <img
+                    src="/cards/mastercard-svgrepo-com.svg"
+                    className="h-10"
+                    alt="Mastercard"
+                  />
+                  <img
+                    src="/cards/amex-svgrepo-com.svg"
+                    className="h-10"
+                    alt="Amex"
+                  />
+                  <img
+                    src="/cards/discover-svgrepo-com.svg"
+                    className="h-10"
+                    alt="Discover"
+                  />
                 </div>
 
                 <div className="bg-white border border-gray-300 rounded-lg p-4 mb-4 focus-within:ring-2 focus-within:ring-[#59A5B2] transition-all">
@@ -447,10 +626,14 @@ export default function BookingSummaryPage() {
                   disabled={!stripe || !isFormValid || isSubmitting}
                   className="w-full bg-[#59A5B2] hover:bg-[#4a8f9a] disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-all"
                 >
-                  {isSubmitting ? "Processing..." : `Confirm & Pay CAD ${bookingData.pricing.total}`}
+                  {isSubmitting
+                    ? "Processing..."
+                    : `Confirm & Pay CAD ${bookingData.pricing.total}`}
                 </Button>
               </Card>
             </form>
+
+
           </div>
 
           <div className="lg:col-span-1">
@@ -464,7 +647,10 @@ export default function BookingSummaryPage() {
               </div>
 
               <div className="p-6">
-                <h3 className="text-[18px] font-bold text-[#59A5B2] mb-1" style={{ fontFamily: "Poppins, sans-serif" }}>
+                <h3
+                  className="text-[18px] font-bold text-[#59A5B2] mb-1"
+                  style={{ fontFamily: "Poppins, sans-serif" }}
+                >
                   {bookingData.property.name}
                 </h3>
                 <p
@@ -481,10 +667,16 @@ export default function BookingSummaryPage() {
                   <div className="flex items-start gap-3">
                     <Calendar className="w-5 h-5 text-[#59A5B2] flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-xs text-gray-500 font-medium" style={{ fontFamily: "Poppins, sans-serif" }}>
+                      <p
+                        className="text-xs text-gray-500 font-medium"
+                        style={{ fontFamily: "Poppins, sans-serif" }}
+                      >
                         Check-in
                       </p>
-                      <p className="text-sm font-semibold text-gray-900" style={{ fontFamily: "Inter, sans-serif" }}>
+                      <p
+                        className="text-sm font-semibold text-gray-900"
+                        style={{ fontFamily: "Inter, sans-serif" }}
+                      >
                         {formatDate(bookingData.dates.checkIn)}
                       </p>
                       <p
@@ -493,7 +685,10 @@ export default function BookingSummaryPage() {
                       >
                         Check-out
                       </p>
-                      <p className="text-sm font-semibold text-gray-900" style={{ fontFamily: "Inter, sans-serif" }}>
+                      <p
+                        className="text-sm font-semibold text-gray-900"
+                        style={{ fontFamily: "Inter, sans-serif" }}
+                      >
                         {formatDate(bookingData.dates.checkOut)}
                       </p>
                     </div>
@@ -502,14 +697,24 @@ export default function BookingSummaryPage() {
                   <div className="flex items-start gap-3">
                     <Users className="w-5 h-5 text-[#59A5B2] flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-xs text-gray-500 font-medium" style={{ fontFamily: "Poppins, sans-serif" }}>
+                      <p
+                        className="text-xs text-gray-500 font-medium"
+                        style={{ fontFamily: "Poppins, sans-serif" }}
+                      >
                         Guests
                       </p>
-                      <p className="text-sm font-semibold text-gray-900" style={{ fontFamily: "Inter, sans-serif" }}>
-                        {bookingData.guests.adults} {bookingData.guests.adults === 1 ? "Adult" : "Adults"}
+                      <p
+                        className="text-sm font-semibold text-gray-900"
+                        style={{ fontFamily: "Inter, sans-serif" }}
+                      >
+                        {bookingData.guests.adults}{" "}
+                        {bookingData.guests.adults === 1 ? "Adult" : "Adults"}
                         {bookingData.guests.children > 0 && (
                           <>
-                            , {bookingData.guests.children} {bookingData.guests.children === 1 ? "Child" : "Children"}
+                            , {bookingData.guests.children}{" "}
+                            {bookingData.guests.children === 1
+                              ? "Child"
+                              : "Children"}
                           </>
                         )}
                       </p>
@@ -520,16 +725,25 @@ export default function BookingSummaryPage() {
                 <div className="border-t border-gray-200 my-4"></div>
 
                 <div className="mb-4">
-                  <p className="text-xs font-medium text-gray-500 mb-3" style={{ fontFamily: "Poppins, sans-serif" }}>
+                  <p
+                    className="text-xs font-medium text-gray-500 mb-3"
+                    style={{ fontFamily: "Poppins, sans-serif" }}
+                  >
                     ROOMS
                   </p>
                   <div className="space-y-2">
                     {bookingData.rooms.map((room) => (
-                      <div key={room.id} className="flex justify-between text-sm">
+                      <div
+                        key={room.id}
+                        className="flex justify-between text-sm"
+                      >
                         <span style={{ fontFamily: "Inter, sans-serif" }}>
-                          {room.name} x{room.quantity}
+                          {room.name} x {room.quantity}
                         </span>
-                        <span className="font-semibold text-gray-900" style={{ fontFamily: "Inter, sans-serif" }}>
+                        <span
+                          className="font-semibold text-gray-900"
+                          style={{ fontFamily: "Inter, sans-serif" }}
+                        >
                           CAD ${room.total}
                         </span>
                       </div>
@@ -544,21 +758,33 @@ export default function BookingSummaryPage() {
                     <span style={{ fontFamily: "Inter, sans-serif" }}>
                       Subtotal ({bookingData.dates.nights} nights)
                     </span>
-                    <span style={{ fontFamily: "Inter, sans-serif" }}>CAD ${bookingData.pricing.subtotal}</span>
+                    <span style={{ fontFamily: "Inter, sans-serif" }}>
+                      CAD ${bookingData.pricing.subtotal}
+                    </span>
                   </div>
                   <div className="flex justify-between text-sm text-gray-600">
-                    <span style={{ fontFamily: "Inter, sans-serif" }}>Taxes</span>
-                    <span style={{ fontFamily: "Inter, sans-serif" }}>CAD ${bookingData.pricing.taxes}</span>
+                    <span style={{ fontFamily: "Inter, sans-serif" }}>
+                      Taxes
+                    </span>
+                    <span style={{ fontFamily: "Inter, sans-serif" }}>
+                      CAD ${bookingData.pricing.taxes}
+                    </span>
                   </div>
                 </div>
 
                 <div className="border-t border-gray-200 my-4"></div>
 
                 <div className="flex justify-between items-center">
-                  <span className="text-lg font-bold text-gray-900" style={{ fontFamily: "Poppins, sans-serif" }}>
+                  <span
+                    className="text-lg font-bold text-gray-900"
+                    style={{ fontFamily: "Poppins, sans-serif" }}
+                  >
                     Total
                   </span>
-                  <span className="text-2xl font-bold text-[#59A5B2]" style={{ fontFamily: "Poppins, sans-serif" }}>
+                  <span
+                    className="text-2xl font-bold text-[#59A5B2]"
+                    style={{ fontFamily: "Poppins, sans-serif" }}
+                  >
                     CAD ${bookingData.pricing.total}
                   </span>
                 </div>
@@ -579,22 +805,36 @@ export default function BookingSummaryPage() {
                   <div className="flex items-center justify-center w-10 h-10 rounded-full bg-red-100">
                     <AlertCircle className="w-6 h-6 text-red-600" />
                   </div>
-                  <h3 className="text-lg font-bold text-gray-900" style={{ fontFamily: "Poppins, sans-serif" }}>
+                  <h3
+                    className="text-lg font-bold text-gray-900"
+                    style={{ fontFamily: "Poppins, sans-serif" }}
+                  >
                     Payment Failed
                   </h3>
                 </div>
-                <button onClick={() => setShowErrorModal(false)} className="text-gray-400 hover:text-gray-600">
+                <button
+                  onClick={() => setShowErrorModal(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              <p className="text-gray-600 mb-6" style={{ fontFamily: "Inter, sans-serif" }}>
-                {paymentError || "Your payment could not be processed. Please check your card details and try again."}
+              <p
+                className="text-gray-600 mb-6"
+                style={{ fontFamily: "Inter, sans-serif" }}
+              >
+                {paymentError ||
+                  "Your payment could not be processed. Please check your card details and try again."}
               </p>
 
               <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-                <p className="text-red-800 text-sm" style={{ fontFamily: "Inter, sans-serif" }}>
-                  No booking has been created for this transaction. Please try again.
+                <p
+                  className="text-red-800 text-sm"
+                  style={{ fontFamily: "Inter, sans-serif" }}
+                >
+                  No booking has been created for this transaction. Please try
+                  again.
                 </p>
               </div>
 
@@ -609,5 +849,5 @@ export default function BookingSummaryPage() {
         </div>
       )}
     </div>
-  )
+  );
 }
