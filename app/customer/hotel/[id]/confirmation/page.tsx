@@ -7,7 +7,7 @@ import { Navigation } from "@/components/Navigation"
 import { Footer } from "@/components/Footer"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { CheckCircle, MapPin, Calendar, Users, Mail, MessageSquare, Printer, AlertCircle, Loader } from "lucide-react"
+import { CheckCircle, MapPin, Calendar, Users, Mail, MessageSquare, Printer, AlertCircle, Loader, Headset } from "lucide-react"
 
 interface BookingConfirmationData {
   confirmationId: string
@@ -316,6 +316,15 @@ const bookingId = searchParams.get("bookingId")
                     Send an email
                   </button>
                 </div>
+
+                  <p
+                  className="flex items-center gap-2 text-sm text-gray-600"
+                  style={{ fontFamily: "Inter, sans-serif" }}
+                >
+                  <Headset className="w-4 h-4 text-[#59A5B2]" />
+                  Please feel free to get in touch if you need further
+                  assistance.
+                </p>
               </div>
             </Card>
           </div>
