@@ -146,19 +146,19 @@ export default function OwnerProfilePage() {
             <StatCard
               icon={<Building className="h-6 w-6" />}
               label="Properties"
-              value={owner.totalProperties}
+              value={owner.totalProperties ?? 0}
               className="bg-primary/5 border-primary/20"
             />
             <StatCard
               icon={<Calendar className="h-6 w-6" />}
               label="Bookings"
-              value={owner.totalBookings}
+              value={owner.totalBookings ?? 0}
               className="bg-secondary/5 border-secondary/20"
             />
             <StatCard
               icon={<DollarSign className="h-6 w-6" />}
               label="Revenue"
-              value={`$${owner.totalRevenue.toLocaleString()}`}
+              value={`$${(owner.totalRevenue ?? 0).toLocaleString()}`}
               className="bg-emerald-50 border-emerald-200"
             />
           </div>
@@ -210,7 +210,7 @@ export default function OwnerProfilePage() {
                             {property.bookings} bookings
                           </span>
                           <span className="font-medium text-emerald-600">
-                            ${property.revenue.toLocaleString()}
+                            ${(property.revenue ?? 0).toLocaleString()}
                           </span>
                         </div>
                       </div>

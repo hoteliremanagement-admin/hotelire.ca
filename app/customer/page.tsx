@@ -11,6 +11,7 @@ import { destinations, popularHotels} from "@/lib/data";
 // import { destinations, popularHotels, uniqueProperties } from "@/lib/data";
 import { Mbanner } from "@/components/Mbanner";
 import PendingReviewCards from "@/app/customer/review/components/PendingReviewCards";
+import { Suspense } from "react";
 
 
 export default function CustomerHomePage() {
@@ -45,8 +46,9 @@ export default function CustomerHomePage() {
               Find Your Dream Luxury Hotel
             </h2>
           </div>
-
+<Suspense fallback={<div>Loading...</div>}>
           <SearchBar />
+</Suspense>
         </div>
         </div>
         </div>

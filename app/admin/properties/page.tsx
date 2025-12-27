@@ -115,7 +115,7 @@ export default function PropertiesPage() {
                   </span>
 
                   <span className="font-semibold text-emerald-600">
-                    ${property.revenue.toLocaleString()}
+                    ${(property.revenue ?? 0).toLocaleString()}
                   </span>
                 </div>
               </div>
