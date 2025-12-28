@@ -821,7 +821,7 @@ export default function OwnerBarrierForm() {
             >
               I agree to the{" "}
               <a
-                href="#"
+                href="/owner/terms"
                 className="hover:underline font-medium"
                 style={{ color: BRAND }}
               >
