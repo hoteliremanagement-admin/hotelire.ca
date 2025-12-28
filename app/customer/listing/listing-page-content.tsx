@@ -519,8 +519,15 @@ export function ListingPageContent() {
   ]);
 
   useEffect(() => {
-    updateURL();
-  }, [updateURL]);
+  updateURL();
+}, [
+  selectedCity,
+  selectedTypes,
+  selectedAmenities,
+  selectedStars,
+  priceRange,
+]); //  searchQuery intentionally excluded
+
 
   /* -------------------- FETCH DATA -------------------- */
 
@@ -612,10 +619,11 @@ export function ListingPageContent() {
 
     // 🔍 Search
     if (searchQuery) {
-      result = result.filter((p) =>
-        p.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
+  const q = searchQuery.toLowerCase().trim();
+  result = result.filter(
+    (p) => typeof p.name === "string" && p.name.toLowerCase().includes(q)
+  );
+}
 
     // 🏨 Property Type
     if (selectedTypes.length) {
