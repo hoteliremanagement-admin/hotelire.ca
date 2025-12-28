@@ -58,7 +58,7 @@ export function Navigation() {
           BLOG
         </Link>
         <Link
-          href="./customer/contact"
+          href="/customer/contact"
           prefetch={false}
               className={`cursor-pointer transition-colors duration-200 ${
             isActive("/contact")

@@ -1,8 +1,10 @@
 export interface Destination {
   id: string;
+  slug: string;
   name: string;
   properties: string;
   image: string;
+
 }
 
 export interface Hotel {
@@ -16,7 +18,7 @@ export interface Hotel {
   stars: string;
 }
 
-export interface Property {
+export interface GuestHouse {
   id: string;
   name: string;
   location: string;

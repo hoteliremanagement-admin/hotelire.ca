@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/Header";
@@ -12,10 +13,63 @@ import { destinations, popularHotels} from "@/lib/data";
 import { Mbanner } from "@/components/Mbanner";
 import PendingReviewCards from "@/app/customer/review/components/PendingReviewCards";
 import { Suspense } from "react";
+import { GuestHouseCard } from "@/components/GuestHouseCard";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+interface GuestHouse {
+  id: string;
+  name: string;
+  location: string;
+  type: string;
+  rating: string;
+  reviews: string;
+  image: string;
+  stars: string;
+}
+
 
 
 export default function CustomerHomePage() {
   // const user = useAuth(); // or useSession(), etc
+
+  const [guestHouses, setGuestHouses] = useState<GuestHouse[]>([]);
+useEffect(() => {
+  const loadGuestHouses = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/ownerProperty/getProperties`,
+        { withCredentials: true }
+      );
+
+      const properties = res.data.properties;
+
+      const guestHouseList: GuestHouse[] = properties
+        .filter(
+          (p: any) =>
+            p.propertyclassification?.propertyclassificationname ===
+            "Guest House"
+        )
+        .slice(0, 4)
+        .map((p: any) => ({
+          id: p.propertyid,
+          name: p.propertytitle,
+          location: `${p.canadian_city_id}, Canada`,
+          type: "Guest House",
+          rating: "4.5", // ⭐ temp (reviews logic baad me)
+          reviews: "Verified guests",
+          image: p.photo1_featured,
+          stars: "/figmaAssets/group-316-5.png", // existing asset
+        }));
+
+      setGuestHouses(guestHouseList);
+    } catch (error) {
+      console.error("Failed to load Guest Houses", error);
+    }
+  };
+
+  loadGuestHouses();
+}, []);
 
   return (
     <div className="bg-white w-full flex flex-col">
@@ -159,16 +213,17 @@ export default function CustomerHomePage() {
                 <div className="site-container">
 
         <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#59A5B2] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
-          Stay at our top unique properties
+          Your perfect Guest House stay awaits
         </h2>
         <p className="[font-family:'Poppins',Helvetica] font-normal text-black text-base md:text-lg lg:text-xl mb-8 md:mb-12 lg:mb-[54px]">
-          From castles and villas to boats and igloos we&apos;ve got it all
+         Trusted guest houses loved by travelers across Canada
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-[7px]">
-          {popularHotels.map((hotel) => (
-            <HotelCard key={hotel.id} hotel={hotel} />
-          ))}
+          {guestHouses.map((guestHouse) => (
+  <GuestHouseCard key={guestHouse.id} property={guestHouse} />
+))}
+
         </div>
 
         {/* <Button

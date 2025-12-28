@@ -1,107 +1,106 @@
 "use client";
+
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import axios from "axios";
+
 import { Header } from "@/components/Header";
 import { Navigation } from "@/components/Navigation";
-import { SearchBar } from "@/components/SearchBar";
 import { Footer } from "@/components/Footer";
-import { Heart } from "lucide-react";
+import { Heart, MapPin, Star } from "lucide-react";
+import { EXPLORE_CITIES } from "@/config/exploreCities";
+import { usePathname } from "next/navigation"
+
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+const provinceRes = await axios.get(
+  `${baseUrl}/auth/getCanadianProvinces`
+);
+
+const provinces = provinceRes.data.provinces;
+
+const cityIdMap = new Map<string, number>();
 
 
-// Destination data structure
-interface DestinationSection {
-  id: string;
-  city: string;
-  province: string;
-  description: string;
-  hotels: Array<{
-    id: string;
-    name: string;
-    location: string;
-    type: string;
-    rating: string;
-    reviews: string;
-    image: string;
-  }>;
+
+for (const city of EXPLORE_CITIES) {
+  const province = provinces.find(
+    (p: any) =>
+      p.canadian_province_name.toLowerCase() ===
+      city.province.toLowerCase()
+  );
+
+  if (!province) continue;
+
+  const cityRes = await axios.get(
+    `${baseUrl}/auth/getCanadianCities/${province.canadian_province_id}`
+  );
+
+  const matchedCity = cityRes.data.cities.find(
+    (c: any) =>
+      c.canadian_city_name.toLowerCase() ===
+      city.city.toLowerCase()
+  );
+
+  if (matchedCity) {
+    cityIdMap.set(city.slug, matchedCity.canadian_city_id);
+  }
 }
 
-
+/* ---------------- SimpleHotelCard (SAME AS BEFORE) ---------------- */
 function SimpleHotelCard({ hotel }: { hotel: any }) {
   return (
-    <div className="group">
+    <div className="group h-full">
       <a
         href={`/customer/hotel/${hotel.id}`}
-        className="block overflow-hidden border border-gray-100 rounded-lg hover:shadow-[0px_8px_24px_rgba(89,165,178,0.15)] transition-all duration-300"
-        data-testid={`link-hotel-${hotel.id}`}
+        className="block h-full overflow-hidden bg-white border border-gray-200 rounded-xl hover:shadow-xl transition-all duration-300"
       >
-        <div className="p-0 flex flex-col h-full">
-          <div className="relative w-full h-[250px] md:h-[280px] lg:h-[308px] rounded-[5px] overflow-hidden">
+        <div className="flex flex-col h-full">
+          <div className="relative w-full aspect-[4/3] overflow-hidden">
             <img
               src={hotel.image}
               alt={hotel.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
-            <button
-              className="absolute top-3 left-3 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center transition-all duration-200 hover:bg-white hover:scale-110 z-10"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-              }}
-              aria-label="Add to wishlist"
-              data-testid={`button-wishlist-${hotel.id}`}
-            >
-              <Heart className="w-4 h-4 text-[#59A5B2] transition-colors duration-200 hover:fill-[#59A5B2]" />
-            </button>
+            <div className="absolute top-3 left-3">
+              <span className="bg-white/90 px-2 py-1 rounded text-[10px] font-bold text-[#59A5B2] uppercase">
+                {hotel.type}
+              </span>
+            </div>
           </div>
-          <div className="mt-4 flex-1 flex flex-col px-3 pb-3">
-            <p
-              className="font-medium text-[#5f5f5f] text-sm md:text-base mb-2"
-              style={{ fontFamily: 'Inter, sans-serif' }}
-            >
-              {hotel.type}
-            </p>
-            <h3
-              className="font-bold text-[#59A5B2] text-sm md:text-base mb-1 min-h-[40px] md:min-h-[48px] transition-colors duration-200 group-hover:text-[#4a8a95]"
-              style={{ fontFamily: 'Inter, sans-serif' }}
-            >
-              {hotel.name}
-            </h3>
-            <p
-              className="font-medium text-black text-sm md:text-base mb-4"
-              style={{ fontFamily: 'Inter, sans-serif' }}
-            >
-              {hotel.location}
-            </p>
 
-            <div className="flex items-start gap-4 mt-auto">
-              <div className="w-[55px] h-14 bg-[#59A5B2] rounded-[5px] flex items-center justify-center flex-shrink-0 transition-colors duration-200 group-hover:bg-[#4a8a95]">
-                <span
-                  className="font-bold text-white text-base"
-                  style={{ fontFamily: 'Inter, sans-serif' }}
-                >
+          <div className="p-4 flex-1 flex flex-col">
+            <div className="flex justify-between items-start mb-2">
+              <h3 className="font-bold text-[#333] text-base">
+                {hotel.name}
+              </h3>
+              <div className="flex items-center gap-1 bg-[#f0f9fa] px-2 py-1 rounded">
+                <Star className="w-3 h-3 fill-[#FEBC11]" />
+                <span className="text-xs font-bold text-[#59A5B2]">
                   {hotel.rating}
                 </span>
               </div>
-              <div className="flex flex-col gap-1">
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <svg
-                      key={i}
-                      width="16"
-                      height="15"
-                      viewBox="0 0 16 15"
-                      fill={i < Math.floor(parseFloat(hotel.rating)) ? "#FEBC11" : "#D9D9D9"}
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M8 0L9.79611 5.52786H15.6085L10.9062 8.94427L12.7023 14.4721L8 11.0557L3.29772 14.4721L5.09383 8.94427L0.391548 5.52786H6.20389L8 0Z" />
-                    </svg>
-                  ))}
-                </div>
-                <p
-                  className="text-black text-xs"
-                  style={{ fontFamily: 'Inter, sans-serif' }}
-                >
-                  {hotel.reviews}
-                </p>
+            </div>
+
+            <p className="text-sm text-gray-500 flex items-center gap-1 mb-4">
+              <MapPin className="w-3 h-3" />
+              {hotel.location}
+            </p>
+
+            <div className="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">
+              <span className="text-xs text-gray-400 italic">
+                {hotel.reviews}
+              </span>
+              <div className="flex gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className={`w-3 h-3 ${
+                      i < Math.floor(hotel.rating)
+                        ? "fill-[#FEBC11] text-[#FEBC11]"
+                        : "text-gray-200"
+                    }`}
+                  />
+                ))}
               </div>
             </div>
           </div>
@@ -111,386 +110,156 @@ function SimpleHotelCard({ hotel }: { hotel: any }) {
   );
 }
 
+/* ---------------- Explore Canada Page ---------------- */
 export default function ExploreCanadaPage() {
-  // Destination sections data
-  const destinations: DestinationSection[] = [
-    {
-      id: "toronto",
-      city: "Toronto",
-      province: "Ontario",
-      description: "Canada's largest city, bursting with culture, cuisine, and iconic landmarks like the CN Tower and Royal Ontario Museum.",
-      hotels: [
-        {
-          id: "toronto-1",
-          name: "The Montcalm At Brewery London City",
-          location: "Westminster Borough, London",
-          type: "Luxury Hotel",
-          rating: "4.7",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-149-4.png",
-        },
-        {
-          id: "toronto-2",
-          name: "Hillcrest Motel",
-          location: "Westminster Borough, London",
-          type: "Lakeside Chalet",
-          rating: "3.7",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-315.png",
-        },
-        {
-          id: "toronto-3",
-          name: "Sterling Rentals",
-          location: "Westminster Borough, London",
-          type: "Penthouse",
-          rating: "4.0",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-316.png",
-        },
-        {
-          id: "toronto-4",
-          name: "Liberty Suites",
-          location: "Westminster Borough, London",
-          type: "Resort",
-          rating: "3.1",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-149-6.png",
-        },
-      ],
-    },
-    {
-      id: "vancouver",
-      city: "Vancouver",
-      province: "British Columbia",
-      description: "A stunning coastal gem surrounded by mountains and ocean, perfect for both city lovers and nature seekers.",
-      hotels: [
-        {
-          id: "vancouver-1",
-          name: "The Montcalm At Brewery London City",
-          location: "Westminster Borough, London",
-          type: "Luxury Hotel",
-          rating: "4.7",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-149-4.png",
-        },
-        {
-          id: "vancouver-2",
-          name: "Hillcrest Motel",
-          location: "Westminster Borough, London",
-          type: "Lakeside Chalet",
-          rating: "3.7",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-315.png",
-        },
-        {
-          id: "vancouver-3",
-          name: "Sterling Rentals",
-          location: "Westminster Borough, London",
-          type: "Penthouse",
-          rating: "4.0",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-316.png",
-        },
-        {
-          id: "vancouver-4",
-          name: "Liberty Suites",
-          location: "Westminster Borough, London",
-          type: "Resort",
-          rating: "3.1",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-149-6.png",
-        },
-      ],
-    },
-    {
-      id: "montreal",
-      city: "Montreal",
-      province: "Quebec",
-      description: "A European-inspired city full of charm, festivals, and world-class dining experiences.",
-      hotels: [
-        {
-          id: "montreal-1",
-          name: "The Montcalm At Brewery London City",
-          location: "Westminster Borough, London",
-          type: "Luxury Hotel",
-          rating: "4.7",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-149-4.png",
-        },
-        {
-          id: "montreal-2",
-          name: "Hillcrest Motel",
-          location: "Westminster Borough, London",
-          type: "Lakeside Chalet",
-          rating: "3.7",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-315.png",
-        },
-        {
-          id: "montreal-3",
-          name: "Sterling Rentals",
-          location: "Westminster Borough, London",
-          type: "Penthouse",
-          rating: "4.0",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-316.png",
-        },
-        {
-          id: "montreal-4",
-          name: "Liberty Suites",
-          location: "Westminster Borough, London",
-          type: "Resort",
-          rating: "3.1",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-149-6.png",
-        },
-      ],
-    },
-    {
-      id: "banff",
-      city: "Banff",
-      province: "Alberta",
-      description: "Nestled in the Rockies, famous for turquoise lakes, mountain views, and luxury resorts.",
-      hotels: [
-        {
-          id: "banff-1",
-          name: "The Montcalm At Brewery London City",
-          location: "Westminster Borough, London",
-          type: "Luxury Hotel",
-          rating: "4.7",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-149-4.png",
-        },
-        {
-          id: "banff-2",
-          name: "Hillcrest Motel",
-          location: "Westminster Borough, London",
-          type: "Lakeside Chalet",
-          rating: "3.7",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-315.png",
-        },
-        {
-          id: "banff-3",
-          name: "Sterling Rentals",
-          location: "Westminster Borough, London",
-          type: "Penthouse",
-          rating: "4.0",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-316.png",
-        },
-        {
-          id: "banff-4",
-          name: "Liberty Suites",
-          location: "Westminster Borough, London",
-          type: "Resort",
-          rating: "3.1",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-149-6.png",
-        },
-      ],
-    },
-    {
-      id: "niagara",
-      city: "Niagara Falls",
-      province: "Ontario",
-      description: "The world-famous waterfall destination, known for romance, adventure, and unforgettable sights.",
-      hotels: [
-        {
-          id: "niagara-1",
-          name: "The Montcalm At Brewery London City",
-          location: "Westminster Borough, London",
-          type: "Luxury Hotel",
-          rating: "4.7",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-149-4.png",
-        },
-        {
-          id: "niagara-2",
-          name: "Hillcrest Motel",
-          location: "Westminster Borough, London",
-          type: "Lakeside Chalet",
-          rating: "3.7",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-315.png",
-        },
-        {
-          id: "niagara-3",
-          name: "Sterling Rentals",
-          location: "Westminster Borough, London",
-          type: "Penthouse",
-          rating: "4.0",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-316.png",
-        },
-        {
-          id: "niagara-4",
-          name: "Liberty Suites",
-          location: "Westminster Borough, London",
-          type: "Resort",
-          rating: "3.1",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-149-6.png",
-        },
-      ],
-    },
-    {
-      id: "quebec-city",
-      city: "Quebec City",
-      province: "Quebec",
-      description: "A UNESCO-listed historic city that blends old-world beauty with modern comfort and hospitality.",
-      hotels: [
-        {
-          id: "quebec-1",
-          name: "The Montcalm At Brewery London City",
-          location: "Westminster Borough, London",
-          type: "Luxury Hotel",
-          rating: "4.7",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-149-4.png",
-        },
-        {
-          id: "quebec-2",
-          name: "Hillcrest Motel",
-          location: "Westminster Borough, London",
-          type: "Lakeside Chalet",
-          rating: "3.7",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-315.png",
-        },
-        {
-          id: "quebec-3",
-          name: "Sterling Rentals",
-          location: "Westminster Borough, London",
-          type: "Penthouse",
-          rating: "4.0",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-316.png",
-        },
-        {
-          id: "quebec-4",
-          name: "Liberty Suites",
-          location: "Westminster Borough, London",
-          type: "Resort",
-          rating: "3.1",
-          reviews: "3014 reviews",
-          image: "/figmaAssets/rectangle-149-6.png",
-        },
-      ],
-    },
-  ];
+  const [destinations, setDestinations] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+const pathname = usePathname();
+  useEffect(() => {
+    const loadData = async () => {
+      const res = await axios.get(
+        `${baseUrl}/ownerProperty/getProperties`,
+        { withCredentials: true }
+      );
 
+      const properties = res.data.properties;
+
+      const result = EXPLORE_CITIES.map((city) => {
+        const cityId = cityIdMap.get(city.slug);
+
+const hotels = properties
+  .filter((p: any) => p.canadian_city_id === cityId)
+  .slice(0, 4)
+  .map((p: any) => ({
+    id: p.propertyid,
+    name: p.propertytitle,
+    image: p.photo1_featured,
+    type: p.propertyclassification?.propertyclassificationname,
+    rating: 4,
+    reviews: "Verified guests",
+    location: `${city.city}, ${city.province}`,
+  }));
+
+
+        return {
+          ...city,
+          description: `Top rated stays in ${city.city}, ${city.province}`,
+          hotels,
+        };
+      });
+
+      setDestinations(result);
+      setLoading(false);
+    };
+
+    loadData();
+  }, []);
+
+  
+
+useEffect(() => {
+  if (loading) return;
+
+  const hash = window.location.hash;
+  if (!hash) return;
+
+  const id = hash.replace("#", "");
+  const el = document.getElementById(id);
+
+  if (el) {
+    setTimeout(() => {
+      el.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+
+      // ✨ highlight
+      el.classList.add("section-highlight");
+
+      // remove highlight after 2 seconds
+      setTimeout(() => {
+        el.classList.remove("section-highlight");
+      }, 2000);
+    }, 100);
+  }
+}, [pathname, loading]);
+
+
+if (loading) return null;
   return (
-    <div className="bg-white w-full flex flex-col min-h-screen">
+    <div className="bg-[#fafafa] min-h-screen">
       <Header />
       <Navigation />
-   {/* Hero Section */}
-      <section className="relative w-full h-[180px] md:h-[200px] lg:h-[236px]">
+      {/* Hero Section */}
+      <section className="relative w-full h-[300px] md:h-[400px] flex items-center justify-center">
         <Image
           src="/figmaAssets/rectangle-290.png"
-          alt="Hero background"
+          alt="Explore Canada Hero"
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-[#080808] opacity-50" />
-        <div className="relative z-10 flex flex-col items-start justify-center h-full px-4">
-          <div className="text-center mb-2 md:mb-8 lg:mb-[4px]">
-            <h2 className="[text-shadow:4.45px_4.45px_4.45px_#00000040] [font-family:'Poppins',Helvetica] font-bold text-[#febc11] text-[28px] md:text-[40px] lg:text-[53.3px]">
-              Explore Canada
-            </h2>
-          </div>
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="relative z-10 text-center px-4">
+          <h1 className="text-[#febc11] text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
+            Explore Canada
+          </h1>
+          <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto drop-shadow-md">
+            Discover the most beautiful destinations and luxury stays across the Great White North.
+          </p>
         </div>
       </section>
 
       {/* Main Content */}
-      <main className="flex-1">
-        {/* Page Header */}
-        <section className="w-full py-12 md:py-16 lg:py-20 px-4 md:px-8 lg:px-[203px] bg-white">
-          <p
-            className=" text-[#59A5B2] font-bold text-base md:text-lg lg:text-xl max-w-4x2"
-            style={{ fontFamily: 'Inter, sans-serif' }}
-            data-testid="text-page-subtitle"
-          >
+      <main className="site-container py-16">
+        {/* Intro Section */}
+        <div className="text-center mb-20 max-w-3xl mx-auto">
+          <h2 className="text-[#59A5B2] font-bold text-3xl md:text-4xl mb-6">
+            Your Canadian Journey Starts Here
+          </h2>
+          <div className="h-1 w-20 bg-[#59A5B2] mx-auto mb-8 rounded-full" />
+          <p className="text-gray-600 text-lg leading-relaxed">
             From vibrant city lights to serene mountain escapes; discover where Canadians and travelers from around the world love to stay. Find your perfect getaway in these top destinations.
           </p>
-        </section>
-
-        {/* Destination Sections */}
-        {destinations.map((destination, index) => (
+        </div>
+        </main>
+      {/* Main Content */}
+      <main className="site-container py-16 space-y-24">
+        {destinations.map((destination) => (
           <section
-            key={destination.id}
-            className={`w-full py-12 md:py-16 lg:py-20 px-4 md:px-8 lg:px-[203px] ${
-              index % 2 === 0 ? 'bg-white' : 'bg-[#f7f9fb]'
-            }`}
-            data-testid={`section-destination-${destination.id}`}
+            key={destination.slug}
+            id={destination.slug}
+            className="scroll-mt-20 p-6"
           >
-            {/* City Header */}
-            <div className="mb-8 md:mb-10 lg:mb-12">
-              <h2
-                className="font-bold text-[#59A5B2] text-[22px] md:text-[26px] lg:text-[28px] mb-3"
-                style={{ fontFamily: 'Poppins, sans-serif' }}
-                data-testid={`text-city-${destination.id}`}
+            <div className="flex justify-between items-end mb-10 pb-6 border-b">
+              <div>
+                <h3 className="text-2xl font-bold">
+                  {destination.city},{" "}
+                  <span className="text-[#59A5B2]">
+                    {destination.province}
+                  </span>
+                </h3>
+                <p className="text-gray-500 mt-1">
+                  {destination.description}
+                </p>
+              </div>
+
+              {/* 👇 VIEW ALL PROPERTIES (RESTORED) */}
+              <a
+                href={`/customer/listing?city=${destination.slug}`}
+                className="text-[#59A5B2] font-semibold text-sm hover:underline"
               >
-                {destination.city}, {destination.province}
-              </h2>
-              <p
-                className="font-normal text-[#2e2e2e] text-base md:text-lg max-w-4xl"
-                style={{ fontFamily: 'Inter, sans-serif' }}
-                data-testid={`text-description-${destination.id}`}
-              >
-                {destination.description}
-              </p>
+                View all properties →
+              </a>
             </div>
 
-            {/* Hotel Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
-              {destination.hotels.map((hotel) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {destination.hotels.map((hotel: any) => (
                 <SimpleHotelCard key={hotel.id} hotel={hotel} />
               ))}
             </div>
-
-            {/* Separator Line (except for last section) */}
-            {index < destinations.length - 1 && (
-              <div className="mt-12 md:mt-16 lg:mt-20 border-b border-gray-200" />
-            )}
           </section>
         ))}
-
-        {/* Business CTA Section */}
-        <section className="w-full bg-[#e3fdff] py-12 md:py-16 lg:py-20 relative overflow-hidden">
-          <div className="absolute top-[-45px] left-[210px] w-[244px] h-[498px] -rotate-90 bg-[linear-gradient(180deg,rgba(255,255,255,0)_56%,rgba(89,165,178,0.3)_89%)] hidden lg:block" />
-
-          <img
-            src="/figmaAssets/hotel-owner-1.png"
-            alt="Hotel owner"
-            className="absolute top-0 left-0 w-full md:w-[581px] h-[200px] md:h-[326px] object-cover opacity-50 md:opacity-100"
-          />
-
-          <div className="relative z-10 px-4 md:px-8 lg:ml-[622px] lg:mr-[203px] pt-[180px] md:pt-0">
-            <h2
-              className="font-bold text-[#59A5B2] text-[22px] md:text-[26px] mb-6 md:mb-[37px]"
-              style={{ fontFamily: 'Inter, sans-serif' }}
-              data-testid="text-cta-title"
-            >
-              Grow Your Business with Hotelire
-            </h2>
-            <p
-              className="font-medium text-black text-base md:text-lg mb-6 md:mb-[32px] max-w-[601px]"
-              style={{ fontFamily: 'Poppins, sans-serif' }}
-              data-testid="text-cta-description"
-            >
-              Join Hotelire and showcase your property to travelers looking for their next memorable stay.
-            </p>
-            <button
-              className="w-full md:w-[500px] lg:w-[612px] h-[55px] md:h-[68px] bg-[#59A5B2] rounded-[10px] font-bold text-white text-lg md:text-xl transition-all duration-200 hover:bg-[#4a8a95] hover:scale-[1.02] hover:shadow-[0_4px_10px_rgba(0,0,0,0.15)]"
-              style={{ fontFamily: 'Inter, sans-serif' }}
-              data-testid="button-signup-owner"
-            >
-              SIGN UP AS PROPERTY OWNER
-            </button>
-          </div>
-        </section>
       </main>
 
       <Footer />

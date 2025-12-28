@@ -333,7 +333,8 @@
   }
 
   .site-container {
-    @apply max-w-[1870px] mx-auto px-4 md:px-8 lg:px-12;
+    @apply max-w-[1560px] mx-auto px-4 md:px-8 lg:px-12;
+
   }
 
   .no-shadow {
@@ -414,4 +415,12 @@
   60% {
     background-position: 200% 0;
   }
+}
+
+/* Smooth highlight on scroll target */
+.section-highlight {
+  background-color: rgba(89, 165, 178, 0.08); /* theme color soft */
+  border: 1px solid rgba(89, 165, 178, 0.486);
+  border-radius: 12px;
+  transition: background-color 0.4s ease, border 0.4s ease;
 }

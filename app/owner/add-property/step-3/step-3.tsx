@@ -1311,13 +1311,13 @@ export default function Step3Page() {
                   Rules & Policies
                 </label>
                 <span className="text-xs text-gray-500" style={{ fontFamily: "Inter, sans-serif" }}>
-                  {amenities.rules.length}/500
+                  {amenities.rules.length}/1000
                 </span>
               </div>
               <textarea
                 value={amenities.rules}
                 onChange={(e) => setLocalAmenities({ ...amenities, rules: e.target.value })}
-                maxLength={500}
+                maxLength={1000}
                 rows={6}
                 placeholder="Enter your property rules and policies..."
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#59A5B2] resize-none"
