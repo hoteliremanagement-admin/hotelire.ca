@@ -254,6 +254,34 @@ export default function HotelDetailPage({ id }: { id: string }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
+// 🔹 PREFILL DATES & GUESTS FROM LOCALSTORAGE
+useEffect(() => {
+  try {
+    const stored = localStorage.getItem("hotelire_search_context");
+    if (!stored) return;
+
+    const data = JSON.parse(stored);
+
+    if (data.checkIn) {
+      setCheckInDate(new Date(data.checkIn));
+    }
+
+    if (data.checkOut) {
+      setCheckOutDate(new Date(data.checkOut));
+    }
+
+    if (typeof data.adults === "number") {
+      setAdults(data.adults);
+    }
+
+    if (typeof data.children === "number") {
+      setChildren(data.children);
+    }
+  } catch (err) {
+    console.error("Failed to prefill dates/guests", err);
+  }
+}, []);
+
 
 
   const filteredCities = location

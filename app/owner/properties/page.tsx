@@ -203,6 +203,7 @@ export default function PropertiesPage() {
               Manage your property listings
             </p>
           </div>
+          <Link href="/owner/add-property">
           <button onClick={() => console.log(propertyList)}
             className="flex items-center gap-2 bg-[#59A5B2] hover:bg-[#4a9199] text-white px-4 py-2.5 rounded-xl font-medium transition-colors shadow-sm"
             data-testid="button-add-property"
@@ -210,6 +211,7 @@ export default function PropertiesPage() {
             <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
             Add Property
           </button>
+          </Link>
         </div>
 
         {/* Search & Filter */}

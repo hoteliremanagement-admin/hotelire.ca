@@ -7,7 +7,7 @@ import Link from "next/link"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Search, Filter, Plus, ChevronRight, Trash2 } from "lucide-react"
+import { Search, Filter, Plus, ChevronRight, Trash2, Download } from "lucide-react"
 import { StatusBadge } from "../components/StatusBadge"
 import {
   AlertDialog,
@@ -18,6 +18,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import { toast } from "@/hooks/use-toast"
 
 interface Owner {
   id: number
@@ -40,6 +41,8 @@ function OwnersContent() {
   const [sortBy, setSortBy] = useState<"properties" | "name">("properties")
   const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null)
   const [deleting, setDeleting] = useState(false)
+  const [isExporting, setIsExporting] = useState(false);
+
 
   useEffect(() => {
     const fetchOwners = async () => {
@@ -91,18 +94,69 @@ function OwnersContent() {
     }
   }
 
+const handleExportCSV = () => {
+    setIsExporting(true);
+    try {
+      const headers = ["ID", "Name", "Email", "Location", "Properties", "Status"];
+      const rows = filteredOwners.map(o => [
+        o.id,
+        `"${o.fullName}"`,
+        o.email,
+        `"${o.city}, ${o.province}"`,
+        o.totalProperties,
+        o.status
+      ]);
+      
+      const csvContent = [headers, ...rows].map(e => e.join(",")).join("\n");
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", `owners_export_${new Date().toISOString().split('T')[0]}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast({
+        title: "Success",
+        description: "Owners list exported successfully",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to export owners list",
+        variant: "destructive",
+      });
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   return (
     <>
       {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <h1 className="text-3xl font-display font-bold text-foreground">Property Owners</h1>
-
+          
+          <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
+          <Button className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 gap-2"
+            variant="outline" 
+           
+            
+            onClick={handleExportCSV}
+            disabled={isExporting}
+          >
+            <Download className="mr-2 h-4 w-4" />
+            {isExporting ? "Exporting..." : "Export CSV"}
+          </Button>
+          
         <Link href="/admin/owners/add">
           <Button className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20">
             <Plus className="mr-2 h-4 w-4" />
             Add Owner
           </Button>
         </Link>
+        </div>
       </div>
 
       <div className="bg-card rounded-xl border shadow-sm overflow-hidden">

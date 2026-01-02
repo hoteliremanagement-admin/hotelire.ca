@@ -645,13 +645,19 @@ export function ListingPageContent() {
     }
 
     // 🏙️ CITY FILTER (✅ NEW — STEP 2)
-    if (selectedCity) {
-      const cityId = citySlugToIdMap.get(selectedCity);
+// 🏙️ CITY FILTER (ID PRIMARY + NAME FALLBACK)
+// 🏙️ CITY FILTER (ID BASED — FIXED)
+if (selectedCity) {
+  const cityId = Number(selectedCity);
 
-      if (cityId) {
-        result = result.filter((p) => p.canadian_city_id === cityId);
-      }
-    }
+  if (!isNaN(cityId)) {
+    result = result.filter(
+      (p) => Number(p.canadian_city_id) === cityId
+    );
+  }
+}
+
+
 
     // 💰 Price Range
     result = result.filter(

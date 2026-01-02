@@ -464,7 +464,7 @@ import {
 import { OwnerLayout } from "@/components/owner/OwnerLayout";
 import OwnerStripeStatus from "../components/OwnerStripeStatus";
 
-type TabType = "profile" | "notifications" | "payout";
+type TabType = "profile" | "payout";
 
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -512,7 +512,7 @@ export default function SettingsPage() {
 
   const tabs = [
     { id: "profile" as TabType, label: "Profile", icon: faUser },
-    { id: "notifications" as TabType, label: "Notifications", icon: faBell },
+   
     { id: "payout" as TabType, label: "Payout", icon: faCreditCard },
   ];
 
@@ -774,121 +774,7 @@ export default function SettingsPage() {
               </div>
             )}
 
-            {/* Notifications Tab */}
-            {activeTab === "notifications" && (
-              <div className="space-y-6">
-                {/* Email Notifications */}
-                <div>
-                  <h3 className="font-semibold text-gray-800 dark:text-white mb-4">
-                    Email Notifications
-                  </h3>
-                  <div className="space-y-4">
-                    {[
-                      { key: "emailBookings", label: "New bookings and cancellations" },
-                      { key: "emailPayments", label: "Payment confirmations and payouts" },
-                      { key: "emailReviews", label: "New guest reviews" },
-                      { key: "emailMarketing", label: "Marketing and promotional emails" },
-                    ].map((item) => (
-                      <div key={item.key} className="flex items-center justify-between">
-                        <span className="text-gray-600 dark:text-gray-300">{item.label}</span>
-                        <button
-                          onClick={() =>
-                            setNotifications({
-                              ...notifications,
-                              [item.key]: !notifications[item.key as keyof typeof notifications],
-                            })
-                          }
-                          className={`relative w-12 h-6 rounded-full transition-colors ${notifications[item.key as keyof typeof notifications]
-                            ? "bg-[#59A5B2]"
-                            : "bg-gray-300 dark:bg-gray-600"
-                            }`}
-                        >
-                          <span
-                            className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${notifications[item.key as keyof typeof notifications]
-                              ? "translate-x-7"
-                              : "translate-x-1"
-                              }`}
-                          />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Push Notifications */}
-                <div>
-                  <h3 className="font-semibold text-gray-800 dark:text-white mb-4">
-                    Push Notifications
-                  </h3>
-                  <div className="space-y-4">
-                    {[
-                      { key: "pushBookings", label: "Booking alerts" },
-                      { key: "pushPayments", label: "Payment alerts" },
-                      { key: "pushReviews", label: "Review alerts" },
-                    ].map((item) => (
-                      <div key={item.key} className="flex items-center justify-between">
-                        <span className="text-gray-600 dark:text-gray-300">{item.label}</span>
-                        <button
-                          onClick={() =>
-                            setNotifications({
-                              ...notifications,
-                              [item.key]: !notifications[item.key as keyof typeof notifications],
-                            })
-                          }
-                          className={`relative w-12 h-6 rounded-full transition-colors ${notifications[item.key as keyof typeof notifications]
-                            ? "bg-[#59A5B2]"
-                            : "bg-gray-300 dark:bg-gray-600"
-                            }`}
-                        >
-                          <span
-                            className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${notifications[item.key as keyof typeof notifications]
-                              ? "translate-x-7"
-                              : "translate-x-1"
-                              }`}
-                          />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* SMS Notifications */}
-                <div>
-                  <h3 className="font-semibold text-gray-800 dark:text-white mb-4">
-                    SMS Notifications
-                  </h3>
-                  <div className="space-y-4">
-                    {[
-                      { key: "smsBookings", label: "Urgent booking alerts" },
-                      { key: "smsPayments", label: "Large payment confirmations" },
-                    ].map((item) => (
-                      <div key={item.key} className="flex items-center justify-between">
-                        <span className="text-gray-600 dark:text-gray-300">{item.label}</span>
-                        <button
-                          onClick={() =>
-                            setNotifications({
-                              ...notifications,
-                              [item.key]: !notifications[item.key as keyof typeof notifications],
-                            })
-                          }
-                          className={`relative w-12 h-6 rounded-full transition-colors ${notifications[item.key as keyof typeof notifications]
-                            ? "bg-[#59A5B2]"
-                            : "bg-gray-300 dark:bg-gray-600"
-                            }`}
-                        >
-                          <span
-                            className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${notifications[item.key as keyof typeof notifications]
-                              ? "translate-x-7"
-                              : "translate-x-1"
-                              }`}
-                          />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
+        
 
             {/* Payout Tab - Stripe Setup */}
             {/* {activeTab === "payout" && (

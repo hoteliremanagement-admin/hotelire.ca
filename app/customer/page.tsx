@@ -162,9 +162,9 @@ export default function CustomerHomePage() {
         </div>
       </section>
       {/* {user && <PendingReviewCards />} */}
-      <section className="bg-[#F3FAFB] py-10">
+      {/* <section className="bg-[#F3FAFB] py-10">
         <PendingReviewCards />
-      </section>
+      </section> */}
       {/* idher review wala modal add krna hai ager user authenticated hua to, phir agr us ki booking confirmed ho to confirmed likh aye ga, agr stay complete hochuka ho tu leave a review ka option aye ga */}
       {/* Explore Canada */}
       <section className="w-full bg-[#e3fdff] py-12 md:py-16 lg:py-[81px] px-4 md:px-8 lg:px-[203px]">
