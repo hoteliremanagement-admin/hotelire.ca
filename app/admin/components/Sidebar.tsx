@@ -34,7 +34,7 @@ export function Sidebar() {
             className="flex items-center gap-2 font-display font-bold text-xl text-primary"
           >
             <Building2 className="h-6 w-6 text-secondary" />
-            <span>PropAdmin</span>
+            <span>AdminPanel</span>
           </Link>
         </div>
 

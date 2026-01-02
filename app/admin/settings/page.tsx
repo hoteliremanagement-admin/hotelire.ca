@@ -17,7 +17,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
-import { Lock, CreditCard, Bell, Globe } from "lucide-react";
+import { Lock, Globe } from "lucide-react";
 
 export default function SettingsPage() {
   return (
@@ -35,8 +35,8 @@ export default function SettingsPage() {
       <Tabs defaultValue="platform" className="w-full space-y-6">
         <TabsList className="w-full sm:w-auto grid grid-cols-2 sm:grid-cols-4 bg-muted/50 p-1 rounded-xl">
           <TabsTrigger value="platform">Platform</TabsTrigger>
-          <TabsTrigger value="payments">Payments</TabsTrigger>
-          <TabsTrigger value="notifications">Notifications</TabsTrigger>
+          {/* <TabsTrigger value="payments">Payments</TabsTrigger>
+          <TabsTrigger value="notifications">Notifications</TabsTrigger> */}
           <TabsTrigger value="security">Security</TabsTrigger>
         </TabsList>
 
@@ -70,7 +70,7 @@ export default function SettingsPage() {
         </TabsContent>
 
         {/* PAYMENTS */}
-        <TabsContent value="payments" className="space-y-6">
+        {/* <TabsContent value="payments" className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -120,10 +120,10 @@ export default function SettingsPage() {
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
+        </TabsContent> */}
 
         {/* NOTIFICATIONS */}
-        <TabsContent value="notifications" className="space-y-6">
+        {/* <TabsContent value="notifications" className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -151,7 +151,7 @@ export default function SettingsPage() {
               />
             </CardContent>
           </Card>
-        </TabsContent>
+        </TabsContent> */}
 
         {/* SECURITY */}
         <TabsContent value="security" className="space-y-6">

@@ -16,7 +16,8 @@ import {
   Waves,
   MoreVertical,
   Filter,
-  ArrowUpRight
+  ArrowUpRight,
+  Download
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -50,13 +51,11 @@ import {
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 
 // Assets
-import imgHotel from "@assets/generated_images/modern_luxury_hotel_facade_at_twilight.png";
-import imgCabin from "@assets/generated_images/cozy_modern_mountain_cabin_exterior.png";
-import imgLoft from "@assets/generated_images/spacious_urban_loft_apartment_interior.png";
-import imgResort from "@assets/generated_images/luxury_beachfront_resort_aerial_view.png";
+
 import { authCheck } from "@/services/authCheck";
 import axios from "axios";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 // Interface matching the "Real" backend response structure provided
 interface Property {
@@ -86,7 +85,7 @@ export default function Properties() {
   const [statusFilter, setStatusFilter] = useState<"All" | "Active" | "Inactive">("All");
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [propertyList, setPropertyList] = useState<Property[]>([]);
-
+  const [isExporting, setIsExporting] = useState(false);
   useEffect(() => {
 
     const fetchProperties = async () => {
@@ -128,13 +127,7 @@ export default function Properties() {
               };
             })
           );
-
-
-
-
-
-
-        
+                  
       } catch (error) {
         console.log("Error fetching properties:", error);
       }
@@ -183,6 +176,38 @@ export default function Properties() {
     }
   };
 
+
+  const handleExportCSV = () => {
+    setIsExporting(true);
+    try {
+      const headers = ["ID", "Title", "Owner", "City", "Status", "Revenue"];
+      const rows = filteredProperties.map(p => [
+        p.propertyid,
+        `"${p.propertytitle}"`,                 //title
+        `"${p.propertysubtitle}"`,              //owner
+        p.canadian_city_name,
+        p.availablestatus ? "Available" : "Not Available",
+        p.price
+      ]);
+      
+      const csvContent = [headers, ...rows].map(e => e.join(",")).join("\n");
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      const link = document.createElement("a");
+      const url = URL.createObjectURL(blob);
+      link.setAttribute("href", url);
+      link.setAttribute("download", `properties_export_${new Date().toISOString().split('T')[0]}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast.success("Properties exported successfully");
+    } catch (error) {
+      toast.error("Failed to export properties");
+    } finally {
+      setIsExporting(false);
+    }
+  };
+  
   return (
 
 
@@ -199,8 +224,10 @@ export default function Properties() {
           <p className="text-gray-500 dark:text-gray-400 mt-1">
             Manage your property listings
           </p>
+
+
         </div>
-       
+    
       </div>
 
       {/* Search & Filter */}
@@ -219,7 +246,16 @@ export default function Properties() {
             data-testid="input-search-properties"
           />
         </div>
-  
+     <Button 
+            variant="outline" 
+            size="lg" 
+            className="gap-2"
+            onClick={handleExportCSV}
+            disabled={isExporting}
+          >
+            <Download className="h-4 w-4" />
+            {isExporting ? "Exporting..." : "Export CSV"}
+          </Button>
       </div>
 
 

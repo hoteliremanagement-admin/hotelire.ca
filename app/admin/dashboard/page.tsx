@@ -1,9 +1,11 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Users, Building, CalendarCheck, TrendingUp, DollarSign } from "lucide-react"
+import { Users, Building, CalendarCheck, TrendingUp, DollarSign, Download } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts"
+import { Button } from "@/components/ui/button"
+import toast from "react-hot-toast"
 
 interface DashboardStats {
   totalOwners: number
@@ -16,7 +18,7 @@ interface DashboardStats {
     bookingRate: number
     satisfaction: string | number
   }
-}
+} 
 
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -24,6 +26,7 @@ const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 export default function DashboardPage() {
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [loading, setLoading] = useState(true)
+  const [isExporting, setIsExporting] = useState(false);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -80,11 +83,44 @@ export default function DashboardPage() {
     },
   ]
 
+   const handleExportStats = () => {
+    setIsExporting(true);
+    setTimeout(() => {
+      try {
+        const csvContent = "Stat,Value,Trend\n" + 
+          statCards.map(s => `${s.title},${s.value},${s.trend}`).join("\n");
+        const blob = new Blob([csvContent], { type: "text/csv" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `dashboard_stats_${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+        toast.success("Dashboard stats exported");
+      } catch (e) {
+        toast.error("Export failed");
+      } finally {
+        setIsExporting(false);
+      }
+    }, 1000);
+  };
+
   return (
     <>
       {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <h1 className="text-3xl font-display font-bold text-foreground">Dashboard</h1>
+
+         <Button 
+          variant="outline" 
+          size="sm" 
+          className="gap-2"
+          onClick={handleExportStats}
+          disabled={isExporting}
+        >
+          <Download className="h-4 w-4" />
+          {isExporting ? "Exporting..." : "Export Stats"}
+        </Button>
+        
       </div>
 
       {/* Stats Grid */}

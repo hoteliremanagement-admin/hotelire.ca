@@ -78,6 +78,15 @@ export default function BookingConfirmationPage() {
   const [data, setData] = useState<BookingConfirmationData | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  
+  const formatDate1 = (isoString: string) => {
+    const date = new Date(isoString);
+    return date.toLocaleDateString("en-CA", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
 
 
     useEffect(() => {
@@ -156,7 +165,7 @@ export default function BookingConfirmationPage() {
         <Header />
         <Navigation />
 
-        <div className="flex-1 flex items-center justify-center px-4">
+        <div className="flex-1 flex items-center justify-center px-4 pt-8 pb-16">
           <Card className="p-8 max-w-md">
             <div className="flex justify-center mb-4">
               <AlertCircle className="w-12 h-12 text-red-500" />
@@ -172,14 +181,6 @@ export default function BookingConfirmationPage() {
     )
   }
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString)
-    return date.toLocaleDateString("en-CA", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    })
-  }
 
   return (
     <div className="bg-gray-50 w-full flex flex-col min-h-screen">
@@ -251,7 +252,7 @@ export default function BookingConfirmationPage() {
                     CHECK-IN
                   </p>
                   <p className="text-lg font-semibold text-gray-900 mb-1" style={{ fontFamily: "Poppins, sans-serif" }}>
-                    {formatDate(data.dates.checkIn)}
+                    {formatDate1(data.dates.checkIn)}
                   </p>
                   <p className="text-sm text-gray-600" style={{ fontFamily: "Inter, sans-serif" }}>
                     From {data.property.checkInTime}
@@ -264,10 +265,10 @@ export default function BookingConfirmationPage() {
                     CHECK-OUT
                   </p>
                   <p className="text-lg font-semibold text-gray-900 mb-1" style={{ fontFamily: "Poppins, sans-serif" }}>
-                    {formatDate(data.dates.checkOut)}
+                    {formatDate1(data.dates.checkOut)}
                   </p>
                   <p className="text-sm text-gray-600" style={{ fontFamily: "Inter, sans-serif" }}>
-                    Until {data.property.checkOutTime}
+                    Until {formatDate1(data.property.checkOutTime)}
                   </p>
                 </div>
               </div>
@@ -420,7 +421,7 @@ export default function BookingConfirmationPage() {
                   <div className="flex items-center gap-2 text-gray-700 mb-2">
                     <Calendar className="w-4 h-4 text-[#59A5B2] flex-shrink-0" />
                     <span style={{ fontFamily: "Inter, sans-serif" }}>
-                      {formatDate(data.dates.checkIn)} - {formatDate(data.dates.checkOut)}
+                      {formatDate1(data.dates.checkIn)} - {formatDate1(data.dates.checkOut)}
                     </span>
                   </div>
                   <p className="text-sm text-gray-600" style={{ fontFamily: "Inter, sans-serif" }}>
