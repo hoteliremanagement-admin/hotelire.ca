@@ -31,7 +31,11 @@ const menuItems = [
   { icon: faStar, label: "Reviews", path: "/owner/reviews" },
 ];
 
-export function OwnerSidebar({ isOpen, onClose, isDarkMode }: OwnerSidebarProps) {
+export function OwnerSidebar({
+  isOpen,
+  onClose,
+  isDarkMode,
+}: OwnerSidebarProps) {
   const pathname = usePathname();
   const [showSettings, setShowSettings] = useState(false);
 
@@ -46,7 +50,10 @@ export function OwnerSidebar({ isOpen, onClose, isDarkMode }: OwnerSidebarProps)
     <>
       {/* Mobile Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={onClose} />
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={onClose}
+        />
       )}
 
       {/* Sidebar */}
@@ -62,11 +69,15 @@ export function OwnerSidebar({ isOpen, onClose, isDarkMode }: OwnerSidebarProps)
         {/* Mobile Header */}
         <div className="lg:hidden flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#59A5B2] rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">H</span>
-            </div>
+            <img
+              src="/Logo_H.png"
+              alt="Hotelire Logo"
+              className="w-8 h-8 object-contain"
+            />
             <span
-              className={`text-lg font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}
+              className={`text-lg font-bold ${
+                isDarkMode ? "text-white" : "text-gray-800"
+              }`}
               style={{ fontFamily: "Poppins, sans-serif" }}
             >
               Hotelire
@@ -75,7 +86,9 @@ export function OwnerSidebar({ isOpen, onClose, isDarkMode }: OwnerSidebarProps)
           <button
             onClick={onClose}
             className={`p-2 rounded-lg ${
-              isDarkMode ? "hover:bg-gray-800 text-gray-400" : "hover:bg-gray-100 text-gray-500"
+              isDarkMode
+                ? "hover:bg-gray-800 text-gray-400"
+                : "hover:bg-gray-100 text-gray-500"
             }`}
           >
             <FontAwesomeIcon icon={faTimes} className="w-5 h-5" />
@@ -89,12 +102,18 @@ export function OwnerSidebar({ isOpen, onClose, isDarkMode }: OwnerSidebarProps)
           </div>
           <div>
             <h1
-              className={`text-lg font-bold ${isDarkMode ? "text-white" : "text-gray-800"}`}
+              className={`text-lg font-bold ${
+                isDarkMode ? "text-white" : "text-gray-800"
+              }`}
               style={{ fontFamily: "Poppins, sans-serif" }}
             >
               Hotelire
             </h1>
-            <p className={`text-xs ${isDarkMode ? "text-gray-400" : "text-gray-500"}`}>
+            <p
+              className={`text-xs ${
+                isDarkMode ? "text-gray-400" : "text-gray-500"
+              }`}
+            >
               Owner Panel
             </p>
           </div>
@@ -113,7 +132,9 @@ export function OwnerSidebar({ isOpen, onClose, isDarkMode }: OwnerSidebarProps)
                     ? "text-gray-300 hover:bg-gray-800"
                     : "text-gray-600 hover:bg-gray-100"
                 }`}
-                data-testid={`nav-${item.label.toLowerCase().replace(" ", "-")}`}
+                data-testid={`nav-${item.label
+                  .toLowerCase()
+                  .replace(" ", "-")}`}
               >
                 <FontAwesomeIcon icon={item.icon} className="w-5 h-5" />
                 {item.label}
@@ -180,7 +201,9 @@ export function OwnerSidebar({ isOpen, onClose, isDarkMode }: OwnerSidebarProps)
 
             <FontAwesomeIcon
               icon={faChevronUp}
-              className={`w-4 h-4 transition-transform ${showSettings ? "rotate-180" : ""}`}
+              className={`w-4 h-4 transition-transform ${
+                showSettings ? "rotate-180" : ""
+              }`}
             />
           </button>
         </div>
