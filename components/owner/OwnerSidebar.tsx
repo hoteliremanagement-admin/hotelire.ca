@@ -97,9 +97,11 @@ export function OwnerSidebar({
 
         {/* Logo - Desktop */}
         <div className="hidden lg:flex items-center gap-3 p-6 border-b border-gray-200 dark:border-gray-700">
-          <div className="w-10 h-10 bg-[#59A5B2] rounded-xl flex items-center justify-center">
-            <span className="text-white font-bold text-lg">H</span>
-          </div>
+          <img
+            src="/Logo_H.png"
+            alt="Hotelire Logo"
+            className="w-10 h-10 object-contain"
+          />
           <div>
             <h1
               className={`text-lg font-bold ${

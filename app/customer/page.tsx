@@ -11,7 +11,7 @@ import { HotelCard } from "@/components/HotelCard";
 import { destinations, popularHotels } from "@/lib/data";
 // import { destinations, popularHotels, uniqueProperties } from "@/lib/data";
 import { Mbanner } from "@/components/Mbanner";
-import PendingReviewCards from "@/app/customer/review/components/PendingReviewCards";
+// import PendingReviewCards from "@/app/customer/review/components/PendingReviewCards";
 import { Suspense } from "react";
 import { GuestHouseCard } from "@/components/GuestHouseCard";
 import { useEffect, useState } from "react";
@@ -67,7 +67,8 @@ export default function CustomerHomePage() {
             name: p.propertytitle,
             location: `${p.canadian_city_id}, Canada`,
             type: "Guest House",
-            rating: "4.5", // ⭐ temp (reviews logic baad me)
+           rating: p.avgRating ? String(p.avgRating) : "0",
+
             reviews: "Verified guests",
             image: p.photo1_featured,
             stars: "/figmaAssets/group-316-5.png", // existing asset
@@ -92,6 +93,8 @@ export default function CustomerHomePage() {
 
         const properties = res.data.properties;
 
+        console.log("properties",process.env.NEXT_PUBLIC_BACKEND_URL)
+
         const hotels: Hotel[] = properties
           // 🏨 only Hotels
           .filter(
@@ -104,7 +107,7 @@ export default function CustomerHomePage() {
             name: p.propertytitle,
             location: "Canada",
             type: "Hotel",
-            rating: "4.8", // 🔥 temp top-rated  rating: p.rating
+            rating: p.avgRating ? String(p.avgRating) : "0",// 🔥 temp top-rated  rating: p.rating
             reviews: "Verified guests",
             image: p.photo1_featured,
             stars: "/figmaAssets/group-316-1.png",

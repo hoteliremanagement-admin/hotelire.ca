@@ -31,6 +31,7 @@ export interface PropertyDetails {
     photo4: string
     photo5: string
   }
+  avgRating: number
 }
 
 export interface Room {

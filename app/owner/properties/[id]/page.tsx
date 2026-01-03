@@ -45,7 +45,7 @@ interface PropertyDetail {
   photo4: string | null
   photo5: string | null
   houserules: string
-  rating: number
+  avgRating: number
   PropertyRoom: Array<{
     propertyroomid: number
     roomname: string
@@ -117,7 +117,7 @@ export default function PropertyDetailPage() {
           roomtypename: room.roomtype?.roomtypename ?? "",
           roomtypeid: room.roomtype?.roomtypeid,
         })) ?? [],
-      rating: raw.rating ?? 4.0,
+      avgRating: raw.avgRating ?? 0.0,
     }
     ;(raw.propertyamenities ?? []).forEach((a: any) => {
       if (a?.amenities?.amenitiesname) {
@@ -157,12 +157,14 @@ export default function PropertyDetailPage() {
           withCredentials: true,
         })
 
-        if (!res || !res.data || !res.data.property) {
+        console.log(res)
+
+        if (!res || !res.data || !res.data.properties) {
           router.push("/not-found")
           return
         }
 
-        const Details = res.data.property.map((p: any) => mapPropertyToDetail(p))
+        const Details = res.data.properties.map((p: any) => mapPropertyToDetail(p))
         setPropertyDetail(Details[0] ?? null)
       } catch (ex: any) {
         if (ex?.response?.status === 404) {
@@ -289,8 +291,8 @@ export default function PropertyDetailPage() {
                 </div>
                 <div className="flex items-center gap-1.5">
                   <FontAwesomeIcon icon={faStar} className="w-4 h-4 text-[#FEBC11]" />
-                  <span className="font-medium text-gray-800 dark:text-white">{propertyDetail.rating}</span>
-                  <span className="text-gray-500 dark:text-gray-400">({propertyDetail.rating * 25} reviews)</span>
+                  <span className="font-medium text-gray-800 dark:text-white">{propertyDetail.avgRating ?? 0}</span>
+                  <span className="text-gray-500 dark:text-gray-400">({propertyDetail.avgRating * 25} reviews)</span>
                 </div>
               </div>
             </div>

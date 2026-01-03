@@ -70,6 +70,17 @@ export function OwnerNavbar({ onMenuClick, isDarkMode, onToggleDarkMode }: Owner
           : "bg-white border-gray-200"
         }`}
     >
+
+
+
+
+
+
+
+
+
+
+  
       {/* Left: Menu button + Logo */}
       <div className="flex items-center gap-4">
         <button
@@ -219,6 +230,9 @@ export function OwnerNavbar({ onMenuClick, isDarkMode, onToggleDarkMode }: Owner
           )}
         </div>
       </div>
+
+
+      
     </nav>
   );
 }

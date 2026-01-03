@@ -21,6 +21,7 @@ import {
   Plus,
   Star,
 } from "lucide-react";
+import toast from "react-hot-toast";
 
 import * as Icons from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -58,6 +59,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { PropertyDetail } from "@/types";
+import { authCheck } from "@/services/authCheck";
 
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "";
 
@@ -86,6 +88,34 @@ interface SharedSpaces {
 
 export default function HotelDetailPage({ id }: { id: string }) {
   const router = useRouter();
+
+
+
+
+
+
+useEffect(() => {
+  const logincheck = async () => {
+    try {
+      const user = await authCheck();
+
+      if (!user || !user.user) {
+        router.push("/customer/signin");
+        return;
+      }
+
+      setRoleId(user.user.roleid);
+    } catch (error) {
+      console.error("Auth check failed:", error);
+      router.push("/customer/signin");
+    }
+  };
+
+  logincheck();
+}, []);
+
+  
+
 
   // Availabilities state
   const [PropertyAmenities, setPropertyAmenities] = useState<Amenities[]>(
@@ -119,6 +149,8 @@ export default function HotelDetailPage({ id }: { id: string }) {
   const [propertyDetail, setPropertyDetail] = useState<PropertyDetail | null>(
     null
   );
+  const [roleId, setRoleId] = useState<number | null>(null);
+
 
   // Simple canadian cities list used for suggestion dropdown (unchanged)
   const canadianCities = [
@@ -216,6 +248,8 @@ export default function HotelDetailPage({ id }: { id: string }) {
   };
 
   useEffect(() => {
+
+    console.log("id",id)
     if (!id || id === "") {
       router.push("/not-found");
       return;
@@ -224,12 +258,12 @@ export default function HotelDetailPage({ id }: { id: string }) {
     const fetchProperty = async () => {
       try {
         const res = await axios.get(`${baseUrl}/ownerProperty/getProperties/${id}`, { withCredentials: true });
-        if (!res || !res.data || !res.data.property) {
+        if (!res || !res.data || !res.data.properties) {
           router.push("/not-found");
           return;
         }
 
-        const Details = res.data.property.map((p: any) => mapPropertyToDetail(p));
+        const Details = res.data.properties.map((p: any) => mapPropertyToDetail(p));
         setPropertyDetail(Details[0] ?? null);
 
         // initialize roomQtyMap with zeros for all propertyroomids
@@ -407,6 +441,16 @@ const calculateTotal = () => {
 
   //handle reserve function updated by gpt
   const handleReserve = () => {
+
+     // ❌ Owner cannot book
+  if (roleId === 2) {
+    toast.error(
+      "You are logged in as a property owner. Please use a customer account to make a booking."
+    );
+    return;
+  }
+ 
+
     if (!checkInDate || !checkOutDate || cart.length === 0) {
       setShowValidation(true);
       return;

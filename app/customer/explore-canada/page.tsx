@@ -124,6 +124,8 @@ const pathname = usePathname();
 
       const properties = res.data.properties;
 
+      console.log("propere",properties)
+
       const result = EXPLORE_CITIES.map((city) => {
         const cityId = cityIdMap.get(city.slug);
 
@@ -135,12 +137,12 @@ const hotels = properties
     name: p.propertytitle,
     image: p.photo1_featured,
     type: p.propertyclassification?.propertyclassificationname,
-    rating: 4,
+    rating: p.avgRating,
     reviews: "Verified guests",
     location: `${city.city}, ${city.province}`,
   }));
 
-
+console.log(hotels)
         return {
           ...city,
           description: `Top rated stays in ${city.city}, ${city.province}`,

@@ -62,7 +62,7 @@ interface Property {
   propertytitle: string;
   propertysubtitle: string; // Address
   photo1_featured: string;
-  rating: number; // Mocked
+  avgRating: number; // Mocked
   reviews: number; // Mocked
   availablestatus: boolean; // Mocked
   price: number; // Derived from rooms
@@ -98,7 +98,7 @@ export default function PropertiesPage() {
         if (user && user.user.roleid === 2 && user.user.userid) {
           const prop = await axios.get(`${baseUrl}/ownerProperty/getSpecificOwnerProperties/${userid}`);
           const properties = prop.data;
-          console.log(properties)
+          console.log("ASAL DATA ",properties)
 
 
           setPropertyList(
@@ -119,14 +119,14 @@ export default function PropertiesPage() {
                 propertytitle: p.propertytitle,
                 propertysubtitle: p.propertysubtitle,
                 photo1_featured: p.photo1_featured,
-                availablestatus: Boolean(p.availablestatus),
+                availablestatus: Boolean(p.AvailableStatus),
                 amenities,       // now an array of { name, icon }
                 featured: true,
-                rating: 0,
+                rating: p.avgRating,
                 reviews: 0,
                 price: 0,
-                canadian_city_name:p.canadian_cities.canadian_city_name,
-                canadian_province_name:p.canadian_states.canadian_province_name
+                canadian_city_name: p.canadian_cities.canadian_city_name,
+                canadian_province_name: p.canadian_states.canadian_province_name
 
               };
             })
@@ -169,7 +169,42 @@ export default function PropertiesPage() {
     });
   }, [propertyList, searchQuery, statusFilter]);
 
-  const handleTogglePropertyStatus = (propertyId: number) => {
+  // const handleTogglePropertyStatus = (propertyId: number) => {
+
+
+  //   setPropertyList(prev =>
+  //     prev.map(p =>
+  //       p.propertyid === propertyId
+  //         ? { ...p, availablestatus: !p.availablestatus }
+  //         : p
+  //     )
+  //   );
+
+
+
+  // };
+
+
+
+  const handleTogglePropertyStatus = async (propertyId: number) => {
+  setPropertyList(prev =>
+    prev.map(p =>
+      p.propertyid === propertyId
+        ? { ...p, availablestatus: !p.availablestatus }
+        : p
+    )
+  );
+
+  try {
+    await axios.post(
+      `${baseUrl}/ownerProperty/toggle-availability`,
+      { propertyid: propertyId },
+      { withCredentials: true }
+    );
+  } catch (err) {
+    console.error("Toggle failed, reverting…", err);
+
+    // rollback if API fails
     setPropertyList(prev =>
       prev.map(p =>
         p.propertyid === propertyId
@@ -177,14 +212,30 @@ export default function PropertiesPage() {
           : p
       )
     );
-  };
+  }
+};
 
-  const handleDelete = () => {
-    if (deleteId) {
+
+  const handleDelete = async () => {
+  try {
+    const res = await axios.post(
+      `${baseUrl}/ownerProperty/suspendProperty`,
+      { propertyid:String(deleteId) },
+      {
+        withCredentials: true, // 🔐 send cookies/JWT
+      }
+    );
+
+     if (deleteId) {
       setPropertyList(prev => prev.filter(p => p.propertyid !== deleteId));
       setDeleteId(null);
     }
-  };
+
+  } catch (err) {
+    console.log("Failed to suspend such property");
+    console.error(err);
+  }
+};
 
   return (
     <OwnerLayout>
@@ -360,6 +411,9 @@ function PropertyCard({
   onToggleStatus: (id: number) => void;
 }) {
 
+  console.log("status for", property.propertyid, property.availablestatus);
+
+
   console.log("prop...", property);
   return (
     <motion.div
@@ -407,7 +461,7 @@ function PropertyCard({
         {/* Rating Bubble */}
         <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur px-2.5 py-1.5 rounded-full shadow-lg text-xs font-semibold text-foreground">
           <Star className="w-3.5 h-3.5 fill-[#FEBC11] text-[#FEBC11]" />
-          <span>{property.rating}</span>
+          <span>{property.avgRating}</span>
           <span className="text-muted-foreground font-normal">({property.reviews})</span>
         </div>
       </div>

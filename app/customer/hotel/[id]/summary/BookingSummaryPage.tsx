@@ -636,7 +636,7 @@
 
 
 
-          
+
 //           </div>
 
 //           <div className="lg:col-span-1">
@@ -964,6 +964,22 @@ export default function BookingSummaryPage() {
     });
   };
 
+
+  useEffect(() => {
+
+    const logincheck = async () => {
+      const user = await authCheck();
+
+      console.log("user from /auth/me is: ", user);
+
+      if (!user) {
+        router.push(`/customer/signin`)
+      }
+    }
+    logincheck();
+
+  }, [])
+
   const getUser = async () => {
     try {
       const user = await authCheck();
@@ -1115,7 +1131,7 @@ export default function BookingSummaryPage() {
 
     try {
       console.log("[v0] Creating payment intent for property:", bookingData.property.id);
-      
+
       // Step 1: Create PaymentIntent with property ID to route to owner's Stripe account
       const intentRes = await fetch(`${baseUrl}/stripe/create-intent`, {
         method: "POST",
@@ -1168,8 +1184,16 @@ export default function BookingSummaryPage() {
         return;
       }
 
+
+
+
       // Step 3: Create booking in database after successful payment
       console.log("[v0] Payment succeeded, creating booking...");
+
+
+
+
+
       const bookingRes = await axios.post(
         `${baseUrl}/booking/create`,
         {
@@ -1195,6 +1219,9 @@ export default function BookingSummaryPage() {
         {
           withCredentials: true,
         }
+
+
+
       );
 
       if (bookingRes.status !== 201) {
@@ -1204,6 +1231,8 @@ export default function BookingSummaryPage() {
       const { bookingId } = bookingRes.data;
       console.log("[v0] Booking created successfully:", bookingId);
 
+
+      
       // Clear localStorage after successful booking
       localStorage.removeItem("booking_summary");
 
