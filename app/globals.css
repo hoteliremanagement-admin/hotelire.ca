@@ -435,7 +435,7 @@
 .invoice-header {
   border-bottom: 3px solid #59a5b2;
   padding-bottom: 15mm;
-  margin-bottom: 15mm;
+  margin-bottom: 10mm;
 }
 
 .header-content {
@@ -443,7 +443,7 @@
 }
 
 .invoice-title {
-  font-size: 28pt;
+  font-size: 22pt;
   font-weight: 700;
   margin: 0 0 8pt 0;
   color: #59a5b2;
@@ -461,7 +461,7 @@
 }
 
 .invoice-section {
-  margin-bottom: 12mm;
+  margin-bottom: 8mm;
   page-break-inside: avoid;
 }
 
@@ -479,7 +479,7 @@
 .property-info {
   display: flex;
   gap: 10mm;
-  margin-bottom: 8mm;
+  margin-bottom: 6mm;
 }
 
 .property-image {
@@ -596,7 +596,7 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 10pt;
-  margin-bottom: 8mm;
+  margin-bottom: 6mm;
 }
 
 .rooms-table thead {
@@ -655,7 +655,7 @@
 .payment-row.total {
   border-top: 1px solid #ddd;
   padding-top: 4mm;
-  margin-top: 4mm;
+  margin-top: 3mm;
   font-weight: 700;
   font-size: 12pt;
 }
@@ -688,10 +688,10 @@
 }
 
 .thank-you-title {
-  font-size: 14pt;
+  font-size: 12pt;
   font-weight: 700;
   color: #59a5b2;
-  margin: 0 0 4mm 0;
+  margin: 0 0 2mm 0;
   font-family: "Poppins", sans-serif;
 }
 
@@ -699,16 +699,16 @@
   font-size: 10pt;
   color: #666;
   margin: 0;
-  line-height: 1.6;
+  line-height: 1.2;
 }
 
 /* Invoice Footer */
 .invoice-footer {
   border-top: 1px solid #ddd;
-  padding-top: 10mm;
-  margin-top: 10mm;
+  padding-top: 8mm;
+  margin-top:5mm;
   text-align: center;
-  font-size: 9pt;
+  font-size: 8pt;
   color: #999;
 }
 
@@ -779,6 +779,7 @@
   /* A4 margins */
   @page {
     size: A4;
-    margin: 20mm;
+    margin: 10mm;
+    
   }
 }

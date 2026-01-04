@@ -1,3 +1,5 @@
+
+
 "use client"
 import { useEffect, useState } from "react"
 import { Users, Building, CalendarCheck, TrendingUp, DollarSign, Download } from "lucide-react"
@@ -20,7 +22,7 @@ interface DashboardStats {
     bookingRate: number
     satisfaction: string | number
   }
-} 
+}
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 export default function DashboardPage() {
   const [stats, setStats] = useState<DashboardStats | null>(null)
@@ -77,11 +79,11 @@ export default function DashboardPage() {
       bg: "bg-amber-500/10",
     },
   ]
-   const handleExportStats = () => {
+  const handleExportStats = () => {
     setIsExporting(true);
     setTimeout(() => {
       try {
-        const csvContent = "Stat,Value,Trend\n" + 
+        const csvContent = "Stat,Value,Trend\n" +
           statCards.map(s => `${s.title},${s.value},${s.trend}%`).join("\n");
         const blob = new Blob([csvContent], { type: "text/csv" });
         const url = window.URL.createObjectURL(blob);
@@ -102,9 +104,9 @@ export default function DashboardPage() {
       {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <h1 className="text-3xl font-display font-bold text-foreground">Dashboard</h1>
-         <Button 
-          variant="outline" 
-          size="sm" 
+        <Button
+          variant="outline"
+          size="sm"
           className="gap-2"
           onClick={handleExportStats}
           disabled={isExporting}
@@ -112,7 +114,7 @@ export default function DashboardPage() {
           <Download className="h-4 w-4" />
           {isExporting ? "Exporting..." : "Export Stats"}
         </Button>
-        
+
       </div>
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -124,9 +126,8 @@ export default function DashboardPage() {
                   <p className="text-sm font-medium text-muted-foreground">{stat.title}</p>
                   <h3 className="text-2xl font-bold mt-2 font-display">{stat.value}</h3>
                   <p
-                    className={`text-xs font-medium mt-1 flex items-center gap-1 ${
-                      Number(stat.trend) >= 0 ? "text-emerald-600" : "text-red-600"
-                    }`}
+                    className={`text-xs font-medium mt-1 flex items-center gap-1 ${Number(stat.trend) >= 0 ? "text-emerald-600" : "text-red-600"
+                      }`}
                   >
                     <TrendingUp className="h-3 w-3" />
                     {Number(stat.trend) >= 0 ? "+" : ""}
@@ -242,10 +243,10 @@ function StatBar({
         <span className="font-bold text-lg">{value}</span>
       </div>
       <div
-className="w-full bg-muted rounded-full h-2">
-<div className={`${color} h-2 rounded-full`} style={{ width: `${percent}%` }} />
-</div>
-</div>
-)
+        className="w-full bg-muted rounded-full h-2">
+        <div className={`${color} h-2 rounded-full`} style={{ width: `${percent}%` }} />
+      </div>
+    </div>
+  )
 }
 

@@ -78,7 +78,7 @@
 //   const [data, setData] = useState<BookingConfirmationData | null>(null)
 //   const [loading, setLoading] = useState(false)
 //   const [error, setError] = useState<string | null>(null)
-  
+
 //   const formatDate1 = (isoString: string) => {
 //     const date = new Date(isoString);
 //     return date.toLocaleDateString("en-CA", {
@@ -88,22 +88,20 @@
 //     });
 //   };
 
-
 //     useEffect(() => {
-  
+
 //       const logincheck = async () => {
 //         const user = await authCheck();
-  
+
 //         console.log("user from /auth/me is: ", user);
-  
+
 //         if (!user) {
 //           router.push(`/customer/signin`)
 //         }
 //       }
 //       logincheck();
-  
-//     }, [])
 
+//     }, [])
 
 //   useEffect(() => {
 //     console.log("response ", bookingId)
@@ -134,13 +132,9 @@
 //       }
 //     }
 
-
 //     fetchBookingDetails()
 
 //   }, [bookingId])
-
-
-
 
 //   const handlePrint = () => {
 //     window.print()
@@ -180,7 +174,6 @@
 //       </div>
 //     )
 //   }
-
 
 //   return (
 //     <div className="bg-gray-50 w-full flex flex-col min-h-screen">
@@ -333,8 +326,6 @@
 //                   Contact property
 //                 </h3>
 
-
-
 //                 <div className="">
 //                   <p
 //                     className="flex items-center gap-2 text-sm text-gray-600 mb-2"
@@ -343,7 +334,6 @@
 
 //                     <span className="text-md font-bold text-[#59A5B2] " >Owner Name:</span> {data.property.firstName} {data.property.lastName}
 //                   </p>
-
 
 //                   <p
 //                     className="flex items-center gap-2 text-sm text-gray-600 mb-2"
@@ -360,10 +350,6 @@
 //                     <span className="text-md font-bold text-[#59A5B2] " >Owner Phone:</span> {data.property.phoneno}
 
 //                   </p>
-
-
-
-
 
 //                 </div>
 
@@ -387,11 +373,7 @@
 //                   assistance.
 //                 </p>
 
-
-
 //               </div>
-
-
 
 //             </Card>
 //           </div>
@@ -473,17 +455,15 @@
 //   )
 // }
 
+"use client";
 
-
-"use client"
-
-import { useEffect, useState } from "react"
-import { useSearchParams } from "next/navigation"
-import { Header } from "@/components/Header"
-import { Navigation } from "@/components/Navigation"
-import { Footer } from "@/components/Footer"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Header } from "@/components/Header";
+import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/Footer";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
   CheckCircle,
   MapPin,
@@ -495,84 +475,118 @@ import {
   AlertCircle,
   Loader,
   Headset,
-} from "lucide-react"
-import { useRouter } from "next/navigation"
-import { authCheck } from "@/services/authCheck"
-import { InvoicePrint } from "@/components/InvoicePrint"
+} from "lucide-react";
+import { useRouter } from "next/navigation";
+import { authCheck } from "@/services/authCheck";
+import { InvoicePrint } from "@/components/InvoicePrint";
 
 interface BookingConfirmationData {
-  confirmationId: string
+  confirmationId: string;
   User: {
-    email: string
-  }
+    email: string;
+  };
   property: {
-    name: string
-    subtitle?: string
-    address: string
-    propertymaplink: string
-    checkInTime: string
-    checkOutTime: string
-    firstName: string
-    lastName: string
-    email: string
-    phoneno: string
-    image?: string
-  }
+    name: string;
+    subtitle?: string;
+    address: string;
+    propertymaplink: string;
+    checkInTime: string;
+    checkOutTime: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneno: string;
+    image?: string;
+  };
   dates: {
-    checkIn: string
-    checkOut: string
-    nights: number
-  }
+    checkIn: string;
+    checkOut: string;
+    nights: number;
+  };
   guests: {
-    adults: number
-    children: number
-  }
+    adults: number;
+    children: number;
+  };
   rooms: {
-    bookingRoomId: string
-    roomName: string
-    roomType: string
-    quantity: number
-    subtotal: number
-    pic1?: string
-  }[]
+    bookingRoomId: string;
+    roomName: string;
+    roomType: string;
+    quantity: number;
+    subtotal: number;
+    pic1?: string;
+  }[];
   payment: {
-    currency: string
-    total: number
-    paymentMethod: string
-  }
+    currency: string;
+    total: number;
+    paymentMethod: string;
+  };
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || ""
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "";
 
 export default function BookingConfirmationPage() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const bookingId = searchParams.get("bookingId")
-  const [data, setData] = useState<BookingConfirmationData | null>(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const bookingId = searchParams.get("bookingId");
+  const [data, setData] = useState<BookingConfirmationData | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const formatDate1 = (isoString: string) => {
-    const date = new Date(isoString)
+    const date = new Date(isoString);
     return date.toLocaleDateString("en-CA", {
       year: "numeric",
       month: "long",
       day: "numeric",
-    })
-  }
+    });
+  };
+
+const handleEmailClick = () => {
+  const email = data?.property.email
+  if (!email) return
+
+  const subject = encodeURIComponent("Regarding your property booking")
+  const body = encodeURIComponent(
+    `Hello ${data.property.firstName},
+
+I have a question regarding my recent booking.
+
+Thank you.`
+  )
+
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&body=${body}`
+
+  window.open(gmailUrl, "_blank")
+}
+
+
+const handleWhatsAppClick = () => {
+  let phone = data?.property.phoneno
+  if (!phone) return
+
+  // clean number (spaces, dashes remove)
+  phone = phone.replace(/\D/g, "")
+
+  const message = encodeURIComponent(
+    "Hello, I have a question regarding my booking. Thank you."
+  )
+
+  window.open(`https://wa.me/${phone}?text=${message}`, "_blank")
+}
+
 
   useEffect(() => {
     const logincheck = async () => {
-      const user = await authCheck()
+      const user = await authCheck();
 
-      console.log("user from /auth/me is: ", user)
+      console.log("user from /auth/me is: ", user);
 
       if (!user) {
-        router.push(`/customer/signin`)
+        router.push(`/customer/signin`);
       }
-    }
-    logincheck()
-  }, [])
+    };
+    logincheck();
+  }, []);
 
    const formatDate = (isoString:string) => {
     const date = new Date(isoString);
@@ -584,40 +598,42 @@ export default function BookingConfirmationPage() {
   };
 
   useEffect(() => {
-    console.log("response ", bookingId)
-    if (!bookingId) return
+    console.log("response ", bookingId);
+    if (!bookingId) return;
     const fetchBookingDetails = async () => {
-      console.log("response ")
+      console.log("response ");
       try {
-        setLoading(true)
-        const response = await fetch(`${baseUrl}/booking/details/${bookingId}`)
-        console.log("response ", response)
+        setLoading(true);
+        const response = await fetch(`${baseUrl}/booking/details/${bookingId}`);
+        console.log("response ", response);
 
         if (!response.ok) {
-          throw new Error("Failed to fetch booking details")
+          throw new Error("Failed to fetch booking details");
         }
 
-        const result = await response.json()
+        const result = await response.json();
         if (result.success) {
-          console.log("result.data", result.data)
-          setData(result.data)
+          console.log("result.data", result.data);
+          setData(result.data);
         } else {
-          setError("Could not load booking confirmation")
+          setError("Could not load booking confirmation");
         }
       } catch (err) {
-        console.error("Error fetching booking:", err)
-        setError(err instanceof Error ? err.message : "Failed to load confirmation")
+        console.error("Error fetching booking:", err);
+        setError(
+          err instanceof Error ? err.message : "Failed to load confirmation"
+        );
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchBookingDetails()
-  }, [bookingId])
+    fetchBookingDetails();
+  }, [bookingId]);
 
   const handlePrint = () => {
-    window.print()
-  }
+    window.print();
+  };
 
   if (loading) {
     return (
@@ -629,7 +645,7 @@ export default function BookingConfirmationPage() {
         </div>
         <Footer />
       </div>
-    )
+    );
   }
 
   if (error || !data) {
@@ -643,15 +659,21 @@ export default function BookingConfirmationPage() {
             <div className="flex justify-center mb-4">
               <AlertCircle className="w-12 h-12 text-red-500" />
             </div>
-            <h2 className="text-xl font-bold text-gray-900 mb-2 text-center">Error Loading Confirmation</h2>
-            <p className="text-gray-600 text-center mb-6">{error || "The booking confirmation could not be loaded."}</p>
-            <Button className="w-full bg-[#59A5B2] hover:bg-[#4a8f9a] text-white">Back to Home</Button>
+            <h2 className="text-xl font-bold text-gray-900 mb-2 text-center">
+              Error Loading Confirmation
+            </h2>
+            <p className="text-gray-600 text-center mb-6">
+              {error || "The booking confirmation could not be loaded."}
+            </p>
+            <Button className="w-full bg-[#59A5B2] hover:bg-[#4a8f9a] text-white">
+              Back to Home
+            </Button>
           </Card>
         </div>
 
         <Footer />
       </div>
-    )
+    );
   }
 
   return (
@@ -673,13 +695,26 @@ export default function BookingConfirmationPage() {
           >
             Your booking is confirmed
           </h1>
-          <p className="text-lg text-gray-600 mb-4" style={{ fontFamily: "Inter, sans-serif" }}>
-            Confirmation ID: <span className="font-semibold text-[#59A5B2]">{data.confirmationId}</span>
+          <p
+            className="text-lg text-gray-600 mb-4"
+            style={{ fontFamily: "Inter, sans-serif" }}
+          >
+            Confirmation ID:{" "}
+            <span className="font-semibold text-[#59A5B2]">
+              {data.confirmationId}
+            </span>
           </p>
-          <p className="text-sm text-gray-600" style={{ fontFamily: "Inter, sans-serif" }}>
-            We've sent a confirmation email to <span className="font-semibold">{data.User.email}</span>
+          <p
+            className="text-sm text-gray-600"
+            style={{ fontFamily: "Inter, sans-serif" }}
+          >
+            We've sent a confirmation email to{" "}
+            <span className="font-semibold">{data.User.email}</span>
           </p>
-          <p className="text-sm text-gray-500 mt-2" style={{ fontFamily: "Inter, sans-serif" }}>
+          <p
+            className="text-sm text-gray-500 mt-2"
+            style={{ fontFamily: "Inter, sans-serif" }}
+          >
             Payment receipt will be sent via {data.payment.paymentMethod}
           </p>
         </div>
@@ -699,15 +734,25 @@ export default function BookingConfirmationPage() {
                     {data.property.name}
                   </h2>
                   {data.property.subtitle && (
-                    <p className="text-gray-600 text-sm mb-3" style={{ fontFamily: "Inter, sans-serif" }}>
+                    <p
+                      className="text-gray-600 text-sm mb-3"
+                      style={{ fontFamily: "Inter, sans-serif" }}
+                    >
                       {data.property.subtitle}
                     </p>
                   )}
-                  <p className="text-gray-600 flex items-center gap-1 mb-3" style={{ fontFamily: "Inter, sans-serif" }}>
+                  <p
+                    className="text-gray-600 flex items-center gap-1 mb-3"
+                    style={{ fontFamily: "Inter, sans-serif" }}
+                  >
                     <MapPin className="w-4 h-4 text-[#59A5B2] flex-shrink-0" />
                     {data.property.address}
                   </p>
-                  <a href={data.property.propertymaplink} target="_blank" rel="noreferrer">
+                  <a
+                    href={data.property.propertymaplink}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <button className="text-[#59A5B2] hover:text-[#4a8f9a] text-sm font-medium transition-colors">
                       Show directions →
                     </button>
@@ -722,7 +767,10 @@ export default function BookingConfirmationPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 {/* Check-in */}
                 <div>
-                  <p className="text-xs font-medium text-gray-500 mb-2" style={{ fontFamily: "Poppins, sans-serif" }}>
+                  <p
+                    className="text-xs font-medium text-gray-500 mb-2"
+                    style={{ fontFamily: "Poppins, sans-serif" }}
+                  >
                     CHECK-IN
                   </p>
                   <p className="text-lg font-semibold text-gray-900 mb-1" style={{ fontFamily: "Poppins, sans-serif" }}>
@@ -735,13 +783,22 @@ export default function BookingConfirmationPage() {
 
                 {/* Check-out */}
                 <div>
-                  <p className="text-xs font-medium text-gray-500 mb-2" style={{ fontFamily: "Poppins, sans-serif" }}>
+                  <p
+                    className="text-xs font-medium text-gray-500 mb-2"
+                    style={{ fontFamily: "Poppins, sans-serif" }}
+                  >
                     CHECK-OUT
                   </p>
-                  <p className="text-lg font-semibold text-gray-900 mb-1" style={{ fontFamily: "Poppins, sans-serif" }}>
+                  <p
+                    className="text-lg font-semibold text-gray-900 mb-1"
+                    style={{ fontFamily: "Poppins, sans-serif" }}
+                  >
                     {formatDate1(data.dates.checkOut)}
                   </p>
-                  <p className="text-sm text-gray-600" style={{ fontFamily: "Inter, sans-serif" }}>
+                  <p
+                    className="text-sm text-gray-600"
+                    style={{ fontFamily: "Inter, sans-serif" }}
+                  >
                     Until {formatDate1(data.property.checkOutTime)}
                   </p>
                 </div>
@@ -751,10 +808,12 @@ export default function BookingConfirmationPage() {
               <div className="flex items-center gap-3 text-gray-700 mb-6">
                 <Users className="w-5 h-5 text-[#59A5B2] flex-shrink-0" />
                 <span style={{ fontFamily: "Inter, sans-serif" }}>
-                  {data.guests.adults} {data.guests.adults === 1 ? "Adult" : "Adults"}
+                  {data.guests.adults}{" "}
+                  {data.guests.adults === 1 ? "Adult" : "Adults"}
                   {data.guests.children > 0 && (
                     <>
-                      , {data.guests.children} {data.guests.children === 1 ? "Child" : "Children"}
+                      , {data.guests.children}{" "}
+                      {data.guests.children === 1 ? "Child" : "Children"}
                     </>
                   )}
                 </span>
@@ -764,7 +823,10 @@ export default function BookingConfirmationPage() {
               <div className="border-t border-gray-200 my-6"></div>
 
               <div className="mb-6">
-                <h3 className="text-lg font-bold text-[#59A5B2] mb-4" style={{ fontFamily: "Poppins, sans-serif" }}>
+                <h3
+                  className="text-lg font-bold text-[#59A5B2] mb-4"
+                  style={{ fontFamily: "Poppins, sans-serif" }}
+                >
                   Your room details
                 </h3>
                 <div className="space-y-4">
@@ -783,13 +845,22 @@ export default function BookingConfirmationPage() {
                         {/* )} */}
                       </div>
                       <div className="flex-1">
-                        <p className="font-semibold text-gray-900 mb-1" style={{ fontFamily: "Poppins, sans-serif" }}>
+                        <p
+                          className="font-semibold text-gray-900 mb-1"
+                          style={{ fontFamily: "Poppins, sans-serif" }}
+                        >
                           {room.roomName}
                         </p>
-                        <p className="text-sm text-gray-600 mb-2" style={{ fontFamily: "Inter, sans-serif" }}>
+                        <p
+                          className="text-sm text-gray-600 mb-2"
+                          style={{ fontFamily: "Inter, sans-serif" }}
+                        >
                           {room.roomType} • Qty: {room.quantity}
                         </p>
-                        <p className="text-sm font-semibold text-gray-900" style={{ fontFamily: "Inter, sans-serif" }}>
+                        <p
+                          className="text-sm font-semibold text-gray-900"
+                          style={{ fontFamily: "Inter, sans-serif" }}
+                        >
                           CAD {room.subtotal}
                         </p>
                       </div>
@@ -803,7 +874,10 @@ export default function BookingConfirmationPage() {
 
               {/* Contact Property Section */}
               <div>
-                <h3 className="text-lg font-bold text-[#59A5B2] mb-4" style={{ fontFamily: "Poppins, sans-serif" }}>
+                <h3
+                  className="text-lg font-bold text-[#59A5B2] mb-4"
+                  style={{ fontFamily: "Poppins, sans-serif" }}
+                >
                   Contact property
                 </h3>
 
@@ -812,30 +886,45 @@ export default function BookingConfirmationPage() {
                     className="flex items-center gap-2 text-sm text-gray-600 mb-2"
                     style={{ fontFamily: "Inter, sans-serif" }}
                   >
-                    <span className="text-md font-bold text-[#59A5B2] ">Owner Name:</span> {data.property.firstName}{" "}
-                    {data.property.lastName}
+                    <span className="text-md font-bold text-[#59A5B2] ">
+                      Owner Name:
+                    </span>{" "}
+                    {data.property.firstName} {data.property.lastName}
                   </p>
 
                   <p
                     className="flex items-center gap-2 text-sm text-gray-600 mb-2"
                     style={{ fontFamily: "Inter, sans-serif" }}
                   >
-                    <span className="text-md font-bold text-[#59A5B2] ">Owner Email:</span> {data.property.email}
+                    <span className="text-md font-bold text-[#59A5B2] ">
+                      Owner Email:
+                    </span>{" "}
+                    {data.property.email}
                   </p>
                   <p
                     className="flex items-center gap-2 text-sm text-gray-600 mb-2"
                     style={{ fontFamily: "Inter, sans-serif" }}
                   >
-                    <span className="text-md font-bold text-[#59A5B2] ">Owner Phone:</span> {data.property.phoneno}
+                    <span className="text-md font-bold text-[#59A5B2] ">
+                      Owner Phone:
+                    </span>{" "}
+                    {data.property.phoneno}
                   </p>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-3 mb-4">
-                  <button className="flex items-center justify-center gap-2 px-4 py-2 border border-[#59A5B2] text-[#59A5B2] rounded-lg hover:bg-blue-50 transition-colors font-medium">
+                  <button
+                    onClick={handleWhatsAppClick}
+                    className="flex items-center justify-center gap-2 px-4 py-2 border border-[#59A5B2] text-[#59A5B2] rounded-lg hover:bg-blue-50 transition-colors font-medium"
+                  >
                     <MessageSquare className="w-4 h-4" />
-                    Send a message
+                    Whatsapp Message
                   </button>
-                  <button className="flex items-center justify-center gap-2 px-4 py-2 border border-[#59A5B2] text-[#59A5B2] rounded-lg hover:bg-blue-50 transition-colors font-medium">
+
+                  <button
+                    onClick={handleEmailClick}
+                    className="flex items-center justify-center gap-2 px-4 py-2 border border-[#59A5B2] text-[#59A5B2] rounded-lg hover:bg-blue-50 transition-colors font-medium"
+                  >
                     <Mail className="w-4 h-4" />
                     Send an email
                   </button>
@@ -846,7 +935,8 @@ export default function BookingConfirmationPage() {
                   style={{ fontFamily: "Inter, sans-serif" }}
                 >
                   <Headset className="w-4 h-4 text-[#59A5B2]" />
-                  Please feel free to get in touch if you need further assistance.
+                  Please feel free to get in touch if you need further
+                  assistance.
                 </p>
               </div>
             </Card>
@@ -868,7 +958,10 @@ export default function BookingConfirmationPage() {
 
               {/* Summary Content */}
               <div className="p-6">
-                <h3 className="text-lg font-bold text-[#59A5B2] mb-4" style={{ fontFamily: "Poppins, sans-serif" }}>
+                <h3
+                  className="text-lg font-bold text-[#59A5B2] mb-4"
+                  style={{ fontFamily: "Poppins, sans-serif" }}
+                >
                   Your stay
                 </h3>
 
@@ -877,10 +970,14 @@ export default function BookingConfirmationPage() {
                   <div className="flex items-center gap-2 text-gray-700 mb-2">
                     <Calendar className="w-4 h-4 text-[#59A5B2] flex-shrink-0" />
                     <span style={{ fontFamily: "Inter, sans-serif" }}>
-                      {formatDate1(data.dates.checkIn)} - {formatDate1(data.dates.checkOut)}
+                      {formatDate1(data.dates.checkIn)} -{" "}
+                      {formatDate1(data.dates.checkOut)}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-600" style={{ fontFamily: "Inter, sans-serif" }}>
+                  <p
+                    className="text-sm text-gray-600"
+                    style={{ fontFamily: "Inter, sans-serif" }}
+                  >
                     {data.dates.nights} night
                     {data.dates.nights !== 1 ? "s" : ""}
                   </p>
@@ -889,10 +986,16 @@ export default function BookingConfirmationPage() {
                 {/* Total */}
                 <div className="bg-[#FEC328] rounded-lg p-4 mb-4">
                   <div className="flex justify-between items-center">
-                    <span className="font-semibold text-gray-900" style={{ fontFamily: "Poppins, sans-serif" }}>
+                    <span
+                      className="font-semibold text-gray-900"
+                      style={{ fontFamily: "Poppins, sans-serif" }}
+                    >
                       Total paid
                     </span>
-                    <span className="text-2xl font-bold text-[#59A5B2]" style={{ fontFamily: "Poppins, sans-serif" }}>
+                    <span
+                      className="text-2xl font-bold text-[#fcfcfc]"
+                      style={{ fontFamily: "Poppins, sans-serif" }}
+                    >
                       {data.payment.currency} {data.payment.total}
                     </span>
                   </div>
@@ -900,7 +1003,10 @@ export default function BookingConfirmationPage() {
 
                 {/* Payment Status */}
                 <div className="bg-green-50 border border-green-200 rounded-lg p-3 mb-6">
-                  <p className="text-sm text-green-900 font-medium" style={{ fontFamily: "Inter, sans-serif" }}>
+                  <p
+                    className="text-sm text-green-900 font-medium"
+                    style={{ fontFamily: "Inter, sans-serif" }}
+                  >
                     ✓ Paid via {data.payment.paymentMethod}
                   </p>
                 </div>
@@ -926,51 +1032,5 @@ export default function BookingConfirmationPage() {
 
       <Footer />
     </div>
-  )
+  );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

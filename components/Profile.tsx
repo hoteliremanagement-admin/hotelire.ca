@@ -1,13 +1,5 @@
 // "use client";
 
-// import { authCheck } from "@/services/authCheck";
-// import { Select } from "@radix-ui/react-select";
-// import axios from "axios";
-// import { Camera, CheckCircle2, Eye, EyeOff, Loader2, Save, Settings, User, X } from "lucide-react";
-// import { useEffect, useMemo, useState } from "react";
-// import toast from "react-hot-toast";
-// import countryList from "react-select-country-list";
-
 // import type React from "react";
 
 // import { useState, useRef, useEffect, useMemo } from "react";
@@ -63,10 +55,13 @@
 //   canadian_province_id: number;
 // }
 
+
+
+
 // const canadianAddressRegex = /^\d+\s+[A-Za-z0-9\s,'-]+$/;
 // const canadianPostalRegex = /^[A-Z]\d[A-Z][ ]?\d[A-Z]\d$/;
 // const PROVINCE_CITIES: Record<string, string[]> = provinceToCities;
-// const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+// const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000/api";
 
 // const toOption = (value: string) => (value ? { value, label: value } : null);
 
@@ -97,6 +92,7 @@
 // export default function CustomerProfilePage() {
 //   const [isEditing, setIsEditing] = useState(false);
 //   const [profilePic, setProfilePic] = useState<string | null>(null);
+//   const [selectedFile, setSelectedFile] = useState<File | null>(null); // New state for file
 //   const [isSaving, setIsSaving] = useState(false);
 //   const fileInputRef = useRef<HTMLInputElement>(null);
 //   const [user, setUser] = useState<any>(null);
@@ -117,6 +113,7 @@
 //     postalCode: "",
 //     canadian_provinceid: "",
 //     canadian_cityid: "",
+//     isGoogleUser:false
 //   });
 
 //   const [passwordData, setPasswordData] = useState({
@@ -202,6 +199,7 @@
 //               postalCode: u.postalcode ?? "",
 //               canadian_provinceid: String(u.canadian_provinceid) || "",
 //               canadian_cityid: String(u.canadian_cityid) || "",
+//               isGoogleUser: u.isGoogleUser,
 //             });
 //           } else {
 //             setProfileData({
@@ -222,6 +220,7 @@
 //               postalCode: u.postalcode ?? "",
 //               canadian_provinceid: "",
 //               canadian_cityid: "",
+//               isGoogleUser: u.isGoogleUser,
 //             });
 //           }
 
@@ -238,7 +237,7 @@
 //   }, []);
 
 //   const setField = (key: string, value: any) => {
-//     setProfileData((prev) => ({ ...prev, [key]: value }));
+//     setProfileData((prev: any) => ({ ...prev, [key]: value }));
 //   };
 
 //   const validateField = (field: string, value: any): boolean => {
@@ -310,10 +309,10 @@
 //     }
 
 //     if (msg) {
-//       setErrors((prev) => ({ ...prev, [field]: msg }));
+//       setErrors((prev: any) => ({ ...prev, [field]: msg }));
 //       return false;
 //     }
-//     setErrors((prev) => ({ ...prev, [field]: undefined }));
+//     setErrors((prev: any) => ({ ...prev, [field]: undefined }));
 //     return true;
 //   };
 
@@ -362,82 +361,96 @@
 //     }
 //   };
 
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
+//   // --- Profile Update Handler ---
+//   const handleProfileUpdate = async () => {
 //     setErrors({});
-
 //     if (!validateAll()) return;
-
-//     if (passwordData.new || passwordData.current || passwordData.confirm) {
-//       if (!passwordData.current || !passwordData.new || !passwordData.confirm) {
-//         setErrors({ password: "Please fill in all password fields" });
-//         return;
-//       }
-//       if (passwordData.new !== passwordData.confirm) {
-//         setErrors({ password: "New passwords do not match" });
-//         return;
-//       }
-//       if (passwordData.new.length < 8) {
-//         setErrors({ password: "Password must be at least 8 characters" });
-//         return;
-//       }
-//     }
 
 //     setIsSaving(true);
 
 //     try {
-//       const payload: any = {
-//         firstname: profileData.firstName,
-//         lastname: profileData.lastName,
-//         phoneno: profileData.phone,
-//         address: profileData.address,
-//         postalcode: profileData.postalCode,
-//       };
+//       const formData = new FormData();
+//       formData.append("firstname", profileData.firstName);
+//       formData.append("lastname", profileData.lastName);
+//       formData.append("phoneno", profileData.phone);
+//       formData.append("address", profileData.address);
+//       formData.append("postalcode", profileData.postalCode);
+//       formData.append("email", profileData.email);
 
 //       if (addressType === "canadian") {
-//         payload.canadian_provinceid = profileData.canadian_provinceid;
-//         payload.canadian_cityid = profileData.canadian_cityid;
-//         payload.international_country = null;
-//         payload.international_province = null;
-//         payload.international_city = null;
+//         formData.append("canadian_provinceid", profileData.canadian_provinceid);
+//         formData.append("canadian_cityid", profileData.canadian_cityid);
+//         // International fields are null/empty, usually not sent or handled by backend to nullify
+//         formData.append("isCanadian", "true");
 //       } else {
-//         payload.canadian_provinceid = null;
-//         payload.canadian_cityid = null;
-//         payload.international_country = profileData.country?.label;
-//         payload.international_province =
-//           profileData.country?.value === "CA"
-//             ? profileData.province
-//             : profileData.state;
-//         payload.international_city = profileData.city;
+//         formData.append("international_country", profileData.country?.label || "");
+//         formData.append(
+//           "international_province",
+//           profileData.country?.value === "CA" ? profileData.province : profileData.state
+//         );
+//         formData.append("international_city", profileData.city);
+//         formData.append("isCanadian", "false");
 //       }
 
-//       await axios.put(`${baseUrl}/user/profile`, payload, {
+//       // Append profile picture if selected
+//       if (selectedFile) {
+//         formData.append("profilepic", selectedFile);
+//       }
+
+//       await axios.put(`${baseUrl}/auth/updateCustomerInfoProfile`, formData, {
 //         withCredentials: true,
+//         headers: { "Content-Type": "multipart/form-data" },
 //       });
 
-//       if (passwordData.new) {
+//       toast.success("Profile updated successfully. Please sign in again.");
+//       setIsEditing(false);
+//       // Optional: Refresh page or redirect to login as backend refreshes token
+//       window.location.reload(); 
+//     } catch (error: any) {
+//       console.error(error);
+//       setErrors({ profile: error.response?.data?.message || "Failed to update profile. Try again." });
+//     } finally {
+//       setIsSaving(false);
+//     }
+//   };
+
+//   // --- Password Update Handler ---
+//   const handlePasswordUpdate = async () => {
+//     setErrors({});
+//     if (!passwordData.current || !passwordData.new || !passwordData.confirm) {
+//         setErrors({ password: "Please fill in all password fields" });
+//         return;
+//     }
+//     if (passwordData.new !== passwordData.confirm) {
+//         setErrors({ password: "New passwords do not match" });
+//         return;
+//     }
+//     if (passwordData.new.length < 8) {
+//         setErrors({ password: "Password must be at least 8 characters" });
+//         return;
+//     }
+
+//     setIsSaving(true);
+//     try {
 //         await axios.post(
-//           `${baseUrl}/user/change-password`,
+//           `${baseUrl}/auth/changePassword`,
 //           {
 //             currentPassword: passwordData.current,
 //             newPassword: passwordData.new,
 //           },
 //           { withCredentials: true }
 //         );
-//       }
-
-//       toast.success("Profile updated successfully");
-//       setPasswordData({ current: "", new: "", confirm: "" });
-//       setIsEditing(false);
-//     } catch (error) {
-//       console.error(error);
-//       setErrors({ profile: "Failed to update profile. Try again." });
+//         toast.success("Password updated successfully");
+//         setPasswordData({ current: "", new: "", confirm: "" });
+//     } catch (error: any) {
+//         console.error(error);
+//         setErrors({ password: error.response?.data?.message || "Failed to update password." });
 //     } finally {
-//       setIsSaving(false);
+//         setIsSaving(false);
 //     }
 //   };
 
-//   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+//   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
 //     const file = e.target.files?.[0];
 //     if (!file) return;
 
@@ -447,30 +460,15 @@
 //       return;
 //     }
 
-//     setErrors((prev) => ({ ...prev, profilePic: undefined }));
-
-//     const formData = new FormData();
-//     formData.append("profilepic", file);
-
-//     try {
-//       const response = await axios.post(
-//         `${baseUrl}/user/profile-pic`,
-//         formData,
-//         {
-//           withCredentials: true,
-//           headers: { "Content-Type": "multipart/form-data" },
-//         }
-//       );
-
-//       if (response.data?.url) {
-//         setProfilePic(response.data.url);
-//       }
-
-//       toast.success("Profile picture updated successfully");
-//     } catch (error) {
-//       console.error(error);
-//       toast.error("Failed to upload profile picture");
-//     }
+//     setErrors((prev: any) => ({ ...prev, profilePic: undefined }));
+//     setSelectedFile(file);
+    
+//     // Create preview
+//     const reader = new FileReader();
+//     reader.onloadend = () => {
+//       setProfilePic(reader.result as string);
+//     };
+//     reader.readAsDataURL(file);
 //   };
 
 //   if (loadingUser) {
@@ -486,10 +484,6 @@
 //     if (user?.roleid === 2) return "Owner";
 //     return "Customer";
 //   };
-
-
-
-
 
 //   return (
 //     <main className="flex-1 site-container py-12">
@@ -510,6 +504,7 @@
 //                   </div>
 //                 )}
 //               </div>
+//               {isEditing && (
 //               <button
 //                 onClick={() => fileInputRef.current?.click()}
 //                 className="absolute bottom-0 right-0 bg-[#59A5B2] text-white p-2 rounded-full shadow-lg hover:scale-110 transition-transform"
@@ -517,6 +512,7 @@
 //               >
 //                 <Camera className="w-5 h-5" />
 //               </button>
+//               )}
 //               <input
 //                 type="file"
 //                 ref={fileInputRef}
@@ -567,12 +563,25 @@
 //           )}
 //         </div>
 
-//         <form onSubmit={handleSubmit} className="space-y-8">
+//         {/* --- Profile Information Form --- */}
+//         <div className="space-y-8">
 //           <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-//             <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-//               <User className="w-5 h-5 text-[#59A5B2]" />
-//               Personal Information
-//             </h2>
+//             <div className="flex items-center justify-between mb-6">
+//                 <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+//                 <User className="w-5 h-5 text-[#59A5B2]" />
+//                 Personal Information
+//                 </h2>
+//                 {isEditing && (
+//                     <button
+//                         onClick={handleProfileUpdate}
+//                         disabled={isSaving}
+//                         className="bg-[#59A5B2] text-white px-6 py-2 rounded-xl font-bold hover:bg-[#4a8a95] transition-all flex items-center gap-2 disabled:opacity-50"
+//                     >
+//                         {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+//                         Save Changes
+//                     </button>
+//                 )}
+//             </div>
 
 //             {errors.profile && (
 //               <div className="bg-red-50 text-red-600 px-4 py-3 rounded-lg text-sm mb-6 border border-red-200">
@@ -618,7 +627,7 @@
 
 //               {isEditing && (
 //                 <div className="md:col-span-2">
-//                   <div className="flex flex-wrap items-center gap-6 p-4 bg-gray-50 rounded-xl">
+//                   {/* <div className="flex flex-wrap items-center gap-6 p-4 bg-gray-50 rounded-xl">
 //                     <div className="flex items-center gap-2">
 //                       <input
 //                         id="addr-ca"
@@ -664,10 +673,14 @@
 //                         International Address
 //                       </label>
 //                     </div>
-//                   </div>
+//                   </div> */}
 //                 </div>
 //               )}
 
+//               {/* Conditional Rendering logic is preserved - only checking AddressType */}
+//               {/* If addressType is "canadian", we show Province/City Dropdowns */}
+//               {/* If "international", we show Country dropdown and text inputs */}
+              
 //               {addressType === "canadian" && (
 //                 <>
 //                   <div className="space-y-2">
@@ -736,12 +749,12 @@
 //                       }))}
 //                       value={
 //                         (canadianCities || [])
-//                           .map((c) => ({
+//                           .map((c: { canadian_city_id: any; canadian_city_name: any; }) => ({
 //                             value: String(c.canadian_city_id),
 //                             label: c.canadian_city_name,
 //                           }))
 //                           .find(
-//                             (opt) =>
+//                             (opt: { value: string; }) =>
 //                               opt.value ===
 //                               String(profileData.canadian_cityid)
 //                           ) || null
@@ -792,6 +805,7 @@
 //                     )}
 //                   </div>
 
+//                   {/* If country is manually selected as Canada in international list (edge case), handle appropriately or just general */}
 //                   {profileData.country?.value === "CA" ? (
 //                     <div className="space-y-2">
 //                       <label className="text-sm font-semibold text-gray-700">
@@ -896,12 +910,26 @@
 //             </div>
 //           </div>
 
-//           {isEditing && (
+//           {/* --- Security Settings Form (Separate Button) --- */}
+
+//           {
+//           profileData.isGoogleUser == false &&(
+//           isEditing && (
 //             <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-//               <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-//                 <Lock className="w-5 h-5 text-[#59A5B2]" />
-//                 Security Settings (Optional)
-//               </h2>
+//               <div className="flex items-center justify-between mb-6">
+//                   <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+//                     <Lock className="w-5 h-5 text-[#59A5B2]" />
+//                     Security Settings (Optional)
+//                   </h2>
+//                   <button
+//                         onClick={handlePasswordUpdate}
+//                         disabled={isSaving}
+//                         className="bg-[#59A5B2] text-white px-6 py-2 rounded-xl font-bold hover:bg-[#4a8a95] transition-all flex items-center gap-2 disabled:opacity-50"
+//                     >
+//                         {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+//                         Update Password
+//                     </button>
+//               </div>
 
 //               <p className="text-gray-600 text-sm mb-6">
 //                 Leave these fields empty if you don't want to change your
@@ -987,7 +1015,7 @@
 
 //                 <div className="space-y-2">
 //                   <label className="text-sm font-semibold text-gray-700">
-//                     Confirm New Password
+//                     Confirm Password
 //                   </label>
 //                   <div className="relative">
 //                     <input
@@ -1021,39 +1049,14 @@
 //                 </div>
 //               </div>
 //             </div>
-//           )}
-
-//           {isEditing && (
-//             <div className="flex gap-3 justify-end">
-//               <button
-//                 type="button"
-//                 onClick={() => setIsEditing(false)}
-//                 className="px-6 py-3 rounded-xl font-bold text-gray-700 bg-gray-100 hover:bg-gray-200 transition-all"
-//               >
-//                 Cancel
-//               </button>
-//               <button
-//                 type="submit"
-//                 disabled={isSaving}
-//                 className="bg-[#59A5B2] text-white px-10 py-3 rounded-xl font-bold hover:bg-[#4a8a95] flex items-center justify-center gap-2 transition-all shadow-lg shadow-[#59A5B2]/20 disabled:opacity-70"
-//               >
-//                 {isSaving ? (
-//                   <Loader2 className="w-5 h-5 animate-spin" />
-//                 ) : (
-//                   <>
-//                     <Save className="w-5 h-5" /> Save Changes
-//                   </>
-//                 )}
-//               </button>
-//             </div>
-//           )}
-//         </form>
+//           )
+        
+//         )}
+//         </div>
 //       </div>
 //     </main>
 //   );
 // }
-
-
 
 
 
@@ -1687,7 +1690,7 @@ export default function CustomerProfilePage() {
 
               {isEditing && (
                 <div className="md:col-span-2">
-                  <div className="flex flex-wrap items-center gap-6 p-4 bg-gray-50 rounded-xl">
+                  {/* <div className="flex flex-wrap items-center gap-6 p-4 bg-gray-50 rounded-xl">
                     <div className="flex items-center gap-2">
                       <input
                         id="addr-ca"
@@ -1733,7 +1736,7 @@ export default function CustomerProfilePage() {
                         International Address
                       </label>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               )}
 
@@ -2116,4 +2119,4 @@ export default function CustomerProfilePage() {
       </div>
     </main>
   );
-}
+} 
