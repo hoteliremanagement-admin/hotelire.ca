@@ -32,10 +32,15 @@ export default function DashboardPage() {
     const fetchStats = async () => {
       try {
         const response = await fetch(`${baseUrl}/admin/dashboard`)
+        if (!response.ok) {
+           console.warn(`Dashboard API returned status: ${response.status}`);
+           throw new Error("Failed to fetch dashboard stats");
+        }
         const data = await response.json()
         setStats(data)
       } catch (error) {
-        console.error("Error fetching dashboard stats:", error)
+        console.warn("Error fetching dashboard stats:", error)
+        toast.error("Failed to load dashboard data. Please try again later.");
       } finally {
         setLoading(false)
       }
@@ -44,40 +49,66 @@ export default function DashboardPage() {
     fetchStats()
   }, [])
 
-  if (loading || !stats) {
-    return <div className="p-8 text-center">Loading dashboard...</div>
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-[400px]">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading dashboard...</p>
+        </div>
+      </div>
+    );
   }
+
+  if (!stats) {
+    return (
+      <div className="flex items-center justify-center h-[400px]">
+        <div className="text-center">
+          <p className="text-destructive font-semibold">Unable to load dashboard data</p>
+          <Button variant="link" onClick={() => window.location.reload()}>Retry</Button>
+        </div>
+      </div>
+    );
+  }
+
+  // Calculate booking rate correctly: totalBookings / totalProperties
+  const calculatedBookingRate = stats.totalProperties > 0 
+    ? (stats.totalBookings / stats.totalProperties).toFixed(1) 
+    : "0.0";
+
+  // Active subscriptions progress logic
+  const subscriptionPercent = Math.min(Math.max(stats.quickStats.activeSubscriptions || 0, 0), 100);
 
   const statCards = [
     {
       title: "Total Owners",
-      value: stats.totalOwners,
+      value: stats.totalOwners ?? 0,
       icon: Users,
-      trend: "+12%",
+      trend: "+12",
       color: "text-blue-500",
       bg: "bg-blue-500/10",
     },
     {
       title: "Total Properties",
-      value: stats.totalProperties,
+      value: stats.totalProperties ?? 0,
       icon: Building,
-      trend: "+5%",
+      trend: "+5",
       color: "text-purple-500",
       bg: "bg-purple-500/10",
     },
     {
       title: "Total Bookings",
-      value: stats.totalBookings,
+      value: stats.totalBookings ?? 0,
       icon: CalendarCheck,
-      trend: "+18%",
+      trend: "+18",
       color: "text-emerald-500",
       bg: "bg-emerald-500/10",
     },
     {
       title: "Monthly Revenue",
-      value: `$${(stats.totalRevenue / 1000).toFixed(1)}k`,
+      value: `$${((stats.totalRevenue ?? 0) / 1000).toFixed(1)}k`,
       icon: DollarSign,
-      trend: "+24%",
+      trend: "+24",
       color: "text-amber-500",
       bg: "bg-amber-500/10",
     },
@@ -87,13 +118,14 @@ export default function DashboardPage() {
     setIsExporting(true);
     setTimeout(() => {
       try {
+        const formattedDate = new Date().toISOString().split('T')[0];
         const csvContent = "Stat,Value,Trend\n" + 
-          statCards.map(s => `${s.title},${s.value},${s.trend}`).join("\n");
+          statCards.map(s => `${s.title},${s.value},${s.trend}%`).join("\n");
         const blob = new Blob([csvContent], { type: "text/csv" });
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `dashboard_stats_${new Date().toISOString().split('T')[0]}.csv`;
+        a.download = `dashboard_stats_${formattedDate}.csv`;
         a.click();
         toast.success("Dashboard stats exported");
       } catch (e) {
@@ -161,7 +193,7 @@ export default function DashboardPage() {
           <CardContent>
             <div className="h-[300px] w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={stats.chartData}>
+                <AreaChart data={stats.chartData || []}>
                   <defs>
                     <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3} />
@@ -169,7 +201,21 @@ export default function DashboardPage() {
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
-                  <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fill: "#64748B", fontSize: 12 }} />
+                  <XAxis 
+                    dataKey="date" 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: "#64748B", fontSize: 12 }} 
+                    tickFormatter={(value: string) => {
+                      if (!value) return "";
+                      try {
+                        const date = new Date(value);
+                        return date.toLocaleDateString('en-US', { month: 'short', day: '2-digit' });
+                      } catch (e) {
+                        return value;
+                      }
+                    }}
+                  />
                   <YAxis
                     axisLine={false}
                     tickLine={false}
@@ -182,6 +228,18 @@ export default function DashboardPage() {
                       border: "none",
                       boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
                     }}
+                    formatter={(value: number | undefined) => {
+                      const val = value ?? 0;
+                      return [`$${val.toLocaleString()}`, "Revenue"];
+                    }}
+                    labelFormatter={(label) => {
+                      try {
+                        const date = new Date(label);
+                        return date.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+                      } catch (e) {
+                        return label;
+                      }
+                    }}
                   />
                   <Area
                     type="monotone"
@@ -189,6 +247,7 @@ export default function DashboardPage() {
                     stroke="hsl(var(--primary))"
                     fill="url(#colorRevenue)"
                     strokeWidth={2}
+                    connectNulls={true}
                   />
                 </AreaChart>
               </ResponsiveContainer>
@@ -205,22 +264,22 @@ export default function DashboardPage() {
             <StatBar
               title="Active Subscriptions"
               subtitle="Premium Plan"
-              value={`${stats.quickStats.activeSubscriptions}%`}
-              percent={stats.quickStats.activeSubscriptions}
+              value={`${subscriptionPercent}%`}
+              percent={subscriptionPercent}
               color="bg-emerald-500"
             />
             <StatBar
               title="Booking Rate"
               subtitle="Avg. per property"
-              value={stats.quickStats.bookingRate.toString()}
-              percent={Math.min(stats.quickStats.bookingRate * 10, 100)}
+              value={calculatedBookingRate}
+              percent={Math.min((Number(calculatedBookingRate) / 5) * 100, 100)} // Assume 5 is a "full" target for scaling
               color="bg-secondary"
             />
             <StatBar
               title="Customer Satisfaction"
               subtitle="Based on reviews"
-              value={`${stats.quickStats.satisfaction}/5`}
-              percent={(Number.parseFloat(stats.quickStats.satisfaction.toString()) / 5) * 100}
+              value={`${stats.quickStats.satisfaction ?? 0}/5`}
+              percent={(Number.parseFloat((stats.quickStats.satisfaction ?? 0).toString()) / 5) * 100}
               color="bg-primary"
             />
           </CardContent>
@@ -254,8 +313,9 @@ function StatBar({
         <span className="font-bold text-lg">{value}</span>
       </div>
       <div className="w-full bg-muted rounded-full h-2">
-        <div className={`${color} h-2 rounded-full`} style={{ width: `${percent}%` }} />
+        <div className={`${color} h-2 rounded-full transition-all duration-500`} style={{ width: `${Math.min(percent, 100)}%` }} />
       </div>
     </div>
   )
 }
+
