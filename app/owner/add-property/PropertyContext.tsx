@@ -228,6 +228,7 @@ const initialDetails: PropertyDetails = {
   classification: "",
   title: "",
   subtitle: "",
+  avgRating: 0,
   propertyName: "",
   googleMapLink: "",
   photos: {

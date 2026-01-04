@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { Lock, Globe } from "lucide-react";
+import Profile from "@/components/Profile";
 
 export default function SettingsPage() {
   return (
@@ -33,12 +34,7 @@ export default function SettingsPage() {
       </div>
 
       <Tabs defaultValue="platform" className="w-full space-y-6">
-        <TabsList className="w-full sm:w-auto grid grid-cols-2 sm:grid-cols-4 bg-muted/50 p-1 rounded-xl">
-          <TabsTrigger value="platform">Platform</TabsTrigger>
-          {/* <TabsTrigger value="payments">Payments</TabsTrigger>
-          <TabsTrigger value="notifications">Notifications</TabsTrigger> */}
-          <TabsTrigger value="security">Security</TabsTrigger>
-        </TabsList>
+     
 
         {/* PLATFORM */}
         <TabsContent value="platform" className="space-y-6">
@@ -53,18 +49,7 @@ export default function SettingsPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="grid gap-2">
-                <Label htmlFor="site-name">Platform Name</Label>
-                <Input id="site-name" defaultValue="PropAdmin" />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="support-email">Support Email</Label>
-                <Input
-                  id="support-email"
-                  defaultValue="support@propadmin.com"
-                />
-              </div>
-              <Button>Save Changes</Button>
+              <Profile />
             </CardContent>
           </Card>
         </TabsContent>
@@ -154,31 +139,7 @@ export default function SettingsPage() {
         </TabsContent> */}
 
         {/* SECURITY */}
-        <TabsContent value="security" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Lock className="h-5 w-5 text-rose-500" />
-                Admin Security
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid gap-2">
-                <Label>Current Password</Label>
-                <Input type="password" />
-              </div>
-              <div className="grid gap-2">
-                <Label>New Password</Label>
-                <Input type="password" />
-              </div>
-              <div className="grid gap-2">
-                <Label>Confirm New Password</Label>
-                <Input type="password" />
-              </div>
-              <Button>Update Password</Button>
-            </CardContent>
-          </Card>
-        </TabsContent>
+  
       </Tabs>
     </>
   );

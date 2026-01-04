@@ -14,7 +14,7 @@ import {
   Waves,
   MoreVertical,
   Filter,
-  ArrowUpRight
+  ArrowUpRight,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -66,7 +66,7 @@ interface Property {
   reviews: number; // Mocked
   availablestatus: boolean; // Mocked
   price: number; // Derived from rooms
-  amenities: Amenity[];// Simplified for UI
+  amenities: Amenity[]; // Simplified for UI
   featured: boolean;
   canadian_city_name: string;
   canadian_province_name: string;
@@ -81,37 +81,38 @@ const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function PropertiesPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState<"All" | "Active" | "Inactive">("All");
+  const [statusFilter, setStatusFilter] = useState<
+    "All" | "Active" | "Inactive"
+  >("All");
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [propertyList, setPropertyList] = useState<Property[]>([]);
 
   useEffect(() => {
-
     const fetchProperties = async () => {
       try {
-
         const user = await authCheck();
 
         console.log("user from /auth/me is: ", user);
         const userid = user?.user.userid;
 
         if (user && user.user.roleid === 2 && user.user.userid) {
-          const prop = await axios.get(`${baseUrl}/ownerProperty/getSpecificOwnerProperties/${userid}`);
+          const prop = await axios.get(
+            `${baseUrl}/ownerProperty/getSpecificOwnerProperties/${userid}`
+          );
           const properties = prop.data;
-          console.log("ASAL DATA ",properties)
-
+          console.log("ASAL DATA ", properties);
 
           setPropertyList(
             properties.property.map((p: any) => {
               // Filter only features=true and map to objects with name + icon
               const amenities = Array.isArray(p.propertyamenities)
                 ? p.propertyamenities
-                  .filter((pa: any) => pa.features === true)
-                  .map((pa: any) => ({
-                    name: pa.amenities?.amenitiesname,
-                    icon: pa.amenities?.icons, // e.g., "faWifi", "faDumbbell"
-                  }))
-                  .filter(Boolean)
+                    .filter((pa: any) => pa.features === true)
+                    .map((pa: any) => ({
+                      name: pa.amenities?.amenitiesname,
+                      icon: pa.amenities?.icons, // e.g., "faWifi", "faDumbbell"
+                    }))
+                    .filter(Boolean)
                 : [];
 
               return {
@@ -120,41 +121,29 @@ export default function PropertiesPage() {
                 propertysubtitle: p.propertysubtitle,
                 photo1_featured: p.photo1_featured,
                 availablestatus: Boolean(p.AvailableStatus),
-                amenities,       // now an array of { name, icon }
+                amenities, // now an array of { name, icon }
                 featured: true,
                 rating: p.avgRating,
                 reviews: 0,
                 price: 0,
                 canadian_city_name: p.canadian_cities.canadian_city_name,
-                canadian_province_name: p.canadian_states.canadian_province_name
-
+                canadian_province_name:
+                  p.canadian_states.canadian_province_name,
               };
             })
           );
-
-
-
-
-
-
         }
       } catch (error) {
         console.log("Error fetching properties:", error);
       }
-
-    }
+    };
     fetchProperties();
-
   }, []);
-
-
-
-
 
   const filteredProperties = useMemo(() => {
     const query = searchQuery?.toLowerCase().trim() || "";
 
-    return propertyList.filter(p => {
+    return propertyList.filter((p) => {
       const title = p.propertytitle ?? "";
       const subtitle = p.propertysubtitle ?? "";
 
@@ -171,7 +160,6 @@ export default function PropertiesPage() {
 
   // const handleTogglePropertyStatus = (propertyId: number) => {
 
-
   //   setPropertyList(prev =>
   //     prev.map(p =>
   //       p.propertyid === propertyId
@@ -180,66 +168,61 @@ export default function PropertiesPage() {
   //     )
   //   );
 
-
-
   // };
 
-
-
   const handleTogglePropertyStatus = async (propertyId: number) => {
-  setPropertyList(prev =>
-    prev.map(p =>
-      p.propertyid === propertyId
-        ? { ...p, availablestatus: !p.availablestatus }
-        : p
-    )
-  );
-
-  try {
-    await axios.post(
-      `${baseUrl}/ownerProperty/toggle-availability`,
-      { propertyid: propertyId },
-      { withCredentials: true }
-    );
-  } catch (err) {
-    console.error("Toggle failed, reverting…", err);
-
-    // rollback if API fails
-    setPropertyList(prev =>
-      prev.map(p =>
+    setPropertyList((prev) =>
+      prev.map((p) =>
         p.propertyid === propertyId
           ? { ...p, availablestatus: !p.availablestatus }
           : p
       )
     );
-  }
-};
 
+    try {
+      await axios.post(
+        `${baseUrl}/ownerProperty/toggle-availability`,
+        { propertyid: propertyId },
+        { withCredentials: true }
+      );
+    } catch (err) {
+      console.error("Toggle failed, reverting…", err);
+
+      // rollback if API fails
+      setPropertyList((prev) =>
+        prev.map((p) =>
+          p.propertyid === propertyId
+            ? { ...p, availablestatus: !p.availablestatus }
+            : p
+        )
+      );
+    }
+  };
 
   const handleDelete = async () => {
-  try {
-    const res = await axios.post(
-      `${baseUrl}/ownerProperty/suspendProperty`,
-      { propertyid:String(deleteId) },
-      {
-        withCredentials: true, // 🔐 send cookies/JWT
+    try {
+      const res = await axios.post(
+        `${baseUrl}/ownerProperty/suspendProperty`,
+        { propertyid: String(deleteId) },
+        {
+          withCredentials: true, // 🔐 send cookies/JWT
+        }
+      );
+
+      if (deleteId) {
+        setPropertyList((prev) =>
+          prev.filter((p) => p.propertyid !== deleteId)
+        );
+        setDeleteId(null);
       }
-    );
-
-     if (deleteId) {
-      setPropertyList(prev => prev.filter(p => p.propertyid !== deleteId));
-      setDeleteId(null);
+    } catch (err) {
+      console.log("Failed to suspend such property");
+      console.error(err);
     }
-
-  } catch (err) {
-    console.log("Failed to suspend such property");
-    console.error(err);
-  }
-};
+  };
 
   return (
     <OwnerLayout>
-
       <div className="space-y-6">
         {/* Page Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -255,13 +238,14 @@ export default function PropertiesPage() {
             </p>
           </div>
           <Link href="/owner/add-property">
-          <button onClick={() => console.log(propertyList)}
-            className="flex items-center gap-2 bg-[#59A5B2] hover:bg-[#4a9199] text-white px-4 py-2.5 rounded-xl font-medium transition-colors shadow-sm"
-            data-testid="button-add-property"
-          >
-            <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
-            Add Property
-          </button>
+            <button
+              onClick={() => console.log(propertyList)}
+              className="flex items-center gap-2 bg-[#59A5B2] hover:bg-[#4a9199] text-white px-4 py-2.5 rounded-xl font-medium transition-colors shadow-sm"
+              data-testid="button-add-property"
+            >
+              <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
+              Add Property
+            </button>
           </Link>
         </div>
 
@@ -298,13 +282,26 @@ export default function PropertiesPage() {
           </div> */}
         </div>
 
-
-
-
         {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
           <AnimatePresence>
-            {filteredProperties ?
+            {filteredProperties.length === 0 ? (
+              <div className="col-span-full flex flex-col items-center justify-center py-20">
+                <p className="text-lg font-semibold text-gray-600 dark:text-gray-300">
+                  No properties found
+                </p>
+                <p className="text-sm text-gray-500 mt-1">
+                  You haven’t added any properties yet.
+                </p>
+
+                <Link href="/owner/add-property">
+                  <button className="mt-4 flex items-center gap-2 bg-[#59A5B2] hover:bg-[#4a9199] text-white px-5 py-2.5 rounded-xl font-medium transition-colors">
+                    <Plus className="w-4 h-4" />
+                    Add Your First Property
+                  </button>
+                </Link>
+              </div>
+            ) : (
               filteredProperties.map((property) => (
                 <PropertyCard
                   key={property.propertyid}
@@ -312,39 +309,38 @@ export default function PropertiesPage() {
                   onDelete={() => setDeleteId(property.propertyid)}
                   onToggleStatus={handleTogglePropertyStatus}
                 />
-              )) :
-              <div className="col-span-full text-center py-12">
-                <p className="text-gray-500 dark:text-gray-400">No properties found.</p>
-              </div>
-
-            }
-
+              ))
+            )}
           </AnimatePresence>
         </div>
 
         {/* Delete Modal */}
-        <Dialog open={!!deleteId} onOpenChange={(open) => !open && setDeleteId(null)}>
+        <Dialog
+          open={!!deleteId}
+          onOpenChange={(open) => !open && setDeleteId(null)}
+        >
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
               <DialogTitle>Delete Property?</DialogTitle>
               <DialogDescription>
-                This action cannot be undone. This will permanently delete the property listing and all associated data.
+                This action cannot be undone. This will permanently delete the
+                property listing and all associated data.
               </DialogDescription>
             </DialogHeader>
             <DialogFooter className="gap-2 sm:gap-0">
-              <Button variant="outline" onClick={() => setDeleteId(null)}>Cancel</Button>
-              <Button variant="destructive" onClick={handleDelete}>Delete Listing</Button>
+              <Button variant="outline" onClick={() => setDeleteId(null)}>
+                Cancel
+              </Button>
+              <Button variant="destructive" onClick={handleDelete}>
+                Delete Listing
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
       </div>
-
-
     </OwnerLayout>
   );
 }
-
-
 
 function getIcon(iconName: string): Icons.IconDefinition | undefined {
   const icon = (Icons as any)[iconName as keyof typeof Icons];
@@ -352,53 +348,6 @@ function getIcon(iconName: string): Icons.IconDefinition | undefined {
     ? (icon as Icons.IconDefinition)
     : undefined;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // function PropertyCard({ property, onDelete }: { property: Property; onDelete: () => void }) {
 function PropertyCard({
@@ -410,9 +359,7 @@ function PropertyCard({
   onDelete: () => void;
   onToggleStatus: (id: number) => void;
 }) {
-
   console.log("status for", property.propertyid, property.availablestatus);
-
 
   console.log("prop...", property);
   return (
@@ -421,7 +368,6 @@ function PropertyCard({
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
-
       transition={{ duration: 0.2 }}
       className="group relative flex flex-col bg-card rounded-2xl overflow-hidden border border-border/40 shadow-sm  transition-all duration-300 dark:bg-card/50"
     >
@@ -438,13 +384,21 @@ function PropertyCard({
 
         {/* Status Badge */}
         <div className="absolute top-3 right-3">
-          <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm border ${property.availablestatus
-            ? 'bg-green-500/90 text-white border-green-400/50'
-            : 'bg-zinc-500/90 text-white border-zinc-400/50'
-            }`}>
-            <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${property.availablestatus ? 'bg-green-200 animate-pulse' : 'bg-zinc-300'
-              }`} />
-            {property.availablestatus ? 'Active' : 'Inactive'}
+          <span
+            className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm border ${
+              property.availablestatus
+                ? "bg-green-500/90 text-white border-green-400/50"
+                : "bg-zinc-500/90 text-white border-zinc-400/50"
+            }`}
+          >
+            <span
+              className={`w-1.5 h-1.5 rounded-full mr-1.5 ${
+                property.availablestatus
+                  ? "bg-green-200 animate-pulse"
+                  : "bg-zinc-300"
+              }`}
+            />
+            {property.availablestatus ? "Active" : "Inactive"}
           </span>
         </div>
 
@@ -462,7 +416,9 @@ function PropertyCard({
         <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur px-2.5 py-1.5 rounded-full shadow-lg text-xs font-semibold text-foreground">
           <Star className="w-3.5 h-3.5 fill-[#FEBC11] text-[#FEBC11]" />
           <span>{property.avgRating}</span>
-          <span className="text-muted-foreground font-normal">({property.reviews})</span>
+          <span className="text-muted-foreground font-normal">
+            ({property.reviews})
+          </span>
         </div>
       </div>
 
@@ -471,13 +427,19 @@ function PropertyCard({
         <div className="flex-1 space-y-3">
           {/* Title & Location */}
           <div>
-            <h3 className="text-lg font-bold leading-tight text-foreground line-clamp-1 group-hover:text-[#59A5B2] transition-colors" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            <h3
+              className="text-lg font-bold leading-tight text-foreground line-clamp-1 group-hover:text-[#59A5B2] transition-colors"
+              style={{ fontFamily: "Poppins, sans-serif" }}
+            >
               {property.propertytitle}
             </h3>
-            <h4 >{property.propertysubtitle}</h4>
+            <h4>{property.propertysubtitle}</h4>
             <div className="flex items-center gap-1.5 mt-1.5 text-sm text-muted-foreground">
               <MapPin className="w-3.5 h-3.5 shrink-0" />
-              <span className="truncate">{property.canadian_city_name} | {property.canadian_province_name}</span>
+              <span className="truncate">
+                {property.canadian_city_name} |{" "}
+                {property.canadian_province_name}
+              </span>
             </div>
           </div>
 
@@ -503,9 +465,15 @@ function PropertyCard({
                 variant="secondary"
                 className="px-2 py-0.5 h-6 text-[10px] font-medium bg-muted/50 text-muted-foreground border-transparent flex items-center gap-1"
               >
-                <FontAwesomeIcon icon={getIcon(amenity.icon) as Icons.IconDefinition} className="w-5 h-5 text-[#59A5B2]" />
+                <FontAwesomeIcon
+                  icon={getIcon(amenity.icon) as Icons.IconDefinition}
+                  className="w-5 h-5 text-[#59A5B2]"
+                />
 
-                <FontAwesomeIcon icon={amenity.icon as any} className="w-3 h-3" />
+                <FontAwesomeIcon
+                  icon={amenity.icon as any}
+                  className="w-3 h-3"
+                />
                 {amenity.name}
               </Badge>
             ))}
@@ -518,10 +486,6 @@ function PropertyCard({
               </Badge>
             )}
           </div>
-
-
-
-
         </div>
 
         {/* Footer */}
@@ -533,58 +497,59 @@ function PropertyCard({
 
             <button
               onClick={() => onToggleStatus(property.propertyid)}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${property.availablestatus ? "bg-green-500" : "bg-zinc-400"
-                }`}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+                property.availablestatus ? "bg-green-500" : "bg-zinc-400"
+              }`}
             >
               <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${property.availablestatus ? "translate-x-6" : "translate-x-1"
-                  }`}
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                  property.availablestatus ? "translate-x-6" : "translate-x-1"
+                }`}
               />
             </button>
-
           </div>
-
 
           <div className="flex items-center gap-1 opacity-100 hover:opacity-100 transition-opacity duration-200">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-accent rounded-lg">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8 hover:bg-accent rounded-lg"
+                >
                   <MoreVertical className="w-4 h-4 text-muted-foreground" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-40">
-
-
-                <Link href={`/owner/add-property`}
+                <Link
+                  href={`/owner/add-property`}
                   className="flex items-center p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                   data-testid={`edit-property-${property.propertyid}`}
                 >
                   <DropdownMenuItem className="cursor-pointer">
-
                     <Pencil className="w-4 h-4 mr-2" />
                     Edit
-
                   </DropdownMenuItem>
-
                 </Link>
 
-
-                <DropdownMenuItem className="cursor-pointer text-destructive focus:text-destructive" onClick={onDelete}>
+                <DropdownMenuItem
+                  className="cursor-pointer text-destructive focus:text-destructive"
+                  onClick={onDelete}
+                >
                   <Trash2 className="w-4 h-4 mr-2" /> Delete
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
-
             <Link href={`/owner/properties/${property.propertyid}`}>
-              <Button size="sm" className="h-8 bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 rounded-lg text-xs font-medium px-3 shadow-none">
+              <Button
+                size="sm"
+                className="h-8 bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 rounded-lg text-xs font-medium px-3 shadow-none"
+              >
                 Manage <ArrowUpRight className="w-3 h-3 ml-1" />
               </Button>
             </Link>
-
           </div>
-
-
         </div>
       </div>
     </motion.div>
