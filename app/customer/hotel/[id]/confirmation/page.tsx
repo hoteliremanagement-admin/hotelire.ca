@@ -575,18 +575,18 @@ const handleWhatsAppClick = () => {
 }
 
 
-  useEffect(() => {
-    const logincheck = async () => {
-      const user = await authCheck();
+  // useEffect(() => {
+  //   const logincheck = async () => {
+  //     const user = await authCheck();
 
-      console.log("user from /auth/me is: ", user);
+  //     console.log("user from /auth/me is: ", user);
 
-      if (!user) {
-        router.push(`/customer/signin`);
-      }
-    };
-    logincheck();
-  }, []);
+  //     if (!user) {
+  //       router.push(`/customer/signin`);
+  //     }
+  //   };
+  //   logincheck();
+  // }, []);
 
    const formatDate = (isoString:string) => {
     const date = new Date(isoString);
