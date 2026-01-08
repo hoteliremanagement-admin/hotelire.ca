@@ -482,6 +482,9 @@ import { InvoicePrint } from "@/components/InvoicePrint";
 
 interface BookingConfirmationData {
   confirmationId: string;
+  booking: {
+    createdAt: string;
+  };
   User: {
     email: string;
   };
@@ -541,38 +544,48 @@ export default function BookingConfirmationPage() {
     });
   };
 
-const handleEmailClick = () => {
-  const email = data?.property.email
-  if (!email) return
+  const formatDateforId = (isoString: string) => {
+    const date = new Date(isoString);
 
-  const subject = encodeURIComponent("Regarding your property booking")
-  const body = encodeURIComponent(
-    `Hello ${data.property.firstName},
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // months 0-based
+    const year = date.getFullYear();
+
+    return `${day}${month}${year}`;
+  };  
+
+  const handleEmailClick = () => {
+    const email = data?.property.email
+    if (!email) return
+
+    const subject = encodeURIComponent("Regarding your property booking")
+    const body = encodeURIComponent(
+      `Hello ${data.property.firstName},
 
 I have a question regarding my recent booking.
 
 Thank you.`
-  )
+    )
 
-  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&body=${body}`
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&body=${body}`
 
-  window.open(gmailUrl, "_blank")
-}
+    window.open(gmailUrl, "_blank")
+  }
 
 
-const handleWhatsAppClick = () => {
-  let phone = data?.property.phoneno
-  if (!phone) return
+  const handleWhatsAppClick = () => {
+    let phone = data?.property.phoneno
+    if (!phone) return
 
-  // clean number (spaces, dashes remove)
-  phone = phone.replace(/\D/g, "")
+    // clean number (spaces, dashes remove)
+    phone = phone.replace(/\D/g, "")
 
-  const message = encodeURIComponent(
-    "Hello, I have a question regarding my booking. Thank you."
-  )
+    const message = encodeURIComponent(
+      "Hello, I have a question regarding my booking. Thank you."
+    )
 
-  window.open(`https://wa.me/${phone}?text=${message}`, "_blank")
-}
+    window.open(`https://wa.me/${phone}?text=${message}`, "_blank")
+  }
 
 
   // useEffect(() => {
@@ -588,7 +601,7 @@ const handleWhatsAppClick = () => {
   //   logincheck();
   // }, []);
 
-   const formatDate = (isoString:string) => {
+  const formatDate = (isoString: string) => {
     const date = new Date(isoString);
     return date.toLocaleDateString("en-CA", {
       year: "numeric",
@@ -701,7 +714,7 @@ const handleWhatsAppClick = () => {
           >
             Confirmation ID:{" "}
             <span className="font-semibold text-[#59A5B2]">
-              {data.confirmationId}
+              {`${data.confirmationId}-${formatDateforId(data.booking.createdAt)}`}
             </span>
           </p>
           <p
@@ -777,7 +790,7 @@ const handleWhatsAppClick = () => {
                     {formatDate(data.dates.checkIn)}
                   </p>
                   <p className="text-sm text-gray-600" style={{ fontFamily: "Inter, sans-serif" }}>
-                    From {formatDate(data.property.checkInTime)}
+                    From {data.property.checkInTime}
                   </p>
                 </div>
 
@@ -799,7 +812,7 @@ const handleWhatsAppClick = () => {
                     className="text-sm text-gray-600"
                     style={{ fontFamily: "Inter, sans-serif" }}
                   >
-                    Until {formatDate1(data.property.checkOutTime)}
+                    Until {data.property.checkOutTime}
                   </p>
                 </div>
               </div>

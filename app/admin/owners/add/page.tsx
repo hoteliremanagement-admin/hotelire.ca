@@ -265,6 +265,8 @@ export default function AddOwnerPage() {
 
   return (
     <div className="min-h-screen bg-background">
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"></div>
       {/* Header */}
       <div className="flex items-center gap-4 mb-8">
         <Button variant="ghost" size="icon" onClick={() => router.back()} className="hover:bg-muted">
@@ -274,7 +276,7 @@ export default function AddOwnerPage() {
       </div>
 
       {/* Form Card */}
-      <Card className="max-w-2xl shadow-sm">
+      <Card className="w-full max-w-7xl shadow-sm">
         <CardHeader>
           <CardTitle>Owner Information</CardTitle>
         </CardHeader>
@@ -386,12 +388,12 @@ export default function AddOwnerPage() {
                   value={
                     formData.canadian_provinceid
                       ? {
-                          value: Number(formData.canadian_provinceid),
-                          label:
-                            canadianProvinces.find(
-                              (p) => p.canadian_province_id === Number(formData.canadian_provinceid),
-                            )?.canadian_province_name || "",
-                        }
+                        value: Number(formData.canadian_provinceid),
+                        label:
+                          canadianProvinces.find(
+                            (p) => p.canadian_province_id === Number(formData.canadian_provinceid),
+                          )?.canadian_province_name || "",
+                      }
                       : null
                   }
                   onChange={(opt) => {
@@ -414,11 +416,11 @@ export default function AddOwnerPage() {
                   value={
                     formData.canadian_cityid
                       ? {
-                          value: Number(formData.canadian_cityid),
-                          label:
-                            canadianCities.find((c) => c.canadian_city_id === Number(formData.canadian_cityid))
-                              ?.canadian_city_name || "",
-                        }
+                        value: Number(formData.canadian_cityid),
+                        label:
+                          canadianCities.find((c) => c.canadian_city_id === Number(formData.canadian_cityid))
+                            ?.canadian_city_name || "",
+                      }
                       : null
                   }
                   onChange={(opt) => {
@@ -466,6 +468,7 @@ export default function AddOwnerPage() {
           </form>
         </CardContent>
       </Card>
+
     </div>
   )
 }
