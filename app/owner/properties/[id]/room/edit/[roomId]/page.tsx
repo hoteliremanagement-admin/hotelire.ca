@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
-import { Upload, X } from "lucide-react"
+import { Trash2, Upload, X } from "lucide-react"
 import StyledSelect from "@/components/StyledSelected"
 
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -186,11 +186,93 @@ export default function EditRoomPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto p-2">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Edit Room</h1>
-          <p className="text-gray-500 mt-2">Update the details of your room</p>
-        </div>
+        {/* <div className="row container">
+          <div className="mb-8 col-md-6">
+            <h1 className="text-3xl font-bold text-gray-900">Edit Room</h1>
+            <p className="text-gray-500 mt-2">Update the details of your room</p>
 
+
+          </div>
+          <div className="mb-8 col-md-6">
+            <button
+              title="Delete"
+              className="
+    inline-flex items-center justify-center
+    rounded-md
+    p-2
+    text-red-600
+    hover:text-white
+    hover:bg-red-600
+    transition
+    duration-200
+    ease-in-out
+    focus:outline-none
+    focus:ring-2
+    focus:ring-red-500
+    focus:ring-offset-2
+  "
+            >
+              <Trash2 className="w-4 h-4" />
+            </button>
+
+          </div>
+        </div> */}
+
+        <div className="row align-items-center">
+      
+      {/* LEFT */}
+      <div className="mb-8 col-md-6">
+        <h1 className="text-3xl font-bold text-gray-900">Edit Room</h1>
+        <p className="text-gray-500 mt-2">
+          Update the details of your room
+        </p>
+      </div>
+
+      {/* RIGHT */}
+      <div className="mb-8 col-md-6 text-end">
+        <button
+        onClick={() => {
+          const confirmDelete = confirm("Are you sure you want to delete this room?")
+          if (!confirmDelete) return
+          // Handle delete logic here
+          const deleteRoom = async () => {
+            try {
+              const response = await fetch(`${baseUrl}/ownerProperty/deletePropertyRoomById/${roomId}`, {
+                method: "DELETE",
+                credentials: "include",
+              })
+              const result = await response.json()
+              if (response.ok) {
+                alert("Room deleted successfully")
+                router.push(`/owner/properties/${propertyId}`)
+              } else {
+                alert(result.message || "Failed to delete room")
+              }
+            } catch (error) {
+              console.error("Error deleting room:", error)
+              alert("Failed to delete room")
+            }
+          }
+          deleteRoom()
+        }
+      }
+      
+          title="Delete"
+          className="
+            inline-flex items-center justify-center
+            rounded-md p-2
+            text-red-600
+            hover:text-white hover:bg-red-600
+            transition duration-200 ease-in-out
+            focus:outline-none
+            focus:ring-2 focus:ring-red-500 focus:ring-offset-2
+          "
+        >
+          <Trash2 className="w-4 h-4" />
+        </button>
+      </div>
+
+    </div>
         <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm space-y-8">
           {/* Name + Type */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -199,9 +281,8 @@ export default function EditRoomPage() {
                 Room Name <span className="text-red-500">*</span>
               </label>
               <input
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent outline-none transition-all ${
-                  localErrors.roomname ? "border-red-500" : "border-gray-300"
-                }`}
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent outline-none transition-all ${localErrors.roomname ? "border-red-500" : "border-gray-300"
+                  }`}
                 placeholder="e.g., Deluxe King Suite"
                 value={room.roomname}
                 onChange={(e) => {
@@ -387,11 +468,10 @@ export default function EditRoomPage() {
               type="button"
               disabled={!isFormValid() || loading}
               onClick={handleSubmit}
-              className={`flex-1 py-3.5 px-6 font-medium rounded-lg transition-all shadow-sm ${
-                isFormValid() && !loading
+              className={`flex-1 py-3.5 px-6 font-medium rounded-lg transition-all shadow-sm ${isFormValid() && !loading
                   ? "bg-[#59A5B2] text-white hover:bg-[#4a9199] active:scale-[0.98]"
                   : "bg-gray-300 text-gray-500 cursor-not-allowed"
-              }`}
+                }`}
             >
               {loading ? "Updating Room..." : "Update Room"}
             </button>

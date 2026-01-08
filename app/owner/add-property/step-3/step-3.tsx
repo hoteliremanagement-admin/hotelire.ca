@@ -95,24 +95,25 @@ export default function Step3Page() {
 
 
 
-   const getPropertyInformation = async (propertyid: any) => {
+  const getPropertyInformation = async (propertyid: any) => {
     try {
       const response = await axios.get(`${baseUrl}/ownerProperty/getPropertiesforowner/${propertyid}`, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });
+      console.log("checking response",response)
 
       if (response.data) {
-        const propertyData = response.data.property[0];
+        const propertyData = response.data.property;
         console.log("chk", propertyData);
 
 
-     setLocalAmenities(prev => ({
-  ...prev,
-  checkInTime: propertyData.checkintime || "",
-  checkOutTime: propertyData.checkouttime || "",
-  rules: propertyData.houserules || "",
-}));
+        setLocalAmenities(prev => ({
+          ...prev,
+          checkInTime: propertyData?.checkintime ?? "",
+          checkOutTime: propertyData?.checkouttime ?? "",
+          rules: propertyData?.houserules ?? "",
+        }));
 
 
 
@@ -173,7 +174,7 @@ export default function Step3Page() {
 
 
 
- 
+
 
 
 

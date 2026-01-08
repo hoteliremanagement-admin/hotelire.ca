@@ -34,6 +34,7 @@ interface Booking {
   adults: number;
   children: number;
   nights: number;
+  createdAt: string;
 }
 
 
@@ -51,6 +52,17 @@ export default function Bookings() {
   const [user, setUser] = useState<any>(null);
 
 const searchParams = useSearchParams();
+
+ const formatDate = (isoString: string) => {
+  const date = new Date(isoString);
+
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // months 0-based
+  const year = date.getFullYear();
+
+  return `${day}${month}${year}`;
+};
+
 
 const bookingIdFromUrl = searchParams.get("bookingId");
 
@@ -104,6 +116,7 @@ useEffect(() => {
       const response = await fetch(`${baseUrl}/owner/bookings/${ownerId}`);
       if (!response.ok) throw new Error("Failed to fetch bookings");
       const result = await response.json();
+      console.log(result);
       if (result.success) {
         setBookings(result.data);
       }
@@ -220,7 +233,7 @@ useEffect(() => {
               <tbody>
                 {paginatedData.map((booking: any) => (
                   <tr key={booking.id} className={`border-b border-gray-100 last:border-0 hover:bg-gray-50/50 transition-colors`}>
-                    <td className="py-4 px-4 font-medium text-[#59A5B2]">{booking.id}</td>
+                    <td className="py-4 px-4 font-medium text-[#59A5B2]">CONF-{booking.id}-{formatDate(booking.createdAt)}</td>
                     <td className="py-4 px-4 text-gray-800">{booking.guestName}</td>
                     <td className="py-4 px-4 text-gray-600">{booking.property}</td>
                     <td className="py-4 px-4 text-sm text-gray-500">{booking.checkIn} → {booking.checkOut}</td>
