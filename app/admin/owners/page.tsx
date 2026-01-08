@@ -19,6 +19,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import { toast } from "@/hooks/use-toast"
+import { useRouter } from "next/navigation"
 
 interface Owner {
   id: number
@@ -35,6 +36,8 @@ const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 
 function OwnersContent() {
+
+  const router = useRouter();
   const [owners, setOwners] = useState<Owner[]>([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState("")
@@ -44,14 +47,50 @@ function OwnersContent() {
   const [isExporting, setIsExporting] = useState(false);
 
 
+  // useEffect(() => {
+  // const fetchOwners = async () => {
+  //   try {
+  //     const response = await fetch(`${baseUrl}/admin/owners`)
+  //     const data = await response.json()
+  //     setOwners(data);
+  //     if(!data){
+  //       alert("Owners data is empty ");
+  //       router.push('/admin');
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching owners:", error)
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }
+
+  //   fetchOwners()
+  // }, [])
+
+
+  //     fetchOwners()
+  //   }, [])
+
   useEffect(() => {
     const fetchOwners = async () => {
       try {
         const response = await fetch(`${baseUrl}/admin/owners`)
         const data = await response.json()
-        setOwners(data)
+
+        // ✅ SAFETY CHECK
+        if (Array.isArray(data)) {
+          setOwners(data)
+        } else if (Array.isArray(data?.owners)) {
+          setOwners(data.owners)
+        } else if (Array.isArray(data?.data)) {
+          setOwners(data.data)
+        } else {
+          setOwners([])
+          console.warn("Owners response is not an array:", data)
+        }
       } catch (error) {
         console.error("Error fetching owners:", error)
+        setOwners([])
       } finally {
         setLoading(false)
       }
@@ -59,6 +98,7 @@ function OwnersContent() {
 
     fetchOwners()
   }, [])
+
 
   const sortedOwners = [...owners].sort((a, b) => {
     if (sortBy === "properties") {
@@ -78,7 +118,8 @@ function OwnersContent() {
     try {
       const response = await fetch(`${baseUrl}/admin/owners/${ownerId}`, {
         method: "DELETE",
-      })
+        credentials: "include",
+      });
 
       if (response.ok) {
         setOwners((prev) => prev.filter((owner) => owner.id !== ownerId))
@@ -94,7 +135,7 @@ function OwnersContent() {
     }
   }
 
-const handleExportCSV = () => {
+  const handleExportCSV = () => {
     setIsExporting(true);
     try {
       const headers = ["ID", "Name", "Email", "Location", "Properties", "Status"];
@@ -106,7 +147,7 @@ const handleExportCSV = () => {
         o.totalProperties,
         o.status
       ]);
-      
+
       const csvContent = [headers, ...rows].map(e => e.join(",")).join("\n");
       const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
       const link = document.createElement("a");
@@ -137,25 +178,25 @@ const handleExportCSV = () => {
       {/* Page Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <h1 className="text-3xl font-display font-bold text-foreground">Property Owners</h1>
-          
-          <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
+
+        <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
           <Button className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20 gap-2"
-            variant="outline" 
-           
-            
+            variant="outline"
+
+
             onClick={handleExportCSV}
             disabled={isExporting}
           >
             <Download className="mr-2 h-4 w-4" />
             {isExporting ? "Exporting..." : "Export CSV"}
           </Button>
-          
-        <Link href="/admin/owners/add">
-          <Button className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20">
-            <Plus className="mr-2 h-4 w-4" />
-            Add Owner
-          </Button>
-        </Link>
+
+          <Link href="/admin/owners/add">
+            <Button className="bg-primary hover:bg-primary/90 text-white shadow-lg shadow-primary/20">
+              <Plus className="mr-2 h-4 w-4" />
+              Add Owner
+            </Button>
+          </Link>
         </div>
       </div>
 
