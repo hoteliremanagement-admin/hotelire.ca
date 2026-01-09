@@ -16,12 +16,33 @@ export function Navigation() {
   const router = useRouter();
   const [roleId, setRoleId] = useState<number | null>(null);
 
+  const [isownerVerificationComplete, setisownerVerificationComplete] = useState(false);
+
   useEffect(() => {
     const checkRole = async () => {
       const user = await authCheck();
 
       if (user?.user?.roleid) {
         setRoleId(user.user.roleid);
+      }
+
+      if (user.user.roleid === 2) {
+        try {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/owner/checkOwnerDocuments`, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          const data = await response.json();
+          if (data.success == true && data.documentsComplete == true) {
+            setisownerVerificationComplete(true);
+          }
+
+        } catch (error) {
+          console.error("Error checking owner documents:", error);
+        }
       }
     };
 
@@ -47,6 +68,13 @@ export function Navigation() {
 
     // 3️⃣ Owner
     if (roleId === 2) {
+
+      if (isownerVerificationComplete == false) {
+        router.push("/owner/verification");
+        return;
+      }
+
+
       router.push("/owner/overview");
       return;
     }
@@ -74,11 +102,10 @@ export function Navigation() {
         <Link
           href="/customer/explore-canada"
           prefetch={false}
-          className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 ${
-            isActive("/customer/explore-canada")
+          className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 ${isActive("/customer/explore-canada")
               ? "text-[#59A5B2] border-b-2 border-[#59A5B2]"
               : "hover:text-[#59A5B2]"
-          }`}
+            }`}
         >
           <span>EXPLORE CANADA</span>
           {/* <ChevronDownIcon className="w-[13px] h-2" aria-hidden="true" /> */}
@@ -86,33 +113,30 @@ export function Navigation() {
         <Link
           href="/customer/listing"
           prefetch={false}
-          className={`cursor-pointer transition-colors duration-200 ${
-            isActive("/customer/listing")
+          className={`cursor-pointer transition-colors duration-200 ${isActive("/customer/listing")
               ? "text-[#59A5B2] border-b-2 border-[#59A5B2]"
               : "hover:text-[#59A5B2]"
-          }`}
+            }`}
         >
           SEARCH
         </Link>
         <Link
           href="/blog"
           prefetch={false}
-          className={`cursor-pointer transition-colors duration-200 ${
-            isActive("/blog")
+          className={`cursor-pointer transition-colors duration-200 ${isActive("/blog")
               ? "text-[#59A5B2] border-b-2 border-[#59A5B2]"
               : "hover:text-[#59A5B2]"
-          }`}
+            }`}
         >
           BLOG
         </Link>
         <Link
           href="/customer/contact"
           prefetch={false}
-          className={`cursor-pointer transition-colors duration-200 ${
-            isActive("/contact")
+          className={`cursor-pointer transition-colors duration-200 ${isActive("/contact")
               ? "text-[#59A5B2] border-b-2 border-[#59A5B2]"
               : "hover:text-[#59A5B2]"
-          }`}
+            }`}
         >
           CONTACT
         </Link>

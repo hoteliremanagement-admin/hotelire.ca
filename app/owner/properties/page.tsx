@@ -87,6 +87,8 @@ export default function PropertiesPage() {
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [propertyList, setPropertyList] = useState<Property[]>([]);
 
+  const [isownerVerificationComplete, setisownerVerificationComplete] = useState(false);
+
   useEffect(() => {
     const fetchProperties = async () => {
       try {
@@ -107,12 +109,12 @@ export default function PropertiesPage() {
               // Filter only features=true and map to objects with name + icon
               const amenities = Array.isArray(p.propertyamenities)
                 ? p.propertyamenities
-                    .filter((pa: any) => pa.features === true)
-                    .map((pa: any) => ({
-                      name: pa.amenities?.amenitiesname,
-                      icon: pa.amenities?.icons, // e.g., "faWifi", "faDumbbell"
-                    }))
-                    .filter(Boolean)
+                  .filter((pa: any) => pa.features === true)
+                  .map((pa: any) => ({
+                    name: pa.amenities?.amenitiesname,
+                    icon: pa.amenities?.icons, // e.g., "faWifi", "faDumbbell"
+                  }))
+                  .filter(Boolean)
                 : [];
 
               return {
@@ -137,7 +139,29 @@ export default function PropertiesPage() {
         console.log("Error fetching properties:", error);
       }
     };
+
+    const checkverificationcomplete = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/owner/checkOwnerDocuments`, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        if (data.success == true && data.documentsComplete == true) {
+          setisownerVerificationComplete(true);
+        }
+
+      } catch (error) {
+        console.error("Error checking owner documents:", error);
+      }
+    }
+
+
     fetchProperties();
+    checkverificationcomplete()
   }, []);
 
   const filteredProperties = useMemo(() => {
@@ -237,16 +261,24 @@ export default function PropertiesPage() {
               Manage your property listings
             </p>
           </div>
-          <Link href="/owner/add-property">
-            <button
-              onClick={() => console.log(propertyList)}
-              className="flex items-center gap-2 bg-[#59A5B2] hover:bg-[#4a9199] text-white px-4 py-2.5 rounded-xl font-medium transition-colors shadow-sm"
-              data-testid="button-add-property"
-            >
+
+          <Link
+            href={
+              isownerVerificationComplete
+                ? "/owner/add-property"
+                : "/owner/verification"
+            }
+          >            <button
+            onClick={() => console.log(propertyList)}
+            className="flex items-center gap-2 bg-[#59A5B2] hover:bg-[#4a9199] text-white px-4 py-2.5 rounded-xl font-medium transition-colors shadow-sm"
+            data-testid="button-add-property"
+          >
               <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
               Add Property
             </button>
           </Link>
+
+
         </div>
 
         {/* Search & Filter */}
@@ -385,18 +417,16 @@ function PropertyCard({
         {/* Status Badge */}
         <div className="absolute top-3 right-3">
           <span
-            className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm border ${
-              property.availablestatus
-                ? "bg-green-500/90 text-white border-green-400/50"
-                : "bg-zinc-500/90 text-white border-zinc-400/50"
-            }`}
+            className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm border ${property.availablestatus
+              ? "bg-green-500/90 text-white border-green-400/50"
+              : "bg-zinc-500/90 text-white border-zinc-400/50"
+              }`}
           >
             <span
-              className={`w-1.5 h-1.5 rounded-full mr-1.5 ${
-                property.availablestatus
-                  ? "bg-green-200 animate-pulse"
-                  : "bg-zinc-300"
-              }`}
+              className={`w-1.5 h-1.5 rounded-full mr-1.5 ${property.availablestatus
+                ? "bg-green-200 animate-pulse"
+                : "bg-zinc-300"
+                }`}
             />
             {property.availablestatus ? "Active" : "Inactive"}
           </span>
@@ -497,14 +527,12 @@ function PropertyCard({
 
             <button
               onClick={() => onToggleStatus(property.propertyid)}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                property.availablestatus ? "bg-green-500" : "bg-zinc-400"
-              }`}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${property.availablestatus ? "bg-green-500" : "bg-zinc-400"
+                }`}
             >
               <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                  property.availablestatus ? "translate-x-6" : "translate-x-1"
-                }`}
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${property.availablestatus ? "translate-x-6" : "translate-x-1"
+                  }`}
               />
             </button>
           </div>
