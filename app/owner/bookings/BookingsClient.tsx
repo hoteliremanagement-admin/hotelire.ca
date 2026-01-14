@@ -51,27 +51,27 @@ export default function Bookings() {
   const [detailsModal, setDetailsModal] = useState<{ isOpen: boolean; booking: Booking | null }>({ isOpen: false, booking: null });
   const [user, setUser] = useState<any>(null);
 
-const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
 
- const formatDate = (isoString: string) => {
-  const date = new Date(isoString);
+  const formatDate = (isoString: string) => {
+    const date = new Date(isoString);
 
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // months 0-based
-  const year = date.getFullYear();
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // months 0-based
+    const year = date.getFullYear();
 
-  return `${day}${month}${year}`;
-};
+    return `${day}${month}${year}`;
+  };
 
 
-const bookingIdFromUrl = searchParams.get("bookingId");
+  const bookingIdFromUrl = searchParams.get("bookingId");
 
   useEffect(() => {
     const init = async () => {
       try {
         const authData = await authCheck();
         if (authData?.user) {
-          setUser(authData.user);
+          setUser(authData.user); 
           await fetchBookings(authData.user.userid);
         }
       } catch (err) {
@@ -83,32 +83,32 @@ const bookingIdFromUrl = searchParams.get("bookingId");
     init();
   }, []);
 
- 
 
-useEffect(() => {
-  if (!bookingIdFromUrl) return;
-  if (loading) return;
-  if (!bookings || bookings.length === 0) return;
 
-  const normalizedId =
-    bookingIdFromUrl.startsWith("BK")
-      ? bookingIdFromUrl
-      : `BK${bookingIdFromUrl}`;
+  useEffect(() => {
+    if (!bookingIdFromUrl) return;
+    if (loading) return;
+    if (!bookings || bookings.length === 0) return;
 
-  const target = bookings.find(
-    b =>
-      b.id === normalizedId ||
-      b.bookingId === normalizedId ||
-      String(b.id) === bookingIdFromUrl
-  );
+    const normalizedId =
+      bookingIdFromUrl.startsWith("BK")
+        ? bookingIdFromUrl
+        : `BK${bookingIdFromUrl}`;
 
-  if (target) {
-    setDetailsModal({
-      isOpen: true,
-      booking: target,
-    });
-  }
-}, [bookingIdFromUrl, loading, bookings]);
+    const target = bookings.find(
+      b =>
+        b.id === normalizedId ||
+        b.bookingId === normalizedId ||
+        String(b.id) === bookingIdFromUrl
+    );
+
+    if (target) {
+      setDetailsModal({
+        isOpen: true,
+        booking: target,
+      });
+    }
+  }, [bookingIdFromUrl, loading, bookings]);
 
 
   const fetchBookings = async (ownerId: number) => {
@@ -180,7 +180,7 @@ useEffect(() => {
 
   return (
     <OwnerLayout>
-       <div className="space-y-6">
+      <div className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-[#59A5B2] font-heading">Bookings</h1>
@@ -190,29 +190,28 @@ useEffect(() => {
 
         {/* Filters */}
         <div className="flex flex-col sm:flex-row gap-4">
-           <div className="relative flex-1">
-             <FontAwesomeIcon icon={faSearch} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
-             <input
-               type="text"
-               placeholder="Search..."
-               className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#59A5B2] outline-none transition-all"
-               value={searchQuery}
-               onChange={(e) => setSearchQuery(e.target.value)}
-             />
-           </div>
-           <div className="flex gap-2">
-             {["All", "CONFIRMED", "COMPLETED"].map(status => (
-               <button
-                 key={status}
-                 onClick={() => setStatusFilter(status)}
-                 className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
-                   statusFilter === status ? "bg-[#59A5B2] text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
-                 }`}
-               >
-                 {status}
-               </button>
-             ))}
-           </div>
+          <div className="relative flex-1">
+            <FontAwesomeIcon icon={faSearch} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <input
+              type="text"
+              placeholder="Search..."
+              className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#59A5B2] outline-none transition-all"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          <div className="flex gap-2">
+            {["All", "CONFIRMED", "COMPLETED"].map(status => (
+              <button
+                key={status}
+                onClick={() => setStatusFilter(status)}
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${statusFilter === status ? "bg-[#59A5B2] text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
+                  }`}
+              >
+                {status}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Table */}
@@ -256,46 +255,46 @@ useEffect(() => {
                   </tr>
                 ))}
                 {paginatedData.length === 0 && (
-                   <tr>
-                     <td colSpan={7} className="py-12 text-center text-gray-400">No bookings found.</td>
-                   </tr>
+                  <tr>
+                    <td colSpan={7} className="py-12 text-center text-gray-400">No bookings found.</td>
+                  </tr>
                 )}
               </tbody>
             </table>
           </div>
-          
-          {/* Pagination */}
-           <div className="flex items-center justify-between px-4 py-3 border-t border-gray-200 bg-gray-50/30">
-             <span className="text-sm text-gray-500">
-               Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, filteredData.length)} of {filteredData.length}
-             </span>
-             <div className="flex gap-2">
-                <button
-                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                  disabled={currentPage === 1}
-                  className="p-2 rounded-lg hover:bg-gray-200 disabled:opacity-50"
-                >
-                  <FontAwesomeIcon icon={faChevronLeft} className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                  disabled={currentPage === totalPages}
-                  className="p-2 rounded-lg hover:bg-gray-200 disabled:opacity-50"
-                >
-                  <FontAwesomeIcon icon={faChevronRight} className="w-4 h-4" />
-                </button>
-             </div>
-           </div>
-        </div>
-       </div>
 
-       <BookingDetailsModal
+          {/* Pagination */}
+          <div className="flex items-center justify-between px-4 py-3 border-t border-gray-200 bg-gray-50/30">
+            <span className="text-sm text-gray-500">
+              Showing {(currentPage - 1) * itemsPerPage + 1} to {Math.min(currentPage * itemsPerPage, filteredData.length)} of {filteredData.length}
+            </span>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="p-2 rounded-lg hover:bg-gray-200 disabled:opacity-50"
+              >
+                <FontAwesomeIcon icon={faChevronLeft} className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="p-2 rounded-lg hover:bg-gray-200 disabled:opacity-50"
+              >
+                <FontAwesomeIcon icon={faChevronRight} className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <BookingDetailsModal
         isOpen={detailsModal.isOpen}
         booking={detailsModal.booking}
         onClose={() => setDetailsModal({ isOpen: false, booking: null })}
       />
-      
-       <ErrorModal
+
+      <ErrorModal
         isOpen={errorModal.isOpen}
         onClose={() => setErrorModal({ ...errorModal, isOpen: false })}
         title={errorModal.title}

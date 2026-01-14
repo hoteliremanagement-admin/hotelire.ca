@@ -72,6 +72,7 @@ export default function OwnerProfilePage() {
       try {
         const response = await fetch(`${baseUrl}/admin/owners/${id}`)
         const data = await response.json()
+        console.log("Fetched owner data:", data)
         setOwner(data)
       } catch (error) {
         console.error("Error fetching owner:", error)
@@ -122,12 +123,12 @@ export default function OwnerProfilePage() {
               </span>
             </div>
 
-            <div className="flex gap-2 mt-4">
-              <StatusBadge status={owner.status} />
-              <StatusBadge status={owner.subscriptionStatus} className="bg-blue-100 text-blue-700 border-blue-200" />
+            <div className=" gap-2 mt-4">
+             Owner current Status: <StatusBadge status={owner.status} /> <br />
+             Subscription Status: <StatusBadge status={owner.subscriptionStatus} className="bg-blue-100 ms-4 mt-3 text-blue-700 border-blue-200" />
             </div>
           </div>
-        </div>
+        </div>  
 
       </div>
 

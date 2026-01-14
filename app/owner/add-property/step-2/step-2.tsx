@@ -100,8 +100,10 @@ export default function Step2Page() {
         withCredentials: true,
       });
 
+      console.log("response",response);
+
       if (response.data) {
-        const propertyData = response.data.property[0];
+        const propertyData = response.data.property;
         console.log("chk", propertyData);
 
         if (!propertyData.propertyclassification.propertyclassificationid) {
