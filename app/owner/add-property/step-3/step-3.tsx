@@ -1304,12 +1304,12 @@ export default function Step3Page() {
 
           <section className="space-y-4">
             <h2 className="text-2xl font-semibold text-gray-900" style={{ fontFamily: "Poppins, sans-serif" }}>
-              House Rules & Policies
+              Overview, House Rules & Policies
             </h2>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <label className="text-sm font-medium text-gray-700" style={{ fontFamily: "Inter, sans-serif" }}>
-                  Rules & Policies
+                  About this property
                 </label>
                 <span className="text-xs text-gray-500" style={{ fontFamily: "Inter, sans-serif" }}>
                   {amenities.rules.length}/1000
