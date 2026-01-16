@@ -74,7 +74,6 @@ export function Navigation() {
         return;
       }
 
-
       router.push("/owner/overview");
       return;
     }

@@ -66,6 +66,35 @@ const handleProfileRedirect = () => {
     getUser();
   }, []);
 
+
+    const [isownerVerificationComplete, setisownerVerificationComplete] = useState(false);
+  
+    useEffect(() => {
+      const checkRole = async () => {
+        const user = await authCheck();
+  
+        if (user.user.roleid === 2) {
+          try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/owner/checkOwnerDocuments`, {
+              method: "GET",
+              credentials: "include",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+            const data = await response.json();
+            if (data.success == true && data.documentsComplete == true) {
+              setisownerVerificationComplete(true);
+            }
+  
+          } catch (error) {
+            console.error("Error checking owner documents:", error);
+          }
+        }
+      };
+  
+      checkRole();
+    }, []);
   return (
     <header className="w-full bg-[#59A5B2] h-12 flex items-center justify-between px-4 md:px-8 lg:px-[203px]">
       <div className="flex items-center gap-4">
@@ -164,7 +193,7 @@ const handleProfileRedirect = () => {
                 </Link>
               ) : roleId === 2 ? (
                 <Link
-                  href="/owner"
+                  href={isownerVerificationComplete ? "/owner" : "/owner/verification"}
                   prefetch={false}
                   className="[font-family:'Poppins',Helvetica] font-medium text-[#59A5B2] text-[11px] leading-[30px] cursor-pointer w-full"
                 >
