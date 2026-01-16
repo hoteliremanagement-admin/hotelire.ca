@@ -81,6 +81,9 @@ export default function OwnerProfilePage() {
       }
     }
 
+
+
+    
     fetchOwner()
   }, [id])
 
