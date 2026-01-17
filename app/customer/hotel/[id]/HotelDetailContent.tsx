@@ -935,7 +935,7 @@ const calculateTotal = () => {
             <Card className="sticky top-4 p-6">
               {/* Check in - Check out */}
               <div className="mb-6">
-                <h3 className="text-sm font-semibold text-gray-800 mb-2" style={{ fontFamily: "Poppins, sans-serif" }}>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2" style={{ fontFamily: "Poppins, sans-serif" }}>
                   Check in - Check out
                 </h3>
                 <div className="flex items-center gap-2 text-sm text-gray-600" style={{ fontFamily: "Inter, sans-serif" }}>
@@ -953,7 +953,7 @@ const calculateTotal = () => {
 
               {/* Guest */}
               <div className="mb-6">
-                <h3 className="text-sm font-semibold text-gray-800 mb-2" style={{ fontFamily: "Poppins, sans-serif" }}>
+                <h3 className="text-lg font-semibold text-gray-800 mb-2" style={{ fontFamily: "Poppins, sans-serif" }}>
                   Guest
                 </h3>
                 <div className="flex items-center gap-2 text-sm text-gray-600" style={{ fontFamily: "Inter, sans-serif" }}>
@@ -964,7 +964,7 @@ const calculateTotal = () => {
 
               {/* Booking Date / Selected Rooms */}
               <div className="mb-6 pb-6 border-b border-gray-200">
-                <h3 className="text-sm font-semibold text-gray-800 mb-3" style={{ fontFamily: "Poppins, sans-serif" }}>
+                <h3 className="text-lg font-semibold text-gray-800 mb-3" style={{ fontFamily: "Poppins, sans-serif" }}>
                   Booking Details
                 </h3>
 
@@ -1009,7 +1009,7 @@ const calculateTotal = () => {
 
               {/* Total */}
               <div className="flex justify-between items-center mb-6">
-                <span className="text-lg font-bold text-gray-800" style={{ fontFamily: "Poppins, sans-serif" }}>
+                <span className="text-lg font-bold text-gray-800 mb-2" style={{ fontFamily: "Poppins, sans-serif" }}>
                   Total
                 </span>
                 <span className="text-2xl font-bold text-[#59A5B2]" style={{ fontFamily: "Poppins, sans-serif" }}>

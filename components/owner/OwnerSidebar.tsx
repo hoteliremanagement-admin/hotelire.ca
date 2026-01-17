@@ -14,6 +14,7 @@ import {
   faUser,
   faSignOutAlt,
   faTimes,
+  faCreditCard,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
@@ -28,6 +29,7 @@ const menuItems = [
   { icon: faBuilding, label: "My Properties", path: "/owner/properties" },
   { icon: faCalendarCheck, label: "Bookings", path: "/owner/bookings" },
   { icon: faChartLine, label: "Revenue", path: "/owner/revenue" },
+  { icon: faCreditCard, label: "Payouts", path: "/owner/settings?tab=payout" },
   { icon: faStar, label: "Reviews", path: "/owner/reviews" },
 ];
 

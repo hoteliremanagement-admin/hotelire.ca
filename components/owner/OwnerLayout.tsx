@@ -4,11 +4,13 @@ import { OwnerSidebar } from "./OwnerSidebar";
 
 interface OwnerLayoutProps {
   children: React.ReactNode;
+  hideStripeAlert?: boolean;
+
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export function OwnerLayout({ children }: OwnerLayoutProps) {
+export function OwnerLayout({ children, hideStripeAlert = false }: OwnerLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -105,7 +107,7 @@ export function OwnerLayout({ children }: OwnerLayoutProps) {
 
 
 
-        {error && (<>
+        {error && !hideStripeAlert && (<>
         <div className="w-full bg-red-600 text-white px-4 py-2 flex items-center gap-2 text-sm font-medium  shadow-sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
