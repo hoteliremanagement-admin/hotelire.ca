@@ -9,7 +9,7 @@ export default function     () {
     return (
         <>
 
-            <OwnerLayout hideStripeAlert={true}>
+            <OwnerLayout >
 
                 <div className="mt-2 ms-2 me-2">
                     <StripeProvider>
