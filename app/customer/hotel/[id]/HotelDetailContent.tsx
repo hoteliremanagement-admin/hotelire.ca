@@ -686,10 +686,10 @@ const calculateTotal = () => {
         >
           {propertyDetail?.propertytitle}
         </h1>
-        <p className="text-gray-500 text-sm mb-2" style={{ fontFamily: "Inter, sans-serif" }} data-testid="text-hotel-subtitle">
+        <p className="text-[#161717]-500 text-sm mb-2" style={{ fontFamily: "Inter, sans-serif" }} data-testid="text-hotel-subtitle">
           {propertyDetail?.propertysubtitle}
         </p>
-        <p className="text-gray-600 text-sm mb-6" style={{ fontFamily: "Inter, sans-serif" }} data-testid="text-hotel-location">
+        <p className="text-#161717-600 text-sm mb-6" style={{ fontFamily: "Inter, sans-serif" }} data-testid="text-hotel-location">
           {propertyDetail?.canadian_city_name}, {propertyDetail?.canadian_province_name}
         </p>
 
@@ -729,33 +729,33 @@ const calculateTotal = () => {
             {/* Overview And Rules */}
             <section className="mb-8">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
-                <h2 className="text-[20px] font-bold text-[#59A5B2]" style={{ fontFamily: "Poppins, sans-serif" }}>
+                <h2 className="text-[24px] font-bold text-[#59A5B2]" style={{ fontFamily: "Poppins, sans-serif" }}>
                   Overview And Rules
                 </h2>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-500" style={{ fontFamily: "Inter, sans-serif" }}>3014 reviews</span>
+                  {/* <span className="text-sm text-gray-500" style={{ fontFamily: "Inter, sans-serif" }}>3014 reviews</span> */}
                   <div className="flex items-center gap-1 bg-[#59A5B2] text-white px-2 py-1 rounded">
                     <Star className="w-4 h-4 fill-current" />
                     <span className="font-bold text-sm">4.8</span>
                   </div>
                 </div>
               </div>
-              <p className="text-[14px] text-gray-700 leading-relaxed mb-4" style={{ fontFamily: "Inter, sans-serif" }}>
+              <p className="text-[14px] text-[#161717]-700 leading-relaxed mb-4" style={{ fontFamily: "Inter, sans-serif" }}>
                 {propertyDetail?.houserules}
               </p>
             </section>
 
             {/* Most popular services & amenities */}
             <section className="mb-10">
-              <h2 className="text-[20px] font-bold text-[#59A5B2] mb-6" style={{ fontFamily: "Poppins, sans-serif" }}>
+              <h2 className="text-[24px] font-bold text-[#59A5B2] mb-6" style={{ fontFamily: "Poppins, sans-serif" }}>
                 Most popular services & amenities
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                 {PropertyAmenities.length > 0
                   ? PropertyAmenities.map((amenity, idx) => (
                     <div key={idx} className="flex items-center gap-3">
-                      <FontAwesomeIcon icon={getIcon(amenity.icon) as IconDefinition} className="w-5 h-5 text-[#59A5B2]" />
-                      <span className="text-[13px] text-[#59A5B2]" style={{ fontFamily: "Inter, sans-serif" }}>
+                      <FontAwesomeIcon icon={getIcon(amenity.icon) as IconDefinition} className="w-5 h-5 text-[#161717]" />
+                      <span className="text-[13px] text-[#161717]" style={{ fontFamily: "Inter, sans-serif" }}>
                         {amenity.label}
                       </span>
                     </div>
@@ -766,14 +766,14 @@ const calculateTotal = () => {
 
             {/* Safety Features */}
             <section className="mb-10">
-              <h2 className="text-[20px] font-bold text-[#59A5B2] mb-6" style={{ fontFamily: "Poppins, sans-serif" }}>
+              <h2 className="text-[24px] font-bold text-[#59A5B2] mb-6" style={{ fontFamily: "Poppins, sans-serif" }}>
                 Safety Features
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                 {PropertySafetyFeatures.length > 0 ? PropertySafetyFeatures.map((feature, idx) => (
                   <div key={idx} className="flex items-center gap-3">
-                    <FontAwesomeIcon icon={getIcon(feature.icon) as IconDefinition} className="w-5 h-5 text-[#59A5B2]" />
-                    <span className="text-[13px] text-[#59A5B2]" style={{ fontFamily: "Inter, sans-serif" }}>
+                    <FontAwesomeIcon icon={getIcon(feature.icon) as IconDefinition} className="w-5 h-5 text-[#161717]" />
+                    <span className="text-[13px] text-[#161717]" style={{ fontFamily: "Inter, sans-serif" }}>
                       {feature.label}
                     </span>
                   </div>
@@ -783,14 +783,14 @@ const calculateTotal = () => {
 
             {/* Shared Spaces */}
             <section className="mb-10">
-              <h2 className="text-[20px] font-bold text-[#59A5B2] mb-6" style={{ fontFamily: "Poppins, sans-serif" }}>
+              <h2 className="text-[24px] font-bold text-[#59A5B2] mb-6" style={{ fontFamily: "Poppins, sans-serif" }}>
                 Shared Spaces
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                 {PropertySharedSpaces.length > 0 ? PropertySharedSpaces.map((space, idx) => (
                   <div key={idx} className="flex items-center gap-3">
-                    <FontAwesomeIcon icon={getIcon(space.icon) as IconDefinition} className="w-5 h-5 text-[#59A5B2]" />
-                    <span className="text-[13px] text-[#59A5B2]" style={{ fontFamily: "Inter, sans-serif" }}>
+                    <FontAwesomeIcon icon={getIcon(space.icon) as IconDefinition} className="w-5 h-5 text-[#161717]" />
+                    <span className="text-[13px] text-[#161717]" style={{ fontFamily: "Inter, sans-serif" }}>
                       {space.label}
                     </span>
                   </div>
@@ -808,7 +808,7 @@ const calculateTotal = () => {
                 {/* Table Header - Desktop */}
                 <div className="hidden md:grid grid-cols-12 bg-[#FEC328] py-4 px-6">
                   <div className="col-span-3 font-bold text-black text-sm" style={{ fontFamily: "Poppins, sans-serif" }}>
-                    Room Type
+                    Room Image
                   </div>
                   <div className="col-span-3 font-bold text-black text-sm" style={{ fontFamily: "Poppins, sans-serif" }}>
                     Room Type
@@ -859,12 +859,9 @@ const calculateTotal = () => {
                             {(room.roomtypeid === 1 || room.roomtypeid === 2) ? (
                               <>
                                 <FontAwesomeIcon icon={faUserGroup} className="w-4 h-4 text-[#59A5B2]" />
-                                <FontAwesomeIcon icon={faUserGroup} className="w-4 h-4 text-[#59A5B2]" />
                               </>
                             ) : (
                               <>
-                                <FontAwesomeIcon icon={faUserGroup} className="w-4 h-4 text-[#59A5B2]" />
-                                <FontAwesomeIcon icon={faUserGroup} className="w-4 h-4 text-[#59A5B2]" />
                                 <FontAwesomeIcon icon={faUserGroup} className="w-4 h-4 text-[#59A5B2]" />
                                 <FontAwesomeIcon icon={faUserGroup} className="w-4 h-4 text-[#59A5B2]" />
                               </>

@@ -98,6 +98,17 @@ export function Navigation() {
       </Link>
 
       <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-6 [font-family:'Inter',Helvetica] font-bold text-black text-[15px] lg:text-[15px]">
+      <Link
+          href="/"
+          prefetch={false}
+          className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 ${isActive("/customer/explore-canada")
+              ? "text-[#59A5B2] border-b-2 border-[#59A5B2]"
+              : "hover:text-[#59A5B2]"
+            }`}
+        >
+          <span>HOME</span>
+          {/* <ChevronDownIcon className="w-[13px] h-2" aria-hidden="true" /> */}
+        </Link>
         <Link
           href="/customer/explore-canada"
           prefetch={false}

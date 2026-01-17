@@ -4,7 +4,7 @@ import { discoverLinks, resourceLinks } from "@/lib/data";
 
 export function Footer() {
   return (
-   <footer className="bg-[#fffdf6] w-full pt-12 md:pt-16 lg:pt-[114px] pb-0">
+   <footer className="bg-[#f5f6fd] w-full pt-12 md:pt-16 lg:pt-[114px] pb-0">
   <div className="site-container">
     <div className="px-4 md:px-8 lg:px-[203px] pb-12 md:pb-16 lg:pb-[2px]">
       <div className="flex flex-col md:flex-row justify-between gap-8 md:gap-12 mb-12 md:mb-16 lg:mb-[80px]">
