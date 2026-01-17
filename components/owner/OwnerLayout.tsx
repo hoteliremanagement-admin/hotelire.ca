@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { OwnerNavbar } from "./OwnerNavbar";
 import { OwnerSidebar } from "./OwnerSidebar";
+import AlertStrip from "./alertStrip";
+import { AlertCircle } from "lucide-react";
 
 interface OwnerLayoutProps {
   children: React.ReactNode;
@@ -31,37 +33,58 @@ export function OwnerLayout({ children }: OwnerLayoutProps) {
 
 
 
-    const [error, setError] = useState<string>("");
-  
-    const fetchStatus = async (): Promise<void> => {
-      try {
-        const res = await fetch(`${baseUrl}/ownerstripestatus/status`, {
-          credentials: "include",
-        });
-  
-        const data = await res.json();
-  
-        if (!res.ok) {
-          throw new Error(data.error || "Failed to fetch Stripe status");
-        }
+  const [error, setError] = useState<string>("");
 
-        
-  
-         console.log("res",data)
-  
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
+  const fetchStatus = async (): Promise<void> => {
+    try {
+      const res = await fetch(`${baseUrl}/ownerstripestatus/status`, {
+        credentials: "include",
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to fetch Stripe status");
       }
-    };
-  
-    useEffect(() => {
-      fetchStatus();
-    }, []);
+
+      console.log("res", data)
+
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+    }
+  };
+
+
+  const [payout, setPayout] = useState({
+    isConnected: false,
+  });
+
+  const fetchPayoutDetails = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/payout/details`, {
+        credentials: "include",
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setPayout({
+          isConnected: Boolean(data.payout.stripeConnectAccountId),
+        });
+      }
+    } catch (err) {
+      console.error("Error fetching payout details:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchStatus();
+    fetchPayoutDetails();
+  }, []);
 
 
 
-      const handleStripeConnect = async () => {
+  const handleStripeConnect = async () => {
     try {
       const response = await fetch(`${baseUrl}/payout/connect`, {
         method: "POST",
@@ -98,43 +121,53 @@ export function OwnerLayout({ children }: OwnerLayoutProps) {
             onToggleDarkMode={() => setIsDarkMode(!isDarkMode)}
           />
 
+          {error && (<>
 
+            <AlertStrip
+              title="Connection Required"
+              message={
+                payout.isConnected ? 
+                  "Hmm. It looks like Your Stripe account is not fully set up. Please confirm bank details and complete the setup to enable payouts.": 
+                  "Customers are unable to see your property. Connect to receive payouts. Some pages will not be accessible still."
+              }
+              type="error"
+              icon={<AlertCircle className="h-5 w-5" />}
+              action={{
+                label: payout.isConnected ? "Manage Stripe Account" : "Connect with Stripe",
+                onClick: handleStripeConnect
+              }}
+            />
 
+            {/* <div className="w-full bg-red-600 text-white px-4 py-2 flex items-center gap-2 text-sm font-medium  shadow-sm">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a1 1 0 00.86 1.5h18.64a1 1 0 00.86-1.5L13.71 3.86a1 1 0 00-1.72 0z"
+                />
+              </svg>
 
+              <span>
+                Alert! Customers are unable to see your property. Connect to receive payouts. Some pages will not be accessible still.
+              </span>
 
+              <button
+                className="ml-auto bg-white text-red-600 px-3 py-1 rounded hover:bg-red-50 text-xs font-semibold"
+                onClick={handleStripeConnect}
+              >
+                Connect Now
+              </button>
+            </div> */}
+          </>)
+          }
 
-
-
-        {error && (<>
-        <div className="w-full bg-red-600 text-white px-4 py-2 flex items-center gap-2 text-sm font-medium  shadow-sm">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a1 1 0 00.86 1.5h18.64a1 1 0 00.86-1.5L13.71 3.86a1 1 0 00-1.72 0z"
-              />
-            </svg>
-
-            <span>
-            Alert! Customers are unable to see your property. Connect to receive payouts. Some pages will not be accessible stil.
-            </span>
-
-            <button
-              className="ml-auto bg-white text-red-600 px-3 py-1 rounded hover:bg-red-50 text-xs font-semibold"
-              onClick={handleStripeConnect}
-            >
-              Connect Now
-            </button>
-          </div>
-        </>)}
-          
 
 
 
