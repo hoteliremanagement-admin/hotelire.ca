@@ -94,27 +94,27 @@ export default function HotelDetailPage({ id }: { id: string }) {
 
 
 
-useEffect(() => {
-  const logincheck = async () => {
-    try {
-      const user = await authCheck();
+  useEffect(() => {
+    const logincheck = async () => {
+      try {
+        const user = await authCheck();
 
-      if (!user || !user.user) {
+        if (!user || !user.user) {
+          router.push("/customer/signin");
+          return;
+        }
+
+        setRoleId(user.user.roleid);
+      } catch (error) {
+        console.error("Auth check failed:", error);
         router.push("/customer/signin");
-        return;
       }
+    };
 
-      setRoleId(user.user.roleid);
-    } catch (error) {
-      console.error("Auth check failed:", error);
-      router.push("/customer/signin");
-    }
-  };
+    logincheck();
+  }, []);
 
-  logincheck();
-}, []);
 
-  
 
 
   // Availabilities state
@@ -215,7 +215,7 @@ useEffect(() => {
           roomtypename: room.roomtype?.roomtypename ?? "",
           roomtypeid: room.roomtype?.roomtypeid,
         })) ?? [],
-      rating: 4.0,
+      avgRating: raw.avgRating ?? 0,
     };
 
     // populate the icon arrays for display
@@ -249,7 +249,7 @@ useEffect(() => {
 
   useEffect(() => {
 
-    console.log("id",id)
+    console.log("id", id)
     if (!id || id === "") {
       router.push("/not-found");
       return;
@@ -262,6 +262,8 @@ useEffect(() => {
           router.push("/not-found");
           return;
         }
+
+        console.log("checking data...",res.data);
 
         const Details = res.data.properties.map((p: any) => mapPropertyToDetail(p));
         setPropertyDetail(Details[0] ?? null);
@@ -288,33 +290,33 @@ useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-// 🔹 PREFILL DATES & GUESTS FROM LOCALSTORAGE
-useEffect(() => {
-  try {
-    const stored = localStorage.getItem("hotelire_search_context");
-    if (!stored) return;
+  // 🔹 PREFILL DATES & GUESTS FROM LOCALSTORAGE
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("hotelire_search_context");
+      if (!stored) return;
 
-    const data = JSON.parse(stored);
+      const data = JSON.parse(stored);
 
-    if (data.checkIn) {
-      setCheckInDate(new Date(data.checkIn));
+      if (data.checkIn) {
+        setCheckInDate(new Date(data.checkIn));
+      }
+
+      if (data.checkOut) {
+        setCheckOutDate(new Date(data.checkOut));
+      }
+
+      if (typeof data.adults === "number") {
+        setAdults(data.adults);
+      }
+
+      if (typeof data.children === "number") {
+        setChildren(data.children);
+      }
+    } catch (err) {
+      console.error("Failed to prefill dates/guests", err);
     }
-
-    if (data.checkOut) {
-      setCheckOutDate(new Date(data.checkOut));
-    }
-
-    if (typeof data.adults === "number") {
-      setAdults(data.adults);
-    }
-
-    if (typeof data.children === "number") {
-      setChildren(data.children);
-    }
-  } catch (err) {
-    console.error("Failed to prefill dates/guests", err);
-  }
-}, []);
+  }, []);
 
 
 
@@ -397,13 +399,13 @@ useEffect(() => {
   };
 
   // Calculate total amount using nights
-const calculateTotal = () => {
-  const nights = calculateNights();
-  return cart.reduce(
-    (sum, item) => sum + item.quantity * item.pricePerNight * nights,
-    0
-  );
-};
+  const calculateTotal = () => {
+    const nights = calculateNights();
+    return cart.reduce(
+      (sum, item) => sum + item.quantity * item.pricePerNight * nights,
+      0
+    );
+  };
 
   //ustaad ka code
   //   const handleReserve = () => {
@@ -442,14 +444,14 @@ const calculateTotal = () => {
   //handle reserve function updated by gpt
   const handleReserve = () => {
 
-     // ❌ Owner cannot book
-  if (roleId === 2) {
-    toast.error(
-      "You are logged in as a property owner. Please use a customer account to make a booking."
-    );
-    return;
-  }
- 
+    // ❌ Owner cannot book
+    if (roleId === 2) {
+      toast.error(
+        "You are logged in as a property owner. Please use a customer account to make a booking."
+      );
+      return;
+    }
+
 
     if (!checkInDate || !checkOutDate || cart.length === 0) {
       setShowValidation(true);
@@ -736,7 +738,7 @@ const calculateTotal = () => {
                   {/* <span className="text-sm text-gray-500" style={{ fontFamily: "Inter, sans-serif" }}>3014 reviews</span> */}
                   <div className="flex items-center gap-1 bg-[#59A5B2] text-white px-2 py-1 rounded">
                     <Star className="w-4 h-4 fill-current" />
-                    <span className="font-bold text-sm">4.8</span>
+                    <span className="font-bold text-sm">{propertyDetail?.avgRating}</span>
                   </div>
                 </div>
               </div>

@@ -91,6 +91,6 @@ export interface PropertyDetail {
   propertysharedspaces: string[];
   propertyamenitiesicons: string[]; // filhaal null daloo
   PropertyRoom: PropertyRoom[];
-  rating?: number;  //filhaal null jae ga
+  avgRating?: number;  //filhaal null jae ga
 
 }
