@@ -359,9 +359,11 @@ export function SubscriptionSection() {
               {isSubscribing ? "Processing Payment..." : "Activate Subscription Now"}
             </Button>
 
-            <p className="text-center text-xs text-gray-500">
-              Your subscription is required to keep your properties visible and accept bookings on the platform.
-            </p>
+          <div className="mt-4 bg-[#59A5B2]/10 border border-[#59A5B2]/30 rounded-xl px-4 py-3 text-center">
+  <p className="text-sm font-semibold text-[#3b7f89]">
+    Subscription is required to keep your properties visible and accept bookings on the platform.
+  </p>
+</div>
           </div>
         </Card>
       )}

@@ -6,11 +6,13 @@ import { AlertCircle } from "lucide-react";
 
 interface OwnerLayoutProps {
   children: React.ReactNode;
+  hideStripeAlert?: boolean;
+
 }
 
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export function OwnerLayout({ children }: OwnerLayoutProps) {
+export function OwnerLayout({ children, hideStripeAlert = false }: OwnerLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -121,7 +123,7 @@ export function OwnerLayout({ children }: OwnerLayoutProps) {
             onToggleDarkMode={() => setIsDarkMode(!isDarkMode)}
           />
 
-          {error && (<>
+          {error && !hideStripeAlert && (<>
 
             <AlertStrip
               title="Connection Required"
@@ -137,48 +139,8 @@ export function OwnerLayout({ children }: OwnerLayoutProps) {
                 onClick: handleStripeConnect
               }}
             />
-
-            {/* <div className="w-full bg-red-600 text-white px-4 py-2 flex items-center gap-2 text-sm font-medium  shadow-sm">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a1 1 0 00.86 1.5h18.64a1 1 0 00.86-1.5L13.71 3.86a1 1 0 00-1.72 0z"
-                />
-              </svg>
-
-              <span>
-                Alert! Customers are unable to see your property. Connect to receive payouts. Some pages will not be accessible still.
-              </span>
-
-              <button
-                className="ml-auto bg-white text-red-600 px-3 py-1 rounded hover:bg-red-50 text-xs font-semibold"
-                onClick={handleStripeConnect}
-              >
-                Connect Now
-              </button>
-            </div> */}
           </>)
           }
-
-
-
-
-
-
-
-
-
-
-
-
           <main
             className={`flex-1 p-4 md:p-6 lg:p-8 ${isDarkMode ? "text-white" : "text-gray-900"
               }`}

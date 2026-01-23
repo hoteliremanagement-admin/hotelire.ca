@@ -56,7 +56,7 @@ export function ListingCard({ listing }: ListingCardProps) {
         <div className="flex-1  flex flex-col">
           <div className="flex items-start justify-between gap-4  mb-2">
             <div className="flex-1 ">
-              <h3 className="[font-family:'Poppins',Helvetica] font-bold text-[#59a5b2] text-lg md:text-xl mb-1 hover:text-[#2a2158] transition-colors duration-200">
+              <h3 className="[font-family:'Poppins',Helvetica] font-bold text-[#244178] text-lg md:text-xl mb-1 hover:text-[#2a2158] transition-colors duration-200">
                 <Link href={`/customer/hotel/${listing.id}`} prefetch={false} data-testid={`link-listing-${listing.id}`}>
                   {listing.name}
                 </Link>
