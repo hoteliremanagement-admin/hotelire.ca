@@ -58,14 +58,15 @@ export interface Listing {
 
 interface PropertyRoom {
   propertyroomid: number;
-  roomtypeid:number;
+  roomtypeid: number;
   roomname: string;
   roomcount: number;
   price: string;
   available: boolean;
   pic1: string | null;
-  pic2: string | null; 
+  pic2: string | null;
   roomtypename: string;
+  available_count?: number;
 }
 
 
@@ -92,5 +93,6 @@ export interface PropertyDetail {
   propertyamenitiesicons: string[]; // filhaal null daloo
   PropertyRoom: PropertyRoom[];
   avgRating?: number;  //filhaal null jae ga
+  // filhaal null jae ga
 
 }
