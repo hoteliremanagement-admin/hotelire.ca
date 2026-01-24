@@ -13,7 +13,6 @@ import { ForgotPasswordModal } from "@/components/ForgotPasswordModal";
 import axios from 'axios';
 import { FcGoogle } from "react-icons/fc"; // Google icon
 
-
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -74,6 +73,9 @@ export default function SignInPage() {
       }
       else if (response.nextStep == "verifyCode") {
         setShowOTPModal(true);
+      }
+      else if (response.nextStep == "home") {
+router.push("/");
       }
       else {
         // Email doesn't exist - send OTP and show verification modal

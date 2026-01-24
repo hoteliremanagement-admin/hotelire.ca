@@ -174,17 +174,6 @@ export default function Step1Page() {
             ]);
           }
 
-          // if (propdata.propertylocationid === 2) {
-          //   setcity_prov_doc_ids([
-          //     {
-          //       canadian_province_id: Number(profileAddress.province_id),
-          //       canadian_city_id: Number(profileAddress.city_id),
-          //       pdftypeid: propdata.pdftypeid,
-          //     }
-          //   ]);
-          // }
-
-
 
 
           console.log("Property data for edit:", propdata);
@@ -197,9 +186,7 @@ export default function Step1Page() {
               ...prev,
               postalCode: propdata.postalcode,
               street: propdata.address,
-              // documentFile: propdata.residentialdocpdf,
-              // documentType: propdata.pdftypeid,
-              // documentFileUrl: propdata.residentialdocpdf || "",
+
 
               documentFile: null,
               documentFileUrl: propdata.residentialdocpdf || "",

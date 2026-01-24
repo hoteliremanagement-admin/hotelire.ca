@@ -44,6 +44,12 @@ export async function proxy(request: NextRequest) {
         return NextResponse.next();
       }
 
+      if (url.pathname === "/owner/add-property" || url.pathname === "/owner/add-property/step-1" || url.pathname === "/owner/add-property/step-2" || url.pathname === "/owner/add-property/step-3") {
+        if (roleId == 1) {
+          return NextResponse.next();
+        }
+      }
+
       // 2️⃣ For all other /owner/* routes → require roleId = 2
       if (roleId !== 2) {
         url.pathname = "/unauthorized";

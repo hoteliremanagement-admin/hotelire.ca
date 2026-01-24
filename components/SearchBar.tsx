@@ -238,12 +238,14 @@ router.push(
         )}
       </div>
 
+
       {/* Check-in / Check-out */}
       <div className="flex-1 px-4 md:px-6 py-3 md:py-0 md:border-r border-[#e5e5e5] flex flex-col justify-center">
-        <label htmlFor="date-picker" className="[font-family:'Poppins',Helvetica] font-semibold text-[#59A5B2] text-[10px] md:text-sm mb-1 flex items-center gap-2">
+        <label htmlFor="date-picker" className="[font-family:'Poppins',Helvetica] font-semibold text-[#59A5B2] text-[10px] md:text-sm mb- flex items-center gap-2">
           <CalendarIcon className="w-4 h-4" />
-          Check in - Check out
+          Check in- Check out
         </label>
+        <div className="mt-1">
         <Popover>
           <PopoverTrigger asChild>
             <Button
@@ -295,6 +297,7 @@ router.push(
             </div>
           </PopoverContent>
         </Popover>
+        </div>
         {dateError && (
           <p className="[font-family:'Poppins',Helvetica] text-[#ff0000] text-[12px] mt-1">
             Please select check-in and check-out dates
