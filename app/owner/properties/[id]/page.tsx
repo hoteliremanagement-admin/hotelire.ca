@@ -772,25 +772,51 @@ export default function PropertyDetailPage() {
         {/* Rooms Section */}
          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
           <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-4">Rooms</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-             {propertyDetail.PropertyRoom.map(room => (
-                 <div 
-                   key={room.propertyroomid} 
-                   className="border rounded-xl p-4 cursor-pointer hover:shadow-md transition-shadow"
-                   onClick={() => handleRoomClick(room.propertyroomid)}
-                 >
-                    {room.pic1 ? (
-                        <img src={room.pic1} alt={room.roomname} className="w-full h-40 object-cover rounded-lg mb-3" />
-                    ) : (
-                         <div className="w-full h-40 bg-gray-200 rounded-lg mb-3 flex items-center justify-center">No Image</div>
-                    )}
-                    <h3 className="font-bold text-lg">{room.roomname}</h3>
-                    <p className="text-gray-500">{room.roomtypename}</p>
-                    <p className="text-[#59A5B2] font-semibold mt-2">${room.price} / night</p>
-                    <p className="text-sm text-gray-400 mt-1">{room.roomcount} rooms total</p>
-                 </div>
-             ))}
-          </div>
+         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  {propertyDetail.PropertyRoom.map(room => (
+    <div
+      key={room.propertyroomid}
+      className="border rounded-xl p-4 cursor-pointer hover:shadow-md transition-shadow"
+      onClick={() => handleRoomClick(room.propertyroomid)}
+    >
+      {room.pic1 ? (
+        <img
+          src={room.pic1}
+          alt={room.roomname}
+          className="w-full h-40 object-cover rounded-lg mb-3"
+        />
+      ) : (
+        <div className="w-full h-40 bg-gray-200 rounded-lg mb-3 flex items-center justify-center">
+          No Image
+        </div>
+      )}
+
+      <h3 className="font-bold text-lg">{room.roomname}</h3>
+      <p className="text-gray-500">{room.roomtypename}</p>
+      <p className="text-[#59A5B2] font-semibold mt-2">
+        ${room.price} / night
+      </p>
+      <p className="text-sm text-gray-400 mt-1">
+        {room.roomcount} rooms total
+      </p>
+
+      <div
+        className="pt-2 mt-3 border-t border-gray-100"
+        onClick={(e) => {
+          e.stopPropagation();
+          router.push(
+            `/owner/properties/${propertyId}/room/edit/${room.propertyroomid}`
+          );
+        }}
+      >
+        <span className="text-xs text-[#59A5B2] hover:underline">
+          Click to edit details →
+        </span>
+      </div>
+    </div>
+  ))}
+</div>
+
          </div>
       </div>
 
