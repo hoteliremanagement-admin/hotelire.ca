@@ -151,7 +151,7 @@ export function SubscriptionSection() {
 
   return (
     <div className="space-y-6 ">
-      <div className="rounded-xl overflow-hidden shadow-sm border border-gray-200 bg-gradient-to-br from-[#59A5B2]/10 via-transparent to-transparent">
+      <div className="rounded-xl overflow-hidden shadow-md border border-gray-200 ">
         <div className="p-6 flex items-start justify-between">
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
@@ -199,7 +199,7 @@ export function SubscriptionSection() {
       )}
 
 
-      <div className="bg-gradient-to-br from-[#59A5B2]/5 to-transparent border border-[#59A5B2]/20 rounded-xl p-5">
+      <div className=" shadow-md border border-[#59A5B2]/20 rounded-xl p-5">
         <div className="flex items-end justify-between">
           <div>
             <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Monthly Subscription</p>
@@ -207,7 +207,7 @@ export function SubscriptionSection() {
               <span className="text-4xl font-bold text-[#59A5B2]">$10</span>
               <span className="text-gray-600 text-sm">/month</span>
             </div>
-            <p className="text-xs text-gray-600 mt-2">Billed on the 10th of each month</p>
+            <p className="text-xs text-gray-600 mt-2">Don’t miss daily booking opportunities — subscribe now</p>
           </div>
           <div className="text-right">
             <p className="text-xs font-semibold text-green-600">Auto-renews</p>
@@ -275,7 +275,7 @@ export function SubscriptionSection() {
           </div>
         </Card>
       ) : (
-        <Card className="overflow-hidden border border-gray-200 shadow-sm">
+        <Card className="overflow-hidden border border-gray-200 shadow-md ">
 
 
           <div className="p-8 space-y-6">
