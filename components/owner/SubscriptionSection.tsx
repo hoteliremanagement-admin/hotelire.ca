@@ -150,7 +150,7 @@ export function SubscriptionSection() {
   }
 
   return (
-    <div className="space-y-6 ">
+    <div className="space-y-6 ms-7 me-7 pl-5 pr-5 ">
       <div className="rounded-xl overflow-hidden shadow-md border border-gray-200 ">
         <div className="p-6 flex items-start justify-between">
           <div className="flex-1">
