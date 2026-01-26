@@ -152,7 +152,7 @@ const handleLogout = async () => {
                   }`}
               >
                 <FontAwesomeIcon icon={faHome} className="w-4 h-4" />
-                Customer Pannel
+                Home
               </a>
               <button
               onClick={handleLogout}

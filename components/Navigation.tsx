@@ -101,9 +101,8 @@ export function Navigation() {
       <Link
           href="/"
           prefetch={false}
-          className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 ${isActive("/customer/explore-canada")
-              ? "text-[#59A5B2] border-b-2 border-[#59A5B2]"
-              : "hover:text-[#59A5B2]"
+          className={`flex items-center gap-2 cursor-pointer transition-colors 
+              hover:text-[#59A5B2]
             }`}
         >
           <span>HOME</span>

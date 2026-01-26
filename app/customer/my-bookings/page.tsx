@@ -412,7 +412,7 @@ export default function MyBookingsPage() {
   }, [])
 
   const handleViewBooking = (bookingId: string) => {
-    router.push(`/customer/booking-confirmation?bookingId=${bookingId}`)
+    router.push(`/customer/hotel/confirmation?bookingId=${bookingId}`)
   }
 
   const handleExploreProperties = () => {
