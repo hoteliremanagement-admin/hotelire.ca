@@ -274,9 +274,6 @@ export default function PropertyDetailPage() {
   const [manualBookingInput, setManualBookingInput] = useState<number>(0)
   const [isSavingAvailability, setIsSavingAvailability] = useState(false)
 
-
-
-
   useEffect(() => {
     if (!id || id === "") {
       setLocation("/not-found")
@@ -289,7 +286,6 @@ export default function PropertyDetailPage() {
         const res = await axios.get(`${baseUrl}/ownerProperty/getProperties/${id}`, {
           withCredentials: true,
         })
-
 
         if (!res || !res.data || !res.data.properties) {
           // setLocation("/not-found") // Don't redirect in mock mode, just show empty
