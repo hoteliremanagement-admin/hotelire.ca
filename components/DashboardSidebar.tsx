@@ -27,7 +27,7 @@ export function DashboardSidebar({ navItems, userType }: DashboardSidebarProps) 
     <div className="flex flex-col h-full bg-white border-r border-gray-200">
       {/* Logo */}
       <div className="p-6 border-b border-gray-200">
-        <h1 className="[font-family:'Poppins',Helvetica] font-bold text-[#59A5B2] text-xl">
+        <h1 className="[font-family:'Poppins',Helvetica] font-bold text-[#3F2C77] text-xl">
           {userType === "admin" ? "Super Admin" : "Property Owner"}
         </h1>
       </div>
@@ -47,7 +47,7 @@ export function DashboardSidebar({ navItems, userType }: DashboardSidebarProps) 
               className={cn(
                 "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200",
                 "[font-family:'Inter',Helvetica] font-medium text-sm",
-                isActive ? "bg-[#59A5B2] text-white shadow-md" : "text-gray-700 hover:bg-gray-100 hover:text-[#59A5B2]",
+                isActive ? "bg-[#3F2C77] text-white shadow-md" : "text-gray-700 hover:bg-gray-100 hover:text-[#3F2C77]",
               )}
             >
               <Icon className="w-5 h-5" />
@@ -67,8 +67,8 @@ export function DashboardSidebar({ navItems, userType }: DashboardSidebarProps) 
             "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200",
             "[font-family:'Inter',Helvetica] font-medium text-sm",
             pathname === "/settings"
-              ? "bg-[#59A5B2] text-white shadow-md"
-              : "text-gray-700 hover:bg-gray-100 hover:text-[#59A5B2]",
+              ? "bg-[#3F2C77] text-white shadow-md"
+              : "text-gray-700 hover:bg-gray-100 hover:text-[#3F2C77]",
           )}
         >
           <Settings className="w-5 h-5" />
@@ -89,7 +89,7 @@ export function DashboardSidebar({ navItems, userType }: DashboardSidebarProps) 
             className="fixed top-4 left-4 z-50 bg-white shadow-md"
             data-testid="button-mobile-menu"
           >
-            <Menu className="w-6 h-6 text-[#59A5B2]" />
+            <Menu className="w-6 h-6 text-[#3F2C77]" />
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="p-0 w-64">

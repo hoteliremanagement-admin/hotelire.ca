@@ -69,10 +69,10 @@ export default function SignupSuccessModal({ isVisible, onClose }: SignupSuccess
 
         {/* Modal content */}
         <div className="flex flex-col items-center justify-center space-y-4 pt-4">
-          <div className="w-16 h-16 rounded-full bg-[#59A5B2]/10 flex items-center justify-center animate-pulse">
+          <div className="w-16 h-16 rounded-full bg-[#3F2C77]/10 flex items-center justify-center animate-pulse">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-8 h-8 text-[#59A5B2]"
+              className="w-8 h-8 text-[#3F2C77]"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -82,7 +82,7 @@ export default function SignupSuccessModal({ isVisible, onClose }: SignupSuccess
           </div>
 
           {/* Thank you heading */}
-          <h2 className="text-2xl font-semibold text-[#59A5B2]">Thank You for Signing Up!</h2>
+          <h2 className="text-2xl font-semibold text-[#3F2C77]">Thank You for Signing Up!</h2>
 
           {/* Message text */}
           <p className="text-gray-600 text-sm">
@@ -97,7 +97,7 @@ export default function SignupSuccessModal({ isVisible, onClose }: SignupSuccess
                 onClose?.()
               }, 300)
             }}
-            className="mt-6 px-6 py-2 bg-[#59A5B2] text-white rounded-lg font-medium hover:bg-[#4a8994] transition-colors duration-200"
+            className="mt-6 px-6 py-2 bg-[#3F2C77] text-white rounded-lg font-medium hover:bg-[#4a8994] transition-colors duration-200"
           >
             Continue
           </button>

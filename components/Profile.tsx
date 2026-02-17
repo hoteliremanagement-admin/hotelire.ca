@@ -68,16 +68,16 @@
 //     borderColor: "#e5e7eb",
 //     borderRadius: "0.75rem",
 //     padding: "0.25rem 0",
-//     "&:hover": { borderColor: "#59A5B2" },
+//     "&:hover": { borderColor: "#3F2C77" },
 //     "&:focus": {
-//       borderColor: "#59A5B2",
+//       borderColor: "#3F2C77",
 //       boxShadow: "0 0 0 2px rgba(89, 165, 178, 0.2)",
 //     },
 //   }),
 //   option: (base: any, state: any) => ({
 //     ...base,
 //     backgroundColor: state.isSelected
-//       ? "#59A5B2"
+//       ? "#3F2C77"
 //       : state.isFocused
 //         ? "#f0f9fa"
 //         : "white",
@@ -471,7 +471,7 @@
 //   if (loadingUser) {
 //     return (
 //       <div className="min-h-screen flex items-center justify-center">
-//         <Loader2 className="w-8 h-8 animate-spin text-[#59A5B2]" />
+//         <Loader2 className="w-8 h-8 animate-spin text-[#3F2C77]" />
 //       </div>
 //     );
 //   }
@@ -504,7 +504,7 @@
 //               {isEditing && (
 //               <button
 //                 onClick={() => fileInputRef.current?.click()}
-//                 className="absolute bottom-0 right-0 bg-[#59A5B2] text-white p-2 rounded-full shadow-lg hover:scale-110 transition-transform"
+//                 className="absolute bottom-0 right-0 bg-[#3F2C77] text-white p-2 rounded-full shadow-lg hover:scale-110 transition-transform"
 //                 title="Change profile picture"
 //               >
 //                 <Camera className="w-5 h-5" />
@@ -538,7 +538,7 @@
 //               onClick={() => setIsEditing(!isEditing)}
 //               className={`px-6 py-3 rounded-xl font-bold transition-all flex items-center gap-2 whitespace-nowrap ${isEditing
 //                   ? "bg-gray-100 text-gray-600 hover:bg-gray-200"
-//                   : "bg-[#59A5B2] text-white hover:bg-[#4a8a95] shadow-lg shadow-[#59A5B2]/20"
+//                   : "bg-[#3F2C77] text-white hover:bg-[#4a8a95] shadow-lg shadow-[#3F2C77]/20"
 //                 }`}
 //             >
 //               {isEditing ? (
@@ -565,14 +565,14 @@
 //           <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
 //             <div className="flex items-center justify-between mb-6">
 //                 <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-//                 <User className="w-5 h-5 text-[#59A5B2]" />
+//                 <User className="w-5 h-5 text-[#3F2C77]" />
 //                 Personal Information
 //                 </h2>
 //                 {isEditing && (
 //                     <button
 //                         onClick={handleProfileUpdate}
 //                         disabled={isSaving}
-//                         className="bg-[#59A5B2] text-white px-6 py-2 rounded-xl font-bold hover:bg-[#4a8a95] transition-all flex items-center gap-2 disabled:opacity-50"
+//                         className="bg-[#3F2C77] text-white px-6 py-2 rounded-xl font-bold hover:bg-[#4a8a95] transition-all flex items-center gap-2 disabled:opacity-50"
 //                     >
 //                         {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
 //                         Save Changes
@@ -609,9 +609,9 @@
 //                     onBlur={(e) =>
 //                       isEditing && validateField(field.key, e.target.value)
 //                     }
-//                     className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-[#59A5B2]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed ${errors[field.key as keyof typeof errors]
+//                     className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-[#3F2C77]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed ${errors[field.key as keyof typeof errors]
 //                         ? "border-red-500 focus:border-red-500"
-//                         : "border-gray-200 focus:border-[#59A5B2]"
+//                         : "border-gray-200 focus:border-[#3F2C77]"
 //                       }`}
 //                   />
 //                   {errors[field.key as keyof typeof errors] && (
@@ -641,7 +641,7 @@
 //                           setField("canadian_provinceid", "");
 //                           setField("canadian_cityid", "");
 //                         }}
-//                         className="h-4 w-4 accent-[#59A5B2]"
+//                         className="h-4 w-4 accent-[#3F2C77]"
 //                       />
 //                       <label
 //                         htmlFor="addr-ca"
@@ -661,7 +661,7 @@
 //                           setField("canadian_provinceid", "");
 //                           setField("canadian_cityid", "");
 //                         }}
-//                         className="h-4 w-4 accent-[#59A5B2]"
+//                         className="h-4 w-4 accent-[#3F2C77]"
 //                       />
 //                       <label
 //                         htmlFor="addr-intl"
@@ -813,7 +813,7 @@
 //                         placeholder="Province"
 //                         value={profileData.province}
 //                         onChange={(e) => setField("province", e.target.value)}
-//                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#59A5B2] focus:ring-2 focus:ring-[#59A5B2]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500"
+//                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#3F2C77] focus:ring-2 focus:ring-[#3F2C77]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500"
 //                       />
 //                       {errors.province && (
 //                         <p className="text-xs text-red-500">
@@ -831,7 +831,7 @@
 //                         placeholder="Province/State"
 //                         value={profileData.state}
 //                         onChange={(e) => setField("state", e.target.value)}
-//                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#59A5B2] focus:ring-2 focus:ring-[#59A5B2]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500"
+//                         className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#3F2C77] focus:ring-2 focus:ring-[#3F2C77]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500"
 //                       />
 //                       {errors.state && (
 //                         <p className="text-xs text-red-500">{errors.state}</p>
@@ -848,7 +848,7 @@
 //                       placeholder="City"
 //                       value={profileData.city}
 //                       onChange={(e) => setField("city", e.target.value)}
-//                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#59A5B2] focus:ring-2 focus:ring-[#59A5B2]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500"
+//                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#3F2C77] focus:ring-2 focus:ring-[#3F2C77]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500"
 //                     />
 //                     {errors.city && (
 //                       <p className="text-xs text-red-500">{errors.city}</p>
@@ -869,9 +869,9 @@
 //                   onBlur={(e) =>
 //                     isEditing && validateField("address", e.target.value)
 //                   }
-//                   className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-[#59A5B2]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500 ${errors.address
+//                   className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-[#3F2C77]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500 ${errors.address
 //                       ? "border-red-500 focus:border-red-500"
-//                       : "border-gray-200 focus:border-[#59A5B2]"
+//                       : "border-gray-200 focus:border-[#3F2C77]"
 //                     }`}
 //                 />
 //                 {errors.address && (
@@ -895,9 +895,9 @@
 //                   onBlur={(e) =>
 //                     isEditing && validateField("postalCode", e.target.value)
 //                   }
-//                   className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-[#59A5B2]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500 ${errors.postalCode
+//                   className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-[#3F2C77]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500 ${errors.postalCode
 //                       ? "border-red-500 focus:border-red-500"
-//                       : "border-gray-200 focus:border-[#59A5B2]"
+//                       : "border-gray-200 focus:border-[#3F2C77]"
 //                     }`}
 //                 />
 //                 {errors.postalCode && (
@@ -915,13 +915,13 @@
 //             <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
 //               <div className="flex items-center justify-between mb-6">
 //                   <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-//                     <Lock className="w-5 h-5 text-[#59A5B2]" />
+//                     <Lock className="w-5 h-5 text-[#3F2C77]" />
 //                     Security Settings (Optional)
 //                   </h2>
 //                   <button
 //                         onClick={handlePasswordUpdate}
 //                         disabled={isSaving}
-//                         className="bg-[#59A5B2] text-white px-6 py-2 rounded-xl font-bold hover:bg-[#4a8a95] transition-all flex items-center gap-2 disabled:opacity-50"
+//                         className="bg-[#3F2C77] text-white px-6 py-2 rounded-xl font-bold hover:bg-[#4a8a95] transition-all flex items-center gap-2 disabled:opacity-50"
 //                     >
 //                         {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
 //                         Update Password
@@ -954,7 +954,7 @@
 //                           current: e.target.value,
 //                         })
 //                       }
-//                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#59A5B2] focus:ring-2 focus:ring-[#59A5B2]/20 outline-none transition-all pr-10"
+//                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#3F2C77] focus:ring-2 focus:ring-[#3F2C77]/20 outline-none transition-all pr-10"
 //                     />
 //                     <button
 //                       type="button"
@@ -989,7 +989,7 @@
 //                           new: e.target.value,
 //                         })
 //                       }
-//                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#59A5B2] focus:ring-2 focus:ring-[#59A5B2]/20 outline-none transition-all pr-10"
+//                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#3F2C77] focus:ring-2 focus:ring-[#3F2C77]/20 outline-none transition-all pr-10"
 //                     />
 //                     <button
 //                       type="button"
@@ -1024,7 +1024,7 @@
 //                           confirm: e.target.value,
 //                         })
 //                       }
-//                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#59A5B2] focus:ring-2 focus:ring-[#59A5B2]/20 outline-none transition-all pr-10"
+//                       className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#3F2C77] focus:ring-2 focus:ring-[#3F2C77]/20 outline-none transition-all pr-10"
 //                     />
 //                     <button
 //                       type="button"
@@ -1126,16 +1126,16 @@ const selectStyles = {
     borderColor: "#e5e7eb",
     borderRadius: "0.75rem",
     padding: "0.25rem 0",
-    "&:hover": { borderColor: "#59A5B2" },
+    "&:hover": { borderColor: "#3F2C77" },
     "&:focus": {
-      borderColor: "#59A5B2",
+      borderColor: "#3F2C77",
       boxShadow: "0 0 0 2px rgba(89, 165, 178, 0.2)",
     },
   }),
   option: (base: any, state: any) => ({
     ...base,
     backgroundColor: state.isSelected
-      ? "#59A5B2"
+      ? "#3F2C77"
       : state.isFocused
         ? "#f0f9fa"
         : "white",
@@ -1558,7 +1558,7 @@ export default function CustomerProfilePage() {
   if (loadingUser) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-[#59A5B2]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#3F2C77]" />
       </div>
     );
   }
@@ -1591,7 +1591,7 @@ export default function CustomerProfilePage() {
               {isEditing && (
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="absolute bottom-0 right-0 bg-[#59A5B2] text-white p-2 rounded-full shadow-lg hover:scale-110 transition-transform"
+                  className="absolute bottom-0 right-0 bg-[#3F2C77] text-white p-2 rounded-full shadow-lg hover:scale-110 transition-transform"
                   title="Change profile picture"
                 >
                   <Camera className="w-5 h-5" />
@@ -1626,7 +1626,7 @@ export default function CustomerProfilePage() {
               className={`px-6 py-3 rounded-xl font-bold transition-all flex items-center gap-2 whitespace-nowrap ${
                 isEditing
                   ? "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                  : "bg-[#59A5B2] text-white hover:bg-[#4a8a95] shadow-lg shadow-[#59A5B2]/20"
+                  : "bg-[#3F2C77] text-white hover:bg-[#4a8a95] shadow-lg shadow-[#3F2C77]/20"
               }`}
             >
               {isEditing ? (
@@ -1653,14 +1653,14 @@ export default function CustomerProfilePage() {
           <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                <User className="w-5 h-5 text-[#59A5B2]" />
+                <User className="w-5 h-5 text-[#3F2C77]" />
                 Personal Information
               </h2>
               {isEditing && (
                 <button
                   onClick={handleProfileUpdate}
                   disabled={isSaving}
-                  className="bg-[#59A5B2] text-white px-6 py-2 rounded-xl font-bold hover:bg-[#4a8a95] transition-all flex items-center gap-2 disabled:opacity-50"
+                  className="bg-[#3F2C77] text-white px-6 py-2 rounded-xl font-bold hover:bg-[#4a8a95] transition-all flex items-center gap-2 disabled:opacity-50"
                 >
                   {isSaving ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -1701,10 +1701,10 @@ export default function CustomerProfilePage() {
                     onBlur={(e) =>
                       isEditing && validateField(field.key, e.target.value)
                     }
-                    className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-[#59A5B2]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed ${
+                    className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-[#3F2C77]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed ${
                       errors[field.key as keyof typeof errors]
                         ? "border-red-500 focus:border-red-500"
-                        : "border-gray-200 focus:border-[#59A5B2]"
+                        : "border-gray-200 focus:border-[#3F2C77]"
                     }`}
                   />
                   {errors[field.key as keyof typeof errors] && (
@@ -1734,7 +1734,7 @@ export default function CustomerProfilePage() {
                           setField("canadian_provinceid", "");
                           setField("canadian_cityid", "");
                         }}
-                        className="h-4 w-4 accent-[#59A5B2]"
+                        className="h-4 w-4 accent-[#3F2C77]"
                       />
                       <label
                         htmlFor="addr-ca"
@@ -1754,7 +1754,7 @@ export default function CustomerProfilePage() {
                           setField("canadian_provinceid", "");
                           setField("canadian_cityid", "");
                         }}
-                        className="h-4 w-4 accent-[#59A5B2]"
+                        className="h-4 w-4 accent-[#3F2C77]"
                       />
                       <label
                         htmlFor="addr-intl"
@@ -1917,7 +1917,7 @@ export default function CustomerProfilePage() {
                         placeholder="Province"
                         value={profileData.province}
                         onChange={(e) => setField("province", e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#59A5B2] focus:ring-2 focus:ring-[#59A5B2]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#3F2C77] focus:ring-2 focus:ring-[#3F2C77]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500"
                       />
                       {errors.province && (
                         <p className="text-xs text-red-500">
@@ -1935,7 +1935,7 @@ export default function CustomerProfilePage() {
                         placeholder="Province/State"
                         value={profileData.state}
                         onChange={(e) => setField("state", e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#59A5B2] focus:ring-2 focus:ring-[#59A5B2]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#3F2C77] focus:ring-2 focus:ring-[#3F2C77]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500"
                       />
                       {errors.state && (
                         <p className="text-xs text-red-500">{errors.state}</p>
@@ -1952,7 +1952,7 @@ export default function CustomerProfilePage() {
                       placeholder="City"
                       value={profileData.city}
                       onChange={(e) => setField("city", e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#59A5B2] focus:ring-2 focus:ring-[#59A5B2]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#3F2C77] focus:ring-2 focus:ring-[#3F2C77]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500"
                     />
                     {errors.city && (
                       <p className="text-xs text-red-500">{errors.city}</p>
@@ -1973,10 +1973,10 @@ export default function CustomerProfilePage() {
                   onBlur={(e) =>
                     isEditing && validateField("address", e.target.value)
                   }
-                  className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-[#59A5B2]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500 ${
+                  className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-[#3F2C77]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500 ${
                     errors.address
                       ? "border-red-500 focus:border-red-500"
-                      : "border-gray-200 focus:border-[#59A5B2]"
+                      : "border-gray-200 focus:border-[#3F2C77]"
                   }`}
                 />
                 {errors.address && (
@@ -1998,10 +1998,10 @@ export default function CustomerProfilePage() {
                   onBlur={(e) =>
                     isEditing && validateField("postalCode", e.target.value)
                   }
-                  className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-[#59A5B2]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500 ${
+                  className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-[#3F2C77]/20 outline-none transition-all disabled:bg-gray-50 disabled:text-gray-500 ${
                     errors.postalCode
                       ? "border-red-500 focus:border-red-500"
-                      : "border-gray-200 focus:border-[#59A5B2]"
+                      : "border-gray-200 focus:border-[#3F2C77]"
                   }`}
                 />
                 {errors.postalCode && (
@@ -2017,13 +2017,13 @@ export default function CustomerProfilePage() {
             <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-                  <Lock className="w-5 h-5 text-[#59A5B2]" />
+                  <Lock className="w-5 h-5 text-[#3F2C77]" />
                   Security Settings (Optional)
                 </h2>
                 <button
                   onClick={handlePasswordUpdate}
                   disabled={isSaving}
-                  className="bg-[#59A5B2] text-white px-6 py-2 rounded-xl font-bold hover:bg-[#4a8a95] transition-all flex items-center gap-2 disabled:opacity-50"
+                  className="bg-[#3F2C77] text-white px-6 py-2 rounded-xl font-bold hover:bg-[#4a8a95] transition-all flex items-center gap-2 disabled:opacity-50"
                 >
                   {isSaving ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -2060,7 +2060,7 @@ export default function CustomerProfilePage() {
                           current: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#59A5B2] focus:ring-2 focus:ring-[#59A5B2]/20 outline-none transition-all pr-10"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#3F2C77] focus:ring-2 focus:ring-[#3F2C77]/20 outline-none transition-all pr-10"
                     />
                     <button
                       type="button"
@@ -2095,7 +2095,7 @@ export default function CustomerProfilePage() {
                           new: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#59A5B2] focus:ring-2 focus:ring-[#59A5B2]/20 outline-none transition-all pr-10"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#3F2C77] focus:ring-2 focus:ring-[#3F2C77]/20 outline-none transition-all pr-10"
                     />
                     <button
                       type="button"
@@ -2130,7 +2130,7 @@ export default function CustomerProfilePage() {
                           confirm: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#59A5B2] focus:ring-2 focus:ring-[#59A5B2]/20 outline-none transition-all pr-10"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#3F2C77] focus:ring-2 focus:ring-[#3F2C77]/20 outline-none transition-all pr-10"
                     />
                     <button
                       type="button"

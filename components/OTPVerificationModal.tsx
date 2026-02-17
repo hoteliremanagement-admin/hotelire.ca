@@ -129,7 +129,7 @@ export function OTPVerificationModal({ isOpen, onClose, email, onVerifySuccess }
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px] transition-all duration-300 ease-in-out animate-in fade-in-0 zoom-in-95" data-testid="modal-otp-verification">
         <DialogHeader>
-          <DialogTitle className="[font-family:'Poppins',Helvetica] text-2xl font-bold text-[#59A5B2]">
+          <DialogTitle className="[font-family:'Poppins',Helvetica] text-2xl font-bold text-[#3F2C77]">
             Verify Your Email
           </DialogTitle>
           <DialogDescription className="[font-family:'Inter',Helvetica] text-gray-600">
@@ -151,7 +151,7 @@ export function OTPVerificationModal({ isOpen, onClose, email, onVerifySuccess }
                 onChange={(e) => handleChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
                 onPaste={index === 0 ? handlePaste : undefined}
-                className="w-14 h-14 text-center text-2xl font-bold border-2 focus:border-[#59A5B2] focus:ring-[#59A5B2]"
+                className="w-14 h-14 text-center text-2xl font-bold border-2 focus:border-[#3F2C77] focus:ring-[#3F2C77]"
                 aria-label={`OTP digit ${index + 1}`}
                 data-testid={`input-otp-${index}`}
               />
@@ -167,7 +167,7 @@ export function OTPVerificationModal({ isOpen, onClose, email, onVerifySuccess }
           <Button
             onClick={handleVerify}
             disabled={isVerifying || otp.join("").length !== 4}
-            className="w-full h-12 bg-[#59A5B2] hover:bg-[#4C7E87] text-white transition-colors duration-200"
+            className="w-full h-12 bg-[#3F2C77] hover:bg-[#4C7E87] text-white transition-colors duration-200"
             data-testid="button-verify-continue"
           >
             {isVerifying ? "Verifying..." : "Verify & Continue"}
@@ -181,7 +181,7 @@ export function OTPVerificationModal({ isOpen, onClose, email, onVerifySuccess }
             ) : (
               <button
                 onClick={handleResend}
-                className="text-sm text-[#59A5B2] hover:underline [font-family:'Inter',Helvetica]"
+                className="text-sm text-[#3F2C77] hover:underline [font-family:'Inter',Helvetica]"
                 data-testid="link-resend-code"
               >
                 Didn&apos;t receive the code? Resend

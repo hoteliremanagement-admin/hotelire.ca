@@ -129,7 +129,7 @@ const [formData, setFormData] = useState({
                       setFormData({ firstName: "", lastName: "", email: "", message: "" })
                       setCharCount(0)
                     }}
-                    className="text-[#59A5B2] font-semibold hover:text-[#4a8a95] transition-colors underline"
+                    className="text-[#3F2C77] font-semibold hover:text-[#4a8a95] transition-colors underline"
                   >
                     Send another message
                   </button>
@@ -142,7 +142,7 @@ const [formData, setFormData] = useState({
                     <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-3 mt-3">Let's Get In Touch.</h1>
                     <p className="text-gray-600">
                       Or just reach out manually to{" "}
-                      <a href="mailto:support@hotelire.ca" className="text-[#59A5B2] font-semibold hover:underline">
+                      <a href="mailto:support@hotelire.ca" className="text-[#3F2C77] font-semibold hover:underline">
                         support@hotelire.ca
                       </a>
                     </p>
@@ -158,7 +158,7 @@ const [formData, setFormData] = useState({
                           <input
                             type="text"
                             placeholder="Enter your first name..."
-                            className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent transition-all duration-200"
+                            className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#3F2C77] focus:border-transparent transition-all duration-200"
                             value={formData.firstName}
                             onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                           />
@@ -171,7 +171,7 @@ const [formData, setFormData] = useState({
                           <input
                             type="text"
                             placeholder="Enter your last name..."
-                            className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent transition-all duration-200"
+                            className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#3F2C77] focus:border-transparent transition-all duration-200"
                             value={formData.lastName}
                             onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                           />
@@ -187,7 +187,7 @@ const [formData, setFormData] = useState({
                         <input
                           type="email"
                           placeholder="Enter your email address..."
-                          className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent transition-all duration-200"
+                          className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#3F2C77] focus:border-transparent transition-all duration-200"
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         />
@@ -200,7 +200,7 @@ const [formData, setFormData] = useState({
                       <textarea
                         rows={6}
                         placeholder="Enter your main text here..."
-                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent resize-none transition-all duration-200"
+                        className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#3F2C77] focus:border-transparent resize-none transition-all duration-200"
                         value={formData.message}
                         onChange={handleMessageChange}
                       />
@@ -213,7 +213,7 @@ const [formData, setFormData] = useState({
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-gradient-to-r from-[#59A5B2] to-[#4a8a95] hover:from-[#4a8a95] hover:to-[#3f7680] text-white font-semibold py-4 px-6 rounded-full flex justify-center items-center gap-2 transition-all duration-200 disabled:opacity-70 shadow-sm hover:shadow-xl text-base md:text-lg"
+                      className="w-full bg-gradient-to-r from-[#3F2C77] to-[#4a8a95] hover:from-[#4a8a95] hover:to-[#3f7680] text-white font-semibold py-4 px-6 rounded-full flex justify-center items-center gap-2 transition-all duration-200 disabled:opacity-70 shadow-sm hover:shadow-xl text-base md:text-lg"
                           >
                       {isSubmitting ? (
                         <>

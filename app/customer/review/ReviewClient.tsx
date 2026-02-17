@@ -191,7 +191,7 @@ export default function ReviewPage() {
 
       <div className="flex-1 max-w-2xl mx-auto px-4 md:px-8 py-8 md:py-12 w-full">
         <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#59A5B2] mb-2">
+          <h1 className="text-3xl md:text-4xl font-bold text-[#3F2C77] mb-2">
             Share Your Experience
           </h1>
           <p className="text-gray-600">
@@ -201,7 +201,7 @@ export default function ReviewPage() {
 
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle className="text-[#59A5B2]">
+            <CardTitle className="text-[#3F2C77]">
               {reviewData.propertyName}
             </CardTitle>
           </CardHeader>
@@ -227,7 +227,7 @@ export default function ReviewPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-[#59A5B2]">Your Review</CardTitle>
+            <CardTitle className="text-[#3F2C77]">Your Review</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -256,7 +256,7 @@ export default function ReviewPage() {
                     </button>
                   ))}
                   {rating > 0 && (
-                    <span className="ml-4 text-lg font-semibold text-[#59A5B2]">
+                    <span className="ml-4 text-lg font-semibold text-[#3F2C77]">
                       {rating} / 5
                     </span>
                   )}
@@ -273,7 +273,7 @@ export default function ReviewPage() {
                   placeholder="Tell us about your stay..."
                   maxLength={500}
                   rows={5}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#59A5B2] resize-none"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#3F2C77] resize-none"
                 />
                 <p className="text-xs text-gray-500 mt-2">
                   {comment.length}/500 characters
@@ -303,7 +303,7 @@ export default function ReviewPage() {
               <Button
                 type="submit"
                 disabled={!rating || isSubmitting}
-                className="w-full bg-[#59A5B2] hover:bg-[#4a9199]"
+                className="w-full bg-[#3F2C77] hover:bg-[#4a9199]"
                 size="lg"
               >
                 {isSubmitting ? "Submitting..." : "Submit Review"}

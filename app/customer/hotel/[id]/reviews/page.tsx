@@ -220,7 +220,7 @@
 // //               <select
 // //                 value={sortBy}
 // //                 onChange={(e) => setSortBy(e.target.value as any)}
-// //                 className="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent"
+// //                 className="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#3F2C77] focus:border-transparent"
 // //                 data-testid="select-sort-reviews"
 // //               >
 // //                 <option value="recent">Most Recent</option>
@@ -311,7 +311,7 @@
 // //             {/* Load More */}
 // //             <div className="text-center mt-8">
 // //               <button
-// //                 className="px-6 py-3 border border-[#59A5B2] text-[#59A5B2] rounded-lg hover:bg-blue-50 font-semibold transition-colors"
+// //                 className="px-6 py-3 border border-[#3F2C77] text-[#3F2C77] rounded-lg hover:bg-blue-50 font-semibold transition-colors"
 // //                 style={{ fontFamily: "Poppins, sans-serif" }}
 // //                 data-testid="button-load-more-reviews"
 // //               >
@@ -552,7 +552,7 @@
 //               <select
 //                 value={sortBy}
 //                 onChange={(e) => setSortBy(e.target.value as any)}
-//                 className="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent"
+//                 className="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#3F2C77] focus:border-transparent"
 //                 data-testid="select-sort-reviews"
 //               >
 //                 <option value="recent">Most Recent</option>
@@ -643,7 +643,7 @@
 //             {/* Load More */}
 //             <div className="text-center mt-8">
 //               <button
-//                 className="px-6 py-3 border border-[#59A5B2] text-[#59A5B2] rounded-lg hover:bg-blue-50 font-semibold transition-colors"
+//                 className="px-6 py-3 border border-[#3F2C77] text-[#3F2C77] rounded-lg hover:bg-blue-50 font-semibold transition-colors"
 //                 style={{ fontFamily: "Poppins, sans-serif" }}
 //                 data-testid="button-load-more-reviews"
 //               >
@@ -742,7 +742,7 @@ export default function PropertyReviewsPage() {
         <Header />
         <Navigation />
         <div className="flex-1 flex items-center justify-center">
-          <Loader2 className="h-8 w-8 animate-spin text-[#59A5B2]" />
+          <Loader2 className="h-8 w-8 animate-spin text-[#3F2C77]" />
         </div>
         <Footer />
       </div>
@@ -759,7 +759,7 @@ export default function PropertyReviewsPage() {
           {/* Page Header */}
           <div>
             <h1
-              className="text-2xl md:text-3xl font-bold text-[#59A5B2]"
+              className="text-2xl md:text-3xl font-bold text-[#3F2C77]"
               style={{ fontFamily: "Poppins, sans-serif" }}
             >
               Guest Reviews
@@ -838,7 +838,7 @@ export default function PropertyReviewsPage() {
               >
                 <div className="flex items-start gap-4">
                   {/* Avatar */}
-                  <div className="w-12 h-12 bg-[#59A5B2] rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-[#3F2C77] rounded-full flex items-center justify-center flex-shrink-0">
                     <span className="text-white font-semibold">{review.guestAvatar}</span>
                   </div>
 

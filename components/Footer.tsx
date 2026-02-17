@@ -12,7 +12,7 @@ export function Footer() {
         {/* Brand & Support */}
         <div className="flex flex-col max-w-sm">
           <Image
-            src="/figmaAssets/logo_orignal.png"
+            src="/figmaAssets/logo_orignal1.png"
             alt="Hotelire Logo"
             width={163}
             height={108}
@@ -25,7 +25,7 @@ export function Footer() {
 
           <a
             href="tel:+11234567890"
-            className="font-medium text-[#59A5B2] text-base md:text-lg [font-family:'Inter',Helvetica] mb-6 md:mb-9 hover:text-[#2a2158] transition-colors duration-200"
+            className="font-medium text-[#3F2C77] text-base md:text-lg [font-family:'Inter',Helvetica] mb-6 md:mb-9 hover:text-[#2a2158] transition-colors duration-200"
           >
             +(1) 123 456 7890
           </a>
@@ -36,7 +36,7 @@ export function Footer() {
 
           <a
             href="mailto:info@hotelire.ca"
-            className="text-[#59A5B2] text-base md:text-lg [font-family:'Poppins',Helvetica] font-normal hover:text-[#2a2158] transition-colors duration-200"
+            className="text-[#3F2C77] text-base md:text-lg [font-family:'Poppins',Helvetica] font-normal hover:text-[#2a2158] transition-colors duration-200"
           >
             info@hotelire.ca
           </a>
@@ -51,7 +51,7 @@ export function Footer() {
           <Link
             href="/explore-canada"
             prefetch={false}
-            className="[font-family:'Inter',Helvetica] font-medium text-black text-[17px] md:text-[19px] mb-4 hover:text-[#59A5B2] transition-colors duration-200"
+            className="[font-family:'Inter',Helvetica] font-medium text-black text-[17px] md:text-[19px] mb-4 hover:text-[#3F2C77] transition-colors duration-200"
           >
             Explore Canada
           </Link>
@@ -59,7 +59,7 @@ export function Footer() {
           <Link
             href="/travel-guide"
             prefetch={false}
-            className="[font-family:'Inter',Helvetica] font-medium text-black text-[17px] md:text-[19px] mb-4 hover:text-[#59A5B2] transition-colors duration-200"
+            className="[font-family:'Inter',Helvetica] font-medium text-black text-[17px] md:text-[19px] mb-4 hover:text-[#3F2C77] transition-colors duration-200"
           >
             Travel Guide
           </Link>
@@ -74,7 +74,7 @@ export function Footer() {
           <Link
             href="/contact"
             prefetch={false}
-            className="[font-family:'Inter',Helvetica] font-medium text-black text-[17px] md:text-[19px] mb-4 hover:text-[#59A5B2] transition-colors duration-200"
+            className="[font-family:'Inter',Helvetica] font-medium text-black text-[17px] md:text-[19px] mb-4 hover:text-[#3F2C77] transition-colors duration-200"
           >
             Contact Us
           </Link>
@@ -82,7 +82,7 @@ export function Footer() {
           <Link
             href="/owner/terms"
             prefetch={false}
-            className="[font-family:'Inter',Helvetica] font-medium text-black text-[17px] md:text-[19px] mb-4 hover:text-[#59A5B2] transition-colors duration-200"
+            className="[font-family:'Inter',Helvetica] font-medium text-black text-[17px] md:text-[19px] mb-4 hover:text-[#3F2C77] transition-colors duration-200"
           >
             Terms & Conditions
           </Link>
@@ -93,7 +93,7 @@ export function Footer() {
   </div>
 
   {/* Bottom Bar */}
-  <div className="w-full h-auto md:h-[52px] bg-[#59A5B2] flex items-center justify-center py-4 px-4">
+  <div className="w-full h-auto md:h-[52px] bg-[#3F2C77] flex items-center justify-center py-4 px-4">
     <p className="[font-family:'Inter',Helvetica] font-medium text-white text-[15px] md:text-[19px] text-center">
       Copyright © 2025 Hotelier.ca™. All Rights Reserved. Developed by
       Sasquatch Innovations

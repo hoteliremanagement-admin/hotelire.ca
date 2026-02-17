@@ -59,7 +59,7 @@ export function Mbanner() {
       />
 
       <div className="relative z-10 px-4 md:px-8 lg:ml-[622px] lg:mr-[203px] pt-[180px] md:pt-0">
-        <h2 className="[font-family:'Inter',Helvetica] font-bold text-[#59A5B2] text-[22px] md:text-[26px] mb-6 md:mb-[37px]">
+        <h2 className="[font-family:'Inter',Helvetica] font-bold text-[#3F2C77] text-[22px] md:text-[26px] mb-6 md:mb-[37px]">
           Grow Your Business with Hotelire
         </h2>
 
@@ -70,7 +70,7 @@ export function Mbanner() {
 
         <Button
           onClick={handleBannerClick}
-          className="w-full md:w-[500px] lg:w-[612px] h-[55px] md:h-[68px] bg-[#59A5B2] rounded-[10px] [font-family:'Inter',Helvetica] font-bold text-white text-lg md:text-xl transition-all duration-200 hover:bg-[#4c7e87] hover:scale-[1.02] hover:shadow-[0_4px_10px_rgba(0,0,0,0.15)]"
+          className="w-full md:w-[500px] lg:w-[612px] h-[55px] md:h-[68px] bg-[#3F2C77] rounded-[10px] [font-family:'Inter',Helvetica] font-bold text-white text-lg md:text-xl transition-all duration-200 hover:bg-[#2E2059] hover:scale-[1.02] hover:shadow-[0_4px_10px_rgba(0,0,0,0.15)]"
         >
           SIGN UP AS PROPERTY OWNER
         </Button>

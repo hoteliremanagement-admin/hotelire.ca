@@ -172,7 +172,7 @@ export default function CustomerHomePage() {
       {/* Explore Canada */}
       <section className="w-full bg-[#e3fdff] py-12 md:py-16 lg:py-[81px] px-4 md:px-8 lg:px-[203px]">
         <div className="site-container">
-          <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#59A5B2] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
+          <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#3F2C77] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
             Explore Canada
           </h2>
           <p className="[font-family:'Poppins',Helvetica] font-normal text-black text-base md:text-lg lg:text-xl mb-8 md:mb-10 lg:mb-[46px]">
@@ -190,7 +190,7 @@ export default function CustomerHomePage() {
       {/* Most Popular Hotels */}
       <section className="w-full py-12 md:py-16 lg:py-[82px] px-4 md:px-8 lg:px-[203px]">
         <div className="site-container">
-          <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#59A5B2] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
+          <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#3F2C77] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
             Most Popular Hotels
           </h2>
           <p className="[font-family:'Poppins',Helvetica] font-normal text-black text-base md:text-lg mb-8 md:mb-12 lg:mb-[54px]">
@@ -210,7 +210,7 @@ export default function CustomerHomePage() {
       {/* Offers */}
       <section className="w-full bg-[#eaffe6] py-12 md:py-16 lg:py-[102px] px-4 md:px-8 lg:px-[203px]">
         <div className="site-container">
-          <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#59A5B2] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
+          <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#3F2C77] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
             Offers
           </h2>
           <p className="[font-family:'Poppins',Helvetica] font-normal text-black text-base md:text-lg mb-8 md:mb-12 lg:mb-[54px]">
@@ -268,7 +268,7 @@ export default function CustomerHomePage() {
       {/* Unique Properties */}
       <section className="w-full py-12 md:py-16 lg:py-[57px] px-4 md:px-8 lg:px-[203px]">
         <div className="site-container">
-          <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#59A5B2] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
+          <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#3F2C77] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
             Your perfect Guest House stay awaits
           </h2>
           <p className="[font-family:'Poppins',Helvetica] font-normal text-black text-base md:text-lg lg:text-xl mb-8 md:mb-12 lg:mb-[54px]">
@@ -287,10 +287,10 @@ export default function CustomerHomePage() {
       inline-flex items-center gap-2
       px-6 py-3
       rounded-full
-      bg-[#59A5B2]
+      bg-[#3F2C77]
       text-white
       font-semibold
-      hover:bg-[#4b95a1]
+      hover:bg-[#2E2059]
       transition-all
     "
             >
