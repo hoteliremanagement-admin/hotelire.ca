@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 
-type StatusType = "Active" | "Suspended" | "Paid" | "Unpaid" | "Pending" | "Failed" | "Inactive";
+type StatusType = "Active" | "Suspended" | "Paid" | "Unpaid" | "Pending" | "Failed" | "Inactive" | "Enabled" | "Disabled";
 
 interface StatusBadgeProps {
   status: StatusType | string;
@@ -13,6 +13,7 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
     switch (s.toLowerCase()) {
       case "active":
       case "paid":
+      case "enabled":
         return "bg-emerald-100 text-emerald-700 border-emerald-200";
       case "pending":
         return "bg-amber-100 text-amber-700 border-amber-200";
@@ -20,6 +21,7 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
       case "inactive":
       case "failed":
       case "unpaid":
+      case "disabled":
         return "bg-rose-100 text-rose-700 border-rose-200";
       default:
         return "bg-slate-100 text-slate-700 border-slate-200";

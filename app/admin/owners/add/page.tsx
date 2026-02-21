@@ -12,7 +12,7 @@ import Select from "react-select"
 import axios from "axios"
 import { ArrowLeft } from "lucide-react"
 
-const BRAND = "#59A5B2"
+const BRAND = "#3F2C77"
 
 type AddressType = "canadian"
 type OwnerErrors = Partial<{
@@ -221,8 +221,8 @@ export default function AddOwnerPage() {
     [
       "h-12",
       "border-gray-300",
-      "focus:border-[#59A5B2]",
-      "focus:ring-[#59A5B2]",
+      "focus:border-[#3F2C77]",
+      "focus:ring-[#3F2C77]",
       invalid && "border-red-500 ring-1 ring-red-500 focus:ring-red-500 focus:border-red-500",
     ]
       .filter(Boolean)

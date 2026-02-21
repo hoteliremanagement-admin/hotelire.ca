@@ -10,6 +10,7 @@ import {
   Settings,
   LogOut,
   Building2,
+  Star,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
@@ -23,7 +24,8 @@ const NAV_ITEMS = [
   { label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
   { label: "Owners", href: "/admin/owners", icon: Users },
   { label: "Properties", href: "/admin/properties", icon: Building },
-    { label: "Customers", href: "/admin/customers", icon: Users },
+  { label: "Customers", href: "/admin/customers", icon: Users },
+  { label: "Reviews", href: "/admin/reviews", icon: Star },
   { label: "Payments", href: "/admin/payments", icon: CreditCard },
   { label: "Settings", href: "/admin/settings", icon: Settings },
 ];
