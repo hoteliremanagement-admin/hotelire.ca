@@ -161,7 +161,7 @@ export default function Step1Page() {
 
 
 
-          
+
 
 
           setisEditingProperty(true);
@@ -178,6 +178,7 @@ export default function Step1Page() {
           }
 
 
+          
 
           console.log("Property data for edit:", propdata);
 
