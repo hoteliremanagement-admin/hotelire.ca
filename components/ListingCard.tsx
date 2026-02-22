@@ -70,7 +70,7 @@ export function ListingCard({ listing }: ListingCardProps) {
                   target="_blank"
                   // target="blank"
                   prefetch={false}
-                  className="flex items-center gap-1 text-[#59a5b2] hover:text-[#2a2158] transition-colors duration-200"
+                  className="flex items-center gap-1 text-[#3F2C77] hover:text-[#2a2158] transition-colors duration-200"
                   data-testid={`link-show-map-${listing.id}`}
                 >
                   <MapPin className="w-3 h-3" />
@@ -86,7 +86,7 @@ export function ListingCard({ listing }: ListingCardProps) {
               <Link href={`/customer/hotel/${listing.id}/reviews`}>
               <div
                 title="View reviews"
-                className="w-12 h-12 bg-[#59a5b2] rounded-lg flex items-center justify-center flex-shrink-0 cursor-pointer"
+                className="w-12 h-12 bg-[#3F2C77] rounded-lg flex items-center justify-center flex-shrink-0 cursor-pointer"
               >
                 <span className="font-bold text-white text-base [font-family:'Inter',Helvetica]">
                   {listing.avgRating}.0
@@ -127,7 +127,7 @@ export function ListingCard({ listing }: ListingCardProps) {
               {listing.amenities.map((amenity, index) => (
                 <span
                   key={index}
-                  className="[font-family:'Inter',Helvetica] font-medium text-[#59a5b2] text-xs px-2 py-1 bg-[#f5f6fd] rounded"
+                  className="[font-family:'Inter',Helvetica] font-medium text-[#3F2C77] text-xs px-2 py-1 bg-[#f5f6fd] rounded"
                 >
                   {amenity}
                 </span>
@@ -138,7 +138,7 @@ export function ListingCard({ listing }: ListingCardProps) {
           {/* Price and CTA */}
           <div className="flex flex-col items-end gap-2 w-full sm:w-auto">
             <div className="text-right">
-              <p className="[font-family:'Poppins',Helvetica] font-bold text-[#59a5b2] text-2xl">
+              <p className="[font-family:'Poppins',Helvetica] font-bold text-[#3F2C77] text-2xl">
                 {listing.price} CAD
               </p>
               <p className="[font-family:'Inter',Helvetica] font-normal text-gray-600 text-xs">

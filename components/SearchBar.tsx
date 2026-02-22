@@ -193,7 +193,7 @@ router.push(
       <div className="flex-1 px-4 md:px-[33px] py-3 md:py-0 md:border-r border-[#e5e5e5] flex flex-col justify-center relative">
         <label
           htmlFor="location"
-          className="[font-family:'Poppins',Helvetica] font-semibold text-[#59A5B2] text-[13px] md:text-[15px] mb-1 flex items-center gap-2"
+          className="[font-family:'Poppins',Helvetica] font-semibold text-[#3F2C77] text-[13px] md:text-[15px] mb-1 flex items-center gap-2"
         >
           <MapPinIcon className="w-4 h-4" />
           Location
@@ -241,7 +241,7 @@ router.push(
 
       {/* Check-in / Check-out */}
       <div className="flex-1 px-4 md:px-6 py-3 md:py-0 md:border-r border-[#e5e5e5] flex flex-col justify-center">
-        <label htmlFor="date-picker" className="[font-family:'Poppins',Helvetica] font-semibold text-[#59A5B2] text-[10px] md:text-sm mb- flex items-center gap-2">
+        <label htmlFor="date-picker" className="[font-family:'Poppins',Helvetica] font-semibold text-[#3F2C77] text-[10px] md:text-sm mb- flex items-center gap-2">
           <CalendarIcon className="w-4 h-4" />
           Check in- Check out
         </label>
@@ -269,7 +269,7 @@ router.push(
             <div className="p-4 flex flex-col md:flex-row gap-6">
               {/* Check-in Calendar */}
               <div className="flex-1">
-                <p className="text-sm font-semibold text-[#59A5B2] mb-2">
+                <p className="text-sm font-semibold text-[#3F2C77] mb-2">
                   Check-in
                 </p>
                 <Calendar
@@ -283,7 +283,7 @@ router.push(
 
               {/* Check-out Calendar */}
               <div className="flex-1">
-                <p className="text-sm font-semibold text-[#59A5B2] mb-2">
+                <p className="text-sm font-semibold text-[#3F2C77] mb-2">
                   Check-out
                 </p>
                 <Calendar
@@ -307,7 +307,7 @@ router.push(
 
       {/* Guests */}
       <div className="flex-1 px-4 md:px-6 py-3 md:py-0 flex flex-col justify-center">
-        <label className="[font-family:'Poppins',Helvetica] font-semibold text-[#59A5B2] text-[13px] md:text-[15px] mb-1 flex items-center gap-2">
+        <label className="[font-family:'Poppins',Helvetica] font-semibold text-[#3F2C77] text-[13px] md:text-[15px] mb-1 flex items-center gap-2">
           <UsersIcon className="w-4 h-4" />
           Guests
         </label>
@@ -337,7 +337,7 @@ router.push(
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="[font-family:'Poppins',Helvetica] font-semibold text-[#59A5B2] text-sm">
+                  <p className="[font-family:'Poppins',Helvetica] font-semibold text-[#3F2C77] text-sm">
                     Adults
                   </p>
                   <p className="[font-family:'Poppins',Helvetica] text-xs text-gray-500">
@@ -374,7 +374,7 @@ router.push(
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="[font-family:'Poppins',Helvetica] font-semibold text-[#59A5B2] text-sm">
+                  <p className="[font-family:'Poppins',Helvetica] font-semibold text-[#3F2C77] text-sm">
                     Children
                   </p>
                   <p className="[font-family:'Poppins',Helvetica] text-xs text-gray-500">
@@ -410,7 +410,7 @@ router.push(
                 </div>
               </div>
               <Button
-                className="w-full bg-[#59A5B2] hover:bg-[#4C7E87] text-white"
+                className="w-full bg-[#3F2C77] hover:bg-[#4C7E87] text-white"
                 onClick={() => setIsGuestsOpen(false)}
                 data-testid="button-done-guests"
               >

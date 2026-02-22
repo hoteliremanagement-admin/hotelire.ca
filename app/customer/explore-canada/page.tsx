@@ -62,7 +62,7 @@ function SimpleHotelCard({ hotel }: { hotel: any }) {
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
             <div className="absolute top-3 left-3">
-              <span className="bg-white/90 px-2 py-1 rounded text-[10px] font-bold text-[#59A5B2] uppercase">
+              <span className="bg-white/90 px-2 py-1 rounded text-[10px] font-bold text-[#3F2C77] uppercase">
                 {hotel.type}
               </span>
             </div>
@@ -75,7 +75,7 @@ function SimpleHotelCard({ hotel }: { hotel: any }) {
               </h3>
               <div className="flex items-center gap-1 bg-[#f0f9fa] px-2 py-1 rounded">
                 <Star className="w-3 h-3 fill-[#FEBC11]" />
-                <span className="text-xs font-bold text-[#59A5B2]">
+                <span className="text-xs font-bold text-[#3F2C77]">
                   {hotel.rating}
                 </span>
               </div>
@@ -216,10 +216,10 @@ if (loading) return null;
       <main className="site-container py-16">
         {/* Intro Section */}
         <div className="text-center mb-20 max-w-3xl mx-auto">
-          <h2 className="text-[#59A5B2] font-bold text-3xl md:text-4xl mb-6">
+          <h2 className="text-[#3F2C77] font-bold text-3xl md:text-4xl mb-6">
             Your Canadian Journey Starts Here
           </h2>
-          <div className="h-1 w-20 bg-[#59A5B2] mx-auto mb-8 rounded-full" />
+          <div className="h-1 w-20 bg-[#3F2C77] mx-auto mb-8 rounded-full" />
           <p className="text-gray-600 text-lg leading-relaxed">
             From vibrant city lights to serene mountain escapes; discover where Canadians and travelers from around the world love to stay. Find your perfect getaway in these top destinations.
           </p>
@@ -237,7 +237,7 @@ if (loading) return null;
               <div>
                 <h3 className="text-2xl font-bold">
                   {destination.city},{" "}
-                  <span className="text-[#59A5B2]">
+                  <span className="text-[#3F2C77]">
                     {destination.province}
                   </span>
                 </h3>
@@ -249,7 +249,7 @@ if (loading) return null;
               {/* 👇 VIEW ALL PROPERTIES (RESTORED) */}
               <a
                 href={`/customer/listing?city=${destination.slug}`}
-                className="text-[#59A5B2] font-semibold text-sm hover:underline"
+                className="text-[#3F2C77] font-semibold text-sm hover:underline"
               >
                 View all properties →
               </a>

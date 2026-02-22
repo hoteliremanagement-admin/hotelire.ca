@@ -96,7 +96,7 @@ const handleProfileRedirect = () => {
       checkRole();
     }, []);
   return (
-    <header className="w-full bg-[#59A5B2] h-12 flex items-center justify-between px-4 md:px-8 lg:px-[203px]">
+    <header className="w-full bg-[#3F2C77] h-12 flex items-center justify-between px-4 md:px-8 lg:px-[203px]">
       <div className="flex items-center gap-4">
         <div className="hidden lg:flex items-center gap-4">
           <a
@@ -189,7 +189,7 @@ const handleProfileRedirect = () => {
                 <Link
                   href="/admin"
                   prefetch={false}
-                  className="[font-family:'Poppins',Helvetica] font-medium text-[#59A5B2] text-[11px] leading-[30px] cursor-pointer w-full"
+                  className="[font-family:'Poppins',Helvetica] font-medium text-[#3F2C77] text-[11px] leading-[30px] cursor-pointer w-full"
                 >
                   <FontAwesomeIcon icon={faHome} className="w-4 h-4" />
                   Panel
@@ -198,7 +198,7 @@ const handleProfileRedirect = () => {
                 <Link
                   href={isownerVerificationComplete ? "/owner" : "/owner/verification"}
                   prefetch={false}
-                  className="[font-family:'Poppins',Helvetica] font-medium text-[#59A5B2] text-[11px] leading-[30px] cursor-pointer w-full"
+                  className="[font-family:'Poppins',Helvetica] font-medium text-[#3F2C77] text-[11px] leading-[30px] cursor-pointer w-full"
                 >
                   <FontAwesomeIcon icon={faHome} className="w-4 h-4" />
                   Panel
@@ -209,7 +209,7 @@ const handleProfileRedirect = () => {
            <DropdownMenuItem asChild>
   <div
     onClick={handleProfileRedirect}
-    className="[font-family:'Poppins',Helvetica] font-medium text-[#59A5B2] text-[11px] leading-[30px] cursor-pointer w-full flex items-center gap-2"
+    className="[font-family:'Poppins',Helvetica] font-medium text-[#3F2C77] text-[11px] leading-[30px] cursor-pointer w-full flex items-center gap-2"
   >
     <FontAwesomeIcon icon={faUser} className="w-4 h-4" />
     My Profile
@@ -221,7 +221,7 @@ const handleProfileRedirect = () => {
     <Link
       href="/customer/my-bookings"
       prefetch={false}
-      className="[font-family:'Poppins',Helvetica] font-medium text-[#59A5B2] text-[11px] leading-[30px] cursor-pointer w-full flex items-center gap-2"
+      className="[font-family:'Poppins',Helvetica] font-medium text-[#3F2C77] text-[11px] leading-[30px] cursor-pointer w-full flex items-center gap-2"
     >
       <FontAwesomeIcon icon={faCalendarCheck} className="w-4 h-4" />
       My Bookings
@@ -232,7 +232,7 @@ const handleProfileRedirect = () => {
             <DropdownMenuItem asChild>
               <button
                 onClick={handleLogout}
-                className="[font-family:'Poppins',Helvetica] font-medium text-[#59A5B2] text-[11px] leading-[30px] cursor-pointer w-full text-left"
+                className="[font-family:'Poppins',Helvetica] font-medium text-[#3F2C77] text-[11px] leading-[30px] cursor-pointer w-full text-left"
               >
                 <FontAwesomeIcon icon={faSignOutAlt} className="w-4 h-4" />
                 Logout

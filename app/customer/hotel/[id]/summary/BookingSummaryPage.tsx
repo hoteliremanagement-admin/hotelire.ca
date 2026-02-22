@@ -392,7 +392,7 @@
 //       <div className="flex-1 w-full px-4 md:px-8 lg:px-[203px] py-8 md:py-12">
 //         <div className="mb-8">
 //           <h1
-//             className="text-[28px] md:text-[36px] font-bold text-[#59A5B2] mb-2"
+//             className="text-[28px] md:text-[36px] font-bold text-[#3F2C77] mb-2"
 //             style={{ fontFamily: "Poppins, sans-serif" }}
 //           >
 //             Complete Your Booking
@@ -414,7 +414,7 @@
 //               {/* Guest Information Section */}
 //               <Card className="p-6 md:p-8">
 //                 <h2
-//                   className="text-[20px] font-bold text-[#59A5B2] mb-6"
+//                   className="text-[20px] font-bold text-[#3F2C77] mb-6"
 //                   style={{ fontFamily: "Poppins, sans-serif" }}
 //                 >
 //                   Guest Information
@@ -436,7 +436,7 @@
 //                       value={guestInfo.firstName}
 //                       onChange={handleInputChange}
 //                       placeholder="Enter your first name"
-//                       className={`w-full px-4 py-3 rounded-lg border text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent transition-all ${errors.firstName
+//                       className={`w-full px-4 py-3 rounded-lg border text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-[#3F2C77] focus:border-transparent transition-all ${errors.firstName
 //                         ? "border-red-500 bg-red-50"
 //                         : "border-gray-300 bg-white"
 //                         }`}
@@ -465,7 +465,7 @@
 //                       value={guestInfo.lastName}
 //                       onChange={handleInputChange}
 //                       placeholder="Enter your last name"
-//                       className={`w-full px-4 py-3 rounded-lg border text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent transition-all ${errors.lastName
+//                       className={`w-full px-4 py-3 rounded-lg border text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-[#3F2C77] focus:border-transparent transition-all ${errors.lastName
 //                         ? "border-red-500 bg-red-50"
 //                         : "border-gray-300 bg-white"
 //                         }`}
@@ -495,7 +495,7 @@
 //                       value={guestInfo.email}
 //                       onChange={handleInputChange}
 //                       placeholder="your.email@example.com"
-//                       className={`w-full px-4 py-3 rounded-lg border text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent transition-all ${errors.email
+//                       className={`w-full px-4 py-3 rounded-lg border text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-[#3F2C77] focus:border-transparent transition-all ${errors.email
 //                         ? "border-red-500 bg-red-50"
 //                         : "border-gray-300 bg-white"
 //                         }`}
@@ -524,7 +524,7 @@
 //                       value={guestInfo.phone}
 //                       onChange={handleInputChange}
 //                       placeholder="+1 (555) 123-4567"
-//                       className={`w-full px-4 py-3 rounded-lg border text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent transition-all ${errors.phone
+//                       className={`w-full px-4 py-3 rounded-lg border text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-[#3F2C77] focus:border-transparent transition-all ${errors.phone
 //                         ? "border-red-500 bg-red-50"
 //                         : "border-gray-300 bg-white"
 //                         }`}
@@ -540,7 +540,7 @@
 //                   <Button
 //                     type="submit"
 //                     disabled={isSubmitting}
-//                     className="w-full bg-[#59A5B2] hover:bg-[#4a8f9a] disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-all"
+//                     className="w-full bg-[#3F2C77] hover:bg-[#4a8f9a] disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-all"
 //                   >
 //                     {isSubmitting ? "Updating..." : "Update Guest Information"}
 //                   </Button>
@@ -554,7 +554,7 @@
 //               <Card className="p-6 md:p-8">
 //                 <div className="mb-6">
 //                   <h2
-//                     className="text-[20px] font-bold text-[#59A5B2] mb-2"
+//                     className="text-[20px] font-bold text-[#3F2C77] mb-2"
 //                     style={{ fontFamily: "Poppins, sans-serif" }}
 //                   >
 //                     Secure Payment
@@ -591,7 +591,7 @@
 //                   />
 //                 </div>
 
-//                 <div className="bg-white border border-gray-300 rounded-lg p-4 mb-4 focus-within:ring-2 focus-within:ring-[#59A5B2] transition-all">
+//                 <div className="bg-white border border-gray-300 rounded-lg p-4 mb-4 focus-within:ring-2 focus-within:ring-[#3F2C77] transition-all">
 //                   <CardElement
 //                     options={{
 //                       style: {
@@ -624,7 +624,7 @@
 //                 <Button
 //                   type="submit"
 //                   disabled={!stripe || !isFormValid || isSubmitting}
-//                   className="w-full bg-[#59A5B2] hover:bg-[#4a8f9a] disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-all"
+//                   className="w-full bg-[#3F2C77] hover:bg-[#4a8f9a] disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 rounded-lg transition-all"
 //                 >
 //                   {isSubmitting
 //                     ? "Processing..."
@@ -651,7 +651,7 @@
 
 //               <div className="p-6">
 //                 <h3
-//                   className="text-[18px] font-bold text-[#59A5B2] mb-1"
+//                   className="text-[18px] font-bold text-[#3F2C77] mb-1"
 //                   style={{ fontFamily: "Poppins, sans-serif" }}
 //                 >
 //                   {bookingData.property.name}
@@ -668,7 +668,7 @@
 
 //                 <div className="space-y-3 mb-4">
 //                   <div className="flex items-start gap-3">
-//                     <Calendar className="w-5 h-5 text-[#59A5B2] flex-shrink-0 mt-0.5" />
+//                     <Calendar className="w-5 h-5 text-[#3F2C77] flex-shrink-0 mt-0.5" />
 //                     <div>
 //                       <p
 //                         className="text-xs text-gray-500 font-medium"
@@ -698,7 +698,7 @@
 //                   </div>
 
 //                   <div className="flex items-start gap-3">
-//                     <Users className="w-5 h-5 text-[#59A5B2] flex-shrink-0 mt-0.5" />
+//                     <Users className="w-5 h-5 text-[#3F2C77] flex-shrink-0 mt-0.5" />
 //                     <div>
 //                       <p
 //                         className="text-xs text-gray-500 font-medium"
@@ -785,7 +785,7 @@
 //                     Total
 //                   </span>
 //                   <span
-//                     className="text-2xl font-bold text-[#59A5B2]"
+//                     className="text-2xl font-bold text-[#3F2C77]"
 //                     style={{ fontFamily: "Poppins, sans-serif" }}
 //                   >
 //                     CAD ${bookingData.pricing.total}
@@ -843,7 +843,7 @@
 
 //               <Button
 //                 onClick={() => setShowErrorModal(false)}
-//                 className="w-full bg-[#59A5B2] hover:bg-[#4a8f9a] text-white font-semibold py-2 rounded-lg"
+//                 className="w-full bg-[#3F2C77] hover:bg-[#4a8f9a] text-white font-semibold py-2 rounded-lg"
 //               >
 //                 Try Again
 //               </Button>
@@ -1277,7 +1277,7 @@ export default function BookingSummaryPage() {
       <div className="flex-1 w-full px-4 md:px-8 lg:px-[203px] py-8 md:py-12 site-container">
         <div className="mb-8">
           <h1
-            className="text-[28px] md:text-[36px] font-bold text-[#59A5B2] mb-2"
+            className="text-[28px] md:text-[36px] font-bold text-[#3F2C77] mb-2"
             style={{ fontFamily: "Poppins, sans-serif" }}
           >
             Complete Your Booking
@@ -1296,7 +1296,7 @@ export default function BookingSummaryPage() {
               {/* Guest Information Section */}
               <Card className="p-6 md:p-8">
                 <h2
-                  className="text-[20px] font-bold text-[#59A5B2] mb-6"
+                  className="text-[20px] font-bold text-[#3F2C77] mb-6"
                   style={{ fontFamily: "Poppins, sans-serif" }}
                 >
                   Guest Information
@@ -1400,7 +1400,7 @@ export default function BookingSummaryPage() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full mt-6 bg-[#59A5B2] hover:bg-[#4a9199]"
+                  className="w-full mt-6 bg-[#3F2C77] hover:bg-[#4a9199]"
                 >
                   {isSubmitting ? "Updating..." : "Update Information"}
                 </Button>
@@ -1409,7 +1409,7 @@ export default function BookingSummaryPage() {
               {/* Payment Information Section */}
               <Card className="p-6 md:p-8">
                 <h2
-                  className="text-[20px] font-bold text-[#59A5B2] mb-6"
+                  className="text-[20px] font-bold text-[#3F2C77] mb-6"
                   style={{ fontFamily: "Poppins, sans-serif" }}
                 >
                   Payment Details
@@ -1451,7 +1451,7 @@ export default function BookingSummaryPage() {
                   type="button"
                   onClick={handleSubmit}
                   disabled={!isFormValid || isSubmitting}
-                  className="w-full bg-[#59A5B2] hover:bg-[#4a9199]"
+                  className="w-full bg-[#3F2C77] hover:bg-[#4a9199]"
                 >
                   {isSubmitting
                     ? "Processing Payment..."
@@ -1469,7 +1469,7 @@ export default function BookingSummaryPage() {
           <div className="lg:col-span-1">
             <Card className="sticky top-6 p-6">
               <h2
-                className="text-[18px] font-bold text-[#59A5B2] mb-6"
+                className="text-[18px] font-bold text-[#3F2C77] mb-6"
                 style={{ fontFamily: "Poppins, sans-serif" }}
               >
                 Booking Summary
@@ -1537,7 +1537,7 @@ export default function BookingSummaryPage() {
                 </div>
                 <div className="flex justify-between font-bold text-lg pt-4 border-t">
                   <span>Total</span>
-                  <span className="text-[#59A5B2]">
+                  <span className="text-[#3F2C77]">
                     CAD ${bookingData.pricing.total}
                   </span>
                 </div>
@@ -1557,7 +1557,7 @@ export default function BookingSummaryPage() {
                 <p className="text-gray-600 mb-4">{paymentError}</p>
                 <Button
                   onClick={() => setShowErrorModal(false)}
-                  className="w-full bg-[#59A5B2] hover:bg-[#4a9199]"
+                  className="w-full bg-[#3F2C77] hover:bg-[#4a9199]"
                 >
                   Close
                 </Button>

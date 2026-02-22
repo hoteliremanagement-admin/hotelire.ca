@@ -18,7 +18,7 @@ export default function Home() {
 
         <button
           onClick={handleSignup}
-          className="px-8 py-3 bg-[#59A5B2] text-white rounded-lg font-semibold hover:bg-[#4a8994] transition-colors duration-200"
+          className="px-8 py-3 bg-[#3F2C77] text-white rounded-lg font-semibold hover:bg-[#2E2059] transition-colors duration-200"
         >
           Show Success Modal
         </button>

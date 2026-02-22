@@ -123,7 +123,7 @@ import Select from "react-select"
 import axios from "axios"
 import { ArrowLeft } from "lucide-react"
 
-const BRAND = "#59A5B2"
+const BRAND = "#3F2C77"
 
 type CustomerErrors = Partial<{
   firstName: string
@@ -328,8 +328,8 @@ export default function AddCustomerPage() {
     [
       "h-12",
       "border-gray-300",
-      "focus:border-[#59A5B2]",
-      "focus:ring-[#59A5B2]",
+      "focus:border-[#3F2C77]",
+      "focus:ring-[#3F2C77]",
       invalid && "border-red-500 ring-1 ring-red-500 focus:ring-red-500 focus:border-red-500",
     ]
       .filter(Boolean)
@@ -526,7 +526,7 @@ export default function AddCustomerPage() {
 
               {submitError && <p className="text-sm text-red-500">{submitError}</p>}
 
-              <Button type="submit" className="w-full h-12 text-white bg-[#59A5B2] hover:bg-[#59A5B2]/90" disabled={isSubmitting}>
+              <Button type="submit" className="w-full h-12 text-white bg-[#3F2C77] hover:bg-[#3F2C77]/90" disabled={isSubmitting}>
                 {isSubmitting ? "Creating..." : "Create Customer"}
               </Button>
             </form>

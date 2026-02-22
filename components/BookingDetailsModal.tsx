@@ -36,7 +36,7 @@ export function BookingDetailsModal({ isOpen, onClose, booking }: BookingDetails
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[600px]">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-[#59A5B2]">Booking Details</DialogTitle>
+          <DialogTitle className="text-xl font-bold text-[#3F2C77]">Booking Details</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-2 gap-4">

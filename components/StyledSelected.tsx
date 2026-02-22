@@ -37,12 +37,12 @@ export default function StyledSelect({
       borderColor: hasError
         ? "#ef4444"
         : state.isFocused
-        ? "#59A5B2"
+        ? "#3F2C77"
         : "#d1d5db",
       borderWidth: "1px",
       boxShadow: state.isFocused ? "0 0 0 2px rgba(89, 165, 178, 0.2)" : "none",
       "&:hover": {
-        borderColor: hasError ? "#ef4444" : "#59A5B2",
+        borderColor: hasError ? "#ef4444" : "#3F2C77",
       },
       backgroundColor: isDisabled ? "#f3f4f6" : "#fff",
       cursor: isDisabled ? "not-allowed" : "pointer",
@@ -51,7 +51,7 @@ export default function StyledSelect({
     option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isSelected
-        ? "#59A5B2"
+        ? "#3F2C77"
         : state.isFocused
         ? "rgba(89, 165, 178, 0.1)"
         : "#fff",
@@ -62,7 +62,7 @@ export default function StyledSelect({
       fontSize: "14px",
       "&:hover": {
         backgroundColor: state.isSelected
-          ? "#59A5B2"
+          ? "#3F2C77"
           : "rgba(89, 165, 178, 0.15)",
       },
     }),
@@ -80,9 +80,9 @@ export default function StyledSelect({
     }),
     dropdownIndicator: (provided, state) => ({
       ...provided,
-      color: state.isFocused ? "#59A5B2" : "#6b7280",
+      color: state.isFocused ? "#3F2C77" : "#6b7280",
       "&:hover": {
-        color: "#59A5B2",
+        color: "#3F2C77",
       },
     }),
     indicatorSeparator: () => ({

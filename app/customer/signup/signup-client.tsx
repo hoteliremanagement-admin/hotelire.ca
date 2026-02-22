@@ -33,7 +33,7 @@ type SignupErrors = Partial<{
   agreeToTerms: string;
 }>;
 
-const BRAND = "#59A5B2";
+const BRAND = "#3F2C77";
 const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
 // Canadian postal format (A1A 1A1)
 const canadianPostalRegex = /^[A-Z]\d[A-Z][ ]?\d[A-Z]\d$/;
@@ -370,8 +370,8 @@ export default function SignupPage() {
     [
       "h-12",
       "border-gray-300",
-      "focus:border-[#59A5B2]",
-      "focus:ring-[#59A5B2]",
+      "focus:border-[#3F2C77]",
+      "focus:ring-[#3F2C77]",
       invalid &&
       "border-red-500 ring-1 ring-red-500 focus:ring-red-500 focus:border-red-500",
     ]
@@ -532,7 +532,7 @@ if (userResponse) {
         />
         <div
           className="absolute inset-0"
-          style={{ backgroundColor: "#59A5B2", opacity: 0.65 }}
+          style={{ backgroundColor: "#3F2C77", opacity: 0.65 }}
         />
         <div className="absolute inset-0 flex items-center">
           <div className="px-8 lg:px-12">
@@ -555,7 +555,7 @@ if (userResponse) {
               <img
                 className="w-[auto] h-[54px]"
                 alt="Group"
-                src="/figmaAssets/logo_orignal.png"
+                src="/figmaAssets/logo_orignal1.png"
               />
             </div>
             <h1
@@ -732,7 +732,7 @@ if (userResponse) {
                           state: "",
                         }));
                       }}
-                      className="h-4 w-4 accent-[#59A5B2]"
+                      className="h-4 w-4 accent-[#3F2C77]"
                     />
                     <Label htmlFor="addr-ca" className="text-sm">
                       I prefer a Canadian address
@@ -755,7 +755,7 @@ if (userResponse) {
                           postalCode: "",
                         }));
                       }}
-                      className="h-4 w-4 accent-[#59A5B2]"
+                      className="h-4 w-4 accent-[#3F2C77]"
                     />
                     <Label htmlFor="addr-intl" className="text-sm">
                       I prefer an International address

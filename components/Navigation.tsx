@@ -89,7 +89,7 @@ export function Navigation() {
     <nav className="w-full bg-white min-h-[80px] lg:h-[111px] flex flex-col lg:flex-row items-center justify-between px-4 md:px-8 lg:px-[203px] py-4 lg:py-0 gap-4 lg:gap-0">
       <Link href="/">
         <Image
-          src="/figmaAssets/logo_orignal.png"
+          src="/figmaAssets/logo_orignal1.png"
           alt="Hotelire"
           width={141}
           height={94}
@@ -102,7 +102,7 @@ export function Navigation() {
           href="/"
           prefetch={false}
           className={`flex items-center gap-2 cursor-pointer transition-colors 
-              hover:text-[#59A5B2]
+              hover:text-[#3F2C77]
             }`}
         >
           <span>HOME</span>
@@ -112,8 +112,8 @@ export function Navigation() {
           href="/customer/explore-canada"
           prefetch={false}
           className={`flex items-center gap-2 cursor-pointer transition-colors duration-200 ${isActive("/customer/explore-canada")
-              ? "text-[#59A5B2] border-b-2 border-[#59A5B2]"
-              : "hover:text-[#59A5B2]"
+              ? "text-[#3F2C77] border-b-2 border-[#3F2C77]"
+              : "hover:text-[#3F2C77]"
             }`}
         >
           <span>EXPLORE CANADA</span>
@@ -123,8 +123,8 @@ export function Navigation() {
           href="/customer/listing"
           prefetch={false}
           className={`cursor-pointer transition-colors duration-200 ${isActive("/customer/listing")
-              ? "text-[#59A5B2] border-b-2 border-[#59A5B2]"
-              : "hover:text-[#59A5B2]"
+              ? "text-[#3F2C77] border-b-2 border-[#3F2C77]"
+              : "hover:text-[#3F2C77]"
             }`}
         >
           SEARCH
@@ -133,8 +133,8 @@ export function Navigation() {
           href="/blog"
           prefetch={false}
           className={`cursor-pointer transition-colors duration-200 ${isActive("/blog")
-              ? "text-[#59A5B2] border-b-2 border-[#59A5B2]"
-              : "hover:text-[#59A5B2]"
+              ? "text-[#3F2C77] border-b-2 border-[#3F2C77]"
+              : "hover:text-[#3F2C77]"
             }`}
         >
           BLOG
@@ -143,8 +143,8 @@ export function Navigation() {
           href="/customer/contact"
           prefetch={false}
           className={`cursor-pointer transition-colors duration-200 ${isActive("/contact")
-              ? "text-[#59A5B2] border-b-2 border-[#59A5B2]"
-              : "hover:text-[#59A5B2]"
+              ? "text-[#3F2C77] border-b-2 border-[#3F2C77]"
+              : "hover:text-[#3F2C77]"
             }`}
         >
           CONTACT
@@ -155,12 +155,12 @@ export function Navigation() {
         <Button
           variant="outline"
           onClick={handleListPropertyClick}
-          className="w-full sm:w-[160px] lg:w-[181px] h-[45px] lg:h-[55px] bg-[#f5f6fd] rounded-[5px] border border-solid border-[#d9d9d9] [font-family:'Poppins',Helvetica] font-semibold text-[#59A5B2] text-xs lg:text-sm transition-all duration-200 hover:shadow-lg"
+          className="w-full sm:w-[160px] lg:w-[181px] h-[45px] lg:h-[55px] bg-[#f5f6fd] rounded-[5px] border border-solid border-[#d9d9d9] [font-family:'Poppins',Helvetica] font-semibold text-[#3F2C77] text-xs lg:text-sm transition-all duration-200 hover:shadow-lg"
         >
           {roleId === 1 ? "ADMIN PANEL" : "LIST YOUR PROPERTY"}
         </Button>
 
-        {/* <Button className="w-full sm:w-[160px] lg:w-[181px] h-[45px] lg:h-[55px] bg-[#febc11] rounded-[5px] [font-family:'Poppins',Helvetica] font-semibold text-[#59A5B2] text-xs lg:text-sm transition-all duration-200 hover:bg-[#febc11]/90 hover:scale-105 hover:shadow-lg">
+        {/* <Button className="w-full sm:w-[160px] lg:w-[181px] h-[45px] lg:h-[55px] bg-[#febc11] rounded-[5px] [font-family:'Poppins',Helvetica] font-semibold text-[#3F2C77] text-xs lg:text-sm transition-all duration-200 hover:bg-[#febc11]/90 hover:scale-105 hover:shadow-lg">
           <a href="/" rel="noopener noreferrer">
             DISCOVER MORE
           </a>

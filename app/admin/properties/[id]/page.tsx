@@ -232,7 +232,7 @@
 //     return (
      
 //         <div className="flex items-center justify-center min-h-screen">
-//           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#59A5B2]"></div>
+//           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3F2C77]"></div>
 //         </div>
    
 //     )
@@ -243,7 +243,7 @@
      
 //         <div className="flex flex-col items-center justify-center min-h-screen">
 //           <h2 className="text-2xl font-bold text-gray-800 mb-4">Property Not Found</h2>
-//           <Link href="/admin/properties" className="text-[#59A5B2] hover:underline">
+//           <Link href="/admin/properties" className="text-[#3F2C77] hover:underline">
 //             Back to Properties
 //           </Link>
 //         </div>
@@ -265,7 +265,7 @@
 //         {/* Back Button */}
 //         <Link
 //           href="/admin/properties"
-//           className="inline-flex items-center gap-2 text-[#59A5B2] hover:text-[#4a9199] transition-colors"
+//           className="inline-flex items-center gap-2 text-[#3F2C77] hover:text-[#4a9199] transition-colors"
 //         >
 //           <FontAwesomeIcon icon={faArrowLeft} className="w-4 h-4" />
 //           <span className="font-medium">Back to Properties</span>
@@ -284,7 +284,7 @@
 //               <p className="text-gray-500 dark:text-gray-400 mt-1">{propertyDetail.propertysubtitle}</p>
 //               <div className="flex items-center gap-4 mt-2">
 //                 <div className="flex items-center gap-1.5 text-gray-600 dark:text-gray-300">
-//                   <FontAwesomeIcon icon={faLocationDot} className="w-4 h-4 text-[#59A5B2]" />
+//                   <FontAwesomeIcon icon={faLocationDot} className="w-4 h-4 text-[#3F2C77]" />
 //                   <span>
 //                     {propertyDetail.canadian_city_name}, {propertyDetail.canadian_province_name}
 //                   </span>
@@ -385,7 +385,7 @@
 //                   (rule, index) =>
 //                     rule.trim() && (
 //                       <li key={index} className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
-//                         <span className="w-1.5 h-1.5 rounded-full bg-[#59A5B2] mt-2 flex-shrink-0" />
+//                         <span className="w-1.5 h-1.5 rounded-full bg-[#3F2C77] mt-2 flex-shrink-0" />
 //                         {rule}
 //                       </li>
 //                     ),
@@ -397,7 +397,7 @@
 //             <h3 className="font-semibold text-gray-800 dark:text-white mb-3">Rule of Timing:</h3>
 //             <ul className="space-y-2">
 //               <li className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
-//                 <span className="w-1.5 h-1.5 rounded-full bg-[#59A5B2] mt-2 flex-shrink-0" />
+//                 <span className="w-1.5 h-1.5 rounded-full bg-[#3F2C77] mt-2 flex-shrink-0" />
 //                 Check-in: {propertyDetail.checkintime} - Check-out: {propertyDetail.checkouttime}
 //               </li>
            
@@ -424,7 +424,7 @@
 //                     key={index}
 //                     className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm text-gray-700 dark:text-gray-300"
 //                   >
-//                     {iconDef && <FontAwesomeIcon icon={iconDef} className="w-4 h-4 text-[#59A5B2]" />}
+//                     {iconDef && <FontAwesomeIcon icon={iconDef} className="w-4 h-4 text-[#3F2C77]" />}
 //                     {amenity.label}
 //                   </span>
 //                 )
@@ -452,7 +452,7 @@
 //                     key={index}
 //                     className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm text-gray-700 dark:text-gray-300"
 //                   >
-//                     {iconDef && <FontAwesomeIcon icon={iconDef} className="w-4 h-4 text-[#59A5B2]" />}
+//                     {iconDef && <FontAwesomeIcon icon={iconDef} className="w-4 h-4 text-[#3F2C77]" />}
 //                     {feature.label}
 //                   </span>
 //                 )
@@ -480,7 +480,7 @@
 //                     key={index}
 //                     className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm text-gray-700 dark:text-gray-300"
 //                   >
-//                     {iconDef && <FontAwesomeIcon icon={iconDef} className="w-4 h-4 text-[#59A5B2]" />}
+//                     {iconDef && <FontAwesomeIcon icon={iconDef} className="w-4 h-4 text-[#3F2C77]" />}
 //                     {space.label}
 //                   </span>
 //                 )
@@ -540,13 +540,13 @@
 
 //                   <div className="p-5 space-y-3">
 //                     {/* Room name */}
-//                     <h3 className="font-bold text-lg text-gray-900 line-clamp-1 group-hover:text-[#59A5B2] transition-colors">
+//                     <h3 className="font-bold text-lg text-gray-900 line-clamp-1 group-hover:text-[#3F2C77] transition-colors">
 //                       {room.roomname}
 //                     </h3>
 
 //                     {/* Room type badge */}
 //                     <div>
-//                       <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#59A5B2]/10 text-[#59A5B2] border border-[#59A5B2]/20">
+//                       <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#3F2C77]/10 text-[#3F2C77] border border-[#3F2C77]/20">
 //                         {room.roomtypename}
 //                       </span>
 //                     </div>
@@ -574,7 +574,7 @@
 //               <p className="text-gray-500 mb-6">Start by adding your first room to this property</p>
 //               <button
 //                 onClick={() => router.push(`/owner/properties/${propertyId}/room/add`)}
-//                 className="px-6 py-3 bg-[#59A5B2] text-white font-medium rounded-lg hover:bg-[#4a9199] transition-all"
+//                 className="px-6 py-3 bg-[#3F2C77] text-white font-medium rounded-lg hover:bg-[#4a9199] transition-all"
 //               >
 //                 Add Your First Room
 //               </button>
@@ -820,7 +820,7 @@ export default function PropertyDetailPage() {
     return (
       
         <div className="flex items-center justify-center min-h-screen">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#59A5B2]"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3F2C77]"></div>
         </div>
     
     )
@@ -831,7 +831,7 @@ export default function PropertyDetailPage() {
     
         <div className="flex flex-col items-center justify-center min-h-screen">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Property Not Found</h2>
-          <Link href="/admin/properties" className="text-[#59A5B2] hover:underline">
+          <Link href="/admin/properties" className="text-[#3F2C77] hover:underline">
             Back to Properties
           </Link>
         </div>
@@ -853,7 +853,7 @@ export default function PropertyDetailPage() {
         {/* Back Button */}
         <Link
           href="/admin/properties"
-          className="inline-flex items-center gap-2 text-[#59A5B2] hover:text-[#4a9199] transition-colors"
+          className="inline-flex items-center gap-2 text-[#3F2C77] hover:text-[#4a9199] transition-colors"
         >
           <FontAwesomeIcon icon={faArrowLeft} className="w-4 h-4" />
           <span className="font-medium">Back to Properties</span>
@@ -872,7 +872,7 @@ export default function PropertyDetailPage() {
               <p className="text-gray-500 dark:text-gray-400 mt-1">{propertyDetail.propertysubtitle}</p>
               <div className="flex items-center gap-4 mt-2">
                 <div className="flex items-center gap-1.5 text-gray-600 dark:text-gray-300">
-                  <FontAwesomeIcon icon={faLocationDot} className="w-4 h-4 text-[#59A5B2]" />
+                  <FontAwesomeIcon icon={faLocationDot} className="w-4 h-4 text-[#3F2C77]" />
                   <span>
                     {propertyDetail.canadian_city_name}, {propertyDetail.canadian_province_name}
                   </span>
@@ -972,7 +972,7 @@ export default function PropertyDetailPage() {
                   (rule, index) =>
                     rule.trim() && (
                       <li key={index} className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#59A5B2] mt-2 flex-shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#3F2C77] mt-2 flex-shrink-0" />
                         {rule}
                       </li>
                     ),
@@ -984,7 +984,7 @@ export default function PropertyDetailPage() {
             <h3 className="font-semibold text-gray-800 dark:text-white mb-3">Rule of Timing:</h3>
             <ul className="space-y-2">
               <li className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#59A5B2] mt-2 flex-shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#3F2C77] mt-2 flex-shrink-0" />
                 Check-in: {propertyDetail.checkintime} - Check-out: {propertyDetail.checkouttime}
               </li>
            
@@ -1011,7 +1011,7 @@ export default function PropertyDetailPage() {
                     key={index}
                     className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm text-gray-700 dark:text-gray-300"
                   >
-                    {iconDef && <FontAwesomeIcon icon={iconDef} className="w-4 h-4 text-[#59A5B2]" />}
+                    {iconDef && <FontAwesomeIcon icon={iconDef} className="w-4 h-4 text-[#3F2C77]" />}
                     {amenity.label}
                   </span>
                 )
@@ -1039,7 +1039,7 @@ export default function PropertyDetailPage() {
                     key={index}
                     className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm text-gray-700 dark:text-gray-300"
                   >
-                    {iconDef && <FontAwesomeIcon icon={iconDef} className="w-4 h-4 text-[#59A5B2]" />}
+                    {iconDef && <FontAwesomeIcon icon={iconDef} className="w-4 h-4 text-[#3F2C77]" />}
                     {feature.label}
                   </span>
                 )
@@ -1067,7 +1067,7 @@ export default function PropertyDetailPage() {
                     key={index}
                     className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm text-gray-700 dark:text-gray-300"
                   >
-                    {iconDef && <FontAwesomeIcon icon={iconDef} className="w-4 h-4 text-[#59A5B2]" />}
+                    {iconDef && <FontAwesomeIcon icon={iconDef} className="w-4 h-4 text-[#3F2C77]" />}
                     {space.label}
                   </span>
                 )
@@ -1126,13 +1126,13 @@ export default function PropertyDetailPage() {
 
                   <div className="p-5 space-y-3">
                     {/* Room name */}
-                    <h3 className="font-bold text-lg text-gray-900 line-clamp-1 group-hover:text-[#59A5B2] transition-colors">
+                    <h3 className="font-bold text-lg text-gray-900 line-clamp-1 group-hover:text-[#3F2C77] transition-colors">
                       {room.roomname}
                     </h3>
 
                     {/* Room type badge */}
                     <div>
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#59A5B2]/10 text-[#59A5B2] border border-[#59A5B2]/20">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#3F2C77]/10 text-[#3F2C77] border border-[#3F2C77]/20">
                         {room.roomtypename}
                       </span>
                     </div>
@@ -1163,7 +1163,7 @@ export default function PropertyDetailPage() {
               <p className="text-gray-500 mb-6">Start by adding your first room to this property</p>
               <button
                 onClick={() => router.push(`/owner/properties/${propertyId}/room/add`)}
-                className="px-6 py-3 bg-[#59A5B2] text-white font-medium rounded-lg hover:bg-[#4a9199] transition-all"
+                className="px-6 py-3 bg-[#3F2C77] text-white font-medium rounded-lg hover:bg-[#4a9199] transition-all"
               >
                 Add Your First Room
               </button>

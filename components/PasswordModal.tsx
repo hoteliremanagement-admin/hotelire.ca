@@ -91,7 +91,7 @@ export function PasswordModal({
         data-testid="modal-password"
       >
         <DialogHeader>
-          <DialogTitle className="[font-family:'Poppins',Helvetica] text-2xl font-bold text-[#59A5B2]">
+          <DialogTitle className="[font-family:'Poppins',Helvetica] text-2xl font-bold text-[#3F2C77]">
             Welcome Back
           </DialogTitle>
           <DialogDescription className="[font-family:'Inter',Helvetica] text-gray-600">
@@ -119,14 +119,14 @@ export function PasswordModal({
                   setPassword(e.target.value);
                   setError("");
                 }}
-                className="h-12 border-gray-300 focus:border-[#59A5B2] focus:ring-[#59A5B2] pr-10"
+                className="h-12 border-gray-300 focus:border-[#3F2C77] focus:ring-[#3F2C77] pr-10"
                 autoFocus
                 data-testid="input-password"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-[#59A5B2] transition-colors"
+                className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-[#3F2C77] transition-colors"
               >
                 {showPassword ? (
                   <EyeOffIcon className="w-5 h-5" />
@@ -151,7 +151,7 @@ export function PasswordModal({
               <Checkbox
                 checked={rememberMe}
                 onCheckedChange={(checked) => setRememberMe(Boolean(checked))}
-                className="border-gray-300 data-[state=checked]:bg-[#59A5B2] data-[state=checked]:border-[#59A5B2]"
+                className="border-gray-300 data-[state=checked]:bg-[#3F2C77] data-[state=checked]:border-[#3F2C77]"
                 data-testid="checkbox-remember-me"
               />
               Remember me
@@ -170,7 +170,7 @@ export function PasswordModal({
           <Button
             type="submit"
             disabled={isLoggingIn}
-            className="w-full h-12 bg-[#59A5B2] hover:bg-[#4C7E87] text-white transition-colors duration-200"
+            className="w-full h-12 bg-[#3F2C77] hover:bg-[#4C7E87] text-white transition-colors duration-200"
             data-testid="button-continue"
           >
             {isLoggingIn ? "Logging in..." : "Continue"}

@@ -146,7 +146,7 @@
 //         <Header />
 //         <Navigation />
 //         <div className="flex-1 flex items-center justify-center">
-//           <Loader className="w-8 h-8 text-[#59A5B2] animate-spin" />
+//           <Loader className="w-8 h-8 text-[#3F2C77] animate-spin" />
 //         </div>
 //         <Footer />
 //       </div>
@@ -166,7 +166,7 @@
 //             </div>
 //             <h2 className="text-xl font-bold text-gray-900 mb-2 text-center">Error Loading Confirmation</h2>
 //             <p className="text-gray-600 text-center mb-6">{error || "The booking confirmation could not be loaded."}</p>
-//             <Button className="w-full bg-[#59A5B2] hover:bg-[#4a8f9a] text-white">Back to Home</Button>
+//             <Button className="w-full bg-[#3F2C77] hover:bg-[#4a8f9a] text-white">Back to Home</Button>
 //           </Card>
 //         </div>
 
@@ -193,7 +193,7 @@
 //             Your booking is confirmed
 //           </h1>
 //           <p className="text-lg text-gray-600 mb-4" style={{ fontFamily: "Inter, sans-serif" }}>
-//             Confirmation ID: <span className="font-semibold text-[#59A5B2]">{data.confirmationId}</span>
+//             Confirmation ID: <span className="font-semibold text-[#3F2C77]">{data.confirmationId}</span>
 //           </p>
 //           <p className="text-sm text-gray-600" style={{ fontFamily: "Inter, sans-serif" }}>
 //             We've sent a confirmation email to <span className="font-semibold">{data.User.email}</span>
@@ -212,7 +212,7 @@
 //               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between sm:gap-4 mb-6">
 //                 <div className="flex-1">
 //                   <h2
-//                     className="text-[24px] font-bold text-[#59A5B2] mb-2"
+//                     className="text-[24px] font-bold text-[#3F2C77] mb-2"
 //                     style={{ fontFamily: "Poppins, sans-serif" }}
 //                   >
 //                     {data.property.name}
@@ -223,11 +223,11 @@
 //                     </p>
 //                   )}
 //                   <p className="text-gray-600 flex items-center gap-1 mb-3" style={{ fontFamily: "Inter, sans-serif" }}>
-//                     <MapPin className="w-4 h-4 text-[#59A5B2] flex-shrink-0" />
+//                     <MapPin className="w-4 h-4 text-[#3F2C77] flex-shrink-0" />
 //                     {data.property.address}
 //                   </p>
 //                   <a href={data.property.propertymaplink} target="_blank">
-//                     <button className="text-[#59A5B2] hover:text-[#4a8f9a] text-sm font-medium transition-colors">
+//                     <button className="text-[#3F2C77] hover:text-[#4a8f9a] text-sm font-medium transition-colors">
 //                       Show directions →
 //                     </button>
 //                   </a>
@@ -268,7 +268,7 @@
 
 //               {/* Guests Info */}
 //               <div className="flex items-center gap-3 text-gray-700 mb-6">
-//                 <Users className="w-5 h-5 text-[#59A5B2] flex-shrink-0" />
+//                 <Users className="w-5 h-5 text-[#3F2C77] flex-shrink-0" />
 //                 <span style={{ fontFamily: "Inter, sans-serif" }}>
 //                   {data.guests.adults} {data.guests.adults === 1 ? "Adult" : "Adults"}
 //                   {data.guests.children > 0 && (
@@ -283,7 +283,7 @@
 //               <div className="border-t border-gray-200 my-6"></div>
 
 //               <div className="mb-6">
-//                 <h3 className="text-lg font-bold text-[#59A5B2] mb-4" style={{ fontFamily: "Poppins, sans-serif" }}>
+//                 <h3 className="text-lg font-bold text-[#3F2C77] mb-4" style={{ fontFamily: "Poppins, sans-serif" }}>
 //                   Your room details
 //                 </h3>
 //                 <div className="space-y-4">
@@ -322,7 +322,7 @@
 
 //               {/* Contact Property Section */}
 //               <div>
-//                 <h3 className="text-lg font-bold text-[#59A5B2] mb-4" style={{ fontFamily: "Poppins, sans-serif" }}>
+//                 <h3 className="text-lg font-bold text-[#3F2C77] mb-4" style={{ fontFamily: "Poppins, sans-serif" }}>
 //                   Contact property
 //                 </h3>
 
@@ -332,7 +332,7 @@
 //                     style={{ fontFamily: "Inter, sans-serif" }}
 //                   >
 
-//                     <span className="text-md font-bold text-[#59A5B2] " >Owner Name:</span> {data.property.firstName} {data.property.lastName}
+//                     <span className="text-md font-bold text-[#3F2C77] " >Owner Name:</span> {data.property.firstName} {data.property.lastName}
 //                   </p>
 
 //                   <p
@@ -340,25 +340,25 @@
 //                     style={{ fontFamily: "Inter, sans-serif" }}
 //                   >
 
-//                     <span className="text-md font-bold text-[#59A5B2] " >Owner Email:</span> {data.property.email}
+//                     <span className="text-md font-bold text-[#3F2C77] " >Owner Email:</span> {data.property.email}
 
 //                   </p>
 //                   <p
 //                     className="flex items-center gap-2 text-sm text-gray-600 mb-2"
 //                     style={{ fontFamily: "Inter, sans-serif" }}
 //                   >
-//                     <span className="text-md font-bold text-[#59A5B2] " >Owner Phone:</span> {data.property.phoneno}
+//                     <span className="text-md font-bold text-[#3F2C77] " >Owner Phone:</span> {data.property.phoneno}
 
 //                   </p>
 
 //                 </div>
 
 //                 <div className="flex flex-col sm:flex-row gap-3 mb-4">
-//                   <button className="flex items-center justify-center gap-2 px-4 py-2 border border-[#59A5B2] text-[#59A5B2] rounded-lg hover:bg-blue-50 transition-colors font-medium">
+//                   <button className="flex items-center justify-center gap-2 px-4 py-2 border border-[#3F2C77] text-[#3F2C77] rounded-lg hover:bg-blue-50 transition-colors font-medium">
 //                     <MessageSquare className="w-4 h-4" />
 //                     Send a message
 //                   </button>
-//                   <button className="flex items-center justify-center gap-2 px-4 py-2 border border-[#59A5B2] text-[#59A5B2] rounded-lg hover:bg-blue-50 transition-colors font-medium">
+//                   <button className="flex items-center justify-center gap-2 px-4 py-2 border border-[#3F2C77] text-[#3F2C77] rounded-lg hover:bg-blue-50 transition-colors font-medium">
 //                     <Mail className="w-4 h-4" />
 //                     Send an email
 //                   </button>
@@ -368,7 +368,7 @@
 //                   className="flex items-center gap-2 text-sm text-gray-600"
 //                   style={{ fontFamily: "Inter, sans-serif" }}
 //                 >
-//                   <Headset className="w-4 h-4 text-[#59A5B2]" />
+//                   <Headset className="w-4 h-4 text-[#3F2C77]" />
 //                   Please feel free to get in touch if you need further
 //                   assistance.
 //                 </p>
@@ -394,14 +394,14 @@
 
 //               {/* Summary Content */}
 //               <div className="p-6">
-//                 <h3 className="text-lg font-bold text-[#59A5B2] mb-4" style={{ fontFamily: "Poppins, sans-serif" }}>
+//                 <h3 className="text-lg font-bold text-[#3F2C77] mb-4" style={{ fontFamily: "Poppins, sans-serif" }}>
 //                   Your stay
 //                 </h3>
 
 //                 {/* Dates */}
 //                 <div className="mb-4 pb-4 border-b border-gray-200">
 //                   <div className="flex items-center gap-2 text-gray-700 mb-2">
-//                     <Calendar className="w-4 h-4 text-[#59A5B2] flex-shrink-0" />
+//                     <Calendar className="w-4 h-4 text-[#3F2C77] flex-shrink-0" />
 //                     <span style={{ fontFamily: "Inter, sans-serif" }}>
 //                       {formatDate1(data.dates.checkIn)} - {formatDate1(data.dates.checkOut)}
 //                     </span>
@@ -418,7 +418,7 @@
 //                     <span className="font-semibold text-gray-900" style={{ fontFamily: "Poppins, sans-serif" }}>
 //                       Total paid
 //                     </span>
-//                     <span className="text-2xl font-bold text-[#59A5B2]" style={{ fontFamily: "Poppins, sans-serif" }}>
+//                     <span className="text-2xl font-bold text-[#3F2C77]" style={{ fontFamily: "Poppins, sans-serif" }}>
 //                       {data.payment.currency} {data.payment.total}
 //                     </span>
 //                   </div>
@@ -435,7 +435,7 @@
 //                 <div className="space-y-3">
 //                   <Button
 //                     onClick={handlePrint}
-//                     className="w-full bg-[#59A5B2] hover:bg-[#4a8f9a] text-white font-semibold py-2 rounded-lg flex items-center justify-center gap-2 transition-all"
+//                     className="w-full bg-[#3F2C77] hover:bg-[#4a8f9a] text-white font-semibold py-2 rounded-lg flex items-center justify-center gap-2 transition-all"
 //                   >
 //                     <Printer className="w-4 h-4" />
 //                     Print confirmation
@@ -654,7 +654,7 @@ Thank you.`
         <Header />
         <Navigation />
         <div className="flex-1 flex items-center justify-center">
-          <Loader className="w-8 h-8 text-[#59A5B2] animate-spin" />
+          <Loader className="w-8 h-8 text-[#3F2C77] animate-spin" />
         </div>
         <Footer />
       </div>
@@ -678,7 +678,7 @@ Thank you.`
             <p className="text-gray-600 text-center mb-6">
               {error || "The booking confirmation could not be loaded."}
             </p>
-            <Button className="w-full bg-[#59A5B2] hover:bg-[#4a8f9a] text-white">
+            <Button className="w-full bg-[#3F2C77] hover:bg-[#4a8f9a] text-white">
               Back to Home
             </Button>
           </Card>
@@ -713,7 +713,7 @@ Thank you.`
             style={{ fontFamily: "Inter, sans-serif" }}
           >
             Confirmation ID:{" "}
-            <span className="font-semibold text-[#59A5B2]">
+            <span className="font-semibold text-[#3F2C77]">
               {`${data.confirmationId}-${formatDateforId(data.booking.createdAt)}`}
             </span>
           </p>
@@ -741,7 +741,7 @@ Thank you.`
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between sm:gap-4 mb-6">
                 <div className="flex-1">
                   <h2
-                    className="text-[24px] font-bold text-[#59A5B2] mb-2"
+                    className="text-[24px] font-bold text-[#3F2C77] mb-2"
                     style={{ fontFamily: "Poppins, sans-serif" }}
                   >
                     {data.property.name}
@@ -758,7 +758,7 @@ Thank you.`
                     className="text-gray-600 flex items-center gap-1 mb-3"
                     style={{ fontFamily: "Inter, sans-serif" }}
                   >
-                    <MapPin className="w-4 h-4 text-[#59A5B2] flex-shrink-0" />
+                    <MapPin className="w-4 h-4 text-[#3F2C77] flex-shrink-0" />
                     {data.property.address}
                   </p>
                   <a
@@ -766,7 +766,7 @@ Thank you.`
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <button className="text-[#59A5B2] hover:text-[#4a8f9a] text-sm font-medium transition-colors">
+                    <button className="text-[#3F2C77] hover:text-[#4a8f9a] text-sm font-medium transition-colors">
                       Show directions →
                     </button>
                   </a>
@@ -819,7 +819,7 @@ Thank you.`
 
               {/* Guests Info */}
               <div className="flex items-center gap-3 text-gray-700 mb-6">
-                <Users className="w-5 h-5 text-[#59A5B2] flex-shrink-0" />
+                <Users className="w-5 h-5 text-[#3F2C77] flex-shrink-0" />
                 <span style={{ fontFamily: "Inter, sans-serif" }}>
                   {data.guests.adults}{" "}
                   {data.guests.adults === 1 ? "Adult" : "Adults"}
@@ -837,7 +837,7 @@ Thank you.`
 
               <div className="mb-6">
                 <h3
-                  className="text-lg font-bold text-[#59A5B2] mb-4"
+                  className="text-lg font-bold text-[#3F2C77] mb-4"
                   style={{ fontFamily: "Poppins, sans-serif" }}
                 >
                   Your room details
@@ -888,7 +888,7 @@ Thank you.`
               {/* Contact Property Section */}
               <div>
                 <h3
-                  className="text-lg font-bold text-[#59A5B2] mb-4"
+                  className="text-lg font-bold text-[#3F2C77] mb-4"
                   style={{ fontFamily: "Poppins, sans-serif" }}
                 >
                   Contact property
@@ -899,7 +899,7 @@ Thank you.`
                     className="flex items-center gap-2 text-sm text-gray-600 mb-2"
                     style={{ fontFamily: "Inter, sans-serif" }}
                   >
-                    <span className="text-md font-bold text-[#59A5B2] ">
+                    <span className="text-md font-bold text-[#3F2C77] ">
                       Owner Name:
                     </span>{" "}
                     {data.property.firstName} {data.property.lastName}
@@ -909,7 +909,7 @@ Thank you.`
                     className="flex items-center gap-2 text-sm text-gray-600 mb-2"
                     style={{ fontFamily: "Inter, sans-serif" }}
                   >
-                    <span className="text-md font-bold text-[#59A5B2] ">
+                    <span className="text-md font-bold text-[#3F2C77] ">
                       Owner Email:
                     </span>{" "}
                     {data.property.email}
@@ -918,7 +918,7 @@ Thank you.`
                     className="flex items-center gap-2 text-sm text-gray-600 mb-2"
                     style={{ fontFamily: "Inter, sans-serif" }}
                   >
-                    <span className="text-md font-bold text-[#59A5B2] ">
+                    <span className="text-md font-bold text-[#3F2C77] ">
                       Owner Phone:
                     </span>{" "}
                     {data.property.phoneno}
@@ -928,7 +928,7 @@ Thank you.`
                 <div className="flex flex-col sm:flex-row gap-3 mb-4">
                   <button
                     onClick={handleWhatsAppClick}
-                    className="flex items-center justify-center gap-2 px-4 py-2 border border-[#59A5B2] text-[#59A5B2] rounded-lg hover:bg-blue-50 transition-colors font-medium"
+                    className="flex items-center justify-center gap-2 px-4 py-2 border border-[#3F2C77] text-[#3F2C77] rounded-lg hover:bg-blue-50 transition-colors font-medium"
                   >
                     <MessageSquare className="w-4 h-4" />
                     Whatsapp Message
@@ -936,7 +936,7 @@ Thank you.`
 
                   <button
                     onClick={handleEmailClick}
-                    className="flex items-center justify-center gap-2 px-4 py-2 border border-[#59A5B2] text-[#59A5B2] rounded-lg hover:bg-blue-50 transition-colors font-medium"
+                    className="flex items-center justify-center gap-2 px-4 py-2 border border-[#3F2C77] text-[#3F2C77] rounded-lg hover:bg-blue-50 transition-colors font-medium"
                   >
                     <Mail className="w-4 h-4" />
                     Send an email
@@ -947,7 +947,7 @@ Thank you.`
                   className="flex items-center gap-2 text-sm text-gray-600"
                   style={{ fontFamily: "Inter, sans-serif" }}
                 >
-                  <Headset className="w-4 h-4 text-[#59A5B2]" />
+                  <Headset className="w-4 h-4 text-[#3F2C77]" />
                   Please feel free to get in touch if you need further
                   assistance.
                 </p>
@@ -972,7 +972,7 @@ Thank you.`
               {/* Summary Content */}
               <div className="p-6">
                 <h3
-                  className="text-lg font-bold text-[#59A5B2] mb-4"
+                  className="text-lg font-bold text-[#3F2C77] mb-4"
                   style={{ fontFamily: "Poppins, sans-serif" }}
                 >
                   Your stay
@@ -981,7 +981,7 @@ Thank you.`
                 {/* Dates */}
                 <div className="mb-4 pb-4 border-b border-gray-200">
                   <div className="flex items-center gap-2 text-gray-700 mb-2">
-                    <Calendar className="w-4 h-4 text-[#59A5B2] flex-shrink-0" />
+                    <Calendar className="w-4 h-4 text-[#3F2C77] flex-shrink-0" />
                     <span style={{ fontFamily: "Inter, sans-serif" }}>
                       {formatDate1(data.dates.checkIn)} -{" "}
                       {formatDate1(data.dates.checkOut)}
@@ -1028,7 +1028,7 @@ Thank you.`
                 <div className="space-y-3">
                   <Button
                     onClick={handlePrint}
-                    className="w-full bg-[#59A5B2] hover:bg-[#4a8f9a] text-white font-semibold py-2 rounded-lg flex items-center justify-center gap-2 transition-all"
+                    className="w-full bg-[#3F2C77] hover:bg-[#4a8f9a] text-white font-semibold py-2 rounded-lg flex items-center justify-center gap-2 transition-all"
                   >
                     <Printer className="w-4 h-4" />
                     Print confirmation

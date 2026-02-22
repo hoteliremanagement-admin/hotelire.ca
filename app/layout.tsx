@@ -60,7 +60,7 @@
 //               },
 //               success: {
 //                 iconTheme: {
-//                   primary: "#59A5B2",
+//                   primary: "#3F2C77",
 //                   secondary: "#fff",
 //                 },
 //               },
@@ -184,7 +184,7 @@ export default function RootLayout({
               },
               success: {
                 iconTheme: {
-                  primary: "#59A5B2",
+                  primary: "#3F2C77",
                   secondary: "#fff",
                 },
               },
