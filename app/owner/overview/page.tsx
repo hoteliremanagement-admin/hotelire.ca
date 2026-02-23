@@ -32,7 +32,7 @@
 // //     change: "+2",
 // //     changeType: "increase",
 // //     icon: faBuilding,
-// //     color: "#59A5B2",
+// //     color: "#3f2c77",
 // //   },
 // //   {
 // //     title: "Bookings This Month",
@@ -79,7 +79,7 @@
 // // ];
 
 // // const propertyDistribution = [
-// //   { name: "Luxury Suites", value: 4, color: "#59A5B2" },
+// //   { name: "Luxury Suites", value: 4, color: "#3f2c77" },
 // //   { name: "Standard Rooms", value: 5, color: "#FEBC11" },
 // //   { name: "Budget Rooms", value: 3, color: "#10B981" },
 // // ];
@@ -91,7 +91,7 @@
 // //         {/* Page Header */}
 // //         <div>
 // //           <h1
-// //             className="text-2xl md:text-3xl font-bold text-[#59A5B2]"
+// //             className="text-2xl md:text-3xl font-bold text-[#3f2c77]"
 // //             style={{ fontFamily: "Poppins, sans-serif" }}
 // //           >
 // //             Dashboard Overview
@@ -175,9 +175,9 @@
 // //                 <Line
 // //                   type="monotone"
 // //                   dataKey="revenue"
-// //                   stroke="#59A5B2"
+// //                   stroke="#3f2c77"
 // //                   strokeWidth={3}
-// //                   dot={{ fill: "#59A5B2", strokeWidth: 2 }}
+// //                   dot={{ fill: "#3f2c77", strokeWidth: 2 }}
 // //                 />
 // //               </LineChart>
 // //             </ResponsiveContainer>
@@ -261,7 +261,7 @@
 // //                   type: "booking",
 // //                   text: "New booking for Luxury King Suite",
 // //                   time: "2 hours ago",
-// //                   color: "#59A5B2",
+// //                   color: "#3f2c77",
 // //                 },
 // //                 {
 // //                   type: "review",
@@ -350,7 +350,7 @@
 //     change: "+2",
 //     changeType: "increase",
 //     icon: faBuilding,
-//     color: "#59A5B2",
+//     color: "#3f2c77",
 //   },
 //   {
 //     title: "Bookings This Month",
@@ -397,7 +397,7 @@
 // ];
 
 // const propertyDistribution = [
-//   { name: "Luxury Suites", value: 4, color: "#59A5B2" },
+//   { name: "Luxury Suites", value: 4, color: "#3f2c77" },
 //   { name: "Standard Rooms", value: 5, color: "#FEBC11" },
 //   { name: "Budget Rooms", value: 3, color: "#10B981" },
 // ];
@@ -409,7 +409,7 @@
 //         {/* Page Header */}
 //         <div>
 //           <h1
-//             className="text-2xl md:text-3xl font-bold text-[#59A5B2]"
+//             className="text-2xl md:text-3xl font-bold text-[#3f2c77]"
 //             style={{ fontFamily: "Poppins, sans-serif" }}
 //           >
 //             Dashboard Overview
@@ -493,9 +493,9 @@
 //                 <Line
 //                   type="monotone"
 //                   dataKey="revenue"
-//                   stroke="#59A5B2"
+//                   stroke="#3f2c77"
 //                   strokeWidth={3}
-//                   dot={{ fill: "#59A5B2", strokeWidth: 2 }}
+//                   dot={{ fill: "#3f2c77", strokeWidth: 2 }}
 //                 />
 //               </LineChart>
 //             </ResponsiveContainer>
@@ -579,7 +579,7 @@
 //                   type: "booking",
 //                   text: "New booking for Luxury King Suite",
 //                   time: "2 hours ago",
-//                   color: "#59A5B2",
+//                   color: "#3f2c77",
 //                 },
 //                 {
 //                   type: "review",
@@ -739,7 +739,7 @@ export default function OverviewPage() {
           //     { month: "Jan", bookings: 48 },
           //   ],
           //   propertyDistribution: [ // Graph 3: Room Distribution (by Room Type)
-          //     { name: "Luxury Suites", value: 15, color: "#59A5B2" },
+          //     { name: "Luxury Suites", value: 15, color: "#3f2c77" },
           //     { name: "Standard Rooms", value: 25, color: "#FEBC11" },
           //     { name: "Budget Rooms", value: 10, color: "#10B981" },
           //   ],
@@ -749,7 +749,7 @@ export default function OverviewPage() {
           //       text: "New booking for Luxury King Suite",
           //       guest: "John Doe",
           //       time: new Date(Date.now() - 1000 * 60 * 60 * 2).toISOString(), // 2 hours ago
-          //       color: "#59A5B2",
+          //       color: "#3f2c77",
           //       amount: 450,
           //       status: "CONFIRMED"
           //     },
@@ -758,7 +758,7 @@ export default function OverviewPage() {
           //       text: "New booking for Oceanview Room",
           //       guest: "Sarah Smith",
           //       time: new Date(Date.now() - 1000 * 60 * 60 * 5).toISOString(), // 5 hours ago
-          //       color: "#59A5B2",
+          //       color: "#3f2c77",
           //       amount: 320,
           //       status: "COMPLETED"
           //     },
@@ -767,7 +767,7 @@ export default function OverviewPage() {
           //       text: "New booking for Standard Room",
           //       guest: "Mike Johnson",
           //       time: new Date(Date.now() - 1000 * 60 * 60 * 24).toISOString(), // 1 day ago
-          //       color: "#59A5B2",
+          //       color: "#3f2c77",
           //       amount: 150,
           //       status: "CONFIRMED"
           //     },
@@ -776,7 +776,7 @@ export default function OverviewPage() {
           //       text: "New booking for Family Suite",
           //       guest: "Emily Davis",
           //       time: new Date(Date.now() - 1000 * 60 * 60 * 48).toISOString(), // 2 days ago
-          //       color: "#59A5B2",
+          //       color: "#3f2c77",
           //       amount: 550,
           //       status: "PENDING"
           //     },
@@ -799,7 +799,7 @@ export default function OverviewPage() {
     return (
       <OwnerLayout>
         <div className="flex items-center justify-center h-96">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#59A5B2]"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3f2c77]"></div>
         </div>
       </OwnerLayout>
     );
@@ -822,7 +822,7 @@ export default function OverviewPage() {
       // change: "+2", // You would calculate this if you had last month's data
       // changeType: "increase",
       icon: faBuilding,
-      color: "#59A5B2",
+      color: "#3f2c77",
     },
     {
       title: "Bookings This Month",
@@ -867,7 +867,7 @@ export default function OverviewPage() {
         {/* Page Header */}
         <div>
           <h1
-            className="text-2xl md:text-3xl font-bold text-[#59A5B2] font-heading"
+            className="text-2xl md:text-3xl font-bold text-[#3f2c77] font-heading"
             style={{ fontFamily: "Poppins, sans-serif" }}
           >
             Dashboard Overview
@@ -939,9 +939,9 @@ export default function OverviewPage() {
                 <Line
                   type="monotone"
                   dataKey="revenue"
-                  stroke="#59A5B2"
+                  stroke="#3f2c77"
                   strokeWidth={3}
-                  dot={{ fill: "#59A5B2", strokeWidth: 2 }}
+                  dot={{ fill: "#3f2c77", strokeWidth: 2 }}
                 />
               </LineChart>
             </ResponsiveContainer>

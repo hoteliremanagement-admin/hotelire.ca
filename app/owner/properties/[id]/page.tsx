@@ -392,7 +392,7 @@ export default function PropertyDetailPage() {
     return (
       <OwnerLayout>
         <div className="flex items-center justify-center min-h-screen">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#59A5B2]"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3f2c77]"></div>
         </div>
       </OwnerLayout>
     )
@@ -403,7 +403,7 @@ export default function PropertyDetailPage() {
       <OwnerLayout>
         <div className="flex flex-col items-center justify-center min-h-screen">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Property Not Found</h2>
-          <Link href="/owner/properties" className="text-[#59A5B2] hover:underline">
+          <Link href="/owner/properties" className="text-[#3f2c77] hover:underline">
             Back to Properties
           </Link>
         </div>
@@ -425,7 +425,7 @@ export default function PropertyDetailPage() {
         {/* Back Button */}
         <Link
           href="/owner/properties"
-          className="inline-flex items-center gap-2 text-[#59A5B2] hover:text-[#4a9199] transition-colors"
+          className="inline-flex items-center gap-2 text-[#3f2c77] hover:text-[#4a9199] transition-colors"
         >
           <FontAwesomeIcon icon={faArrowLeft} className="w-4 h-4" />
           <span className="font-medium">Back to Properties</span>
@@ -444,7 +444,7 @@ export default function PropertyDetailPage() {
               <p className="text-gray-500 dark:text-gray-400 mt-1">{propertyDetail.propertysubtitle}</p>
               <div className="flex items-center gap-4 mt-2">
                 <div className="flex items-center gap-1.5 text-gray-600 dark:text-gray-300">
-                  <FontAwesomeIcon icon={faLocationDot} className="w-4 h-4 text-[#59A5B2]" />
+                  <FontAwesomeIcon icon={faLocationDot} className="w-4 h-4 text-[#3f2c77]" />
                   <span>
                     {propertyDetail.canadian_city_name}, {propertyDetail.canadian_province_name}
                   </span>
@@ -462,7 +462,7 @@ export default function PropertyDetailPage() {
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-colors ${
                   isEditing
                     ? "bg-green-500 hover:bg-green-600 text-white"
-                    : "bg-[#59A5B2] hover:bg-[#4a9199] text-white"
+                    : "bg-[#3f2c77] hover:bg-[#4a9199] text-white"
                 }`}
                 data-testid="edit-property-button"
               >
@@ -557,7 +557,7 @@ export default function PropertyDetailPage() {
                   (rule, index) =>
                     rule.trim() && (
                       <li key={index} className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#59A5B2] mt-2 flex-shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#3f2c77] mt-2 flex-shrink-0" />
                         {rule}
                       </li>
                     ),
@@ -569,7 +569,7 @@ export default function PropertyDetailPage() {
             <h3 className="font-semibold text-gray-800 dark:text-white mb-3">Rule of Timing:</h3>
             <ul className="space-y-2">
               <li className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#59A5B2] mt-2 flex-shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#3f2c77] mt-2 flex-shrink-0" />
                 Check-in: {propertyDetail.checkintime} - Check-out: {propertyDetail.checkouttime}
               </li>
            
@@ -596,7 +596,7 @@ export default function PropertyDetailPage() {
                     key={index}
                     className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm text-gray-700 dark:text-gray-300"
                   >
-                    {iconDef && <FontAwesomeIcon icon={iconDef} className="w-4 h-4 text-[#59A5B2]" />}
+                    {iconDef && <FontAwesomeIcon icon={iconDef} className="w-4 h-4 text-[#3f2c77]" />}
                     {amenity.label}
                   </span>
                 )
@@ -624,7 +624,7 @@ export default function PropertyDetailPage() {
                     key={index}
                     className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm text-gray-700 dark:text-gray-300"
                   >
-                    {iconDef && <FontAwesomeIcon icon={iconDef} className="w-4 h-4 text-[#59A5B2]" />}
+                    {iconDef && <FontAwesomeIcon icon={iconDef} className="w-4 h-4 text-[#3f2c77]" />}
                     {feature.label}
                   </span>
                 )
@@ -652,7 +652,7 @@ export default function PropertyDetailPage() {
                     key={index}
                     className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-full text-sm text-gray-700 dark:text-gray-300"
                   >
-                    {iconDef && <FontAwesomeIcon icon={iconDef} className="w-4 h-4 text-[#59A5B2]" />}
+                    {iconDef && <FontAwesomeIcon icon={iconDef} className="w-4 h-4 text-[#3f2c77]" />}
                     {space.label}
                   </span>
                 )
@@ -673,7 +673,7 @@ export default function PropertyDetailPage() {
 
             <button
               onClick={() => router.push(`/owner/properties/${propertyId}/room/add`)}
-              className="flex items-center gap-2 px-5 py-2.5 bg-[#59A5B2] text-white font-medium rounded-lg hover:bg-[#4a9199] active:scale-[0.98] transition-all shadow-sm"
+              className="flex items-center gap-2 px-5 py-2.5 bg-[#3f2c77] text-white font-medium rounded-lg hover:bg-[#4a9199] active:scale-[0.98] transition-all shadow-sm"
             >
               <span className="text-lg">+</span>
               <span>Add New Room</span>
@@ -715,12 +715,12 @@ export default function PropertyDetailPage() {
                   </div>
 
                   <div className="p-5 space-y-3">
-                    <h3 className="font-bold text-lg text-gray-900 line-clamp-1 group-hover:text-[#59A5B2] transition-colors">
+                    <h3 className="font-bold text-lg text-gray-900 line-clamp-1 group-hover:text-[#3f2c77] transition-colors">
                       {room.roomname}
                     </h3>
 
                     <div>
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#59A5B2]/10 text-[#59A5B2] border border-[#59A5B2]/20">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#3f2c77]/10 text-[#3f2c77] border border-[#3f2c77]/20">
                         {room.roomtypename}
                       </span>
                     </div>
@@ -731,7 +731,7 @@ export default function PropertyDetailPage() {
                     </div>
 
                     <div className="pt-2 border-t border-gray-100">
-                      <span className="text-xs text-gray-400 group-hover:text-[#59A5B2] transition-colors">
+                      <span className="text-xs text-gray-400 group-hover:text-[#3f2c77] transition-colors">
                         Click to edit details →
                       </span>
                     </div>
@@ -754,7 +754,7 @@ export default function PropertyDetailPage() {
               <p className="text-gray-500 mb-6">Start by adding your first room to this property</p>
               <button
                 onClick={() => router.push(`/owner/properties/${propertyId}/room/add`)}
-                className="px-6 py-3 bg-[#59A5B2] text-white font-medium rounded-lg hover:bg-[#4a9199] transition-all"
+                className="px-6 py-3 bg-[#3f2c77] text-white font-medium rounded-lg hover:bg-[#4a9199] transition-all"
               >
                 Add Your First Room
               </button>
@@ -789,7 +789,7 @@ export default function PropertyDetailPage() {
 
       <h3 className="font-bold text-lg">{room.roomname}</h3>
       <p className="text-gray-500">{room.roomtypename}</p>
-      <p className="text-[#59A5B2] font-semibold mt-2">
+      <p className="text-[#3f2c77] font-semibold mt-2">
         ${room.price} / night
       </p>
       <p className="text-sm text-gray-400 mt-1">
@@ -805,7 +805,7 @@ export default function PropertyDetailPage() {
           );
         }}
       >
-        <span className="text-xs text-[#59A5B2] hover:underline">
+        <span className="text-xs text-[#3f2c77] hover:underline">
           Click to edit details →
         </span>
       </div>
@@ -857,7 +857,7 @@ export default function PropertyDetailPage() {
                 </div>
             ) : (
                 <div className="py-8 flex justify-center">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#59A5B2]"></div>
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#3f2c77]"></div>
                 </div>
             )}
             <DialogFooter>
@@ -1153,7 +1153,7 @@ export default function PropertyDetailPage() {
 //     return (
 //       <OwnerLayout>
 //         <div className="flex items-center justify-center min-h-screen">
-//           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#59A5B2]"></div>
+//           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#3f2c77]"></div>
 //         </div>
 //       </OwnerLayout>
 //     )
@@ -1164,7 +1164,7 @@ export default function PropertyDetailPage() {
 //       <OwnerLayout>
 //         <div className="flex flex-col items-center justify-center min-h-screen">
 //           <h2 className="text-2xl font-bold text-gray-800 mb-4">Property Not Found</h2>
-//           <Link href="/owner/properties" className="text-[#59A5B2] hover:underline">
+//           <Link href="/owner/properties" className="text-[#3f2c77] hover:underline">
 //             Back to Properties
 //           </Link>
 //         </div>
@@ -1186,7 +1186,7 @@ export default function PropertyDetailPage() {
 //         {/* Back Button */}
 //         <Link
 //           href="/owner/properties"
-//           className="inline-flex items-center gap-2 text-[#59A5B2] hover:text-[#4a9199] transition-colors"
+//           className="inline-flex items-center gap-2 text-[#3f2c77] hover:text-[#4a9199] transition-colors"
 //         >
 //           <FontAwesomeIcon icon={faArrowLeft} className="w-4 h-4" />
 //           <span className="font-medium">Back to Properties</span>
@@ -1205,7 +1205,7 @@ export default function PropertyDetailPage() {
 //               <p className="text-gray-500 dark:text-gray-400 mt-1">{propertyDetail.propertysubtitle}</p>
 //               <div className="flex items-center gap-4 mt-2">
 //                 <div className="flex items-center gap-1.5 text-gray-600 dark:text-gray-300">
-//                   <FontAwesomeIcon icon={faLocationDot} className="w-4 h-4 text-[#59A5B2]" />
+//                   <FontAwesomeIcon icon={faLocationDot} className="w-4 h-4 text-[#3f2c77]" />
 //                   <span>
 //                     {propertyDetail.canadian_city_name}, {propertyDetail.canadian_province_name}
 //                   </span>
@@ -1223,7 +1223,7 @@ export default function PropertyDetailPage() {
 //                 className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium transition-colors ${
 //                   isEditing
 //                     ? "bg-green-500 hover:bg-green-600 text-white"
-//                     : "bg-[#59A5B2] hover:bg-[#4a9199] text-white"
+//                     : "bg-[#3f2c77] hover:bg-[#4a9199] text-white"
 //                 }`}
 //                 data-testid="edit-property-button"
 //               >
@@ -1308,7 +1308,7 @@ export default function PropertyDetailPage() {
 //                     )}
 //                     <h3 className="font-bold text-lg">{room.roomname}</h3>
 //                     <p className="text-gray-500">{room.roomtypename}</p>
-//                     <p className="text-[#59A5B2] font-semibold mt-2">${room.price} / night</p>
+//                     <p className="text-[#3f2c77] font-semibold mt-2">${room.price} / night</p>
 //                     <p className="text-sm text-gray-400 mt-1">{room.roomcount} rooms total</p>
 //                  </div>
 //              ))}
@@ -1355,7 +1355,7 @@ export default function PropertyDetailPage() {
 //                 </div>
 //             ) : (
 //                 <div className="py-8 flex justify-center">
-//                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#59A5B2]"></div>
+//                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#3f2c77]"></div>
 //                 </div>
 //             )}
 //             <DialogFooter>

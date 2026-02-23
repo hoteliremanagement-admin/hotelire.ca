@@ -13,7 +13,7 @@ export function ProgressSteps({ currentStep, totalSteps }: ProgressStepsProps) {
       {/* Progress Bar */}
       <div className="relative w-full h-1 bg-gray-200 rounded-full overflow-hidden">
         <div
-          className="absolute top-0 left-0 h-full bg-[#59A5B2] transition-all duration-500 ease-out"
+          className="absolute top-0 left-0 h-full bg-[#3f2c77] transition-all duration-500 ease-out"
           style={{ width: `${percentage}%` }}
         />
       </div>
@@ -27,7 +27,7 @@ export function ProgressSteps({ currentStep, totalSteps }: ProgressStepsProps) {
           Step {currentStep} of {totalSteps}
         </span>
         <span
-          className="font-semibold text-[#59A5B2]"
+          className="font-semibold text-[#3f2c77]"
           style={{ fontFamily: 'Inter, sans-serif' }}
         >
           {Math.round(percentage)}% Complete

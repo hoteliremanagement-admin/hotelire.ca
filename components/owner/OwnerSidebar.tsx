@@ -131,7 +131,7 @@ export function OwnerSidebar({
                 onClick={onClose}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium cursor-pointer transition-all ${
                   isActive(item.path)
-                    ? "bg-[#59A5B2] text-white shadow-md"
+                    ? "bg-[#3F2C77] text-white shadow-md"
                     : isDarkMode
                     ? "text-gray-300 hover:bg-gray-800"
                     : "text-gray-600 hover:bg-gray-100"
@@ -191,7 +191,7 @@ export function OwnerSidebar({
             onClick={() => setShowSettings(!showSettings)}
             className={`flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-medium transition-all ${
               showSettings || pathname.startsWith("/owner/settings")
-                ? "bg-[#59A5B2] text-white"
+                ? "bg-[#3f2c77] text-white"
                 : isDarkMode
                 ? "text-gray-300 hover:bg-gray-800"
                 : "text-gray-600 hover:bg-gray-100"

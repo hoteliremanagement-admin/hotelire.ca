@@ -252,7 +252,7 @@ export default function PropertiesPage() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1
-              className="text-2xl md:text-3xl font-bold text-[#59A5B2]"
+              className="text-2xl md:text-3xl font-bold text-[#3f2c77]"
               style={{ fontFamily: "Poppins, sans-serif" }}
             >
               My Properties
@@ -270,7 +270,7 @@ export default function PropertiesPage() {
             }
           >            <button
             onClick={() => console.log(propertyList)}
-            className="flex items-center gap-2 bg-[#59A5B2] hover:bg-[#4a9199] text-white px-4 py-2.5 rounded-xl font-medium transition-colors shadow-sm"
+            className="flex items-center gap-2 bg-[#3f2c77] hover:bg-[#4a9199] text-white px-4 py-2.5 rounded-xl font-medium transition-colors shadow-sm"
             data-testid="button-add-property"
           >
               <FontAwesomeIcon icon={faPlus} className="w-4 h-4" />
@@ -293,7 +293,7 @@ export default function PropertiesPage() {
               placeholder="Search properties..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent"
+              className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#3f2c77] focus:border-transparent"
               data-testid="input-search-properties"
             />
           </div>
@@ -303,7 +303,7 @@ export default function PropertiesPage() {
                 key={filter}
                 onClick={() => setStatusFilter(filter)}
                 className={`px-4 py-2.5 rounded-xl font-medium transition-colors ${statusFilter === filter
-                  ? "bg-[#59A5B2] text-white"
+                  ? "bg-[#3f2c77] text-white"
                   : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700"
                   }`}
                 data-testid={`filter-${filter.toLowerCase()}`}
@@ -327,7 +327,7 @@ export default function PropertiesPage() {
                 </p>
 
                 <Link href="/owner/add-property">
-                  <button className="mt-4 flex items-center gap-2 bg-[#59A5B2] hover:bg-[#4a9199] text-white px-5 py-2.5 rounded-xl font-medium transition-colors">
+                  <button className="mt-4 flex items-center gap-2 bg-[#3f2c77] hover:bg-[#4a9199] text-white px-5 py-2.5 rounded-xl font-medium transition-colors">
                     <Plus className="w-4 h-4" />
                     Add Your First Property
                   </button>
@@ -458,7 +458,7 @@ function PropertyCard({
           {/* Title & Location */}
           <div>
             <h3
-              className="text-lg font-bold leading-tight text-foreground line-clamp-1 group-hover:text-[#59A5B2] transition-colors"
+              className="text-lg font-bold leading-tight text-foreground line-clamp-1 group-hover:text-[#3f2c77] transition-colors"
               style={{ fontFamily: "Poppins, sans-serif" }}
             >
               {property.propertytitle}
@@ -497,7 +497,7 @@ function PropertyCard({
               >
                 <FontAwesomeIcon
                   icon={getIcon(amenity.icon) as Icons.IconDefinition}
-                  className="w-5 h-5 text-[#59A5B2]"
+                  className="w-5 h-5 text-[#3f2c77]"
                 />
 
                 <FontAwesomeIcon

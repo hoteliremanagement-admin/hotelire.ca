@@ -91,7 +91,7 @@ const router = useRouter();
         </button>
        <div className="flex items-center gap-3">
   <img
-    src="https://res.cloudinary.com/dzzuoem1w/image/upload/v1767352509/logo_orignal_q0jn75.png"
+    src="\figmaAssets\logo_orignal1.png"
     alt="Hotelire Logo"
     className="h-8 sm:h-10 w-auto object-contain"
   />
@@ -127,7 +127,7 @@ const router = useRouter();
               }`}
             data-testid="button-profile-menu"
           >
-            <div className="w-8 h-8 bg-[#59A5B2] rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 bg-[#3F2C77] rounded-full flex items-center justify-center">
               <FontAwesomeIcon icon={faUser} className="w-4 h-4 text-white" />
             </div>
             <span

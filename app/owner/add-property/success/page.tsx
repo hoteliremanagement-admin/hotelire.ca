@@ -17,7 +17,7 @@ export default function SuccessPage() {
   }, [router]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#59A5B2]/5 to-white flex items-center justify-center px-6">
+    <div className="min-h-screen bg-gradient-to-br from-[#3f2c77]/5 to-white flex items-center justify-center px-6">
       <div className="max-w-2xl w-full text-center space-y-8">
         <div className="flex justify-center">
           <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center">
@@ -50,24 +50,24 @@ export default function SuccessPage() {
           </h2>
           <ul className="space-y-3 text-left">
             <li className="flex items-start gap-3">
-              <div className="w-6 h-6 bg-[#59A5B2]/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span className="text-[#59A5B2] text-sm font-bold">1</span>
+              <div className="w-6 h-6 bg-[#3f2c77]/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span className="text-[#3f2c77] text-sm font-bold">1</span>
               </div>
               <p className="text-gray-700" style={{ fontFamily: 'Inter, sans-serif' }}>
                 Our verification team will review your ownership documents and property details
               </p>
             </li>
             <li className="flex items-start gap-3">
-              <div className="w-6 h-6 bg-[#59A5B2]/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span className="text-[#59A5B2] text-sm font-bold">2</span>
+              <div className="w-6 h-6 bg-[#3f2c77]/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span className="text-[#3f2c77] text-sm font-bold">2</span>
               </div>
               <p className="text-gray-700" style={{ fontFamily: 'Inter, sans-serif' }}>
                 You'll receive an email notification once your property is approved
               </p>
             </li>
             <li className="flex items-start gap-3">
-              <div className="w-6 h-6 bg-[#59A5B2]/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                <span className="text-[#59A5B2] text-sm font-bold">3</span>
+              <div className="w-6 h-6 bg-[#3f2c77]/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span className="text-[#3f2c77] text-sm font-bold">3</span>
               </div>
               <p className="text-gray-700" style={{ fontFamily: 'Inter, sans-serif' }}>
                 Your property will be live and available for bookings
@@ -79,7 +79,7 @@ export default function SuccessPage() {
         <div className="space-y-4">
           <button
             onClick={() => router.push("/owner")}
-            className="w-full sm:w-auto px-8 h-12 bg-[#59A5B2] text-white rounded-lg font-semibold hover:bg-[#4a8a95] transition-colors shadow-md"
+            className="w-full sm:w-auto px-8 h-12 bg-[#3f2c77] text-white rounded-lg font-semibold hover:bg-[#4a8a95] transition-colors shadow-md"
             style={{ fontFamily: 'Inter, sans-serif' }}
             data-testid="button-dashboard"
           >

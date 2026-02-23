@@ -31,7 +31,7 @@ export default function OwnerBarrierPage() {
 // import { useState, useEffect, useRef } from "react";
 // import { useRouter, useSearchParams } from "next/navigation";
 
-// const BRAND = "#59A5B2";
+// const BRAND = "#3f2c77";
 // const MAX_PHONE_LEN = 10;
 // const sanitizePhone = (s: string) => s.replace(/\D/g, "").slice(0, MAX_PHONE_LEN);
 // const nameRegex = /^[A-Za-z\s-]{1,50}$/;
@@ -251,7 +251,7 @@ export default function OwnerBarrierPage() {
 //   };
 
 //   const inputClass = (error?: string) =>
-//     `w-full border ${error ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-[#59A5B2] focus:outline-none transition`;
+//     `w-full border ${error ? "border-red-500" : "border-gray-300"} rounded-md px-4 py-3 focus:ring-2 focus:ring-[#3f2c77] focus:outline-none transition`;
 
 //   return (
 //     <>
@@ -443,7 +443,7 @@ export default function OwnerBarrierPage() {
 //                     </span>
 //                   </label>
 //                   <div
-//                     className="border-2 border-dashed border-gray-300 rounded-md p-6 text-center cursor-pointer hover:border-[#59A5B2] transition"
+//                     className="border-2 border-dashed border-gray-300 rounded-md p-6 text-center cursor-pointer hover:border-[#3f2c77] transition"
 //                     onClick={() => photoIdInputRef.current?.click()}
 //                   >
 //                     <input
@@ -480,7 +480,7 @@ export default function OwnerBarrierPage() {
 //                         {photoIdProgress > 0 && photoIdProgress < 100 && (
 //                           <div className="w-full bg-gray-200 rounded-full h-2">
 //                             <div
-//                               className="bg-[#59A5B2] h-2 rounded-full transition-all"
+//                               className="bg-[#3f2c77] h-2 rounded-full transition-all"
 //                               style={{ width: `${photoIdProgress}%` }}
 //                             />
 //                           </div>
@@ -501,7 +501,7 @@ export default function OwnerBarrierPage() {
 //                     </span>
 //                   </label>
 //                   <div
-//                     className="border-2 border-dashed border-gray-300 rounded-md p-6 text-center cursor-pointer hover:border-[#59A5B2] transition"
+//                     className="border-2 border-dashed border-gray-300 rounded-md p-6 text-center cursor-pointer hover:border-[#3f2c77] transition"
 //                     onClick={() => ownershipDocInputRef.current?.click()}
 //                   >
 //                     <input
@@ -538,7 +538,7 @@ export default function OwnerBarrierPage() {
 //                         {ownershipDocProgress > 0 && ownershipDocProgress < 100 && (
 //                           <div className="w-full bg-gray-200 rounded-full h-2">
 //                             <div
-//                               className="bg-[#59A5B2] h-2 rounded-full transition-all"
+//                               className="bg-[#3f2c77] h-2 rounded-full transition-all"
 //                               style={{ width: `${ownershipDocProgress}%` }}
 //                             />
 //                           </div>
@@ -559,7 +559,7 @@ export default function OwnerBarrierPage() {
 //                     type="checkbox"
 //                     checked={formData.agreeOwnership}
 //                     onChange={e => setField("agreeOwnership", e.target.checked)}
-//                     className="mt-1 h-4 w-4 accent-[#59A5B2] rounded"
+//                     className="mt-1 h-4 w-4 accent-[#3f2c77] rounded"
 //                   />
 //                   <span className="text-sm text-gray-700">
 //                     I confirm I am the lawful owner or authorized representative of this property. <span className="text-red-500">*</span>
@@ -572,10 +572,10 @@ export default function OwnerBarrierPage() {
 //                     type="checkbox"
 //                     checked={formData.agreeTerms}
 //                     onChange={e => setField("agreeTerms", e.target.checked)}
-//                     className="mt-1 h-4 w-4 accent-[#59A5B2] rounded"
+//                     className="mt-1 h-4 w-4 accent-[#3f2c77] rounded"
 //                   />
 //                   <span className="text-sm text-gray-700">
-//                     I agree to the <a href="#" className="text-[#59A5B2] hover:underline">Terms & Conditions</a> and <a href="#" className="text-[#59A5B2] hover:underline">Privacy Policy</a>. <span className="text-red-500">*</span>
+//                     I agree to the <a href="#" className="text-[#3f2c77] hover:underline">Terms & Conditions</a> and <a href="#" className="text-[#3f2c77] hover:underline">Privacy Policy</a>. <span className="text-red-500">*</span>
 //                   </span>
 //                 </label>
 //                 {errors.agreeTerms && <p className="text-xs text-red-500 -mt-2">{errors.agreeTerms}</p>}
@@ -594,7 +594,7 @@ export default function OwnerBarrierPage() {
 //                   type="submit"
 //                   disabled={isSubmitting || !isFormValid}
 
-//                   className="flex-1 py-3 px-6 bg-[#59A5B2] text-white font-semibold rounded-md hover:bg-[#4a8e9b] transition disabled:opacity-50 disabled:cursor-not-allowed"
+//                   className="flex-1 py-3 px-6 bg-[#3f2c77] text-white font-semibold rounded-md hover:bg-[#4a8e9b] transition disabled:opacity-50 disabled:cursor-not-allowed"
 //                 >
 //                   {isSubmitting ? "Submitting..." : "Submit for Verification"}
 //                 </button>
@@ -613,7 +613,7 @@ export default function OwnerBarrierPage() {
 //               alt="Verification"
 //               className="w-32 h-32 mx-auto mb-6"
 //               onError={e => {
-//                 e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2359A5B2' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/%3E%3C/svg%3E";
+//                 e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%233f2c77' viewBox='0 0 24 24'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/%3E%3C/svg%3E";
 //               }}
 //             />
 //             <h2 className="text-3xl font-bold text-gray-800 mb-3">Verify Your Identity</h2>

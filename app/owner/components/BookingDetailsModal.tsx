@@ -99,15 +99,15 @@ export function BookingDetailsModal({ isOpen, booking, onClose }: BookingDetails
             </h3>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <FontAwesomeIcon icon={faUser} className="w-4 h-4 text-[#59A5B2]" />
+                <FontAwesomeIcon icon={faUser} className="w-4 h-4 text-[#3f2c77]" />
                 <span className="text-gray-800 dark:text-white font-medium">{booking.guestName}</span>
               </div>
               <div className="flex items-center gap-3">
-                <FontAwesomeIcon icon={faEnvelope} className="w-4 h-4 text-[#59A5B2]" />
+                <FontAwesomeIcon icon={faEnvelope} className="w-4 h-4 text-[#3f2c77]" />
                 <span className="text-gray-600 dark:text-gray-400">{booking.guestEmail}</span>
               </div>
               <div className="flex items-center gap-3">
-                <FontAwesomeIcon icon={faPhone} className="w-4 h-4 text-[#59A5B2]" />
+                <FontAwesomeIcon icon={faPhone} className="w-4 h-4 text-[#3f2c77]" />
                 <span className="text-gray-600 dark:text-gray-400">{booking.guestPhone}</span>
               </div>
             </div>
@@ -126,7 +126,7 @@ export function BookingDetailsModal({ isOpen, booking, onClose }: BookingDetails
               <div>
                 <p className="text-xs text-gray-500 dark:text-gray-500 mb-1">Room</p>
                 <div className="flex items-center gap-2">
-                  <FontAwesomeIcon icon={faBed} className="w-4 h-4 text-[#59A5B2]" />
+                  <FontAwesomeIcon icon={faBed} className="w-4 h-4 text-[#3f2c77]" />
                   <p className="text-gray-800 dark:text-white font-medium">{booking.room}</p>
                 </div>
               </div>
@@ -142,14 +142,14 @@ export function BookingDetailsModal({ isOpen, booking, onClose }: BookingDetails
               <div>
                 <p className="text-xs text-gray-500 dark:text-gray-500 mb-1">Check-In</p>
                 <div className="flex items-center gap-2">
-                  <FontAwesomeIcon icon={faCalendarDays} className="w-4 h-4 text-[#59A5B2]" />
+                  <FontAwesomeIcon icon={faCalendarDays} className="w-4 h-4 text-[#3f2c77]" />
                   <p className="text-gray-800 dark:text-white font-medium">{booking.checkIn}</p>
                 </div>
               </div>
               <div>
                 <p className="text-xs text-gray-500 dark:text-gray-500 mb-1">Check-Out</p>
                 <div className="flex items-center gap-2">
-                  <FontAwesomeIcon icon={faCalendarDays} className="w-4 h-4 text-[#59A5B2]" />
+                  <FontAwesomeIcon icon={faCalendarDays} className="w-4 h-4 text-[#3f2c77]" />
                   <p className="text-gray-800 dark:text-white font-medium">{booking.checkOut}</p>
                 </div>
               </div>
@@ -162,7 +162,7 @@ export function BookingDetailsModal({ isOpen, booking, onClose }: BookingDetails
               <div>
                 <p className="text-xs text-gray-500 dark:text-gray-500 mb-1">Guests</p>
                 <div className="flex items-center gap-2">
-                  <FontAwesomeIcon icon={faUsers} className="w-4 h-4 text-[#59A5B2]" />
+                  <FontAwesomeIcon icon={faUsers} className="w-4 h-4 text-[#3f2c77]" />
                   <p className="text-gray-800 dark:text-white font-medium">
                     {booking.guests} ({booking.adults} adults, {booking.children} children)
                   </p>
@@ -199,7 +199,7 @@ export function BookingDetailsModal({ isOpen, booking, onClose }: BookingDetails
           <button
             onClick={handleDownloadPDF}
             disabled={isGeneratingPDF}
-            className="px-4 py-2 bg-[#59A5B2] hover:bg-[#488a97] disabled:bg-gray-400 text-white rounded-lg font-medium transition-colors flex items-center gap-2"
+            className="px-4 py-2 bg-[#3f2c77] hover:bg-[#488a97] disabled:bg-gray-400 text-white rounded-lg font-medium transition-colors flex items-center gap-2"
           >
             <FontAwesomeIcon icon={faDownload} className="w-4 h-4" />
             {isGeneratingPDF ? "Generating..." : "Download PDF"}

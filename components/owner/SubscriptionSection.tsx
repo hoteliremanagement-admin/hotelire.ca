@@ -142,7 +142,7 @@ export function SubscriptionSection() {
     return (
       <div className="flex items-center justify-center p-12">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-8 w-8 border-2 border-gray-300 border-t-[#59A5B2] mb-3"></div>
+          <div className="inline-block animate-spin rounded-full h-8 w-8 border-2 border-gray-300 border-t-[#3f2c77] mb-3"></div>
           <p className="text-gray-600 font-medium">Loading subscription status...</p>
         </div>
       </div>
@@ -156,14 +156,14 @@ export function SubscriptionSection() {
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
               <h3 className="text-2xl font-bold text-gray-900">Subscription Management</h3>
-              <div className="px-3 py-1 bg-[#59A5B2]/20 text-[#59A5B2] text-xs font-semibold rounded-full">
+              <div className="px-3 py-1 bg-[#3f2c77]/20 text-[#3f2c77] text-xs font-semibold rounded-full">
                 Required
               </div>
             </div>
             <p className="text-gray-600 text-sm">Manage your account to list and manage properties on the platform</p>
           </div>
-          <div className="bg-[#59A5B2]/15 p-4 rounded-xl">
-            <CreditCard className="w-7 h-7 text-[#59A5B2]" />
+          <div className="bg-[#3f2c77]/15 p-4 rounded-xl">
+            <CreditCard className="w-7 h-7 text-[#3f2c77]" />
           </div>
         </div>
       </div>
@@ -199,12 +199,12 @@ export function SubscriptionSection() {
       )}
 
 
-      <div className=" shadow-md border border-[#59A5B2]/20 rounded-xl p-5">
+      <div className=" shadow-md border border-[#3f2c77]/20 rounded-xl p-5">
         <div className="flex items-end justify-between">
           <div>
             <p className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Monthly Subscription</p>
             <div className="flex items-baseline gap-1 mt-2">
-              <span className="text-4xl font-bold text-[#59A5B2]">$10</span>
+              <span className="text-4xl font-bold text-[#3f2c77]">$10</span>
               <span className="text-gray-600 text-sm">/month</span>
             </div>
             <p className="text-xs text-gray-600 mt-2">Don’t miss daily booking opportunities — subscribe now</p>
@@ -219,7 +219,7 @@ export function SubscriptionSection() {
 
       {subscription?.hasSubscription ? (
         <Card className="overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300">
-          <div className="bg-gradient-to-r from-[#59A5B2] to-[#4a9199] h-2"></div>
+          <div className="bg-gradient-to-r from-[#3f2c77] to-[#4a9199] h-2"></div>
 
           <div className="p-6 space-y-6">
             <div className="flex items-center justify-between">
@@ -243,14 +243,14 @@ export function SubscriptionSection() {
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-gray-50 rounded-lg p-4 border border-gray-150">
                 <div className="flex items-center gap-2 mb-2">
-                  <TrendingUp className="w-4 h-4 text-[#59A5B2]" />
+                  <TrendingUp className="w-4 h-4 text-[#3f2c77]" />
                   <p className="text-xs text-gray-600 font-semibold">Monthly Amount</p>
                 </div>
                 <p className="text-2xl font-bold text-gray-900">CAD $10</p>
               </div>
               <div className="bg-gray-50 rounded-lg p-4 border border-gray-150">
                 <div className="flex items-center gap-2 mb-2">
-                  <Calendar className="w-4 h-4 text-[#59A5B2]" />
+                  <Calendar className="w-4 h-4 text-[#3f2c77]" />
                   <p className="text-xs text-gray-600 font-semibold">Next Billing</p>
                 </div>
                 <p className="text-lg font-bold text-gray-900">
@@ -281,22 +281,22 @@ export function SubscriptionSection() {
           <div className="p-8 space-y-6">
             <div className="grid grid-cols-3 gap-4">
               <div className="text-center">
-                <div className="bg-[#59A5B2]/10 w-10 h-10 rounded-lg flex items-center justify-center mx-auto mb-2">
-                  <TrendingUp className="w-5 h-5 text-[#59A5B2]" />
+                <div className="bg-[#3f2c77]/10 w-10 h-10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                  <TrendingUp className="w-5 h-5 text-[#3f2c77]" />
                 </div>
                 <p className="text-xs font-semibold text-gray-900">Boost Visibility</p>
                 <p className="text-xs text-gray-600 mt-1">Get your properties featured</p>
               </div>
               <div className="text-center">
-                <div className="bg-[#59A5B2]/10 w-10 h-10 rounded-lg flex items-center justify-center mx-auto mb-2">
-                  <CheckCircle className="w-5 h-5 text-[#59A5B2]" />
+                <div className="bg-[#3f2c77]/10 w-10 h-10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                  <CheckCircle className="w-5 h-5 text-[#3f2c77]" />
                 </div>
                 <p className="text-xs font-semibold text-gray-900">Manage Bookings</p>
                 <p className="text-xs text-gray-600 mt-1">Full booking control</p>
               </div>
               <div className="text-center">
-                <div className="bg-[#59A5B2]/10 w-10 h-10 rounded-lg flex items-center justify-center mx-auto mb-2">
-                  <Zap className="w-5 h-5 text-[#59A5B2]" />
+                <div className="bg-[#3f2c77]/10 w-10 h-10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                  <Zap className="w-5 h-5 text-[#3f2c77]" />
                 </div>
                 <p className="text-xs font-semibold text-gray-900">24/7 Active</p>
                 <p className="text-xs text-gray-600 mt-1">Always available</p>
@@ -308,7 +308,7 @@ export function SubscriptionSection() {
                 Card Details <span className="text-red-500">*</span>
               </label>
               <div className="relative">
-                <div className="bg-white border-2 border-gray-300 rounded-xl p-4 focus-within:border-[#59A5B2] focus-within:ring-2 focus-within:ring-[#59A5B2]/20 transition-all duration-200">
+                <div className="bg-white border-2 border-gray-300 rounded-xl p-4 focus-within:border-[#3f2c77] focus-within:ring-2 focus-within:ring-[#3f2c77]/20 transition-all duration-200">
                   <CardElement
                     options={{
                       style: {
@@ -353,13 +353,13 @@ export function SubscriptionSection() {
               type="submit"
               onClick={handleSubscribe}
               disabled={!stripe || isSubscribing}
-              className="w-full bg-[#59A5B2] hover:bg-[#4a9199] disabled:bg-gray-400 text-white font-bold py-5 rounded-xl flex items-center justify-center gap-2 transition-all duration-200 shadow-sm hover:shadow-md"
+              className="w-full bg-[#3f2c77] hover:bg-[#4a9199] disabled:bg-gray-400 text-white font-bold py-5 rounded-xl flex items-center justify-center gap-2 transition-all duration-200 shadow-sm hover:shadow-md"
             >
               <Zap className="w-5 h-5" />
               {isSubscribing ? "Processing Payment..." : "Activate Subscription Now"}
             </Button>
 
-          <div className="mt-4 bg-[#59A5B2]/10 border border-[#59A5B2]/30 rounded-xl px-4 py-3 text-center">
+          <div className="mt-4 bg-[#3f2c77]/10 border border-[#3f2c77]/30 rounded-xl px-4 py-3 text-center">
   <p className="text-sm font-semibold text-[#3b7f89]">
     Subscription is required to keep your properties visible and accept bookings on the platform.
   </p>

@@ -153,7 +153,7 @@ export default function AddRoomPage() {
                 Room Name <span className="text-red-500">*</span>
               </label>
               <input
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent outline-none transition-all ${
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-[#3f2c77] focus:border-transparent outline-none transition-all ${
                   localErrors.roomname ? "border-red-500" : "border-gray-300"
                 }`}
                 placeholder="e.g., Deluxe King Suite"
@@ -201,7 +201,7 @@ export default function AddRoomPage() {
               <input
                 type="number"
                 min={1}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent outline-none transition-all"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3f2c77] focus:border-transparent outline-none transition-all"
                 placeholder="Number of rooms available"
                 value={room.roomcount}
                 onChange={(e) => {
@@ -234,7 +234,7 @@ export default function AddRoomPage() {
                 <input
                   type="number"
                   step="0.01"
-                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#59A5B2] focus:border-transparent outline-none transition-all"
+                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3f2c77] focus:border-transparent outline-none transition-all"
                   placeholder="0.00"
                   value={room.price}
                   onChange={(e) => {
@@ -279,9 +279,9 @@ export default function AddRoomPage() {
                         className="absolute inset-0 opacity-0 cursor-pointer z-10"
                         onChange={(e) => e.target.files && handleImage(key as any, e.target.files[0])}
                       />
-                      <div className="aspect-video border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center gap-3 bg-gray-50 hover:bg-gray-100 hover:border-[#59A5B2] transition-all cursor-pointer">
-                        <div className="w-12 h-12 rounded-full bg-[#59A5B2]/10 flex items-center justify-center">
-                          <Upload className="w-6 h-6 text-[#59A5B2]" />
+                      <div className="aspect-video border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center gap-3 bg-gray-50 hover:bg-gray-100 hover:border-[#3f2c77] transition-all cursor-pointer">
+                        <div className="w-12 h-12 rounded-full bg-[#3f2c77]/10 flex items-center justify-center">
+                          <Upload className="w-6 h-6 text-[#3f2c77]" />
                         </div>
                         <div className="text-center">
                           <p className="text-sm font-medium text-gray-700">Click to upload</p>
@@ -327,7 +327,7 @@ export default function AddRoomPage() {
               onClick={handleSubmit}
               className={`flex-1 py-3.5 px-6 font-medium rounded-lg transition-all shadow-sm ${
                 isFormValid() && !loading
-                  ? "bg-[#59A5B2] text-white hover:bg-[#4a9199] active:scale-[0.98]"
+                  ? "bg-[#3f2c77] text-white hover:bg-[#4a9199] active:scale-[0.98]"
                   : "bg-gray-300 text-gray-500 cursor-not-allowed"
               }`}
             >

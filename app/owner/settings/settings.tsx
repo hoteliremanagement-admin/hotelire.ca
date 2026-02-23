@@ -111,7 +111,7 @@ useEffect(() => {
         {/* Page Header */}
         <div>
           <h1
-            className="text-2xl md:text-3xl font-bold text-[#59A5B2]"
+            className="text-2xl md:text-3xl font-bold text-[#3f2c77]"
             style={{ fontFamily: "Poppins, sans-serif" }}
           >
             Settings
@@ -130,7 +130,7 @@ useEffect(() => {
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-2 px-6 py-4 font-medium transition-colors ${activeTab === tab.id
-                    ? "text-[#59A5B2] border-b-2 border-[#59A5B2] -mb-px"
+                    ? "text-[#3f2c77] border-b-2 border-[#3f2c77] -mb-px"
                     : "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
                     }`}
                   data-testid={`tab-${tab.id}`}
@@ -184,8 +184,8 @@ useEffect(() => {
 
   {/* Existing Content */}
   <div className="space-y-6">
-    <div className="bg-[#59A5B2]/10 border border-[#59A5B2]/20 rounded-xl p-4">
-      <p className="text-sm text-[#59A5B2] font-medium">
+    <div className="bg-[#3f2c77]/10 border border-[#3f2c77]/20 rounded-xl p-4">
+      <p className="text-sm text-[#3f2c77] font-medium">
         Connect your Stripe account to receive payouts from customers.
       </p>
     </div>
@@ -202,7 +202,7 @@ useEffect(() => {
 
       <button
         onClick={handleStripeConnect}
-        className="px-5 py-2 rounded-xl bg-[#59A5B2] text-white hover:bg-[#4b94a3]"
+        className="px-5 py-2 rounded-xl bg-[#3f2c77] text-white hover:bg-[#4b94a3]"
       >
         {payout.isConnected ? "Manage Stripe Account" : "Connect with Stripe"}
       </button>
