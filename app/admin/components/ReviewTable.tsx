@@ -57,7 +57,7 @@ export function ReviewTable({ reviews, onDelete, onToggleStatus }: ReviewTablePr
             <TableHead>Reviewer</TableHead>
             <TableHead>Property / Owner</TableHead>
             <TableHead>Rating</TableHead>
-            <TableHead className="max-w-[200px]">Review</TableHead>
+            {/* <TableHead className="max-w-[200px]">Review</TableHead> */}
             <TableHead>Date</TableHead>
             <TableHead>Status</TableHead>
             <TableHead className="text-right">Actions</TableHead>
@@ -85,11 +85,11 @@ export function ReviewTable({ reviews, onDelete, onToggleStatus }: ReviewTablePr
                   ))}
                 </div>
               </TableCell>
-              <TableCell className="max-w-[200px]">
+              {/* <TableCell className="max-w-[200px]">
                 <p className="truncate text-sm text-muted-foreground" title={review.reviewText}>
                   {review.reviewText}
                 </p>
-              </TableCell>
+              </TableCell> */}
               <TableCell className="text-sm text-muted-foreground whitespace-nowrap">
                 {review.date}
               </TableCell>

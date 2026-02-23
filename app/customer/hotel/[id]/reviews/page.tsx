@@ -850,7 +850,8 @@ export default function PropertyReviewsPage() {
                           {review.guestName}
                         </h3>
                         <p className="text-sm text-gray-500">
-                          {review.guestEmail} • {review.date}
+                          {/* {review.guestEmail} • {review.date} */}
+                          {review.date}
                         </p>
                       </div>
                       <StarRating rating={review.rating} />
