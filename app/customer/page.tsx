@@ -1,3 +1,324 @@
+// "use client";
+// import Image from "next/image";
+// import { Button } from "@/components/ui/button";
+// import { Header } from "@/components/Header";
+// import { Navigation } from "@/components/Navigation";
+// import { Footer } from "@/components/Footer";
+// import { SearchBar } from "@/components/SearchBar";
+// import { DestinationCard } from "@/components/DestinationCard";
+// import { HotelCard } from "@/components/HotelCard";
+// // import { PropertyCard } from "@/components/PropertyCard";
+// import { destinations, popularHotels } from "@/lib/data";
+// // import { destinations, popularHotels, uniqueProperties } from "@/lib/data";
+// import { Mbanner } from "@/components/Mbanner";
+// // import PendingReviewCards from "@/app/customer/review/components/PendingReviewCards";
+// import { Suspense } from "react";
+// import { GuestHouseCard } from "@/components/GuestHouseCard";
+// import { useEffect, useState } from "react";
+// import axios from "axios";
+
+// interface GuestHouse {
+//   id: string;
+//   name: string;
+//   location: string;
+//   type: string;
+//   rating: string;
+//   reviews: string;
+//   image: string;
+//   stars: string;
+// }
+
+// interface Hotel {
+//   id: string;
+//   name: string;
+//   location: string;
+//   type: string;
+//   rating: string;
+//   reviews: string;
+//   image: string;
+//   stars: string;
+// }
+
+// export default function CustomerHomePage() {
+//   // const user = useAuth(); // or useSession(), etc
+
+//   const [guestHouses, setGuestHouses] = useState<GuestHouse[]>([]);
+//   const [popularHotels, setPopularHotels] = useState<Hotel[]>([]);
+
+//   useEffect(() => {
+//     const loadGuestHouses = async () => {
+//       try {
+//         const res = await axios.get(
+//           `${process.env.NEXT_PUBLIC_BACKEND_URL}/ownerProperty/getProperties`,
+//           { withCredentials: true }
+//         );
+
+//         const properties = res.data.properties;
+
+//         const guestHouseList: GuestHouse[] = properties
+//           .filter(
+//             (p: any) =>
+//               p.propertyclassification?.propertyclassificationname ===
+//               "Guest House"
+//           )
+//           .slice(0, 4)
+//           .map((p: any) => ({
+//             id: p.propertyid,
+//             name: p.propertytitle,
+//             location: `${p.canadian_city_id}, Canada`,
+//             type: "Guest House",
+//            rating: p.avgRating ? String(p.avgRating) : "0",
+
+//             reviews: "Verified guests",
+//             image: p.photo1_featured,
+//             stars: "/figmaAssets/group-316-5.png", // existing asset
+//           }));
+
+//         setGuestHouses(guestHouseList);
+//       } catch (error) {
+//         console.error("Failed to load Guest Houses", error);
+//       }
+//     };
+
+//     loadGuestHouses();
+//   }, []);
+
+//   useEffect(() => {
+//     const loadPopularHotels = async () => {
+//       try {
+//         const res = await axios.get(
+//           `${process.env.NEXT_PUBLIC_BACKEND_URL}/ownerProperty/getProperties`,
+//           { withCredentials: true }
+//         );
+
+//         const properties = res.data.properties;
+
+//         console.log("properties",process.env.NEXT_PUBLIC_BACKEND_URL)
+
+//         const hotels: Hotel[] = properties
+//           // 🏨 only Hotels
+//           .filter(
+//             (p: any) =>
+//               p.propertyclassification?.propertyclassificationname === "Hotel"
+//           )
+//           // ⭐ TEMP rating assign (future-ready)
+//           .map((p: any) => ({
+//             id: p.propertyid,
+//             name: p.propertytitle,
+//             location: "Canada",
+//             type: "Hotel",
+//             rating: p.avgRating ? String(p.avgRating) : "0",// 🔥 temp top-rated  rating: p.rating
+//             reviews: "Verified guests",
+//             image: p.photo1_featured,
+//             stars: "/figmaAssets/group-316-1.png",
+//           }))
+//           // ⭐ sort by rating (desc)
+//           .sort(
+//             (a: Hotel, b: Hotel) => parseFloat(b.rating) - parseFloat(a.rating)
+//           )
+//           // 🎯 only top 4
+//           .slice(0, 4);
+
+//         setPopularHotels(hotels);
+//       } catch (error) {
+//         console.error("Failed to load popular hotels", error);
+//       }
+//     };
+
+//     loadPopularHotels();
+//   }, []);
+
+//   return (
+//     <div className="bg-white w-full flex flex-col">
+//       <Header />
+//       <Navigation />
+
+//       {/* Hero Section */}
+//       <section className="relative w-full h-[400px] md:h-[500px] lg:h-[536px]">
+//         <Image
+//           src="/figmaAssets/rectangle-290.png"
+//           alt="Hero background"
+//           fill
+//           className="object-cover"
+//           priority
+//         />
+//         <div className="relative z-10 h-full">
+//           <div className="site-container h-full flex items-center justify-center">
+//             <div className="absolute inset-0 bg-[#080808] opacity-50" />
+
+//             <div className="relative z-10 flex flex-col items-center justify-center h-full px-4">
+//               <div className="text-center mb-8 md:mb-12 lg:mb-[71px]">
+//                 <h1 className="[text-shadow:4px_4px_4px_#00000040] [font-family:'Poppins',Helvetica] font-normal text-[20px] md:text-[30px] lg:text-[38px] mb-2 md:mb-4">
+//                   <span className="text-white">Your </span>
+//                   <span className="font-bold text-[#febc11]">perfect stay</span>
+//                   <span className="text-white"> is one click away</span>
+//                 </h1>
+//                 <h2 className="[text-shadow:4.45px_4.45px_4.45px_#00000040] [font-family:'Poppins',Helvetica] font-bold text-white text-[28px] md:text-[40px] lg:text-[53.3px]">
+//                   Find Your Dream Luxury Hotel
+//                 </h2>
+//               </div>
+//               <Suspense fallback={<div>Loading...</div>}>
+//                 <SearchBar />
+//               </Suspense>
+//             </div>
+//           </div>
+//         </div>
+//       </section>
+//       {/* {user && <PendingReviewCards />} */}
+//       {/* <section className="bg-[#F3FAFB] py-10">
+//         <PendingReviewCards />
+//       </section> */}
+//       {/* idher review wala modal add krna hai ager user authenticated hua to, phir agr us ki booking confirmed ho to confirmed likh aye ga, agr stay complete hochuka ho tu leave a review ka option aye ga */}
+//       {/* Explore Canada */}
+//       <section className="w-full bg-[#e3fdff] py-12 md:py-16 lg:py-[81px] px-4 md:px-8 lg:px-[203px]">
+//         <div className="site-container">
+//           <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#3F2C77] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
+//             Explore Canada
+//           </h2>
+//           <p className="[font-family:'Poppins',Helvetica] font-normal text-black text-base md:text-lg lg:text-xl mb-8 md:mb-10 lg:mb-[46px]">
+//             Most popular and trending destinations
+//           </p>
+
+//           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-[7px]">
+//             {destinations.map((destination) => (
+//               <DestinationCard key={destination.id} destination={destination} />
+//             ))}
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Most Popular Hotels */}
+//       <section className="w-full py-12 md:py-16 lg:py-[82px] px-4 md:px-8 lg:px-[203px]">
+//         <div className="site-container">
+//           <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#3F2C77] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
+//             Most Popular Hotels
+//           </h2>
+//           <p className="[font-family:'Poppins',Helvetica] font-normal text-black text-base md:text-lg mb-8 md:mb-12 lg:mb-[54px]">
+//             Embark on your next adventure with confidence
+//           </p>
+
+//           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-[7px]">
+
+//               {popularHotels.map((hotel) => (
+//                 <HotelCard key={hotel.id} hotel={hotel} />
+//               ))}
+//             </div>
+//           </div>
+
+//       </section>
+
+//       {/* Offers */}
+//       <section className="w-full bg-[#eaffe6] py-12 md:py-16 lg:py-[102px] px-4 md:px-8 lg:px-[203px]">
+//         <div className="site-container">
+//           <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#3F2C77] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
+//             Offers
+//           </h2>
+//           <p className="[font-family:'Poppins',Helvetica] font-normal text-black text-base md:text-lg mb-8 md:mb-12 lg:mb-[54px]">
+//             Promotions, deals and special offers for you
+//           </p>
+
+//           <div className="space-y-4 md:space-y-6">
+//             <div className="flex flex-col md:flex-row gap-4">
+//               <Image
+//                 src="/figmaAssets/yellow-blue-modern-travel-agency-billboard-2.png"
+//                 alt="Travel agency promotion"
+//                 width={377}
+//                 height={98}
+//                 className="w-full md:w-[377px] h-[98px] rounded-lg object-cover transition-transform duration-300 hover:scale-[1.02] cursor-pointer"
+//               />
+//               <Image
+//                 src="/figmaAssets/traveling--banner--landscape----728-x-90-mm--1.png"
+//                 alt="Traveling banner"
+//                 width={815}
+//                 height={99}
+//                 className="w-full md:w-[300px] md:flex-1 h-[99px] rounded-lg object-cover transition-transform duration-300 hover:scale-[1.02] cursor-pointer"
+//               />
+//             </div>
+
+//             <div className="flex flex-col md:flex-row gap-4">
+//               <div className="w-full md:w-[756px] h-[110px] bg-[#6b371a] rounded-lg relative overflow-hidden transition-transform duration-300 hover:scale-[1.02] cursor-pointer">
+//                 <div className="absolute top-[28px] left-[20px] md:left-[57px] z-10">
+//                   <h3 className="[font-family:'Poppins',Helvetica] font-bold text-white text-[18px] md:text-[22px] leading-[25px] md:leading-[30.5px] mb-2">
+//                     Live the dream in a holiday home
+//                   </h3>
+//                   <p className="text-[#e2a24b] text-xs md:text-sm leading-[16px] md:leading-[19.4px] [font-family:'Poppins',Helvetica]">
+//                     Choose form house, villas, chalets and more...!
+//                   </p>
+//                 </div>
+//                 <Image
+//                   src="/figmaAssets/pngwing-com-1.png"
+//                   alt=""
+//                   width={165}
+//                   height={110}
+//                   className="absolute top-0 right-[20px] md:right-[135px] w-[120px] md:w-[165px] h-[110px] object-cover"
+//                 />
+//               </div>
+//               <Image
+//                 src="/figmaAssets/screenshot-2025-09-03-at-6-00-16-am-1.png"
+//                 alt="Special offer"
+//                 width={436}
+//                 height={110}
+//                 className="w-full md:w-[436px] h-[110px] rounded-lg object-cover transition-transform duration-300 hover:scale-[1.02] cursor-pointer"
+//               />
+//             </div>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Unique Properties */}
+//       <section className="w-full py-12 md:py-16 lg:py-[57px] px-4 md:px-8 lg:px-[203px]">
+//         <div className="site-container">
+//           <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#3F2C77] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
+//             Your perfect Guest House stay awaits
+//           </h2>
+//           <p className="[font-family:'Poppins',Helvetica] font-normal text-black text-base md:text-lg lg:text-xl mb-8 md:mb-12 lg:mb-[54px]">
+//             Trusted guest houses loved by travelers across Canada
+//           </p>
+
+//           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-[7px]">
+//             {guestHouses.map((guestHouse) => (
+//               <GuestHouseCard key={guestHouse.id} property={guestHouse} />
+//             ))}
+//           </div>
+//           <div className="mt-10 flex justify-center">
+//             <a
+//               href="/customer/listing?type=Guest%20House"
+//               className="
+//       inline-flex items-center gap-2
+//       px-6 py-3
+//       rounded-full
+//       bg-[#3F2C77]
+//       text-white
+//       font-semibold
+//       hover:bg-[#2E2059]
+//       transition-all
+//     "
+//             >
+//               View all guest houses
+//               <span aria-hidden>→</span>
+//             </a>
+//           </div>
+
+//           {/* <Button
+//           className="w-10 h-10 bg-white rounded-[20px] shadow-[0px_4px_4px_#00000040] p-0 mt-16 md:mt-24 lg:mt-[133px] ml-auto flex transition-all duration-200 hover:bg-white/90 hover:scale-110 hover:shadow-xl"
+//           aria-label="Next properties"
+//         >
+//           <Image
+//             src="/figmaAssets/image-19.png"
+//             alt=""
+//             width={19}
+//             height={20}
+//           />
+//         </Button> */}
+//         </div>
+//       </section>
+
+//       <Mbanner />
+//       <Footer />
+//     </div>
+//   );
+// }
+
 "use client";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -7,11 +328,8 @@ import { Footer } from "@/components/Footer";
 import { SearchBar } from "@/components/SearchBar";
 import { DestinationCard } from "@/components/DestinationCard";
 import { HotelCard } from "@/components/HotelCard";
-// import { PropertyCard } from "@/components/PropertyCard";
-import { destinations, popularHotels } from "@/lib/data";
-// import { destinations, popularHotels, uniqueProperties } from "@/lib/data";
+import { destinations } from "@/lib/data";
 import { Mbanner } from "@/components/Mbanner";
-// import PendingReviewCards from "@/app/customer/review/components/PendingReviewCards";
 import { Suspense } from "react";
 import { GuestHouseCard } from "@/components/GuestHouseCard";
 import { useEffect, useState } from "react";
@@ -40,96 +358,119 @@ interface Hotel {
 }
 
 export default function CustomerHomePage() {
-  // const user = useAuth(); // or useSession(), etc
+const [guestHouses, setGuestHouses] = useState<GuestHouse[]>([]);
+const [popularHotels, setPopularHotels] = useState<Hotel[]>([]);
 
-  const [guestHouses, setGuestHouses] = useState<GuestHouse[]>([]);
-  const [popularHotels, setPopularHotels] = useState<Hotel[]>([]);
+useEffect(() => {
+  const loadGuestHouses = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/ownerProperty/getProperties`,
+        { withCredentials: true },
+      );
+      const properties = res.data.properties;
 
-  useEffect(() => {
-    const loadGuestHouses = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/ownerProperty/getProperties`,
-          { withCredentials: true }
-        );
+      const guestHouseList: GuestHouse[] = properties
+        .filter(
+          (p: any) =>
+            p.propertyclassification?.propertyclassificationname ===
+            "Guest House",
+        )
+        .slice(0, 4)
+        .map((p: any) => {
+          const minPrice =
+            p.propertyroom?.length > 0
+              ? Math.min(
+                  ...p.propertyroom.map((r: any) => parseFloat(r.price)),
+                )
+              : 0;
 
-        const properties = res.data.properties;
+          const city = p.canadian_cities?.canadian_city_name;
+          const province = p.canadian_states?.canadian_province_name;
 
-        const guestHouseList: GuestHouse[] = properties
-          .filter(
-            (p: any) =>
-              p.propertyclassification?.propertyclassificationname ===
-              "Guest House"
-          )
-          .slice(0, 4)
-          .map((p: any) => ({
+          const formattedLocation = [city, province]
+            .filter(Boolean)
+            .join(", ");
+
+          return {
             id: p.propertyid,
             name: p.propertytitle,
-            location: `${p.canadian_city_id}, Canada`,
+            location: formattedLocation,
             type: "Guest House",
-           rating: p.avgRating ? String(p.avgRating) : "0",
-
+            rating: p.avgRating ? String(p.avgRating) : "0",
             reviews: "Verified guests",
             image: p.photo1_featured,
-            stars: "/figmaAssets/group-316-5.png", // existing asset
-          }));
+            stars: "/figmaAssets/group-316-5.png",
+            price: minPrice,
+          };
+        });
 
-        setGuestHouses(guestHouseList);
-      } catch (error) {
-        console.error("Failed to load Guest Houses", error);
-      }
-    };
+      setGuestHouses(guestHouseList);
+    } catch (error) {
+      console.error("Failed to load Guest Houses", error);
+    }
+  };
 
-    loadGuestHouses();
-  }, []);
+  loadGuestHouses();
+}, []);
 
-  useEffect(() => {
-    const loadPopularHotels = async () => {
-      try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/ownerProperty/getProperties`,
-          { withCredentials: true }
-        );
+useEffect(() => {
+  const loadPopularHotels = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/ownerProperty/getProperties`,
+        { withCredentials: true },
+      );
+      const properties = res.data.properties;
 
-        const properties = res.data.properties;
+      const hotels: Hotel[] = properties
+        .filter(
+          (p: any) =>
+            p.propertyclassification?.propertyclassificationname === "Hotel",
+        )
+        .map((p: any) => {
+          const minPrice =
+            p.propertyroom?.length > 0
+              ? Math.min(
+                  ...p.propertyroom.map((r: any) => parseFloat(r.price)),
+                )
+              : 0;
 
-        console.log("properties",process.env.NEXT_PUBLIC_BACKEND_URL)
+          const city = p.canadian_cities?.canadian_city_name;
+          const province = p.canadian_states?.canadian_province_name;
 
-        const hotels: Hotel[] = properties
-          // 🏨 only Hotels
-          .filter(
-            (p: any) =>
-              p.propertyclassification?.propertyclassificationname === "Hotel"
-          )
-          // ⭐ TEMP rating assign (future-ready)
-          .map((p: any) => ({
+          const formattedLocation = [city, province]
+            .filter(Boolean)
+            .join(", ");
+
+          return {
             id: p.propertyid,
             name: p.propertytitle,
-            location: "Canada",
+            location: formattedLocation,
             type: "Hotel",
-            rating: p.avgRating ? String(p.avgRating) : "0",// 🔥 temp top-rated  rating: p.rating
+            rating: p.avgRating ? String(p.avgRating) : "0",
             reviews: "Verified guests",
             image: p.photo1_featured,
             stars: "/figmaAssets/group-316-1.png",
-          }))
-          // ⭐ sort by rating (desc)
-          .sort(
-            (a: Hotel, b: Hotel) => parseFloat(b.rating) - parseFloat(a.rating)
-          )
-          // 🎯 only top 4
-          .slice(0, 4);
+            price: minPrice,
+          };
+        })
+        .sort(
+          (a: Hotel, b: Hotel) => parseFloat(b.rating) - parseFloat(a.rating),
+        )
+        .slice(0, 4);
 
-        setPopularHotels(hotels);
-      } catch (error) {
-        console.error("Failed to load popular hotels", error);
-      }
-    };
+      setPopularHotels(hotels);
+    } catch (error) {
+      console.error("Failed to load popular hotels", error);
+    }
+  };
 
-    loadPopularHotels();
-  }, []);
+  loadPopularHotels();
+}, []);
 
   return (
-    <div className="bg-white w-full flex flex-col">
+    <div className="bg-soft w-full flex flex-col min-h-screen">
       <Header />
       <Navigation />
 
@@ -147,7 +488,9 @@ export default function CustomerHomePage() {
             <div className="absolute inset-0 bg-[#080808] opacity-50" />
 
             <div className="relative z-10 flex flex-col items-center justify-center h-full px-4">
+              {" "}
               <div className="text-center mb-8 md:mb-12 lg:mb-[71px]">
+                {" "}
                 <h1 className="[text-shadow:4px_4px_4px_#00000040] [font-family:'Poppins',Helvetica] font-normal text-[20px] md:text-[30px] lg:text-[38px] mb-2 md:mb-4">
                   <span className="text-white">Your </span>
                   <span className="font-bold text-[#febc11]">perfect stay</span>
@@ -156,6 +499,9 @@ export default function CustomerHomePage() {
                 <h2 className="[text-shadow:4.45px_4.45px_4.45px_#00000040] [font-family:'Poppins',Helvetica] font-bold text-white text-[28px] md:text-[40px] lg:text-[53.3px]">
                   Find Your Dream Luxury Hotel
                 </h2>
+                 {/* <p className="text-white text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
+                Experience world-class hospitality in Canada's most breathtaking locations. Your perfect stay is just a search away.
+              </p> */}
               </div>
               <Suspense fallback={<div>Loading...</div>}>
                 <SearchBar />
@@ -164,22 +510,61 @@ export default function CustomerHomePage() {
           </div>
         </div>
       </section>
-      {/* {user && <PendingReviewCards />} */}
-      {/* <section className="bg-[#F3FAFB] py-10">
-        <PendingReviewCards />
-      </section> */}
-      {/* idher review wala modal add krna hai ager user authenticated hua to, phir agr us ki booking confirmed ho to confirmed likh aye ga, agr stay complete hochuka ho tu leave a review ka option aye ga */}
-      {/* Explore Canada */}
-      <section className="w-full bg-[#e3fdff] py-12 md:py-16 lg:py-[81px] px-4 md:px-8 lg:px-[203px]">
-        <div className="site-container">
-          <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#3F2C77] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
-            Explore Canada
-          </h2>
-          <p className="[font-family:'Poppins',Helvetica] font-normal text-black text-base md:text-lg lg:text-xl mb-8 md:mb-10 lg:mb-[46px]">
-            Most popular and trending destinations
-          </p>
+      {/* <section className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] flex items-center overflow-hidden">
+        <Image
+          src="/figmaAssets/rectangle-290.png"
+          alt="Hero background"
+          fill
+          className="object-cover scale-105"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-dark/70 via-dark/40 to-dark/80" />
+        
+        <div className="relative z-10 w-full px-4 md:px-8">
+          <div className="site-container flex flex-col items-center">
+            <div className="text-center mb-12">
+              <span className="inline-block px-4 py-1.5 bg-accent/20 text-accent rounded-full text-sm font-bold tracking-widest uppercase mb-6 backdrop-blur-md border border-accent/30">
+                Luxury Travel Redefined
+              </span>
+              <h1 className="font-bold text-white text-4xl md:text-6xl lg:text-7xl mb-6 tracking-tight leading-tight">
+                Find Your Dream <br />
+                <span className="text-primary">Luxury Hotel</span>
+              </h1>
+              <p className="text-soft/80 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
+                Experience world-class hospitality in Canada's most breathtaking locations. Your perfect stay is just a search away.
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-[7px]">
+            <div className="w-full max-w-5xl">
+              <div className="bg-white/10 backdrop-blur-xl p-2 rounded-3xl shadow-2xl border border-white/20">
+                <Suspense fallback={<div className="h-20 bg-white/5 animate-pulse rounded-2xl" />}>
+                  <SearchBar />
+                </Suspense>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section> */}
+
+      {/* Explore Canada */}
+      <section className="w-full bg-soft py-20 md:py-28 px-4 md:px-8 lg:px-[203px]">
+        <div className="site-container">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div>
+              <span className="text-primary font-bold tracking-widest uppercase text-sm mb-3 block">
+                Destinations
+              </span>
+              <h2 className="font-bold text-[#3F2C77] text-3xl md:text-4xl lg:text-5xl tracking-tight">
+                Explore Canada
+              </h2>
+            </div>
+            <p className="font-medium text-[#3F2C77] text-lg max-w-md">
+              Discover most popular and trending destinations across the great
+              white north.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {destinations.map((destination) => (
               <DestinationCard key={destination.id} destination={destination} />
             ))}
@@ -188,77 +573,73 @@ export default function CustomerHomePage() {
       </section>
 
       {/* Most Popular Hotels */}
-      <section className="w-full py-12 md:py-16 lg:py-[82px] px-4 md:px-8 lg:px-[203px]">
+      <section className="w-full py-20 md:py-28 px-4 md:px-8 lg:px-[203px] bg-white">
         <div className="site-container">
-          <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#3F2C77] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
-            Most Popular Hotels
-          </h2>
-          <p className="[font-family:'Poppins',Helvetica] font-normal text-black text-base md:text-lg mb-8 md:mb-12 lg:mb-[54px]">
-            Embark on your next adventure with confidence
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-[7px]">
-            
-              {popularHotels.map((hotel) => (
-                <HotelCard key={hotel.id} hotel={hotel} />
-              ))}
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div>
+              <span className="text-primary font-bold tracking-widest uppercase text-sm mb-3 block">
+                Top Rated
+              </span>
+              <h2 className="font-bold text-[#3F2C77] text-3xl md:text-4xl lg:text-5xl tracking-tight">
+                Most Popular Hotels
+              </h2>
             </div>
+            <p className="font-medium text-[#3F2C77] text-lg max-w-md">
+              Handpicked premium stays for your next unforgettable adventure.
+            </p>
           </div>
-        
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {popularHotels.map((hotel) => (
+              <HotelCard key={hotel.id} hotel={hotel} />
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Offers */}
-      <section className="w-full bg-[#eaffe6] py-12 md:py-16 lg:py-[102px] px-4 md:px-8 lg:px-[203px]">
+      <section className="w-full bg-[#f0f9ff] py-20 md:py-28 px-4 md:px-8 lg:px-[203px]">
         <div className="site-container">
-          <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#3F2C77] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
-            Offers
-          </h2>
-          <p className="[font-family:'Poppins',Helvetica] font-normal text-black text-base md:text-lg mb-8 md:mb-12 lg:mb-[54px]">
-            Promotions, deals and special offers for you
-          </p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div>
+              <span className="text-accent font-bold tracking-widest uppercase text-sm mb-3 block">
+                Exclusive
+              </span>
+              <h2 className="font-bold text-[#3F2C77] text-3xl md:text-4xl lg:text-5xl tracking-tight">
+                Special Offers
+              </h2>
+            </div>
+            <p className="font-medium text-[#3F2C77] text-lg max-w-md">
+              Promotions, deals and unique experiences curated just for you.
+            </p>
+          </div>
 
-          <div className="space-y-4 md:space-y-6">
-            <div className="flex flex-col md:flex-row gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="group overflow-hidden rounded-3xl shadow-xl transition-all duration-500 hover:shadow-2xl h-[240px] relative">
               <Image
-                src="/figmaAssets/yellow-blue-modern-travel-agency-billboard-2.png"
+                src="/figmaAssets/offerbaner1.png"
                 alt="Travel agency promotion"
-                width={377}
-                height={98}
-                className="w-full md:w-[377px] h-[98px] rounded-lg object-cover transition-transform duration-300 hover:scale-[1.02] cursor-pointer"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
+              <div className="absolute inset-0 bg-dark/20 group-hover:bg-dark/10 transition-colors" />
+            </div>
+            <div className="group overflow-hidden rounded-3xl shadow-xl transition-all duration-500 hover:shadow-2xl h-[240px] relative">
               <Image
-                src="/figmaAssets/traveling--banner--landscape----728-x-90-mm--1.png"
+                src="/figmaAssets/offerbanner2.webp"
                 alt="Traveling banner"
-                width={815}
-                height={99}
-                className="w-full md:w-[300px] md:flex-1 h-[99px] rounded-lg object-cover transition-transform duration-300 hover:scale-[1.02] cursor-pointer"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
+              <div className="absolute inset-0 bg-dark/20 group-hover:bg-dark/10 transition-colors" />
             </div>
 
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="w-full md:w-[756px] h-[110px] bg-[#6b371a] rounded-lg relative overflow-hidden transition-transform duration-300 hover:scale-[1.02] cursor-pointer">
-                <div className="absolute top-[28px] left-[20px] md:left-[57px] z-10">
-                  <h3 className="[font-family:'Poppins',Helvetica] font-bold text-white text-[18px] md:text-[22px] leading-[25px] md:leading-[30.5px] mb-2">
-                    Live the dream in a holiday home
-                  </h3>
-                  <p className="text-[#e2a24b] text-xs md:text-sm leading-[16px] md:leading-[19.4px] [font-family:'Poppins',Helvetica]">
-                    Choose form house, villas, chalets and more...!
-                  </p>
-                </div>
-                <Image
-                  src="/figmaAssets/pngwing-com-1.png"
-                  alt=""
-                  width={165}
-                  height={110}
-                  className="absolute top-0 right-[20px] md:right-[135px] w-[120px] md:w-[165px] h-[110px] object-cover"
-                />
-              </div>
+            <div className="md:col-span-2 group overflow-hidden rounded-3xl shadow-xl transition-all duration-500 hover:shadow-2xl h-[300px] relative">
               <Image
-                src="/figmaAssets/screenshot-2025-09-03-at-6-00-16-am-1.png"
-                alt="Special offer"
-                width={436}
-                height={110}
-                className="w-full md:w-[436px] h-[110px] rounded-lg object-cover transition-transform duration-300 hover:scale-[1.02] cursor-pointer"
+                src="/figmaAssets/offerbanner1.png"
+                alt="Traveling banner"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
             </div>
           </div>
@@ -266,50 +647,39 @@ export default function CustomerHomePage() {
       </section>
 
       {/* Unique Properties */}
-      <section className="w-full py-12 md:py-16 lg:py-[57px] px-4 md:px-8 lg:px-[203px]">
+      <section className="w-full py-20 md:py-28 px-4 md:px-8 lg:px-[203px] bg-soft">
         <div className="site-container">
-          <h2 className="[font-family:'Poppins',Helvetica] font-bold text-[#3F2C77] text-[22px] md:text-[26px] lg:text-[28px] mb-3">
-            Your perfect Guest House stay awaits
-          </h2>
-          <p className="[font-family:'Poppins',Helvetica] font-normal text-black text-base md:text-lg lg:text-xl mb-8 md:mb-12 lg:mb-[54px]">
-            Trusted guest houses loved by travelers across Canada
-          </p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div>
+              <span className="text-primary font-bold tracking-widest uppercase text-sm mb-3 block">
+                Guest Houses
+              </span>
+              <h2 className="font-bold text-[#3F2C77] text-3xl md:text-4xl lg:text-5xl leading-tight tracking-tight">
+                Your perfect Guest House <br /> stay awaits
+              </h2>
+            </div>
+            <p className="font-medium text-[#3F2C77] text-lg max-w-md">
+              Trusted guest houses loved by travelers across Canada for that
+              home-away-from-home feeling.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-[7px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {guestHouses.map((guestHouse) => (
               <GuestHouseCard key={guestHouse.id} property={guestHouse} />
             ))}
           </div>
-          <div className="mt-10 flex justify-center">
+          <div className="mt-16 flex justify-center">
             <a
               href="/customer/listing?type=Guest%20House"
-              className="
-      inline-flex items-center gap-2
-      px-6 py-3
-      rounded-full
-      bg-[#3F2C77]
-      text-white
-      font-semibold
-      hover:bg-[#2E2059]
-      transition-all
-    "
+              className="px-10 py-5 bg-white border-2 border-primary text-primary font-bold rounded-2xl transition-all duration-300 hover:bg-primary hover:text-white hover:scale-105 shadow-lg shadow-primary/5 flex items-center gap-2 group"
             >
               View all guest houses
-              <span aria-hidden>→</span>
+              <span className="group-hover:translate-x-1 transition-transform">
+                →
+              </span>
             </a>
           </div>
-
-          {/* <Button
-          className="w-10 h-10 bg-white rounded-[20px] shadow-[0px_4px_4px_#00000040] p-0 mt-16 md:mt-24 lg:mt-[133px] ml-auto flex transition-all duration-200 hover:bg-white/90 hover:scale-110 hover:shadow-xl"
-          aria-label="Next properties"
-        >
-          <Image
-            src="/figmaAssets/image-19.png"
-            alt=""
-            width={19}
-            height={20}
-          />
-        </Button> */}
         </div>
       </section>
 

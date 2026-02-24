@@ -66,7 +66,7 @@ export function DestinationCard({ destination }: DestinationCardProps) {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
             <div className="absolute bottom-6 left-6">
-              <span className="text-white font-bold text-lg md:text-xl block translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
+              <span className="text-white drop-shadow-lg font-bold text-lg md:text-xl block translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
                 {destination.name}
               </span>
               <span className="text-[#ffffff] text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">

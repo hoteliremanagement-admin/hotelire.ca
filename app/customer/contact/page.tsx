@@ -137,7 +137,7 @@ const [formData, setFormData] = useState({
               ) : (
                 <>
                   <div className="mb-8">
-                    <a href="https://hotelire.com"><img src="https://res.cloudinary.com/dzzuoem1w/image/upload/v1767352509/logo_orignal_q0jn75.png" alt="Hotelire Logo" className ="header-logo w-40" /></a>
+                    <a href="https://hotelire.com"><img src="/figmaAssets/logo_orignal1.png" alt="Hotelire Logo" className ="header-logo w-40" /></a>
                     
                     <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-3 mt-3">Let's Get In Touch.</h1>
                     <p className="text-gray-600">
@@ -213,7 +213,7 @@ const [formData, setFormData] = useState({
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-gradient-to-r from-[#3F2C77] to-[#4a8a95] hover:from-[#4a8a95] hover:to-[#3f7680] text-white font-semibold py-4 px-6 rounded-full flex justify-center items-center gap-2 transition-all duration-200 disabled:opacity-70 shadow-sm hover:shadow-xl text-base md:text-lg"
+                      className="w-full bg-gradient-to-r from-[#3F2C77] to-[#191130] hover:from-[#191130] hover:to-[#3F2C77] text-white font-semibold py-4 px-6 rounded-full flex justify-center items-center gap-2 transition-all duration-200 disabled:opacity-70 shadow-sm hover:shadow-xl text-base md:text-lg"
                           >
                       {isSubmitting ? (
                         <>

@@ -16,6 +16,7 @@ export interface Hotel {
   reviews: string;
   image: string;
   stars: string;
+  price?: number; 
 }
 
 export interface GuestHouse {
@@ -27,6 +28,7 @@ export interface GuestHouse {
   reviews: string;
   image: string;
   stars: string;
+  price?: number; 
 }
 
 export interface SearchParams {

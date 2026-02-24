@@ -90,6 +90,19 @@ export default function HotelDetailPage({ id }: { id: string }) {
   const router = useRouter();
 
 
+//guest work:
+const ROOM_CAPACITY: Record<string, { adults: number; children: number }> = {
+  "King Room (1 King Bed)": { adults: 2, children: 4 },
+  "Double/Queen Room (1 Queen Bed)": { adults: 2, children: 4 },
+  "Quad Room (2 large double beds)": { adults: 4, children: 4 },
+};
+
+
+
+
+
+
+
   // Availabilities state
   const [PropertyAmenities, setPropertyAmenities] = useState<Amenities[]>([]);
   const [PropertySafetyFeatures, setPropertySafetyFeatures] = useState<
@@ -457,6 +470,36 @@ export default function HotelDetailPage({ id }: { id: string }) {
     );
   };
 
+  const calculateGuestCapacity = () => {
+  let maxAdults = 0;
+  let maxChildren = 0;
+
+  cart.forEach((item) => {
+    const capacity = ROOM_CAPACITY[item.roomtypename];
+
+    if (capacity) {
+      maxAdults += capacity.adults * item.quantity;
+      maxChildren += capacity.children * item.quantity;
+    }
+  });
+
+  return { maxAdults, maxChildren };
+};
+
+
+useEffect(() => {
+  const { maxAdults, maxChildren } = calculateGuestCapacity();
+
+  if (adults > maxAdults) {
+    setAdults(maxAdults);
+  }
+
+  if (children > maxChildren) {
+    setChildren(maxChildren);
+  }
+}, [cart]);
+
+
   //ustaad ka code
   //   const handleReserve = () => {
   //     if (!checkInDate || !checkOutDate || cart.length === 0) {
@@ -545,6 +588,7 @@ export default function HotelDetailPage({ id }: { id: string }) {
   // };
 
   const handleReserve = async () => {
+    
     if (roleId === 2) {
       toast.error(
         "You are logged in as a property owner. Please use a customer account to make a booking.",
@@ -552,7 +596,8 @@ export default function HotelDetailPage({ id }: { id: string }) {
       return;
     }
 
-    if (!checkInDate || !checkOutDate || cart.length === 0) {
+    if (!checkInDate || !checkOutDate || cart.length === 0)
+       {
       setShowValidation(true);
       return;
     }
@@ -568,6 +613,18 @@ export default function HotelDetailPage({ id }: { id: string }) {
           quantity: c.quantity,
         })),
       };
+
+const { maxAdults, maxChildren } = calculateGuestCapacity();
+
+if (adults > maxAdults || children > maxChildren) {
+  toast.error(
+    `You've selected ${cart.length} room type(s).
+Maximum allowed: ${maxAdults} adults & ${maxChildren} children.
+Please add more rooms.`
+  );
+  return;
+}
+
 
       // Call availability API
       const response = await fetch(`${baseUrl}/booking/checkRoomAvailability`, {
@@ -846,7 +903,14 @@ export default function HotelDetailPage({ id }: { id: string }) {
                           size="icon"
                           variant="outline"
                           className="h-8 w-8 rounded-full"
-                          onClick={() => setAdults(adults + 1)}
+                          onClick={() => {
+  const { maxAdults } = calculateGuestCapacity();
+  if (adults < maxAdults) {
+    setAdults(adults + 1);
+  } else {
+    toast.error("Room capacity reached. Add more rooms.");
+  }
+}}
                           data-testid="button-increase-adults"
                         >
                           <Plus className="h-4 w-4" />

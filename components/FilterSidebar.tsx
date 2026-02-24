@@ -189,6 +189,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Slider } from "@/components/ui/slider"
+import { color } from "framer-motion"
 
 interface FilterSidebarProps {
   searchQuery: string
@@ -260,6 +261,7 @@ export function FilterSidebar({
             max={1000}
             step={10}
             className="w-full"
+            
           />
           <div className="flex items-center justify-between">
             <span className="[font-family:'Inter',Helvetica] text-sm text-gray-600">
