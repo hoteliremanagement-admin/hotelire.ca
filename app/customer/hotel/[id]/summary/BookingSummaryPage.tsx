@@ -1451,7 +1451,7 @@ export default function BookingSummaryPage() {
                   type="button"
                   onClick={handleSubmit}
                   disabled={!isFormValid || isSubmitting}
-                  className="w-full bg-[#3F2C77] hover:bg-[#4a9199]"
+                  className="w-full bg-[#3F2C77] hover:bg-[#281d4b]"
                 >
                   {isSubmitting
                     ? "Processing Payment..."
@@ -1557,7 +1557,7 @@ export default function BookingSummaryPage() {
                 <p className="text-gray-600 mb-4">{paymentError}</p>
                 <Button
                   onClick={() => setShowErrorModal(false)}
-                  className="w-full bg-[#3F2C77] hover:bg-[#4a9199]"
+                  className="w-full bg-[#3F2C77] hover:bg-[#281d4b]"
                 >
                   Close
                 </Button>

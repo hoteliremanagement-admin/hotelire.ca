@@ -17,7 +17,7 @@ export default function VerificationPanel() {
   <div className="absolute inset-0 bg-black opacity-40"></div>
 
   {/* Optional blue overlay */}
-  <div className="absolute inset-0 bg-[#59A5B2]/30 mix-blend-overlay"></div>
+  <div className="absolute inset-0 bg-[#3f2c77]/30 mix-blend-overlay"></div>
 
   <div className="relative z-10 flex flex-col items-center w-full max-w-xs">
     <div className="mb-8 flex items-center justify-center">

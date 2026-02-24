@@ -876,51 +876,6 @@ function getIcon(iconName: string): Icons.IconDefinition | undefined {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // function PropertyCard({ property, onDelete }: { property: Property; onDelete: () => void }) {
 function PropertyCard({
   property,

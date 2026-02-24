@@ -140,7 +140,7 @@ export default function Revenue() {
       <OwnerLayout>
         <div className="flex items-center justify-center h-[80vh]">
           <div className="flex flex-col items-center gap-4">
-            <div className="w-12 h-12 border-4 border-[#59A5B2] border-t-transparent rounded-full animate-spin"></div>
+            <div className="w-12 h-12 border-4 border-[#3f2c77] border-t-transparent rounded-full animate-spin"></div>
             <p className="text-gray-500 font-medium">Loading Revenue Data...</p>
           </div>
         </div>
@@ -163,7 +163,7 @@ export default function Revenue() {
               <CalendarIcon className="w-4 h-4" />
               <span>This Year</span>
             </button>
-            <button className="flex items-center gap-2 px-4 py-2 bg-[#59A5B2] text-white rounded-xl hover:bg-[#4a9199] font-medium shadow-md shadow-[#59A5B2]/20 transition-all">
+            <button className="flex items-center gap-2 px-4 py-2 bg-[#3f2c77] text-white rounded-xl hover:bg-[#4a9199] font-medium shadow-md shadow-[#3f2c77]/20 transition-all">
               <Download className="w-4 h-4" />
               <span>Export Report</span>
             </button>
@@ -175,7 +175,7 @@ export default function Revenue() {
           {/* Total Revenue */}
           <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm relative overflow-hidden group hover:shadow-md transition-all">
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-              <DollarSign className="w-24 h-24 text-[#59A5B2]" />
+              <DollarSign className="w-24 h-24 text-[#3f2c77]" />
             </div>
             <div className="flex items-center gap-4 mb-4">
               <div className="p-3 bg-green-50 rounded-xl text-green-600">
@@ -238,8 +238,8 @@ export default function Revenue() {
                 <AreaChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                   <defs>
                     <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#59A5B2" stopOpacity={0.2} />
-                      <stop offset="95%" stopColor="#59A5B2" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#3f2c77" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="#3f2c77" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
@@ -247,9 +247,9 @@ export default function Revenue() {
                   <YAxis axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF' }} tickFormatter={(value) => `$${value}`} />
                   <Tooltip
                     contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-                    cursor={{ stroke: '#59A5B2', strokeWidth: 1 }}
+                    cursor={{ stroke: '#3f2c77', strokeWidth: 1 }}
                   />
-                  <Area type="monotone" dataKey="revenue" stroke="#59A5B2" strokeWidth={3} fillOpacity={1} fill="url(#colorRevenue)" />
+                  <Area type="monotone" dataKey="revenue" stroke="#3f2c77" strokeWidth={3} fillOpacity={1} fill="url(#colorRevenue)" />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
@@ -268,7 +268,7 @@ export default function Revenue() {
                     cursor={{ fill: '#F3F4F6' }}
                     contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                   />
-                  <Bar dataKey="value" fill="#59A5B2" radius={[0, 4, 4, 0]} barSize={20} />
+                  <Bar dataKey="value" fill="#3f2c77" radius={[0, 4, 4, 0]} barSize={20} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -298,7 +298,7 @@ export default function Revenue() {
                         type="checkbox"
                         checked={visibleColumns[col as keyof typeof visibleColumns]}
                         onChange={() => toggleColumn(col as keyof typeof visibleColumns)}
-                        className="rounded border-gray-300 text-[#59A5B2] focus:ring-[#59A5B2]"
+                        className="rounded border-gray-300 text-[#3f2c77] focus:ring-[#3f2c77]"
                       />
                       <span className="text-sm text-gray-700 capitalize">{col}</span>
                     </label>
@@ -339,7 +339,7 @@ export default function Revenue() {
                       </td>
                     )}
                     {visibleColumns.amount && (
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-[#59A5B2]">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-[#3f2c77]">
                         +${tx.amount.toLocaleString()}
                       </td>
                     )}
@@ -361,7 +361,7 @@ export default function Revenue() {
                         >
 
 
-                          <span className="text-[#59A5B2] hover:text-[#4a9199] flex items-center justify-end gap-1 cursor-pointer">
+                          <span className="text-[#3f2c77] hover:text-[#4a9199] flex items-center justify-end gap-1 cursor-pointer">
                             View Booking <ArrowUpRight className="w-3 h-3" />
                           </span>
                         </button>

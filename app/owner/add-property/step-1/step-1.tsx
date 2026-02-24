@@ -801,7 +801,7 @@ export default function Step1Page() {
               <button
                 onClick={() => handleOptionSelect(1)}
                 className={`w-full p-6 rounded-xl border-2 transition-all duration-200 text-left ${selectedOption === 1
-                  ? "border-[#59A5B2] bg-[#59A5B2]/5 shadow-md"
+                  ? "border-[#3f2c77] bg-[#3f2c77]/5 shadow-md"
                   : "border-gray-200 hover:border-gray-300 hover:shadow-sm"
                   }`}
                 data-testid="button-option-profile"
@@ -810,7 +810,7 @@ export default function Step1Page() {
               >
                 <div className="flex items-start gap-4">
                   <div
-                    className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center ${selectedOption === 1 ? "bg-[#59A5B2]" : "bg-gray-100"
+                    className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center ${selectedOption === 1 ? "bg-[#3f2c77]" : "bg-gray-100"
                       }`}
                   >
                     <Home
@@ -839,7 +839,7 @@ export default function Step1Page() {
               <button
                 onClick={() => handleOptionSelect(2)}
                 className={`w-full p-6 rounded-xl border-2 transition-all duration-200 text-left ${selectedOption === 2
-                  ? "border-[#59A5B2] bg-[#59A5B2]/5 shadow-md"
+                  ? "border-[#3f2c77] bg-[#3f2c77]/5 shadow-md"
                   : "border-gray-200 hover:border-gray-300 hover:shadow-sm"
                   }`}
                 data-testid="button-option-new"
@@ -847,7 +847,7 @@ export default function Step1Page() {
               >
                 <div className="flex items-start gap-4">
                   <div
-                    className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center ${selectedOption === 2 ? "bg-[#59A5B2]" : "bg-gray-100"
+                    className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center ${selectedOption === 2 ? "bg-[#3f2c77]" : "bg-gray-100"
                       }`}
                   >
                     <MapPin
@@ -1157,7 +1157,7 @@ export default function Step1Page() {
                       }
                     }}
                     placeholder="e.g., 123 Queen Street W"
-                    className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#59A5B2] transition-all ${errors.street ? "border-red-500" : "border-gray-300"
+                    className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3f2c77] transition-all ${errors.street ? "border-red-500" : "border-gray-300"
                       }`}
                     style={{ fontFamily: "Inter, sans-serif" }}
                     data-testid="input-street"
@@ -1223,7 +1223,7 @@ export default function Step1Page() {
                     }}
                     placeholder="A1A 1A1"
                     maxLength={7}
-                    className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#59A5B2] transition-all ${errors.postalCode ? "border-red-500" : "border-gray-300"
+                    className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3f2c77] transition-all ${errors.postalCode ? "border-red-500" : "border-gray-300"
                       }`}
                     style={{ fontFamily: "Inter, sans-serif" }}
                     data-testid="input-postal"
@@ -1320,8 +1320,8 @@ export default function Step1Page() {
                         className={`relative border-2 border-dashed rounded-xl p-8 text-center transition-all ${!formData.documentType
                           ? "bg-gray-50 border-gray-200 cursor-not-allowed"
                           : isDragging
-                            ? "border-[#59A5B2] bg-[#59A5B2]/5"
-                            : "border-gray-300 hover:border-[#59A5B2] hover:bg-gray-50 cursor-pointer"
+                            ? "border-[#3f2c77] bg-[#3f2c77]/5"
+                            : "border-gray-300 hover:border-[#3f2c77] hover:bg-gray-50 cursor-pointer"
                           }`}
                         data-testid="upload-document"
                       >
@@ -1337,7 +1337,7 @@ export default function Step1Page() {
                         />
                         <Upload
                           className={`w-12 h-12 mx-auto mb-4 ${formData.documentType
-                            ? "text-[#59A5B2]"
+                            ? "text-[#3f2c77]"
                             : "text-gray-300"
                             }`}
                         />
@@ -1507,7 +1507,7 @@ export default function Step1Page() {
             }
             className={`px-8 h-12 rounded-lg font-semibold transition-all flex items-center justify-center gap-2
              ${canProceed() && !isLoading
-                ? "bg-[#59A5B2] text-white hover:bg-[#4a8a95] shadow-md hover:shadow-lg"
+                ? "bg-[#3f2c77] text-white hover:bg-[#4a8a95] shadow-md hover:shadow-lg"
                 : "bg-gray-200 text-gray-400 cursor-not-allowed"
               }`}
             style={{ fontFamily: "Inter, sans-serif" }}

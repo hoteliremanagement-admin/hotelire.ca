@@ -71,7 +71,7 @@ export default function ReviewsPage() {
     return (
       <OwnerLayout>
         <div className="flex h-[50vh] items-center justify-center">
-          <Loader2 className="h-8 w-8 animate-spin text-[#59A5B2]" />
+          <Loader2 className="h-8 w-8 animate-spin text-[#3f2c77]" />
         </div>
       </OwnerLayout>
     );
@@ -83,7 +83,7 @@ export default function ReviewsPage() {
         {/* Page Header */}
         <div>
           <h1
-            className="text-2xl md:text-3xl font-bold text-[#59A5B2]"
+            className="text-2xl md:text-3xl font-bold text-[#3f2c77]"
             style={{ fontFamily: "Poppins, sans-serif" }}
           >
             Reviews
@@ -133,7 +133,7 @@ export default function ReviewsPage() {
           </div>
 
           {/* Interested Dynamic Card - Guest Satisfaction */}
-          <div className="bg-gradient-to-br from-[#59A5B2] to-[#4a9199] rounded-xl p-6 shadow-sm text-white flex flex-col justify-between">
+          <div className="bg-gradient-to-br from-[#3f2c77] to-[#4a9199] rounded-xl p-6 shadow-sm text-white flex flex-col justify-between">
             <div>
               <h3 className="text-lg font-semibold opacity-90">Guest Satisfaction</h3>
               <p className="text-sm opacity-75">Positive reviews (4+ stars)</p>
@@ -165,7 +165,7 @@ export default function ReviewsPage() {
             >
               <div className="flex items-start gap-4">
                 {/* Avatar */}
-                <div className="w-12 h-12 bg-[#59A5B2] rounded-full flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 bg-[#3f2c77] rounded-full flex items-center justify-center flex-shrink-0">
                   <span className="text-white font-semibold">{review.guestAvatar}</span>
                 </div>
 
@@ -191,7 +191,7 @@ export default function ReviewsPage() {
                   {/* Reply Action - Opens Email Client */}
                   <a
                     href={`mailto:${review.guestEmail}?subject=Reply to your review for ${review.property}&body=Dear ${review.guestName},%0D%0A%0D%0AThank you for your review...`}
-                    className="inline-flex items-center gap-2 text-[#59A5B2] hover:text-[#4a9199] text-sm font-medium transition-colors hover:underline"
+                    className="inline-flex items-center gap-2 text-[#3f2c77] hover:text-[#4a9199] text-sm font-medium transition-colors hover:underline"
                     data-testid={`reply-email-${review.id}`}
                   >
                     <FontAwesomeIcon icon={faEnvelope} className="w-4 h-4" />

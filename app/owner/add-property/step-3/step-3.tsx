@@ -689,7 +689,7 @@ export default function Step3Page() {
                           room(s)
                         </p>
                       </div>
-                      <p className="text-lg font-bold text-[#59A5B2]" style={{ fontFamily: "Inter, sans-serif" }}>
+                      <p className="text-lg font-bold text-[#3f2c77]" style={{ fontFamily: "Inter, sans-serif" }}>
                         ${room.price}/night
                       </p>
                     </div>
@@ -719,7 +719,7 @@ export default function Step3Page() {
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setShowPreview(false)}
-                className="flex-1 px-6 h-12 border-2 border-[#59A5B2] text-[#59A5B2] font-semibold rounded-lg hover:bg-[#59A5B2]/5 transition-colors"
+                className="flex-1 px-6 h-12 border-2 border-[#3f2c77] text-[#3f2c77] font-semibold rounded-lg hover:bg-[#3f2c77]/5 transition-colors"
                 style={{ fontFamily: "Inter, sans-serif" }}
               >
                 Back to Edit
@@ -729,7 +729,7 @@ export default function Step3Page() {
                 disabled={isSubmitting}
                 className={`flex-1 px-6 h-12 rounded-lg font-semibold transition-all ${isSubmitting
                   ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  : "bg-[#59A5B2] text-white hover:bg-[#4a8a95] shadow-md hover:shadow-lg"
+                  : "bg-[#3f2c77] text-white hover:bg-[#4a8a95] shadow-md hover:shadow-lg"
                   }`}
                 style={{ fontFamily: "Inter, sans-serif" }}
                 data-testid="button-publish"
@@ -822,7 +822,7 @@ export default function Step3Page() {
                       </h2>
                       <button
                         onClick={addRoom}
-                        className="flex items-center gap-2 px-4 h-10 bg-[#59A5B2] text-white rounded-lg hover:bg-[#4a8a95] transition-colors"
+                        className="flex items-center gap-2 px-4 h-10 bg-[#3f2c77] text-white rounded-lg hover:bg-[#4a8a95] transition-colors"
                         style={{ fontFamily: "Inter, sans-serif" }}
                         data-testid="button-add-room"
                       >
@@ -888,7 +888,7 @@ export default function Step3Page() {
                                     }
                                   }}
                                   placeholder="e.g., Deluxe Suite"
-                                  className={`w-full h-10 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#59A5B2] ${errors[`room-${room.id}-name`] ? "border-red-500" : "border-gray-300"}`}
+                                  className={`w-full h-10 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3f2c77] ${errors[`room-${room.id}-name`] ? "border-red-500" : "border-gray-300"}`}
                                   style={{ fontFamily: "Inter, sans-serif" }}
                                   data-testid={`input-room-name-${room.id}`} />
                                 {errors[`room-${room.id}-name`] && (
@@ -953,7 +953,7 @@ export default function Step3Page() {
                                       setErrors({ ...errors, [`room-${room.id}-count`]: "" })
                                     }
                                   }}
-                                  className={`w-full h-10 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#59A5B2] ${errors[`room-${room.id}-count`] ? "border-red-500" : "border-gray-300"}`}
+                                  className={`w-full h-10 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3f2c77] ${errors[`room-${room.id}-count`] ? "border-red-500" : "border-gray-300"}`}
                                   style={{ fontFamily: "Inter, sans-serif" }}
                                   data-testid={`input-room-count-${room.id}`} />
                                 {errors[`room-${room.id}-count`] && (
@@ -992,7 +992,7 @@ export default function Step3Page() {
                                     }
                                   }}
                                   placeholder="0.00"
-                                  className={`w-full h-10 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#59A5B2] ${errors[`room-${room.id}-price`] ? "border-red-500" : "border-gray-300"}`}
+                                  className={`w-full h-10 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3f2c77] ${errors[`room-${room.id}-price`] ? "border-red-500" : "border-gray-300"}`}
                                   style={{ fontFamily: "Inter, sans-serif" }}
                                   data-testid={`input-room-price-${room.id}`} />
                                 {errors[`room-${room.id}-price`] && (
@@ -1013,7 +1013,7 @@ export default function Step3Page() {
                                     Image 1 *
                                   </p>
                                   {!room.image1Preview ? (
-                                    <div className="relative aspect-video border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-[#59A5B2] transition-colors">
+                                    <div className="relative aspect-video border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-[#3f2c77] transition-colors">
                                       <input
                                         type="file"
                                         accept="image/jpeg,image/jpg,image/png"
@@ -1023,7 +1023,7 @@ export default function Step3Page() {
                                         }}
                                         className="absolute inset-0 opacity-0 cursor-pointer"
                                         data-testid={`input-room-image1-${room.id}`} />
-                                      <Upload className="w-8 h-8 text-[#59A5B2] mb-2" />
+                                      <Upload className="w-8 h-8 text-[#3f2c77] mb-2" />
                                       <p
                                         className="text-xs text-gray-600 text-center px-2"
                                         style={{ fontFamily: "Inter, sans-serif" }}
@@ -1061,7 +1061,7 @@ export default function Step3Page() {
                                     Image 2 *
                                   </p>
                                   {!room.image2Preview ? (
-                                    <div className="relative aspect-video border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-[#59A5B2] transition-colors">
+                                    <div className="relative aspect-video border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-[#3f2c77] transition-colors">
                                       <input
                                         type="file"
                                         accept="image/jpeg,image/jpg,image/png"
@@ -1071,7 +1071,7 @@ export default function Step3Page() {
                                         }}
                                         className="absolute inset-0 opacity-0 cursor-pointer"
                                         data-testid={`input-room-image2-${room.id}`} />
-                                      <Upload className="w-8 h-8 text-[#59A5B2] mb-2" />
+                                      <Upload className="w-8 h-8 text-[#3f2c77] mb-2" />
                                       <p
                                         className="text-xs text-gray-600 text-center px-2"
                                         style={{ fontFamily: "Inter, sans-serif" }}
@@ -1131,7 +1131,7 @@ export default function Step3Page() {
                     <label
                       key={amenity.amenitiesid}
                       className={`flex items-center gap-2 p-3 border rounded-lg cursor-pointer transition-all ${amenities.available.some((a) => a.amenitiesid === amenity.amenitiesid)
-                        ? "border-[#59A5B2] bg-[#59A5B2]/5"
+                        ? "border-[#3f2c77] bg-[#3f2c77]/5"
                         : "border-gray-300 hover:border-gray-400"
                         }`}
                     >
@@ -1139,7 +1139,7 @@ export default function Step3Page() {
                         type="checkbox"
                         checked={amenities.available.some((a) => a.amenitiesid === amenity.amenitiesid)}
                         onChange={() => toggleAmenity(amenity)}
-                        className="w-4 h-4 text-[#59A5B2] rounded focus:ring-[#59A5B2]"
+                        className="w-4 h-4 text-[#3f2c77] rounded focus:ring-[#3f2c77]"
                       />
                       <span className="text-sm text-gray-700" style={{ fontFamily: "Inter, sans-serif" }}>
                         {amenity.amenitiesname}
@@ -1164,7 +1164,7 @@ export default function Step3Page() {
                   <label
                     key={amenity.amenitiesid}
                     className={`flex items-center gap-2 p-3 border rounded-lg cursor-pointer transition-all ${amenities.featured.some((a) => a.amenitiesid === amenity.amenitiesid)
-                      ? "border-[#59A5B2] bg-[#59A5B2]/5"
+                      ? "border-[#3f2c77] bg-[#3f2c77]/5"
                       : "border-gray-300 hover:border-gray-400"
                       } ${amenities.featured.length >= 3 && !amenities.featured.some((a) => a.amenitiesid === amenity.amenitiesid) ? "opacity-50 cursor-not-allowed" : ""}`}
                   >
@@ -1176,7 +1176,7 @@ export default function Step3Page() {
                         amenities.featured.length >= 3 &&
                         !amenities.featured.some((a) => a.amenitiesid === amenity.amenitiesid)
                       }
-                      className="w-4 h-4 text-[#59A5B2] rounded focus:ring-[#59A5B2] disabled:opacity-50"
+                      className="w-4 h-4 text-[#3f2c77] rounded focus:ring-[#3f2c77] disabled:opacity-50"
                     />
                     <span className="text-sm text-gray-700" style={{ fontFamily: "Inter, sans-serif" }}>
                       {amenity.amenitiesname}
@@ -1200,7 +1200,7 @@ export default function Step3Page() {
                   <label
                     key={feature.safetyfeaturesid}
                     className={`flex items-center gap-2 p-3 border rounded-lg cursor-pointer transition-all ${amenities.safety.some((s) => s.safetyfeaturesid === feature.safetyfeaturesid)
-                      ? "border-[#59A5B2] bg-[#59A5B2]/5"
+                      ? "border-[#3f2c77] bg-[#3f2c77]/5"
                       : "border-gray-300 hover:border-gray-400"
                       }`}
                   >
@@ -1208,7 +1208,7 @@ export default function Step3Page() {
                       type="checkbox"
                       checked={amenities.safety.some((s) => s.safetyfeaturesid === feature.safetyfeaturesid)}
                       onChange={() => toggleSafety(feature)}
-                      className="w-4 h-4 text-[#59A5B2] rounded focus:ring-[#59A5B2]"
+                      className="w-4 h-4 text-[#3f2c77] rounded focus:ring-[#3f2c77]"
                     />
                     <span className="text-sm text-gray-700" style={{ fontFamily: "Inter, sans-serif" }}>
                       {feature.safetyfeaturesname}
@@ -1281,7 +1281,7 @@ export default function Step3Page() {
                   <label
                     key={space.sharedspacesid}
                     className={`flex items-center gap-2 p-3 border rounded-lg cursor-pointer transition-all ${amenities.sharedSpaces.some((s) => s.sharedspacesid === space.sharedspacesid)
-                      ? "border-[#59A5B2] bg-[#59A5B2]/5"
+                      ? "border-[#3f2c77] bg-[#3f2c77]/5"
                       : "border-gray-300 hover:border-gray-400"
                       }`}
                   >
@@ -1289,7 +1289,7 @@ export default function Step3Page() {
                       type="checkbox"
                       checked={amenities.sharedSpaces.some((s) => s.sharedspacesid === space.sharedspacesid)}
                       onChange={() => toggleSharedSpace(space)}
-                      className="w-4 h-4 text-[#59A5B2] rounded focus:ring-[#59A5B2]"
+                      className="w-4 h-4 text-[#3f2c77] rounded focus:ring-[#3f2c77]"
                     />
                     <span className="text-sm text-gray-700" style={{ fontFamily: "Inter, sans-serif" }}>
                       {space.sharedspacesname}
@@ -1321,7 +1321,7 @@ export default function Step3Page() {
                 maxLength={1000}
                 rows={6}
                 placeholder="Enter your property rules and policies..."
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#59A5B2] resize-none"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3f2c77] resize-none"
                 style={{ fontFamily: "Inter, sans-serif" }}
                 data-testid="textarea-rules"
               />
@@ -1346,7 +1346,7 @@ export default function Step3Page() {
                 onClick={() => setShowPreview(true)}
                 disabled={!canProceed()}
                 className={`px-8 h-12 rounded-lg font-semibold transition-all ${canProceed()
-                  ? "bg-[#59A5B2] text-white hover:bg-[#4a8a95] shadow-md hover:shadow-lg"
+                  ? "bg-[#3f2c77] text-white hover:bg-[#4a8a95] shadow-md hover:shadow-lg"
                   : "bg-gray-200 text-gray-400 cursor-not-allowed"
                   }`}
                 style={{ fontFamily: "Inter, sans-serif" }}

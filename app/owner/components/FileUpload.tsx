@@ -23,7 +23,7 @@ interface FileUploadProps {
   disabled?: boolean
 }
 
-const BRAND = "#59A5B2"
+const BRAND = "#3f2c77"
 
 export default function FileUpload({
   label,
@@ -147,7 +147,7 @@ export default function FileUpload({
           className={`border-2 border-dashed rounded-md p-8 text-center transition ${
             disabled
               ? "border-gray-200 bg-gray-50 cursor-not-allowed opacity-50"
-              : "border-gray-300 cursor-pointer hover:border-[#59A5B2]"
+              : "border-gray-300 cursor-pointer hover:border-[#3f2c77]"
           }`}
           onClick={() => !disabled && fileInputRef.current?.click()}
         >

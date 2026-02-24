@@ -598,7 +598,7 @@ export default function Step2Page() {
                     }
                   }}
                   placeholder="e.g., Cozy Downtown Apartment"
-                  className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#59A5B2] transition-all ${errors.title ? "border-red-500" : "border-gray-300"
+                  className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3f2c77] transition-all ${errors.title ? "border-red-500" : "border-gray-300"
                     }`}
                   style={{ fontFamily: 'Inter, sans-serif' }}
                   data-testid="input-title"
@@ -649,7 +649,7 @@ export default function Step2Page() {
                   }}
                   placeholder="Short tagline"
                   maxLength={150}
-                  className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#59A5B2] transition-all ${errors.subtitle ? "border-red-500" : "border-gray-300"
+                  className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3f2c77] transition-all ${errors.subtitle ? "border-red-500" : "border-gray-300"
                     }`}
                   style={{ fontFamily: 'Inter, sans-serif' }}
                   data-testid="input-subtitle"
@@ -690,7 +690,7 @@ export default function Step2Page() {
                     }
                   }}
                   placeholder="e.g., John Doe's Property"
-                  className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#59A5B2] transition-all ${errors.propertyName ? "border-red-500" : "border-gray-300"
+                  className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3f2c77] transition-all ${errors.propertyName ? "border-red-500" : "border-gray-300"
                     }`}
                   style={{ fontFamily: 'Inter, sans-serif' }}
                   data-testid="input-property-name"
@@ -721,7 +721,7 @@ export default function Step2Page() {
                     handlePlaceSearch(value);
                   }}
                   placeholder="Search for a location..."
-                  className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#59A5B2] ${errors.googleMapLink ? "border-red-500" : "border-gray-300"
+                  className={`w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3f2c77] ${errors.googleMapLink ? "border-red-500" : "border-gray-300"
                     }`}
 
                 />
@@ -735,7 +735,7 @@ export default function Step2Page() {
                         onClick={() => handleSelectSuggestion(s)}
                         className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 cursor-pointer"
                       >
-                        <MapPin className="w-4 h-4 text-[#59A5B2]" />
+                        <MapPin className="w-4 h-4 text-[#3f2c77]" />
                         <div>
                           <p className="font-medium text-sm">{s.structured_formatting.main_text}</p>
                           <p className="text-xs text-gray-500">{s.structured_formatting.secondary_text}</p>
@@ -783,8 +783,8 @@ export default function Step2Page() {
                           }}
                           onDragLeave={() => setDragTarget(null)}
                           className={`relative aspect-video border-2 border-dashed rounded-lg flex flex-col items-center justify-center cursor-pointer transition-all ${dragTarget === key
-                            ? "border-[#59A5B2] bg-[#59A5B2]/5"
-                            : "border-gray-300 hover:border-[#59A5B2] hover:bg-gray-50"
+                            ? "border-[#3f2c77] bg-[#3f2c77]/5"
+                            : "border-gray-300 hover:border-[#3f2c77] hover:bg-gray-50"
                             }`}
                           data-testid={`upload-${key}`}
                         >
@@ -797,7 +797,7 @@ export default function Step2Page() {
                             }}
                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                           />
-                          <Upload className="w-8 h-8 text-[#59A5B2] mb-2" />
+                          <Upload className="w-8 h-8 text-[#3f2c77] mb-2" />
                           <p
                             className="text-xs text-gray-600 text-center px-2"
                             style={{ fontFamily: 'Inter, sans-serif' }}
@@ -842,7 +842,7 @@ export default function Step2Page() {
           <div className="hidden lg:block sticky top-32">
             {formData.googleMapLink && validateGoogleMapsURL(formData.googleMapLink) ? (
               <div className="rounded-2xl overflow-hidden shadow-lg bg-white border border-gray-200">
-                {/* <div className="bg-[#59A5B2] px-6 py-4">
+                {/* <div className="bg-[#3f2c77] px-6 py-4">
                   <p
                     className="text-white font-semibold"
                     style={{ fontFamily: 'Poppins, sans-serif' }}
@@ -863,9 +863,9 @@ export default function Step2Page() {
                 />
               </div>
             ) : (
-              <div className="bg-gradient-to-br from-[#59A5B2]/10 to-[#59A5B2]/5 rounded-2xl p-12 flex items-center justify-center min-h-[500px]">
+              <div className="bg-gradient-to-br from-[#3f2c77]/10 to-[#3f2c77]/5 rounded-2xl p-12 flex items-center justify-center min-h-[500px]">
                 <div className="text-center">
-                  <ImageIcon className="w-32 h-32 text-[#59A5B2] mx-auto mb-6" />
+                  <ImageIcon className="w-32 h-32 text-[#3f2c77] mx-auto mb-6" />
                   <p
                     className="text-xl text-gray-600 mb-2"
                     style={{ fontFamily: 'Poppins, sans-serif' }}
@@ -904,7 +904,7 @@ export default function Step2Page() {
               disabled={!canProceed() || isLoading}
               className={`px-8 h-12 rounded-lg font-semibold transition-all flex items-center justify-center gap-2
     ${canProceed() && !isLoading
-                  ? "bg-[#59A5B2] text-white hover:bg-[#4a8a95] shadow-md hover:shadow-lg"
+                  ? "bg-[#3f2c77] text-white hover:bg-[#4a8a95] shadow-md hover:shadow-lg"
                   : "bg-gray-200 text-gray-400 cursor-not-allowed"
                 }`}
               style={{ fontFamily: "Inter, sans-serif" }}

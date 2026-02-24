@@ -172,7 +172,7 @@ export default function Bookings() {
     return (
       <OwnerLayout>
         <div className="flex items-center justify-center h-[60vh]">
-          <FontAwesomeIcon icon={faSpinner} className="w-8 h-8 text-[#59A5B2] animate-spin" />
+          <FontAwesomeIcon icon={faSpinner} className="w-8 h-8 text-[#3f2c77] animate-spin" />
         </div>
       </OwnerLayout>
     );
@@ -183,7 +183,7 @@ export default function Bookings() {
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-[#59A5B2] font-heading">Bookings</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-[#3f2c77] font-heading">Bookings</h1>
             <p className="text-gray-500 mt-1">Manage all your property bookings</p>
           </div>
         </div>
@@ -195,7 +195,7 @@ export default function Bookings() {
             <input
               type="text"
               placeholder="Search..."
-              className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#59A5B2] outline-none transition-all"
+              className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#3f2c77] outline-none transition-all"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -205,7 +205,7 @@ export default function Bookings() {
               <button
                 key={status}
                 onClick={() => setStatusFilter(status)}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${statusFilter === status ? "bg-[#59A5B2] text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${statusFilter === status ? "bg-[#3f2c77] text-white" : "bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
                   }`}
               >
                 {status}
@@ -232,7 +232,7 @@ export default function Bookings() {
               <tbody>
                 {paginatedData.map((booking: any) => (
                   <tr key={booking.id} className={`border-b border-gray-100 last:border-0 hover:bg-gray-50/50 transition-colors`}>
-                    <td className="py-4 px-4 font-medium text-[#59A5B2]">CONF-{booking.id}-{formatDate(booking.createdAt)}</td>
+                    <td className="py-4 px-4 font-medium text-[#3f2c77]">CONF-{booking.id}-{formatDate(booking.createdAt)}</td>
                     <td className="py-4 px-4 text-gray-800">{booking.guestName}</td>
                     <td className="py-4 px-4 text-gray-600">{booking.property}</td>
                     <td className="py-4 px-4 text-sm text-gray-500">{booking.checkIn} → {booking.checkOut}</td>
@@ -246,7 +246,7 @@ export default function Bookings() {
                       <div className="flex justify-center">
                         <button
                           onClick={() => setDetailsModal({ isOpen: true, booking })}
-                          className="p-2 text-gray-400 hover:text-[#59A5B2] transition-colors"
+                          className="p-2 text-gray-400 hover:text-[#3f2c77] transition-colors"
                         >
                           <FontAwesomeIcon icon={faEye} />
                         </button>

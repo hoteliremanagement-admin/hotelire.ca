@@ -17,7 +17,7 @@ export default function AddPropertyPage() {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-center">
-        <div className="w-12 h-12 border-4 border-[#59A5B2] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <div className="w-12 h-12 border-4 border-[#3f2c77] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
         <p className="text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>
           Loading...
         </p>

@@ -33,7 +33,7 @@ type OwnerBarrierErrors = Partial<{
   proofType: string;
 }>;
 
-const BRAND = "#59A5B2";
+const BRAND = "#3f2c77";
 const canadianPostalRegex = /^[A-Z]\d[A-Z][ ]?\d[A-Z]\d$/;
 const MAX_PHONE_LEN = 10;
 
@@ -387,8 +387,8 @@ export default function OwnerBarrierForm() {
     [
       "h-12",
       "border-gray-300",
-      "focus:border-[#59A5B2]",
-      "focus:ring-[#59A5B2]",
+      "focus:border-[#3f2c77]",
+      "focus:ring-[#3f2c77]",
       invalid &&
         "border-red-500 ring-1 ring-red-500 focus:ring-red-500 focus:border-red-500",
     ]

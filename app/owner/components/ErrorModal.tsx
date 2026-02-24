@@ -38,7 +38,7 @@ export function ErrorModal({ isOpen, title, message, onClose }: ErrorModalProps)
         <div className="flex justify-end gap-3 p-6 border-t border-gray-200 dark:border-gray-700">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-[#59A5B2] hover:bg-[#4a9199] text-white rounded-lg font-medium transition-colors"
+            className="px-4 py-2 bg-[#3f2c77] hover:bg-[#122425] text-white rounded-lg font-medium transition-colors"
           >
             Close
           </button>
