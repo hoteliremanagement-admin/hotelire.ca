@@ -410,7 +410,7 @@ router.push(
                 </div>
               </div>
               <Button
-                className="w-full bg-[#3F2C77] hover:bg-[#4C7E87] text-white"
+                className="w-full bg-[#3F2C77] hover:bg-[#2a1c5a] text-white"
                 onClick={() => setIsGuestsOpen(false)}
                 data-testid="button-done-guests"
               >

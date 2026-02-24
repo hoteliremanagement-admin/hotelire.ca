@@ -475,6 +475,8 @@ import {
   AlertCircle,
   Loader,
   Headset,
+  Link,
+  Home,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { authCheck } from "@/services/authCheck";
@@ -678,7 +680,7 @@ Thank you.`
             <p className="text-gray-600 text-center mb-6">
               {error || "The booking confirmation could not be loaded."}
             </p>
-            <Button className="w-full bg-[#3F2C77] hover:bg-[#4a8f9a] text-white">
+            <Button className="w-full bg-[#3F2C77] hover:bg-[#281d4b] text-white">
               Back to Home
             </Button>
           </Card>
@@ -1028,14 +1030,18 @@ Thank you.`
                 <div className="space-y-3">
                   <Button
                     onClick={handlePrint}
-                    className="w-full bg-[#3F2C77] hover:bg-[#4a8f9a] text-white font-semibold py-2 rounded-lg flex items-center justify-center gap-2 transition-all"
+                    className="w-full bg-[#3F2C77] hover:bg-[#281d4b] text-white font-semibold py-2 rounded-lg flex items-center justify-center gap-2 transition-all"
                   >
                     <Printer className="w-4 h-4" />
                     Print confirmation
                   </Button>
-                  <button className="w-full px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium">
-                    Back to home
-                  </button>
+                  <Link href="/customer">
+                    <Button className="w-full bg-[#3F2C77] hover:bg-[#281d4b] text-white font-semibold py-2 rounded-lg flex items-center justify-center gap-2 transition-all">
+                      <Home className="w-4 h-4" />
+                      Back to home
+                    </Button>
+                  </Link>
+                 
                 </div>
               </div>
             </Card>

@@ -953,7 +953,14 @@ Please add more rooms.`
                           size="icon"
                           variant="outline"
                           className="h-8 w-8 rounded-full"
-                          onClick={() => setChildren(children + 1)}
+                                                   onClick={() => {
+  const { maxChildren } = calculateGuestCapacity();
+  if (children < maxChildren) {
+    setChildren(children + 1);
+  } else {
+    toast.error("Room capacity reached. Add more rooms.");
+  }
+}}
                           data-testid="button-increase-children"
                         >
                           <Plus className="h-4 w-4" />
@@ -1584,7 +1591,7 @@ Please add more rooms.`
 
               {/* Reserve Button */}
               <Button
-                className="w-full bg-[#3F2C77] hover:bg-[#4a8f9a] text-white font-semibold py-3"
+                className="w-full bg-[#3F2C77] hover:bg-[#2a1c5a] text-white font-semibold py-3"
                 onClick={handleReserve}
                 data-testid="button-reserve"
               >
