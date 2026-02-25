@@ -162,7 +162,7 @@ export function Mbanner() {
             </p>
 
             {/* Stats Row */}
-            <div className="grid grid-cols-3 gap-4 pt-4">
+            {/* <div className="grid grid-cols-3 gap-4 pt-4">
               <div>
                 <p className="text-2xl md:text-3xl font-bold text-gray-900">50K+</p>
                 <p className="text-sm text-gray-600 mt-1">Properties Listed</p>
@@ -175,7 +175,7 @@ export function Mbanner() {
                 <p className="text-2xl md:text-3xl font-bold text-gray-900">180+</p>
                 <p className="text-sm text-gray-600 mt-1">Countries</p>
               </div>
-            </div>
+            </div> */}
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
