@@ -89,19 +89,12 @@ interface SharedSpaces {
 export default function HotelDetailPage({ id }: { id: string }) {
   const router = useRouter();
 
-
-//guest work:
-const ROOM_CAPACITY: Record<string, { adults: number; children: number }> = {
-  "King Room (1 King Bed)": { adults: 2, children: 4 },
-  "Double/Queen Room (1 Queen Bed)": { adults: 2, children: 4 },
-  "Quad Room (2 large double beds)": { adults: 4, children: 4 },
-};
-
-
-
-
-
-
+  //guest work:
+  const ROOM_CAPACITY: Record<string, { adults: number; children: number }> = {
+    "King Room (1 King Bed)": { adults: 2, children: 4 },
+    "Double/Queen Room (1 Queen Bed)": { adults: 2, children: 4 },
+    "Quad Room (2 large double beds)": { adults: 4, children: 4 },
+  };
 
   // Availabilities state
   const [PropertyAmenities, setPropertyAmenities] = useState<Amenities[]>([]);
@@ -471,34 +464,20 @@ const ROOM_CAPACITY: Record<string, { adults: number; children: number }> = {
   };
 
   const calculateGuestCapacity = () => {
-  let maxAdults = 0;
-  let maxChildren = 0;
+    let maxAdults = 0;
+    let maxChildren = 0;
 
-  cart.forEach((item) => {
-    const capacity = ROOM_CAPACITY[item.roomtypename];
+    cart.forEach((item) => {
+      const capacity = ROOM_CAPACITY[item.roomtypename];
 
-    if (capacity) {
-      maxAdults += capacity.adults * item.quantity;
-      maxChildren += capacity.children * item.quantity;
-    }
-  });
+      if (capacity) {
+        maxAdults += capacity.adults * item.quantity;
+        maxChildren += capacity.children * item.quantity;
+      }
+    });
 
-  return { maxAdults, maxChildren };
-};
-
-
-useEffect(() => {
-  const { maxAdults, maxChildren } = calculateGuestCapacity();
-
-  if (adults > maxAdults) {
-    setAdults(maxAdults);
-  }
-
-  if (children > maxChildren) {
-    setChildren(maxChildren);
-  }
-}, [cart]);
-
+    return { maxAdults, maxChildren };
+  };
 
   //ustaad ka code
   //   const handleReserve = () => {
@@ -588,7 +567,6 @@ useEffect(() => {
   // };
 
   const handleReserve = async () => {
-    
     if (roleId === 2) {
       toast.error(
         "You are logged in as a property owner. Please use a customer account to make a booking.",
@@ -596,8 +574,7 @@ useEffect(() => {
       return;
     }
 
-    if (!checkInDate || !checkOutDate || cart.length === 0)
-       {
+    if (!checkInDate || !checkOutDate || cart.length === 0) {
       setShowValidation(true);
       return;
     }
@@ -614,18 +591,25 @@ useEffect(() => {
         })),
       };
 
-const { maxAdults, maxChildren } = calculateGuestCapacity();
+      const { maxAdults, maxChildren } = calculateGuestCapacity();
 
-if (adults > maxAdults || children > maxChildren) {
+  if (adults > maxAdults || children > maxChildren) {
   toast.error(
-    `You've selected ${cart.length} room type(s).
-Maximum allowed: ${maxAdults} adults & ${maxChildren} children.
-Please add more rooms.`
+    `Selected rooms allow maximum ${maxAdults} adults and ${maxChildren} children. Please adjust guests or add more rooms.`
   );
   return;
 }
+// ❌ No guests selected
+if (adults === 0 && children === 0) {
+  toast.error("Please select at least one guest.");
+  return;
+}
 
-
+// ❌ No room selected
+if (cart.length === 0) {
+  toast.error("Please select at least one room.");
+  return;
+}
       // Call availability API
       const response = await fetch(`${baseUrl}/booking/checkRoomAvailability`, {
         method: "POST",
@@ -903,14 +887,7 @@ Please add more rooms.`
                           size="icon"
                           variant="outline"
                           className="h-8 w-8 rounded-full"
-                          onClick={() => {
-  const { maxAdults } = calculateGuestCapacity();
-  if (adults < maxAdults) {
-    setAdults(adults + 1);
-  } else {
-    toast.error("Room capacity reached. Add more rooms.");
-  }
-}}
+                          onClick={() => setAdults(adults + 1)}
                           data-testid="button-increase-adults"
                         >
                           <Plus className="h-4 w-4" />
@@ -953,20 +930,18 @@ Please add more rooms.`
                           size="icon"
                           variant="outline"
                           className="h-8 w-8 rounded-full"
-                                                   onClick={() => {
-  const { maxChildren } = calculateGuestCapacity();
-  if (children < maxChildren) {
-    setChildren(children + 1);
-  } else {
-    toast.error("Room capacity reached. Add more rooms.");
-  }
-}}
+                          onClick={() => setChildren(children + 1)}
                           data-testid="button-increase-children"
                         >
                           <Plus className="h-4 w-4" />
                         </Button>
                       </div>
                     </div>
+                    {cart.length === 0 && (
+  <p className="text-red-500 text-xs mt-1">
+    Please select a room to determine guest capacity.
+  </p>
+)}
                   </div>
                 </PopoverContent>
               </Popover>
@@ -1123,6 +1098,18 @@ Please add more rooms.`
               >
                 {propertyDetail?.houserules}
               </p>
+              <div>
+                <h3 className="font-semibold text-gray-800 dark:text-white mb-3">
+                  Rule of Timing:
+                </h3>
+                <ul className="space-y-2">
+                  <li className="flex items-start gap-2 text-gray-600 dark:text-gray-300">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#3f2c77] mt-2 flex-shrink-0" />
+                    Check-in: {propertyDetail?.checkintime} - Check-out:{" "}
+                    {propertyDetail?.checkouttime}
+                  </li>
+                </ul>
+              </div>
             </section>
 
             {/* Most popular services & amenities */}
@@ -1506,7 +1493,9 @@ Please add more rooms.`
                   style={{ fontFamily: "Inter, sans-serif" }}
                 >
                   <Users className="w-4 h-4 text-[#3F2C77]" />
-                  <span>{`${adults} adults · ${children} children · ${cart.reduce((sum, item) => sum + item.quantity, 0) || 1} room`}</span>
+                  <span>{`${adults} adults · ${children} children · ${cart.reduce((sum, item) => sum + item.quantity, 0)} ${
+  cart.reduce((sum, item) => sum + item.quantity, 0) === 1 ? "room" : "rooms"
+}`}</span>
                 </div>
               </div>
 
