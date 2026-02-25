@@ -595,7 +595,7 @@ import { authCheck } from "@/services/authCheck";
 import axios from "axios";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import { is } from "drizzle-orm";
+
 
 // Interface matching the "Real" backend response structure provided
 interface Property {

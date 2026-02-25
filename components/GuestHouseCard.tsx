@@ -147,8 +147,9 @@ export function GuestHouseCard({ property }: GuestHouseCardProps) {
 
             {/* Location */}
             <p className="font-medium text-gray-700 text-sm">
-              {/* {property.location} */} Canada
+             {property.location || "Canada"}
             </p>
+
 
             {/* Rating and Reviews Row */}
             <div className="flex items-center gap-3 mt-auto">

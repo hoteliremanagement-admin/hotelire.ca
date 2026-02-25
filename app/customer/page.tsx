@@ -328,7 +328,7 @@ import { Footer } from "@/components/Footer";
 import { SearchBar } from "@/components/SearchBar";
 import { DestinationCard } from "@/components/DestinationCard";
 import { HotelCard } from "@/components/HotelCard";
-import { destinations } from "@/lib/data";
+import { destinations, popularHotels } from "@/lib/data";
 import { Mbanner } from "@/components/Mbanner";
 import { Suspense } from "react";
 import { GuestHouseCard } from "@/components/GuestHouseCard";
@@ -357,122 +357,102 @@ interface Hotel {
   stars: string;
 }
 
+
+
 export default function CustomerHomePage() {
 const [guestHouses, setGuestHouses] = useState<GuestHouse[]>([]);
 const [popularHotels, setPopularHotels] = useState<Hotel[]>([]);
 
 useEffect(() => {
-  const loadGuestHouses = async () => {
+  const loadProperties = async () => {
     try {
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/ownerProperty/getProperties`,
-        { withCredentials: true },
+        { withCredentials: true }
       );
+
       const properties = res.data.properties;
 
-      const guestHouseList: GuestHouse[] = properties
-        .filter(
-          (p: any) =>
-            p.propertyclassification?.propertyclassificationname ===
-            "Guest House",
-        )
-        .slice(0, 4)
-        .map((p: any) => {
-          const minPrice =
-            p.propertyroom?.length > 0
-              ? Math.min(
-                  ...p.propertyroom.map((r: any) => parseFloat(r.price)),
-                )
-              : 0;
+      const hotels: Hotel[] = [];
+      const guestHouses: GuestHouse[] = [];
 
-          const city = p.canadian_cities?.canadian_city_name;
-          const province = p.canadian_states?.canadian_province_name;
+      properties.forEach((p: any) => {
+        const city = p.canadian_cities?.canadian_city_name;
+        const province = p.canadian_states?.canadian_province_name;
 
-          const formattedLocation = [city, province]
-            .filter(Boolean)
-            .join(", ");
+        let formattedLocation = "";
 
-          return {
-            id: p.propertyid,
-            name: p.propertytitle,
-            location: formattedLocation,
-            type: "Guest House",
-            rating: p.avgRating ? String(p.avgRating) : "0",
-            reviews: "Verified guests",
-            image: p.photo1_featured,
-            stars: "/figmaAssets/group-316-5.png",
-            price: minPrice,
-          };
-        });
+        if (city && province) {
+          formattedLocation = `${city}, ${province}`;
+        } else if (city) {
+          formattedLocation = city;
+        } else if (province) {
+          formattedLocation = province;
+        } else {
+          formattedLocation = p.address || "";
+        }
 
-      setGuestHouses(guestHouseList);
-    } catch (error) {
-      console.error("Failed to load Guest Houses", error);
-    }
-  };
+        const minPrice =
+          p.propertyroom?.length > 0
+            ? Math.min(
+                ...p.propertyroom.map((r: any) => parseFloat(r.price))
+              )
+            : 0;
 
-  loadGuestHouses();
-}, []);
+        const baseData = {
+          id: String(p.propertyid),
+          name: p.propertytitle,
+          location: formattedLocation,
+          rating: p.avgRating ? String(p.avgRating) : "0",
+          reviews: "Verified guests",
+          image: p.photo1_featured,
+          price: minPrice,
+        };
 
-useEffect(() => {
-  const loadPopularHotels = async () => {
-    try {
-      const res = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/ownerProperty/getProperties`,
-        { withCredentials: true },
-      );
-      const properties = res.data.properties;
-
-      const hotels: Hotel[] = properties
-        .filter(
-          (p: any) =>
-            p.propertyclassification?.propertyclassificationname === "Hotel",
-        )
-        .map((p: any) => {
-          const minPrice =
-            p.propertyroom?.length > 0
-              ? Math.min(
-                  ...p.propertyroom.map((r: any) => parseFloat(r.price)),
-                )
-              : 0;
-
-          const city = p.canadian_cities?.canadian_city_name;
-          const province = p.canadian_states?.canadian_province_name;
-
-          const formattedLocation = [city, province]
-            .filter(Boolean)
-            .join(", ");
-
-          return {
-            id: p.propertyid,
-            name: p.propertytitle,
-            location: formattedLocation,
+        if (p.propertyclassification?.propertyclassificationname === "Hotel") {
+          hotels.push({
+            ...baseData,
             type: "Hotel",
-            rating: p.avgRating ? String(p.avgRating) : "0",
-            reviews: "Verified guests",
-            image: p.photo1_featured,
             stars: "/figmaAssets/group-316-1.png",
-            price: minPrice,
-          };
-        })
-        .sort(
-          (a: Hotel, b: Hotel) => parseFloat(b.rating) - parseFloat(a.rating),
-        )
-        .slice(0, 4);
+          });
+        }
 
-      setPopularHotels(hotels);
+        if (
+          p.propertyclassification?.propertyclassificationname ===
+          "Guest House"
+        ) {
+          guestHouses.push({
+            ...baseData,
+            type: "Guest House",
+            stars: "/figmaAssets/group-316-5.png",
+          });
+        }
+      });
+
+      // Top 4 hotels sorted by rating
+      setPopularHotels(
+        hotels
+          .sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating))
+          .slice(0, 4)
+      );
+
+      // Top 4 guest houses
+      setGuestHouses(guestHouses.slice(0, 4));
     } catch (error) {
-      console.error("Failed to load popular hotels", error);
+      console.error("Failed to load properties", error);
     }
   };
 
-  loadPopularHotels();
+  loadProperties();
 }, []);
+
+
 
   return (
     <div className="bg-soft w-full flex flex-col min-h-screen">
       <Header />
       <Navigation />
+
 
       {/* Hero Section */}
       <section className="relative w-full h-[400px] md:h-[500px] lg:h-[536px]">
@@ -499,9 +479,7 @@ useEffect(() => {
                 <h2 className="[text-shadow:4.45px_4.45px_4.45px_#00000040] [font-family:'Poppins',Helvetica] font-bold text-white text-[28px] md:text-[40px] lg:text-[53.3px]">
                   Find Your Dream Luxury Hotel
                 </h2>
-                 {/* <p className="text-white text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
-                Experience world-class hospitality in Canada's most breathtaking locations. Your perfect stay is just a search away.
-              </p> */}
+             
               </div>
               <Suspense fallback={<div>Loading...</div>}>
                 <SearchBar />
@@ -510,41 +488,7 @@ useEffect(() => {
           </div>
         </div>
       </section>
-      {/* <section className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] flex items-center overflow-hidden">
-        <Image
-          src="/figmaAssets/rectangle-290.png"
-          alt="Hero background"
-          fill
-          className="object-cover scale-105"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-dark/70 via-dark/40 to-dark/80" />
-        
-        <div className="relative z-10 w-full px-4 md:px-8">
-          <div className="site-container flex flex-col items-center">
-            <div className="text-center mb-12">
-              <span className="inline-block px-4 py-1.5 bg-accent/20 text-accent rounded-full text-sm font-bold tracking-widest uppercase mb-6 backdrop-blur-md border border-accent/30">
-                Luxury Travel Redefined
-              </span>
-              <h1 className="font-bold text-white text-4xl md:text-6xl lg:text-7xl mb-6 tracking-tight leading-tight">
-                Find Your Dream <br />
-                <span className="text-primary">Luxury Hotel</span>
-              </h1>
-              <p className="text-soft/80 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
-                Experience world-class hospitality in Canada's most breathtaking locations. Your perfect stay is just a search away.
-              </p>
-            </div>
 
-            <div className="w-full max-w-5xl">
-              <div className="bg-white/10 backdrop-blur-xl p-2 rounded-3xl shadow-2xl border border-white/20">
-                <Suspense fallback={<div className="h-20 bg-white/5 animate-pulse rounded-2xl" />}>
-                  <SearchBar />
-                </Suspense>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
 
       {/* Explore Canada */}
       <section className="w-full bg-soft py-20 md:py-28 px-4 md:px-8 lg:px-[203px]">
