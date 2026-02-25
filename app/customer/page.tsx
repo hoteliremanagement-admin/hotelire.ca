@@ -455,40 +455,44 @@ useEffect(() => {
 
 
       {/* Hero Section */}
-      <section className="relative w-full h-[400px] md:h-[500px] lg:h-[536px]">
-        <Image
-          src="/figmaAssets/rectangle-290.png"
-          alt="Hero background"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="relative z-10 h-full">
-          <div className="site-container h-full flex items-center justify-center">
-            <div className="absolute inset-0 bg-[#080808] opacity-50" />
+<section className="relative w-full min-h-[500px] md:min-h-[500px] lg:min-h-[536px]">
+  <Image
+    src="/figmaAssets/rectangle-290.png"
+    alt="Hero background"
+    fill
+    className="object-cover"
+    priority
+  />
 
-            <div className="relative z-10 flex flex-col items-center justify-center h-full px-4">
-              {" "}
-              <div className="text-center mb-8 md:mb-12 lg:mb-[71px]">
-                {" "}
-                <h1 className="[text-shadow:4px_4px_4px_#00000040] [font-family:'Poppins',Helvetica] font-normal text-[20px] md:text-[30px] lg:text-[38px] mb-2 md:mb-4">
-                  <span className="text-white">Your </span>
-                  <span className="font-bold text-[#febc11]">perfect stay</span>
-                  <span className="text-white"> is one click away</span>
-                </h1>
-                <h2 className="[text-shadow:4.45px_4.45px_4.45px_#00000040] [font-family:'Poppins',Helvetica] font-bold text-white text-[28px] md:text-[40px] lg:text-[53.3px]">
-                  Find Your Dream Luxury Hotel
-                </h2>
-             
-              </div>
-              <Suspense fallback={<div>Loading...</div>}>
-                <SearchBar />
-              </Suspense>
-            </div>
-          </div>
-        </div>
-      </section>
+  {/* Overlay */}
+  <div className="absolute inset-0 bg-[#080808] opacity-50 z-0" />
 
+  <div className="relative z-10">
+    <div className="site-container flex flex-col items-center justify-center text-center px-4 py-16 md:py-20 lg:py-0 min-h-[500px] md:min-h-[500px] lg:min-h-[536px]">
+      
+      {/* Heading Content */}
+      <div className="mb-8 md:mb-12 lg:mb-[71px]">
+        <h1 className="[text-shadow:4px_4px_4px_#00000040] font-normal text-[20px] md:text-[30px] lg:text-[38px] mb-2 md:mb-4">
+          <span className="text-white">Your </span>
+          <span className="font-bold text-[#febc11]">perfect stay</span>
+          <span className="text-white"> is one click away</span>
+        </h1>
+
+        <h2 className="[text-shadow:4.45px_4.45px_4.45px_#00000040] font-bold text-white text-[28px] md:text-[40px] lg:text-[53.3px]">
+          Find Your Dream Luxury Hotel
+        </h2>
+      </div>
+
+      {/* Search Bar */}
+      <div className="w-full max-w-5xl">
+        <Suspense fallback={<div>Loading...</div>}>
+          <SearchBar />
+        </Suspense>
+      </div>
+
+    </div>
+  </div>
+</section>
 
       {/* Explore Canada */}
       <section className="w-full bg-soft py-20 md:py-28 px-4 md:px-8 lg:px-[203px]">

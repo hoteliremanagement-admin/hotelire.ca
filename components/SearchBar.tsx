@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -12,7 +10,7 @@ import {
   Minus,
   Plus,
 } from "lucide-react";
-import { format } from "date-fns";
+import { format, differenceInCalendarDays, setDate } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -49,15 +47,32 @@ export function SearchBar() {
   const [filteredCities, setFilteredCities] = useState<City[]>([]);
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
 
+  const [isDateOpen, setIsDateOpen] = useState(false);
+  const [monthsToShow, setMonthsToShow] = useState(2);
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const [dateError, setDateError] = useState(false);
 
   useEffect(() => {
+    const updateMonths = () => {
+      if (window.innerWidth < 768) {
+        setMonthsToShow(1);
+      } else {
+        setMonthsToShow(2);
+      }
+    };
+
+    updateMonths();
+    window.addEventListener("resize", updateMonths);
+    return () => window.removeEventListener("resize", updateMonths);
+  }, []);
+
+  useEffect(() => {
     const loadLocations = async () => {
       try {
         const provinceRes = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/getCanadianProvinces`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/getCanadianProvinces`,
         );
 
         const provincesData: Province[] = provinceRes.data.provinces;
@@ -67,7 +82,7 @@ export function SearchBar() {
 
         for (const province of provincesData) {
           const cityRes = await axios.get(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/getCanadianCities/${province.canadian_province_id}`
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/getCanadianCities/${province.canadian_province_id}`,
           );
 
           const mappedCities = cityRes.data.cities.map((c: any) => ({
@@ -100,8 +115,8 @@ export function SearchBar() {
       cities.filter(
         (c) =>
           c.canadian_city_name.toLowerCase().includes(q) ||
-          c.provinceName.toLowerCase().includes(q)
-      )
+          c.provinceName.toLowerCase().includes(q),
+      ),
     );
   }, [location, cities]);
 
@@ -163,8 +178,6 @@ export function SearchBar() {
     const formattedCheckIn = format(checkInDate, "yyyy-MM-dd");
     const formattedCheckOut = format(checkOutDate, "yyyy-MM-dd");
 
-    
-
     const searchContext = {
       cityId: selectedCity.canadian_city_id,
       cityName: selectedCity.canadian_city_name,
@@ -177,14 +190,12 @@ export function SearchBar() {
 
     localStorage.setItem(
       "hotelire_search_context",
-      JSON.stringify(searchContext)
+      JSON.stringify(searchContext),
     );
 
-  
-
-router.push(
-  `/customer/listing?city=${selectedCity.canadian_city_id}&checkIn=${formattedCheckIn}&checkOut=${formattedCheckOut}&adults=${adults}&children=${children}`
-);
+    router.push(
+      `/customer/listing?city=${selectedCity.canadian_city_id}&checkIn=${formattedCheckIn}&checkOut=${formattedCheckOut}&adults=${adults}&children=${children}`,
+    );
   };
 
   return (
@@ -224,7 +235,7 @@ router.push(
           data-testid="input-location"
         /> */}
         {showSuggestions && filteredCities.length > 0 && (
-<div className="absolute left-0 top-full mt-2 z-50 w-full bg-white shadow-lg rounded-md max-h-64 overflow-y-auto">
+          <div className="absolute left-0 top-full mt-2 z-50 w-full bg-white shadow-lg rounded-md max-h-64 overflow-y-auto">
             {filteredCities.slice(0, 8).map((city) => (
               <div
                 key={city.canadian_city_id}
@@ -238,72 +249,93 @@ router.push(
         )}
       </div>
 
+{/* Check-in / Check-out */}
+<div className="flex-1 px-4 md:px-6 py-3 md:py-0 md:border-r border-[#e5e5e5] flex flex-col justify-center">
+  <label className="font-semibold text-[#3F2C77] text-[13px] md:text-[15px] mb-1 flex items-center gap-2">
+    <CalendarIcon className="w-4 h-4" />
+    Check in – Check out
+  </label>
 
-      {/* Check-in / Check-out */}
-      <div className="flex-1 px-4 md:px-6 py-3 md:py-0 md:border-r border-[#e5e5e5] flex flex-col justify-center">
-        <label htmlFor="date-picker" className="[font-family:'Poppins',Helvetica] font-semibold text-[#3F2C77] text-[10px] md:text-sm mb- flex items-center gap-2">
-          <CalendarIcon className="w-4 h-4" />
-          Check in- Check out
-        </label>
-        <div className="mt-1">
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant="ghost"
-              className="[font-family:'Poppins',Helvetica] font-normal text-[#919191] text-[12px] md:text-[13px] border-0 p-0 h-auto justify-start hover:bg-transparent"
-              data-testid="button-date-picker"
-            >
-              {checkInDate && checkOutDate
-                ? `${format(checkInDate, "MMM dd")} - ${format(
-                    checkOutDate,
-                    "MMM dd"
-                  )}`
-                : "Select dates"}
-              <ChevronDownIcon
-                className="ml-auto w-3.5 h-2"
-                aria-hidden="true"
-              />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
-            <div className="p-4 flex flex-col md:flex-row gap-6">
-              {/* Check-in Calendar */}
-              <div className="flex-1">
-                <p className="text-sm font-semibold text-[#3F2C77] mb-2">
-                  Check-in
-                </p>
-                <Calendar
-                  mode="single"
-                  selected={checkInDate}
-                  onSelect={setCheckInDate}
-                  disabled={(date) => date < new Date()}
-                  className="rounded-md border"
-                />
-              </div>
-
-              {/* Check-out Calendar */}
-              <div className="flex-1">
-                <p className="text-sm font-semibold text-[#3F2C77] mb-2">
-                  Check-out
-                </p>
-                <Calendar
-                  mode="single"
-                  selected={checkOutDate}
-                  onSelect={setCheckOutDate}
-                  disabled={(date) => !checkInDate || date <= checkInDate}
-                  className="rounded-md border"
-                />
-              </div>
-            </div>
-          </PopoverContent>
-        </Popover>
-        </div>
-        {dateError && (
-          <p className="[font-family:'Poppins',Helvetica] text-[#ff0000] text-[12px] mt-1">
-            Please select check-in and check-out dates
-          </p>
+  <Popover open={isDateOpen} onOpenChange={setIsDateOpen}>
+    <PopoverTrigger asChild>
+      <Button
+        variant="ghost"
+        className="font-normal text-[#919191] text-[13px] border-0 p-0 h-auto justify-start hover:bg-transparent w-full"
+      >
+        {checkInDate && checkOutDate ? (
+          <div className="flex flex-col items-start">
+            <span className="text-[#3F2C77] font-medium">
+              {format(checkInDate, "MMM dd")} —{" "}
+              {format(checkOutDate, "MMM dd")}
+            </span>
+            <span className="text-xs text-gray-500">
+              {differenceInCalendarDays(checkOutDate, checkInDate)} nights
+            </span>
+          </div>
+        ) : (
+          "Add dates"
         )}
+        <ChevronDownIcon className="ml-auto w-4 h-4" />
+      </Button>
+    </PopoverTrigger>
+
+    <PopoverContent
+      align="start"
+      className="
+        p-0 
+        border-0 
+        shadow-2xl 
+        rounded-2xl 
+        animate-in fade-in zoom-in-95
+        w-auto
+      "
+    >
+      <div className="bg-white p-4">
+        {/* Header */}
+        <div className="mb-4">
+          <p className="text-sm font-semibold text-[#3F2C77]">
+            Select your stay dates
+          </p>
+
+          {checkInDate && checkOutDate && (
+            <p className="text-xs text-gray-500 mt-1">
+              {differenceInCalendarDays(checkOutDate, checkInDate)} nights selected
+            </p>
+          )}
+        </div>
+
+        {/* Calendar */}
+        <Calendar
+          mode="range"
+          numberOfMonths={typeof window !== "undefined" && window.innerWidth < 768 ? 1 : 2}
+          showOutsideDays
+          captionLayout="buttons"
+          selected={{
+            from: checkInDate,
+            to: checkOutDate,
+          }}
+          onSelect={(range) => {
+            setCheckInDate(range?.from);
+            setCheckOutDate(range?.to);
+
+            if (range?.from && range?.to) {
+              setTimeout(() => setIsDateOpen(false), 300);
+            }
+          }}
+          disabled={(date) => date < new Date()}
+          initialFocus
+          className="rounded-xl"
+        />
       </div>
+    </PopoverContent>
+  </Popover>
+
+  {dateError && (
+    <p className="text-red-500 text-xs mt-1">
+      Please select check-in and check-out dates
+    </p>
+  )}
+</div>
 
       {/* Guests */}
       <div className="flex-1 px-4 md:px-6 py-3 md:py-0 flex flex-col justify-center">

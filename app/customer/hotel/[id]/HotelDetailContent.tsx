@@ -593,23 +593,23 @@ export default function HotelDetailPage({ id }: { id: string }) {
 
       const { maxAdults, maxChildren } = calculateGuestCapacity();
 
-  if (adults > maxAdults || children > maxChildren) {
-  toast.error(
-    `Selected rooms allow maximum ${maxAdults} adults and ${maxChildren} children. Please adjust guests or add more rooms.`
-  );
-  return;
-}
-// ❌ No guests selected
-if (adults === 0 && children === 0) {
-  toast.error("Please select at least one guest.");
-  return;
-}
+      if (adults > maxAdults || children > maxChildren) {
+        toast.error(
+          `Selected rooms allow maximum ${maxAdults} adults and ${maxChildren} children. Please adjust guests or add more rooms.`,
+        );
+        return;
+      }
+      // ❌ No guests selected
+      if (adults === 0 && children === 0) {
+        toast.error("Please select at least one guest.");
+        return;
+      }
 
-// ❌ No room selected
-if (cart.length === 0) {
-  toast.error("Please select at least one room.");
-  return;
-}
+      // ❌ No room selected
+      if (cart.length === 0) {
+        toast.error("Please select at least one room.");
+        return;
+      }
       // Call availability API
       const response = await fetch(`${baseUrl}/booking/checkRoomAvailability`, {
         method: "POST",
@@ -938,10 +938,10 @@ if (cart.length === 0) {
                       </div>
                     </div>
                     {cart.length === 0 && (
-  <p className="text-red-500 text-xs mt-1">
-    Please select a room to determine guest capacity.
-  </p>
-)}
+                      <p className="text-red-500 text-xs mt-1">
+                        Please select a room to determine guest capacity.
+                      </p>
+                    )}
                   </div>
                 </PopoverContent>
               </Popover>
@@ -1494,8 +1494,10 @@ if (cart.length === 0) {
                 >
                   <Users className="w-4 h-4 text-[#3F2C77]" />
                   <span>{`${adults} adults · ${children} children · ${cart.reduce((sum, item) => sum + item.quantity, 0)} ${
-  cart.reduce((sum, item) => sum + item.quantity, 0) === 1 ? "room" : "rooms"
-}`}</span>
+                    cart.reduce((sum, item) => sum + item.quantity, 0) === 1
+                      ? "room"
+                      : "rooms"
+                  }`}</span>
                 </div>
               </div>
 
