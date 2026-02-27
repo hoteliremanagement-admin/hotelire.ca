@@ -863,7 +863,7 @@ export default function OverviewPage() {
 
   return (
     <OwnerLayout>
-      <div className="space-y-6">
+      <div className="space-y-6 max-w-[1400px] mx-auto">
         {/* Page Header */}
         <div>
           <h1

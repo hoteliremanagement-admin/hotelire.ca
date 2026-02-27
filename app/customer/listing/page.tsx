@@ -14,9 +14,11 @@ export default function ListingPage() {
 
       {/* Search Section */}
       <section className="w-full bg-[#f5f6fd] py-6 md:py-8 px-4 md:px-8 lg:px-[203px] flex justify-center">
+        <div className="w-full max-w-[1400px] mx-auto">
         <Suspense fallback={<div>Loading...</div>}>
         <SearchBar />
         </Suspense>
+</div>
       </section>
 
       {/* Results Section with Suspense Boundary */}

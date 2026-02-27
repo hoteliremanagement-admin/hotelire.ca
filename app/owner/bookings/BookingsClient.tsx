@@ -180,7 +180,7 @@ export default function Bookings() {
 
   return (
     <OwnerLayout>
-      <div className="space-y-6">
+      <div className="space-y-6 max-w-[1400px] mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-[#3f2c77] font-heading">Bookings</h1>

@@ -282,7 +282,7 @@ export function Navigation() {
       )}
 
       {/* Navigation Bar */}
-      <nav className="w-full bg-white min-h-[70px] lg:h-[111px] flex items-center justify-between px-4 md:px-8 lg:px-[203px] py-4 lg:py-0 relative z-50 border-b border-gray-100">
+      <nav className="w-full mx-auto max-w-[1600px]  min-h-[70px] lg:h-[111px] flex items-center justify-between px-4 md:px-8 lg:px-[203px] py-4 lg:py-0 relative z-50 border-b border-gray-100">
         {/* Logo */}
         <Link href="/" className="flex-shrink-0">
           <Image

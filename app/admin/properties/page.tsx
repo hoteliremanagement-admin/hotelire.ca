@@ -1,5 +1,3 @@
-
-
 // "use client";
 // import { useState, useMemo, useEffect } from "react";
 
@@ -94,11 +92,9 @@
 //     const fetchProperties = async () => {
 //       try {
 
-
 //           const prop = await axios.get(`${baseUrl}/admin/getAllPropertiesForAdmin`);
 //           const properties = prop.data;
 //           console.log(properties)
-
 
 //           setPropertyList(
 //             properties.property.map((p: any) => {
@@ -141,10 +137,6 @@
 
 //   }, []);
 
-
-
-
-
 //   const filteredProperties = useMemo(() => {
 //     const query = searchQuery?.toLowerCase().trim() || "";
 
@@ -180,7 +172,6 @@
 //     }
 //   };
 
-
 //   const handleExportCSV = () => {
 //     setIsExporting(true);
 //     try {
@@ -214,7 +205,6 @@
 
 //   return (
 
-
 //     <div className="space-y-6">
 //       {/* Page Header */}
 //       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -228,7 +218,6 @@
 //           <p className="text-gray-500 dark:text-gray-400 mt-1">
 //             Manage your property listings
 //           </p>
-
 
 //         </div>
 
@@ -250,9 +239,9 @@
 //             data-testid="input-search-properties"
 //           />
 //         </div>
-//      <Button 
-//             variant="outline" 
-//             size="lg" 
+//      <Button
+//             variant="outline"
+//             size="lg"
 //             className="gap-2"
 //             onClick={handleExportCSV}
 //             disabled={isExporting}
@@ -261,9 +250,6 @@
 //             {isExporting ? "Exporting..." : "Export CSV"}
 //           </Button>
 //       </div>
-
-
-
 
 //       {/* Grid */}
 //       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
@@ -306,61 +292,12 @@
 //   );
 // }
 
-
-
 // function getIcon(iconName: string): Icons.IconDefinition | undefined {
 //   const icon = (Icons as any)[iconName as keyof typeof Icons];
 //   return typeof icon === "object" && icon !== null && "iconName" in icon
 //     ? (icon as Icons.IconDefinition)
 //     : undefined;
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // // function PropertyCard({ property, onDelete }: { property: Property; onDelete: () => void }) {
 // function PropertyCard({
@@ -399,9 +336,6 @@
 //         <div className="absolute top-3 right-3">
 //           <span className={"inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm border bg-green-500/90 text-white border-green-400/50"}>
 
-
-
-
 //          {
 //   property.isActive ? (
 //     <span className="flex items-center ">
@@ -418,7 +352,6 @@
 // </span>
 
 //         </div>
-
 
 //         {/* Rating Bubble */}
 //         <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur px-2.5 py-1.5 rounded-full shadow-lg text-xs font-semibold text-foreground">
@@ -480,18 +413,13 @@
 //             )}
 //           </div>
 
-
-
-
 //         </div>
 
 //         {/* Footer */}
 //         <div className="mt-5 pt-4 border-t  flex items-center justify-between">
 //           {/* <div className="flex items-center gap-2">
 
-
 //           </div> */}
-
 
 //           {/* <div className="flex items-center gap-1 opacity-100 hover:opacity-100 transition-opacity duration-200"> */}
 //             {/* <DropdownMenu>
@@ -501,7 +429,6 @@
 //                 </Button>
 //               </DropdownMenuTrigger>
 //               <DropdownMenuContent align="end" className="w-40">
-
 
 //                 <Link href={`/owner/add-property`}
 //                   className="flex items-center p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
@@ -516,13 +443,11 @@
 
 //                 </Link>
 
-
 //                 <DropdownMenuItem className="cursor-pointer text-destructive focus:text-destructive" onClick={onDelete}>
 //                   <Trash2 className="w-4 h-4 mr-2" /> Delete
 //                 </DropdownMenuItem>
 //               </DropdownMenuContent>
 //             </DropdownMenu> */}
-
 
 //             <Link href={`/admin/properties/${property.propertyid}`}>
 //               <Button size="sm" className="h-8 bg-zinc-900   text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 rounded-lg text-xs font-medium px-3 shadow-none">
@@ -531,7 +456,6 @@
 //             </Link>
 
 //           {/* </div> */}
-
 
 //         </div>
 //       </div>
@@ -555,7 +479,7 @@ import {
   MoreVertical,
   Filter,
   ArrowUpRight,
-  Download
+  Download,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -595,7 +519,8 @@ import { authCheck } from "@/services/authCheck";
 import axios from "axios";
 import Link from "next/link";
 import toast from "react-hot-toast";
-
+import { fontWeight } from "html2canvas/dist/types/css/property-descriptors/font-weight";
+import { Style_Script } from "next/font/google";
 
 // Interface matching the "Real" backend response structure provided
 interface Property {
@@ -607,7 +532,7 @@ interface Property {
   reviews: number; // Mocked
   availablestatus: boolean; // Mocked
   price: number; // Derived from rooms
-  amenities: Amenity[];// Simplified for UI
+  amenities: Amenity[]; // Simplified for UI
   featured: boolean;
   canadian_city_name: string;
   canadian_province_name: string;
@@ -626,32 +551,32 @@ const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export default function Properties() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState<"All" | "Active" | "Inactive">("All");
+  const [statusFilter, setStatusFilter] = useState<
+    "All" | "Active" | "Inactive"
+  >("All");
   const [deleteId, setDeleteId] = useState<number | null>(null);
   const [propertyList, setPropertyList] = useState<Property[]>([]);
   const [isExporting, setIsExporting] = useState(false);
   useEffect(() => {
-
     const fetchProperties = async () => {
       try {
-
-
-        const prop = await axios.get(`${baseUrl}/admin/getAllPropertiesForAdmin`);
+        const prop = await axios.get(
+          `${baseUrl}/admin/getAllPropertiesForAdmin`,
+        );
         const properties = prop.data;
-        console.log(properties)
-
+        console.log(properties);
 
         setPropertyList(
           properties.property.map((p: any) => {
             // Filter only features=true and map to objects with name + icon
             const amenities = Array.isArray(p.propertyamenities)
               ? p.propertyamenities
-                .filter((pa: any) => pa.features === true)
-                .map((pa: any) => ({
-                  name: pa.amenities?.amenitiesname,
-                  icon: pa.amenities?.icons, // e.g., "faWifi", "faDumbbell"
-                }))
-                .filter(Boolean)
+                  .filter((pa: any) => pa.features === true)
+                  .map((pa: any) => ({
+                    name: pa.amenities?.amenitiesname,
+                    icon: pa.amenities?.icons, // e.g., "faWifi", "faDumbbell"
+                  }))
+                  .filter(Boolean)
               : [];
 
             return {
@@ -660,7 +585,7 @@ export default function Properties() {
               propertysubtitle: p.propertysubtitle,
               photo1_featured: p.photo1_featured,
               availablestatus: Boolean(p.availablestatus),
-              amenities,       // now an array of { name, icon }
+              amenities, // now an array of { name, icon }
               featured: true,
               avgRating: p.avgRating || 0,
               reviews: 0,
@@ -668,30 +593,27 @@ export default function Properties() {
               canadian_city_name: p.canadian_cities.canadian_city_name,
               canadian_province_name: p.canadian_states.canadian_province_name,
               isActive: Boolean(p.is_active),
-              ownerName: p.User ? `${p.User.firstname} ${p.User.lastname}` : "Admin",
-              ownerImage: p.User?.profilepic || "https://ui-avatars.com/api/?name=" + (p.User ? p.User.firstname : "Admin"),
-
+              ownerName: p.User
+                ? `${p.User.firstname} ${p.User.lastname}`
+                : "Admin",
+              ownerImage:
+                p.User?.profilepic ||
+                "https://ui-avatars.com/api/?name=" +
+                  (p.User ? p.User.firstname : "Admin"),
             };
-          })
+          }),
         );
-
       } catch (error) {
         console.log("Error fetching properties:", error);
       }
-
-    }
+    };
     fetchProperties();
-
   }, []);
-
-
-
-
 
   const filteredProperties = useMemo(() => {
     const query = searchQuery?.toLowerCase().trim() || "";
 
-    return propertyList.filter(p => {
+    return propertyList.filter((p) => {
       const title = p.propertytitle ?? "";
       const subtitle = p.propertysubtitle ?? "";
 
@@ -706,17 +628,19 @@ export default function Properties() {
     });
   }, [propertyList, searchQuery, statusFilter]);
 
-  const handleTogglePropertyStatus = async (propertyId: number, currentStatus: boolean) => {
+  const handleTogglePropertyStatus = async (
+    propertyId: number,
+    currentStatus: boolean,
+  ) => {
     try {
       await axios.patch(
         `${baseUrl}/admin/properties/${propertyId}/toggle-status`,
-        { is_active: !currentStatus }
-      ); setPropertyList(prev =>
-        prev.map(p =>
-          p.propertyid === propertyId
-            ? { ...p, isActive: !currentStatus }
-            : p
-        )
+        { is_active: !currentStatus },
+      );
+      setPropertyList((prev) =>
+        prev.map((p) =>
+          p.propertyid === propertyId ? { ...p, isActive: !currentStatus } : p,
+        ),
       );
       toast.success("Property status updated successfully");
     } catch (error) {
@@ -729,7 +653,9 @@ export default function Properties() {
     if (deleteId) {
       try {
         await axios.delete(`${baseUrl}/admin/properties/${deleteId}`);
-        setPropertyList(prev => prev.filter(p => p.propertyid !== deleteId));
+        setPropertyList((prev) =>
+          prev.filter((p) => p.propertyid !== deleteId),
+        );
         setDeleteId(null);
         toast.success("Property deleted successfully");
       } catch (error) {
@@ -739,27 +665,29 @@ export default function Properties() {
     }
   };
 
-
   const handleExportCSV = () => {
     setIsExporting(true);
     try {
       const headers = ["ID", "Title", "Owner", "City", "Status", "Revenue"];
-      const rows = filteredProperties.map(p => [
+      const rows = filteredProperties.map((p) => [
         p.propertyid,
-        `"${p.propertytitle}"`,                 //title
-        `"${p.propertysubtitle}"`,              //owner
+        `"${p.propertytitle}"`, //title
+        `"${p.propertysubtitle}"`, //owner
         p.canadian_city_name,
         p.availablestatus ? "Available" : "Not Available",
-        p.price
+        p.price,
       ]);
 
-      const csvContent = [headers, ...rows].map(e => e.join(",")).join("\n");
+      const csvContent = [headers, ...rows].map((e) => e.join(",")).join("\n");
       const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
       const link = document.createElement("a");
       const url = URL.createObjectURL(blob);
       link.setAttribute("href", url);
-      link.setAttribute("download", `properties_export_${new Date().toISOString().split('T')[0]}.csv`);
-      link.style.visibility = 'hidden';
+      link.setAttribute(
+        "download",
+        `properties_export_${new Date().toISOString().split("T")[0]}.csv`,
+      );
+      link.style.visibility = "hidden";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -771,9 +699,8 @@ export default function Properties() {
     }
   };
 
+
   return (
-
-
     <div className="space-y-6">
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -787,10 +714,7 @@ export default function Properties() {
           <p className="text-gray-500 dark:text-gray-400 mt-1">
             Manage your property listings
           </p>
-
-
         </div>
-
       </div>
 
       {/* Search & Filter */}
@@ -821,51 +745,56 @@ export default function Properties() {
         </Button>
       </div>
 
-
-
-
       {/* Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
         <AnimatePresence>
-          {filteredProperties ?
+          {filteredProperties ? (
             filteredProperties.map((property) => (
               <PropertyCard
                 key={property.propertyid}
                 property={property}
                 onDelete={() => setDeleteId(property.propertyid)}
-                onToggleStatus={(id) => handleTogglePropertyStatus(id, property.isActive || false)}
+                onToggleStatus={(id) =>
+                  handleTogglePropertyStatus(id, property.isActive || false)
+                }
               />
-            )) :
+            ))
+          ) : (
             <div className="col-span-full text-center py-12">
-              <p className="text-gray-500 dark:text-gray-400">No properties found.</p>
+              <p className="text-gray-500 dark:text-gray-400">
+                No properties found.
+              </p>
             </div>
-
-          }
-
+          )}
         </AnimatePresence>
       </div>
 
       {/* Delete Modal */}
-      <Dialog open={!!deleteId} onOpenChange={(open) => !open && setDeleteId(null)}>
+      <Dialog
+        open={!!deleteId}
+        onOpenChange={(open) => !open && setDeleteId(null)}
+      >
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>Delete Property?</DialogTitle>
             <DialogDescription>
-              This action cannot be undone. This will permanently delete the property listing and all associated data.
+              This action cannot be undone. This will permanently delete the
+              property listing and all associated data.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="gap-2 sm:gap-0">
-            <Button variant="outline" onClick={() => setDeleteId(null)}>Cancel</Button>
-            <Button variant="destructive" onClick={handleDelete}>Delete Listing</Button>
+            <Button variant="outline" onClick={() => setDeleteId(null)}>
+              Cancel
+            </Button>
+            <Button variant="destructive" onClick={handleDelete}>
+              Delete Listing
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>
-
   );
 }
-
-
 
 function getIcon(iconName: string): Icons.IconDefinition | undefined {
   const icon = (Icons as any)[iconName as keyof typeof Icons];
@@ -873,8 +802,6 @@ function getIcon(iconName: string): Icons.IconDefinition | undefined {
     ? (icon as Icons.IconDefinition)
     : undefined;
 }
-
-
 
 // function PropertyCard({ property, onDelete }: { property: Property; onDelete: () => void }) {
 function PropertyCard({
@@ -886,7 +813,6 @@ function PropertyCard({
   onDelete: () => void;
   onToggleStatus: (id: number) => void;
 }) {
-
   console.log("prop...", property);
   return (
     <motion.div
@@ -894,7 +820,6 @@ function PropertyCard({
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
-
       transition={{ duration: 0.2 }}
       className="group relative flex flex-col bg-card rounded-2xl overflow-hidden border border-border/40 shadow-sm  transition-all duration-300 dark:bg-card/50"
     >
@@ -911,28 +836,24 @@ function PropertyCard({
 
         {/* Status Badge */}
         <div className="absolute top-3 right-3">
-          <span className={"inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm border bg-green-500/90 text-white border-green-400/50"}>
-
-
-
-
-            {
-              property.isActive ? (
-                <span className="flex items-center ">
-                  <span className="w-1.5 h-1.5 rounded-full mr-1.5 bg-green-400 animate-pulse"></span>
-                  Active
-                </span>
-              ) : (
-                <span className="flex items-center text-red-600">
-                  <span className="w-1.5 h-1.5 rounded-full mr-1.5 bg-red-400 animate-pulse"></span>
-                  Inactive
-                </span>
-              )
+          <span
+            className={
+              "inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold backdrop-blur-md shadow-sm border bg-green-500/90 text-white border-green-400/50"
             }
+          >
+            {property.isActive ? (
+              <span className="flex items-center ">
+                <span className="w-1.5 h-1.5 rounded-full mr-1.5 bg-green-400 animate-pulse"></span>
+                Active
+              </span>
+            ) : (
+              <span className="flex items-center text-red-600">
+                <span className="w-1.5 h-1.5 rounded-full mr-1.5 bg-red-400 animate-pulse"></span>
+                Inactive
+              </span>
+            )}
           </span>
-
         </div>
-
 
         {/* Rating Bubble */}
         <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-white/95 dark:bg-zinc-900/95 backdrop-blur px-2.5 py-1.5 rounded-full shadow-lg text-xs font-semibold text-foreground">
@@ -946,24 +867,38 @@ function PropertyCard({
         <div className="flex-1 space-y-3">
           {/* Title & Location */}
           <div>
-            <h3 className="text-lg font-bold leading-tight text-foreground line-clamp-1 group-hover:text-[#3F2C77] transition-colors" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            <h3
+              className="text-lg font-bold leading-tight text-foreground line-clamp-1 group-hover:text-[#3F2C77] transition-colors"
+              style={{ fontFamily: "Poppins, sans-serif" }}
+            >
               {property.propertytitle}
             </h3>
-            <h4 >{property.propertysubtitle}</h4>
+            <h4 className="property-subtitle1">{property.propertysubtitle}</h4>
             <div className="flex items-center gap-1.5 mt-1.5 text-sm text-muted-foreground">
               <MapPin className="w-3.5 h-3.5 shrink-0" />
-              <span className="truncate">{property.canadian_city_name} | {property.canadian_province_name}</span>
+              <span className="truncate">
+                {property.canadian_city_name} |{" "}
+                {property.canadian_province_name}
+              </span>
             </div>
           </div>
 
           {/* Owner Info & Toggle Status */}
           <div className="flex items-center justify-between mt-2 pt-2 border-t border-border/40">
             <div className="flex items-center gap-2">
-              <img src={property.ownerImage} alt={property.ownerName} className="w-8 h-8 rounded-full object-cover" />
-              <span className="text-sm font-medium text-foreground">{property.ownerName}</span>
+              <img
+                src={property.ownerImage}
+                alt={property.ownerName}
+                className="w-8 h-8 rounded-full object-cover"
+              />
+              <span className="text-sm font-medium text-foreground">
+                {property.ownerName}
+              </span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-xs text-muted-foreground">{property.isActive ? 'Active' : 'Inactive'}</span>
+              <span className="text-xs text-muted-foreground">
+                {property.isActive ? "Active" : "Inactive"}
+              </span>
               <Switch
                 checked={property.isActive}
                 onCheckedChange={() => onToggleStatus(property.propertyid)}
@@ -993,9 +928,15 @@ function PropertyCard({
                 variant="secondary"
                 className="px-2 py-0.5 h-6 text-[10px] font-medium bg-muted/50 text-muted-foreground border-transparent flex items-center gap-1"
               >
-                <FontAwesomeIcon icon={getIcon(amenity.icon) as Icons.IconDefinition} className="w-5 h-5 text-[#3F2C77]" />
+                <FontAwesomeIcon
+                  icon={getIcon(amenity.icon) as Icons.IconDefinition}
+                  className="w-5 h-5 text-[#3F2C77]"
+                />
 
-                <FontAwesomeIcon icon={amenity.icon as any} className="w-3 h-3" />
+                <FontAwesomeIcon
+                  icon={amenity.icon as any}
+                  className="w-3 h-3"
+                />
                 {amenity.name}
               </Badge>
             ))}
@@ -1008,10 +949,6 @@ function PropertyCard({
               </Badge>
             )}
           </div>
-
-
-
-
         </div>
 
         {/* Footer */}
@@ -1019,12 +956,19 @@ function PropertyCard({
           <div className="flex items-center gap-2">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-accent rounded-lg">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8 hover:bg-accent rounded-lg"
+                >
                   <MoreVertical className="w-4 h-4 text-muted-foreground" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-40">
-                <DropdownMenuItem className="cursor-pointer text-destructive focus:text-destructive" onClick={onDelete}>
+                <DropdownMenuItem
+                  className="cursor-pointer text-destructive focus:text-destructive"
+                  onClick={onDelete}
+                >
                   <Trash2 className="w-4 h-4 mr-2" /> Delete
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -1033,7 +977,10 @@ function PropertyCard({
 
           <div className="flex items-center gap-1 opacity-100 hover:opacity-100 transition-opacity duration-200">
             <Link href={`/admin/properties/${property.propertyid}`}>
-              <Button size="sm" className="h-8 bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 rounded-lg text-xs font-medium px-3 shadow-none">
+              <Button
+                size="sm"
+                className="h-8 bg-zinc-900 text-white hover:bg-zinc-800 dark:bg-white dark:text-black dark:hover:bg-zinc-200 rounded-lg text-xs font-medium px-3 shadow-none"
+              >
                 See Info <ArrowUpRight className="w-3 h-3 ml-1" />
               </Button>
             </Link>

@@ -11,7 +11,7 @@ export default function     () {
 
             <OwnerLayout hideStripeAlert={true}>
 
-                <div className="mt-2 ms-2 me-2">
+                <div className="mt-2 ms-2 me-2 max-w-[1400px]">
                     <StripeProvider>
                         <SubscriptionSection />
                     </StripeProvider>

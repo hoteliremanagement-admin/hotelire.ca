@@ -97,7 +97,8 @@ const handleProfileRedirect = () => {
     }, []);
   return (
     <header className="w-full bg-[#3F2C77] h-12 flex items-center justify-between px-4 md:px-8 lg:px-[203px]">
-      <div className="flex items-center gap-4">
+      <div className="max-w-[1400px] mx-auto flex items-center justify-between w-full">
+      <div className=" flex items-center gap-4">
         <div className="hidden lg:flex items-center gap-4">
           <a
             href="https://facebook.com"
@@ -241,6 +242,7 @@ const handleProfileRedirect = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       )}
+      </div>
     </header>
   );
 }

@@ -11,7 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { format } from "date-fns";
+import { format,  differenceInCalendarDays } from "date-fns";
 import {
   ChevronDown,
   CalendarIcon,
@@ -153,7 +153,8 @@ export default function HotelDetailPage({ id }: { id: string }) {
 
   const searchSectionRef = React.useRef<HTMLElement | null>(null);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
-
+  const [isDateOpen, setIsDateOpen] = useState(false);
+  const [monthsToShow, setMonthsToShow] = useState(2);
   const mapPropertyToDetail = (raw: any): PropertyDetail => {
     // Reset amenities arrays to avoid accumulating duplicates on multiple maps
     setPropertyAmenities([]);
@@ -737,10 +738,10 @@ export default function HotelDetailPage({ id }: { id: string }) {
         className="w-full bg-[#F5F6FD] py-6 px-4 md:px-8 lg:px-[103px]"
         ref={searchSectionRef}
       >
-        <div className="w-full bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+        <div className="w-full max-w-[1400px] mx-auto bg-white rounded-lg shadow-sm border border-gray-200 p-4">
           <div className="flex flex-col lg:flex-row gap-4 items-stretch">
             {/* Location */}
-            <div className="flex-1 px-4 py-3 lg:py-0 lg:border-r border-gray-200 flex flex-col justify-center relative">
+            <div className=" flex-1 px-4 py-3 lg:py-0 lg:border-r border-gray-200 flex flex-col justify-center relative">
               <label
                 htmlFor="location"
                 className="font-semibold text-[#3F2C77] text-[13px] md:text-[15px] mb-1 flex items-center gap-2"
@@ -789,34 +790,55 @@ export default function HotelDetailPage({ id }: { id: string }) {
                     />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <div className="p-4 flex flex-col md:flex-row gap-6">
-                    <div className="flex-1">
-                      <p className="text-sm font-semibold text-[#3F2C77] mb-2">
-                        Check-in
-                      </p>
-                      <Calendar
-                        mode="single"
-                        selected={checkInDate}
-                        onSelect={setCheckInDate}
-                        disabled={(date) => date < new Date()}
-                        className="rounded-md border"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm font-semibold text-[#3F2C77] mb-2">
-                        Check-out
-                      </p>
-                      <Calendar
-                        mode="single"
-                        selected={checkOutDate}
-                        onSelect={setCheckOutDate}
-                        disabled={(date) => !checkInDate || date <= checkInDate}
-                        className="rounded-md border"
-                      />
-                    </div>
-                  </div>
-                </PopoverContent>
+    <PopoverContent
+      align="start"
+      className="
+        p-0 
+        border-0 
+        shadow-2xl 
+        rounded-2xl 
+        animate-in fade-in zoom-in-95
+        w-auto
+      "
+    >
+      <div className="bg-white p-4">
+        {/* Header */}
+        <div className="mb-4">
+          <p className="text-sm font-semibold text-[#3F2C77]">
+            Select your stay dates
+          </p>
+
+          {checkInDate && checkOutDate && (
+            <p className="text-xs text-gray-500 mt-1">
+              {differenceInCalendarDays(checkOutDate, checkInDate)} nights selected
+            </p>
+          )}
+        </div>
+
+        {/* Calendar */}
+        <Calendar
+          mode="range"
+          numberOfMonths={typeof window !== "undefined" && window.innerWidth < 768 ? 1 : 2}
+          showOutsideDays
+          captionLayout="buttons"
+          selected={{
+            from: checkInDate,
+            to: checkOutDate,
+          }}
+          onSelect={(range) => {
+            setCheckInDate(range?.from);
+            setCheckOutDate(range?.to);
+
+            if (range?.from && range?.to) {
+              setTimeout(() => setIsDateOpen(false), 300);
+            }
+          }}
+          disabled={(date) => date < new Date()}
+          initialFocus
+          className="rounded-xl"
+        />
+      </div>
+    </PopoverContent>
               </Popover>
               {showValidation && (!checkInDate || !checkOutDate) && (
                 <span className="text-red-500 text-xs mt-1">
@@ -951,7 +973,7 @@ export default function HotelDetailPage({ id }: { id: string }) {
       </section>
 
       {/* Main Content Container */}
-      <div className="w-full px-4 md:px-8 lg:px-[103px] py-8 site-container">
+      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-[103px] py-8">
         {/* Hotel Title */}
         <h1
           className="text-[28px] md:text-[32px] font-bold text-[#3F2C77] mb-1"

@@ -304,7 +304,7 @@ export function ListingPageContent() {
 
   return (
     <section className="flex-1 w-full px-4 md:px-8 lg:px-[203px] py-6 md:py-8">
-      <div className="site-container">
+      <div className="w-full max-w-[1400px] mx-auto">
         <div className="flex flex-col lg:flex-row gap-6">
           <aside className="w-[280px] hidden lg:block">
             <FilterSidebar

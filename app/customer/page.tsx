@@ -496,7 +496,7 @@ useEffect(() => {
 
       {/* Explore Canada */}
       <section className="w-full bg-soft py-20 md:py-28 px-4 md:px-8 lg:px-[203px]">
-        <div className="site-container">
+        <div className=" w-full max-w-[1400px] mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
             <div>
               <span className="text-primary font-bold tracking-widest uppercase text-sm mb-3 block">
@@ -522,7 +522,7 @@ useEffect(() => {
 
       {/* Most Popular Hotels */}
       <section className="w-full py-20 md:py-28 px-4 md:px-8 lg:px-[203px] bg-white">
-        <div className="site-container">
+        <div className=" w-full max-w-[1400px] mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
             <div>
               <span className="text-primary font-bold tracking-widest uppercase text-sm mb-3 block">
@@ -547,7 +547,7 @@ useEffect(() => {
 
       {/* Offers */}
       <section className="w-full bg-[#f0f9ff] py-20 md:py-28 px-4 md:px-8 lg:px-[203px]">
-        <div className="site-container">
+        <div className=" max-w-[1400px] mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
             <div>
               <span className="text-accent font-bold tracking-widest uppercase text-sm mb-3 block">
@@ -563,7 +563,7 @@ useEffect(() => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="group overflow-hidden rounded-3xl shadow-xl transition-all duration-500 hover:shadow-2xl h-[240px] relative">
+            {/* <div className="group overflow-hidden rounded-3xl shadow-xl transition-all duration-500 hover:shadow-2xl h-[240px] relative">
               <Image
                 src="/figmaAssets/offerbaner1.png"
                 alt="Travel agency promotion"
@@ -580,14 +580,32 @@ useEffect(() => {
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-dark/20 group-hover:bg-dark/10 transition-colors" />
-            </div>
+            </div> */}
+
+
 
             <div className="md:col-span-2 group overflow-hidden rounded-3xl shadow-xl transition-all duration-500 hover:shadow-2xl h-[300px] relative">
               <Image
-                src="/figmaAssets/offerbanner1.png"
+                src="/figmaAssets/offerbanner (1).jpeg"
                 alt="Traveling banner"
                 fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                className="object transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+            <div className="md:col-span-2 group overflow-hidden rounded-3xl shadow-xl transition-all duration-500 hover:shadow-2xl h-[300px] relative">
+              <Image
+                src="/figmaAssets/offerbanner (2).jpeg"
+                alt="Traveling banner"
+                fill
+                className="object transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+            <div className="md:col-span-2 group overflow-hidden rounded-3xl shadow-xl transition-all duration-500 hover:shadow-2xl h-[300px] relative">
+              <Image
+                src="/figmaAssets/offerbanner (3).jpeg"
+                alt="Traveling banner"
+                fill
+                className="object transition-transform duration-700 group-hover:scale-105"
               />
             </div>
           </div>
@@ -596,7 +614,7 @@ useEffect(() => {
 
       {/* Unique Properties */}
       <section className="w-full py-20 md:py-28 px-4 md:px-8 lg:px-[203px] bg-soft">
-        <div className="site-container">
+        <div className=" w-full max-w-[1400px] mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
             <div>
               <span className="text-primary font-bold tracking-widest uppercase text-sm mb-3 block">

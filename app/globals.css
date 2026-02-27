@@ -793,3 +793,10 @@
   );
   animation: shimmer 1.5s infinite;
 }
+
+.property-subtitle1 {
+  font-size: 12px !important;
+  font-weight: 300 !important;
+  letter-spacing: 0px !important;
+  font-family: var(--font-display) !important;
+}

@@ -785,6 +785,12 @@ export default function OwnerBarrierForm() {
             uploadedFile={uploadedFiles.ownershipDoc}
             disabled={!formData.proofType}
           />
+
+          <p className="text-xs font-semibold text-gray-600 mt-2">
+  For security reasons, only bill original PDF file format is allowed to upload.
+</p>
+
+
         </div>
 
         {/* Checkboxes */}
