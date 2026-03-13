@@ -95,8 +95,8 @@ export function Footer() {
   {/* Bottom Bar */}
   <div className="w-full h-auto md:h-[52px] bg-[#3F2C77] flex items-center justify-center py-4 px-4">
     <p className="[font-family:'Inter',Helvetica] font-medium text-white text-[15px] md:text-[19px] text-center">
-      Copyright © 2025 Hotelier.ca™. All Rights Reserved. Developed by
-      Sasquatch Innovations
+      Copyright © 2026 Hotelier.ca. All Rights Reserved. Developed by
+      Variantage (Powered by SI)
     </p>
   </div>
 </footer>
